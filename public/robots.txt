@@ -1,0 +1,97 @@
+User-agent: *
+Allow: /
+Disallow: /hq-portal
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /apply
+Disallow: /config.php
+Disallow: /auth.php
+Disallow: /db.php
+Disallow: /api/
+Disallow: /order/
+Disallow: /chat
+Disallow: /health
+Disallow: /*?*
+
+User-agent: Googlebot
+Allow: /
+Disallow: /hq-portal
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /order/
+Disallow: /*?*
+
+User-agent: Bingbot
+Allow: /
+Disallow: /hq-portal
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /order/
+Disallow: /*?*
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+
+User-agent: CohereBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /llms.txt
+
+User-agent: Amazonbot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Bytespider
+Allow: /
+Allow: /llms.txt
+
+User-agent: YouBot
+Allow: /
+Allow: /llms.txt
+
+Sitemap: https://extoarts.in/sitemap_index.xml
+Sitemap: https://extoarts.in/sitemap.xml
+Sitemap: https://extoarts.in/sitemap-images.xml

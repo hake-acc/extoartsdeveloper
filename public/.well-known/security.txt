@@ -1,0 +1,5 @@
+Contact: https://discord.gg/extoarts-1402333030827425922
+Expires: 2027-05-06T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://extoarts.in/.well-known/security.txt
+Policy: https://extoarts.in/privacy

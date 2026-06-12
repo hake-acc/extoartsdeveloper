@@ -1,0 +1,361 @@
+[
+    {
+        "id": 1,
+        "slug": "free-fire",
+        "name": "Free Fire Thumbnails",
+        "thumb": "https://iili.io/BZloUOJ.webp",
+        "meta": "5 CTR-focused designs",
+        "items": [
+            {
+                "id": 1,
+                "title": "Free Fire Thumbnail 01",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlx3g9.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 2,
+                "title": "Free Fire Thumbnail 02",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxKJe.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 3,
+                "title": "Free Fire Thumbnail 03",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxdfS.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 4,
+                "title": "Free Fire Thumbnail 04",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxBbj.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 5,
+                "title": "Free Fire Thumbnail 05",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxqOb.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "slug": "minecraft",
+        "name": "Minecraft Thumbnails",
+        "thumb": "https://iili.io/BZlx7ea.jpg",
+        "meta": "5 cinematic designs",
+        "items": [
+            {
+                "id": 1,
+                "title": "Minecraft Thumbnail 01",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlx7ea.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 2,
+                "title": "Minecraft Thumbnail 02",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxEqN.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 3,
+                "title": "Minecraft Thumbnail 03",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxYmJ.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 4,
+                "title": "Minecraft Thumbnail 04",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxczv.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 5,
+                "title": "Minecraft Thumbnail 05",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxT0P.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "slug": "roblox",
+        "name": "Roblox Thumbnails",
+        "thumb": "https://iili.io/BZlo8Hg.jpg",
+        "meta": "6 bold game visuals",
+        "items": [
+            {
+                "id": 1,
+                "title": "Roblox Thumbnail 01",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlx55g.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 2,
+                "title": "Roblox Thumbnail 02",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxIqB.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 3,
+                "title": "Roblox Thumbnail 03",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxxsV.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 4,
+                "title": "Roblox Thumbnail 04",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxRdF.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 5,
+                "title": "Roblox Thumbnail 05",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxug1.jpg",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 6,
+                "title": "Roblox Edit Visual",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlo8Hg.jpg",
+                "video_url": "",
+                "ratio": "1:1"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "slug": "pubg",
+        "name": "PUBG Thumbnails",
+        "thumb": "https://iili.io/BZloOKP.webp",
+        "meta": "5 action compositions",
+        "items": [
+            {
+                "id": 1,
+                "title": "PUBG Thumbnail 01",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlx207.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 2,
+                "title": "PUBG Thumbnail 02",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlo6Vp.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 3,
+                "title": "PUBG Thumbnail 03",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxf5u.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 4,
+                "title": "PUBG Thumbnail 04",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZloDRs.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 5,
+                "title": "PUBG Thumbnail 05",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZloQUX.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "slug": "realistic",
+        "name": "Realistic / Non-Realistic",
+        "thumb": "https://iili.io/BZlowiB.webp",
+        "meta": "5 premium styles",
+        "items": [
+            {
+                "id": 1,
+                "title": "Realistic Thumbnail 01",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlo4xR.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 2,
+                "title": "Realistic Thumbnail 02",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlxnzx.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 3,
+                "title": "Realistic Thumbnail 03",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZloyx4.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 4,
+                "title": "Realistic Thumbnail 04",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlotJn.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            },
+            {
+                "id": 5,
+                "title": "Realistic Thumbnail 05",
+                "project_type": "image",
+                "thumbnail_url": "https://iili.io/BZlokUF.webp",
+                "video_url": "",
+                "ratio": "16:9"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "slug": "video-edits",
+        "name": "Video Edits",
+        "thumb": "https://iili.io/BZlxoWQ.jpg",
+        "meta": "Minecraft and Roblox edits",
+        "items": [
+            {
+                "id": 1,
+                "title": "Minecraft Edit 01",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZlxlXR.jpg",
+                "video_url": "/uploads/minecraft-edits-vid-1773380771.mp4",
+                "ratio": "16:9"
+            },
+            {
+                "id": 2,
+                "title": "Minecraft Edit 02",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZlx0sp.jpg",
+                "video_url": "/uploads/minecraft-edits-vid-1773380829.mp4",
+                "ratio": "16:9"
+            },
+            {
+                "id": 3,
+                "title": "Minecraft Edit 03",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZlxG1I.jpg",
+                "video_url": "/uploads/minecraft-edits-vid-1773381514.mp4",
+                "ratio": "16:9"
+            },
+            {
+                "id": 4,
+                "title": "Roblox Edit",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZlo8Hg.jpg",
+                "video_url": "/uploads/roblox-edits-vid-1773381991.mp4",
+                "ratio": "1:1"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "slug": "motion-ads",
+        "name": "Motion Graphics & Ads",
+        "thumb": "https://iili.io/BZloel1.webp",
+        "meta": "7 motion projects",
+        "items": [
+            {
+                "id": 1,
+                "title": "Motion Graphics 01",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZloel1.webp",
+                "video_url": "/uploads/motion-graphics--1-vid-1773159376-0.mp4",
+                "ratio": "1:1"
+            },
+            {
+                "id": 2,
+                "title": "Motion Graphics 02",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZloel1.webp",
+                "video_url": "/uploads/motion-graphics--2-vid-1773159376-1.mp4",
+                "ratio": "1:1"
+            },
+            {
+                "id": 3,
+                "title": "Motion Graphics 03",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZloel1.webp",
+                "video_url": "/uploads/motion-graphics--3-vid-1773160474-0.mp4",
+                "ratio": "1:1"
+            },
+            {
+                "id": 4,
+                "title": "Motion Graphics 04",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZloel1.webp",
+                "video_url": "/uploads/motion-graphics--4-vid-1773160474-1.mp4",
+                "ratio": "1:1"
+            },
+            {
+                "id": 5,
+                "title": "Motion Graphics 05",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZloel1.webp",
+                "video_url": "/uploads/motion-graphics--5-vid-1773160474-2.mp4",
+                "ratio": "1:1"
+            },
+            {
+                "id": 6,
+                "title": "Advertisement 01",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZlnUn2.png",
+                "video_url": "/uploads/advertisements-vid-1773381811.mp4",
+                "ratio": "1:1"
+            },
+            {
+                "id": 7,
+                "title": "Advertisement 02",
+                "project_type": "video",
+                "thumbnail_url": "https://iili.io/BZlnUn2.png",
+                "video_url": "/uploads/advertisements-vid-1773381848.mp4",
+                "ratio": "1:1"
+            }
+        ]
+    }
+]

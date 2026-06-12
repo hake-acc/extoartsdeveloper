@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>ExtoArts</ShortName>
+  <Description>Search ExtoArts Creator Insights - YouTube editing guides and thumbnail design tips</Description>
+  <Tags>youtube editing thumbnail design video editing discord agency retention</Tags>
+  <Contact>https://discord.gg/extoarts-1402333030827425922</Contact>
+  <Url type="text/html" method="get" template="https://extoarts.in/blog?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://extoarts.in/opensearch.xml"/>
+  <Image width="16" height="16" type="image/png">https://i.ibb.co/JR76yvRp/1758037248-icon.png</Image>
+  <Image width="64" height="64" type="image/png">https://i.ibb.co/JR76yvRp/1758037248-icon.png</Image>
+  <InputEncoding>UTF-8</InputEncoding>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <Language>en-us</Language>
+  <moz:SearchForm>https://extoarts.in/blog</moz:SearchForm>
+</OpenSearchDescription>
