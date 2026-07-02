@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { buildMetadata } from '@/lib/metadata'
 
 const schema = z.object({
   email: z.string().email('Valid email required'),
