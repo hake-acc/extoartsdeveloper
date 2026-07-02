@@ -1,1 +1,2 @@
 - [Discord modal interactivity pattern](discord-modal-pattern.md) — all onClick handlers that open/close the Discord modal must live in 'use client' components; never inline in server pages.
+- [Hero cycle animation CSS](hero-cycle-animation.md) — background-clip:text on parent does NOT propagate through cycle-phrase children; use solid color on .cycle-phrase directly and grid layout on .cycle-stack.

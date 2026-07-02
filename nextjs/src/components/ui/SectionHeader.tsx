@@ -8,25 +8,25 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ label, title, subtitle, centered = true, className }: SectionHeaderProps) {
   return (
-    <div className={className} style={{ textAlign: centered ? 'center' : 'left' }}>
+    <div className={className} style={{ textAlign: centered ? 'center' : 'left', marginBottom: 54 }}>
       {label && (
         <span
-          className="sec-label"
-          style={{ display: 'block', marginBottom: 14, textAlign: centered ? 'center' : 'left' }}
+          className="sec-label sr"
+          style={{ display: 'inline-flex', marginBottom: 16, alignItems: 'center', gap: 8 }}
         >
           <span className="gradient-dot" aria-hidden="true" />
           {label}
         </span>
       )}
       <h2
-        className="sec-title"
+        className="sec-title sr"
         style={{
-          fontSize: 'clamp(2.2rem,5vw,3.8rem)',
+          fontSize: 'clamp(2.2rem, 5.5vw, 4rem)',
           fontWeight: 900,
-          marginBottom: 14,
+          marginBottom: 16,
           color: 'var(--text-main)',
-          letterSpacing: '-2px',
-          lineHeight: 1.08,
+          letterSpacing: '-2.5px',
+          lineHeight: 1.05,
           textAlign: centered ? 'center' : 'left',
         }}
       >
@@ -34,11 +34,12 @@ export function SectionHeader({ label, title, subtitle, centered = true, classNa
       </h2>
       {subtitle && (
         <p
+          className="sr"
           style={{
             fontSize: '1rem',
             color: 'var(--text-muted)',
             maxWidth: 520,
-            margin: centered ? '0 auto 50px' : '0 0 50px',
+            margin: centered ? '0 auto' : '0',
             lineHeight: 1.75,
           }}
         >

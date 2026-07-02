@@ -21,7 +21,7 @@ const SERVICES = [
     icon: 'ti-device-mobile-vibration',
     label: 'SVC-03',
     title: 'Shorts & TikTok Editing',
-    desc: 'Short-form specialists who understand hook timing, vertical framing, and the scroll-stopping techniques that work on algorithm-driven feeds.',
+    desc: 'Short-form specialists who understand hook timing, vertical framing, and scroll-stopping techniques that work on algorithm-driven feeds.',
     href: '/services#shorts-editing',
   },
   {
@@ -53,7 +53,7 @@ export function ServicesSection() {
       id="services"
       aria-labelledby="services-heading"
       style={{
-        padding: 'min(80px,7vw) min(20px,5%)',
+        padding: 'min(88px,8vw) min(20px,5%)',
         maxWidth: 1200,
         margin: '0 auto',
         position: 'relative',
@@ -70,44 +70,45 @@ export function ServicesSection() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: 18,
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: 'auto',
+          gap: 16,
         }}
-        className="ea-stagger"
+        className="services-bento ea-stagger"
       >
         {SERVICES.map((svc, i) => (
           <article
             key={svc.label}
-            className={`tilt-card glass-card sr${i % 3 === 0 ? ' sr-left' : i % 3 === 2 ? ' sr-right' : ''}`}
+            className={`tilt-card glass-card shine-border sr${i % 3 === 0 ? ' sr-left' : i % 3 === 2 ? ' sr-right' : ''}`}
             style={{
               border: '1px solid var(--border)',
-              padding: 32,
+              padding: i === 0 ? '40px 36px' : '28px 26px',
               display: 'flex',
               flexDirection: 'column',
-              gap: 16,
-              ...(i === 0 ? { gridRow: 'span 2' } : {}),
+              gap: 14,
+              gridColumn: i === 0 ? 'span 1' : undefined,
+              gridRow: i === 0 ? 'span 2' : undefined,
+              minHeight: i === 0 ? 'auto' : undefined,
             }}
           >
-            <div className="tilt-inner" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div className="ea-card-ring" aria-hidden="true" />
+            <div className="tilt-inner" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: i === 0 ? 20 : 14 }}>
+              {/* Header row */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                 <div
-                  className="service-icon"
+                  className="icon-box service-icon"
                   style={{
-                    width: i === 0 ? 74 : 52,
-                    height: i === 0 ? 74 : 52,
-                    borderRadius: 16,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
+                    width: i === 0 ? 68 : 48,
+                    height: i === 0 ? 68 : 48,
+                    borderRadius: i === 0 ? 18 : 14,
                   }}
                 >
-                  <i className={`ti ${svc.icon}`} aria-hidden="true" style={{ fontSize: i === 0 ? '1.85rem' : '1.4rem' }} />
+                  <i className={`ti ${svc.icon}`} aria-hidden="true" style={{ fontSize: i === 0 ? '1.8rem' : '1.35rem' }} />
                 </div>
                 <span
                   className="service-num"
                   style={{
-                    fontSize: '0.62rem',
+                    fontSize: '0.6rem',
                     fontWeight: 800,
                     textTransform: 'uppercase',
                     letterSpacing: '2px',
@@ -118,6 +119,7 @@ export function ServicesSection() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: 6,
+                    flexShrink: 0,
                   }}
                 >
                   {svc.label}
@@ -126,11 +128,11 @@ export function ServicesSection() {
 
               <h3
                 style={{
-                  fontSize: i === 0 ? 'clamp(1.25rem,2.2vw,1.7rem)' : 'clamp(1.1rem,1.8vw,1.35rem)',
+                  fontSize: i === 0 ? 'clamp(1.3rem, 2.4vw, 1.8rem)' : 'clamp(1.05rem, 1.8vw, 1.3rem)',
                   fontWeight: 800,
                   color: 'var(--text-main)',
                   letterSpacing: '-0.4px',
-                  flex: i === 0 ? 0 : undefined,
+                  lineHeight: 1.22,
                 }}
               >
                 {svc.title}
@@ -138,10 +140,10 @@ export function ServicesSection() {
 
               <p
                 style={{
-                  fontSize: '0.88rem',
+                  fontSize: i === 0 ? '0.92rem' : '0.84rem',
                   color: 'var(--text-muted)',
-                  lineHeight: 1.7,
-                  flex: i === 0 ? 1 : undefined,
+                  lineHeight: 1.72,
+                  flex: 1,
                   margin: 0,
                 }}
               >
@@ -158,10 +160,13 @@ export function ServicesSection() {
                   fontWeight: 700,
                   color: 'var(--primary)',
                   textDecoration: 'none',
-                  letterSpacing: '0.3px',
+                  letterSpacing: '0.2px',
                   marginTop: 'auto',
-                  paddingTop: 8,
+                  paddingTop: 6,
+                  width: 'fit-content',
+                  transition: 'gap 0.2s',
                 }}
+                className="svc-link"
                 aria-label={`Learn more about ${svc.title}`}
               >
                 Learn more <i className="ti ti-arrow-right" aria-hidden="true" />
@@ -171,11 +176,23 @@ export function ServicesSection() {
         ))}
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: 40 }}>
-        <Link href="/services" className="btn btn-glass">
+      <div style={{ textAlign: 'center', marginTop: 44 }}>
+        <Link href="/services" className="btn btn-glass" style={{ borderRadius: 999 }}>
           <i className="ti ti-layout-grid" aria-hidden="true" /> Explore All Services
         </Link>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .services-bento { grid-template-columns: repeat(2, 1fr) !important; }
+          .services-bento article:first-child { grid-column: span 2 !important; grid-row: span 1 !important; }
+        }
+        @media (max-width: 580px) {
+          .services-bento { grid-template-columns: 1fr !important; }
+          .services-bento article:first-child { grid-column: span 1 !important; }
+        }
+        .svc-link:hover { gap: 10px !important; }
+      `}</style>
     </section>
   )
 }
