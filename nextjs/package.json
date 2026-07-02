@@ -22,6 +22,9 @@
     "tailwind-merge": "^3.3.0",
     "zod": "^3.25.76"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.2",
     "@tailwindcss/typography": "^0.5.16",
