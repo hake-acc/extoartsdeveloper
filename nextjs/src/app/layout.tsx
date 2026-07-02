@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
-import { ThemeScript } from '@/components/ThemeScript'
 import { DiscordModal } from '@/components/DiscordModal'
 import { ClientScripts } from '@/components/ClientScripts'
-import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, GA_ID, TWITTER_HANDLE } from '@/lib/constants'
+import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
@@ -207,7 +207,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        <ThemeScript />
         <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://iili.io" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
@@ -220,10 +219,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="/fonts/plus-jakarta-sans.woff2"
         />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
-        />
         <link rel="alternate" type="application/rss+xml" title="ExtoArts Creator Insights" href="/rss" />
         <link rel="alternate" type="application/json" title="ExtoArts Creator Insights" href="/feed.json" />
         <link rel="search" type="application/opensearchdescription+xml" title="ExtoArts" href="/opensearch.xml" />
@@ -234,39 +229,9 @@ export default function RootLayout({
         <meta property="og:locale:alternate" content="en_AU" />
         <meta property="og:locale:alternate" content="en_CA" />
         <JsonLd data={websiteSchema} />
-        {GA_ID && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                window.addEventListener('load', function() {
-                  var s = document.createElement('script');
-                  s.async = true;
-                  s.src = 'https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
-                  document.head.appendChild(s);
-                  gtag('js', new Date());
-                  gtag('config', '${GA_ID}');
-                });
-              `,
-            }}
-          />
-        )}
       </head>
       <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(){
-                try {
-                  var t = localStorage.getItem('ea-theme');
-                  if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
-                } catch(e) {}
-                document.documentElement.classList.replace('no-js','js');
-              })();
-            `,
-          }}
-        />
+        <Script id="ea-theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('ea-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.replace('no-js','js');})();`}</Script>
         <a href="#main-content" className="skip-link">Skip to content</a>
         <div className="mesh-glow" aria-hidden="true" />
         <div id="page-progress" aria-hidden="true" />

@@ -4,6 +4,29 @@ import { useEffect } from 'react'
 
 export function ClientScripts() {
   useEffect(() => {
+    // Tabler icons — inject stylesheet client-side to avoid SSR hydration mismatch
+    if (!document.querySelector('link[href*="tabler-icons"]')) {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css'
+      document.head.appendChild(link)
+    }
+
+    // Google Analytics — inject after mount
+    const GA_ID = 'G-WTFPZB9Y4C'
+    if (GA_ID && !document.getElementById('ea-ga-script')) {
+      const w = window as unknown as Record<string, unknown>
+      w.dataLayer = (w.dataLayer as unknown[]) || []
+      const gtag = (...args: unknown[]) => { (w.dataLayer as unknown[]).push(args) }
+      gtag('js', new Date())
+      gtag('config', GA_ID)
+      const s = document.createElement('script')
+      s.id = 'ea-ga-script'
+      s.async = true
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
+      document.head.appendChild(s)
+    }
+
     // Progress bar
     const bar = document.getElementById('page-progress')
     if (bar) {
