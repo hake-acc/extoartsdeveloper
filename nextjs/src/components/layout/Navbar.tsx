@@ -289,13 +289,6 @@ export function Navbar() {
               >
                 <i className="ti ti-brand-discord" aria-hidden="true" /> Join Discord
               </a>
-              <Link
-                href="/dashboard"
-                className="btn btn-glass"
-                style={{ justifyContent: 'center', width: '100%', borderRadius: '14px !important' }}
-              >
-                <i className="ti ti-user" aria-hidden="true" /> Client Portal
-              </Link>
               <button
                 onClick={toggleTheme}
                 style={{ background: 'none', border: '1px solid var(--border)', borderRadius: 14, padding: '11px 16px', display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', color: 'var(--text-muted)', fontSize: '0.88rem', fontFamily: 'var(--font-body)' }}
