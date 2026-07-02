@@ -223,7 +223,6 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
-          media="print"
         />
         <link rel="alternate" type="application/rss+xml" title="ExtoArts Creator Insights" href="/rss" />
         <link rel="alternate" type="application/json" title="ExtoArts Creator Insights" href="/feed.json" />

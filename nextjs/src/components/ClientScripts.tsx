@@ -4,10 +4,6 @@ import { useEffect } from 'react'
 
 export function ClientScripts() {
   useEffect(() => {
-    // Tabler icons — async load after paint
-    const l = document.querySelector<HTMLLinkElement>('link[href*="tabler-icons"]')
-    if (l) l.media = 'all'
-
     // Progress bar
     const bar = document.getElementById('page-progress')
     if (bar) {
