@@ -523,7 +523,7 @@ h4 { font-size: clamp(1rem, 1.8vw, 1.25rem); letter-spacing: -0.01em; line-heigh
   background: conic-gradient(from 0deg, transparent 0deg, #22d3ee 90deg, #1d4ed8 180deg, transparent 270deg);
   animation: ringRotate 5s linear infinite;
   opacity: 0.55;
-  z-index: -1;
+  z-index: 0;
   transition: opacity 0.3s, animation-duration 0.3s;
 }
 .galaxy-btn:hover {
