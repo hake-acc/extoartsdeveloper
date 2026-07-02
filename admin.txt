@@ -1,0 +1,16 @@
+ExtoArts Admin Credentials
+==========================
+Username : xta_root
+Password : Xt0@rts$Qx9#mK2vL!7
+Login URL: https://extoarts.in/login
+
+SECURITY NOTES:
+- Delete or restrict access to this file after reading.
+- Password hash stored in data/config.json under admin.password_hash
+- Admin session is role=admin, stored server-side only
+- Rate limited: 8 attempts per 10 minutes per IP
+- CSRF protected on every form action
+- Change password by running: php -r "echo password_hash('NEWPASS', PASSWORD_BCRYPT, ['cost'=>12]);"
+  then updating data/config.json admin.password_hash
+
+Generated: 2026-05-25

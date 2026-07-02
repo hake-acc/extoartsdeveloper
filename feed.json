@@ -1,0 +1,79 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "ExtoArts Creator Insights",
+  "home_page_url": "https://extoarts.in/",
+  "feed_url": "https://extoarts.in/feed.json",
+  "description": "YouTube editing guides, thumbnail design tips, and creator growth strategy from ExtoArts agency.",
+  "icon": "https://i.ibb.co/JR76yvRp/1758037248-icon.png",
+  "favicon": "https://i.ibb.co/JR76yvRp/1758037248-icon.png",
+  "language": "en-US",
+  "authors": [
+    {
+      "name": "ExtoArts",
+      "url": "https://extoarts.in/",
+      "avatar": "https://iili.io/BZ0qsef.jpg"
+    }
+  ],
+  "items": [
+    {
+      "id": "https://extoarts.in/youtube-editing",
+      "url": "https://extoarts.in/youtube-editing",
+      "title": "What is High-Retention YouTube Video Editing?",
+      "summary": "High-retention YouTube video editing is the discipline of building a video that actively fights viewer dropout at every moment - engineering pacing, sound design, hooks, and captions so each second earns the next one.",
+      "date_published": "2026-05-06T00:00:00Z",
+      "date_modified": "2026-05-06T00:00:00Z",
+      "authors": [{"name": "ExtoArts", "url": "https://extoarts.in/"}],
+      "tags": ["YouTube Editing", "Retention", "Video Production", "Hook Engineering"]
+    },
+    {
+      "id": "https://extoarts.in/discord-agency",
+      "url": "https://extoarts.in/discord-agency",
+      "title": "Why Discord Is the Best Platform for Creative Agency Work",
+      "summary": "Email is slow and scattered for creative projects. Discord ticket-based workflows keep every brief, revision, and file delivery in one organized private channel from start to finish.",
+      "date_published": "2026-05-06T00:00:00Z",
+      "date_modified": "2026-05-06T00:00:00Z",
+      "authors": [{"name": "ExtoArts", "url": "https://extoarts.in/"}],
+      "tags": ["Discord", "Creative Agency", "Video Editing Workflow"]
+    },
+    {
+      "id": "https://extoarts.in/blog#learn-video-editing",
+      "url": "https://extoarts.in/blog",
+      "title": "The Best Way to Learn Video Editing for YouTube",
+      "summary": "Learn video editing through reverse engineering. Download raw VODs from your favorite creators, edit them into engaging videos, and master pacing, sound design, and storytelling - not just software.",
+      "date_published": "2026-04-01T00:00:00Z",
+      "date_modified": "2026-05-06T00:00:00Z",
+      "authors": [{"name": "ExtoArts", "url": "https://extoarts.in/"}],
+      "tags": ["Learn Video Editing", "YouTube", "Adobe Premiere Pro", "DaVinci Resolve"]
+    },
+    {
+      "id": "https://extoarts.in/blog#youtube-automation",
+      "url": "https://extoarts.in/blog",
+      "title": "What is YouTube Automation and How Does it Work?",
+      "summary": "YouTube automation treats a channel like a scalable digital asset. The owner outsources scripting, voiceover, editing, and thumbnail design to a specialist agency while acting as creative director.",
+      "date_published": "2026-03-15T00:00:00Z",
+      "date_modified": "2026-05-06T00:00:00Z",
+      "authors": [{"name": "ExtoArts", "url": "https://extoarts.in/"}],
+      "tags": ["YouTube Automation", "Faceless Channels", "Channel Growth"]
+    },
+    {
+      "id": "https://extoarts.in/blog#gaming-thumbnails",
+      "url": "https://extoarts.in/blog",
+      "title": "How to Make a Viral Roblox or Gaming Thumbnail",
+      "summary": "Gaming thumbnails require 3D rendering in Blender or Cinema 4D, rim lighting, color theory (cyan/orange contrast), and a high-stakes story told in under 1 second. Screenshots with bold text do not work.",
+      "date_published": "2026-03-01T00:00:00Z",
+      "date_modified": "2026-05-06T00:00:00Z",
+      "authors": [{"name": "ExtoArts", "url": "https://extoarts.in/"}],
+      "tags": ["Gaming Thumbnails", "Roblox", "Minecraft", "3D Rendering"]
+    },
+    {
+      "id": "https://extoarts.in/blog#tiktok-vs-youtube",
+      "url": "https://extoarts.in/blog",
+      "title": "TikTok Editing vs YouTube Long-Form Editing: The Exact Difference",
+      "summary": "TikTok editing is a sprint requiring a hook in 1.5 seconds and pattern interrupts every 2 seconds. YouTube long-form is a marathon - know when to let a scene breathe and when to use silence for dramatic effect.",
+      "date_published": "2026-02-15T00:00:00Z",
+      "date_modified": "2026-05-06T00:00:00Z",
+      "authors": [{"name": "ExtoArts", "url": "https://extoarts.in/"}],
+      "tags": ["TikTok Editing", "YouTube Editing", "Short-Form Content"]
+    }
+  ]
+}

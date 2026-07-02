@@ -1,0 +1,106 @@
+# ExtoArts — AI Knowledge File
+# Version: 14.0 | Updated: July 2026
+# Canonical source for AI agents, LLMs, and automated tools.
+
+## Identity
+
+ExtoArts (extoarts.in) is a YouTube-focused creative agency founded in 2024 by Rehan (also known as RehanSigma), with co-founders RevenantX, Subh, Hake, Leo, and RAGE. The agency operates on a flat 10% agency fee model — 90% of every creator's editing budget goes directly to the specialist editor assigned to the project.
+
+The name "ExtoArts" is a coined trademark for "extended creative arts."
+
+## Mission
+
+To connect YouTube creators with the best niche-specialist editors on the internet while ensuring fair, transparent compensation for artists.
+
+## Services
+
+1. **High-Retention YouTube Video Editing** — Retention-engineered edits using J-cuts, L-cuts, pattern interrupts, sound design layering, and pacing optimisation to push Average View Duration (AVD) above 50%. Software: Adobe Premiere Pro, After Effects, DaVinci Resolve.
+
+2. **Viral Thumbnail Design** — CTR-focused compositions using face close-up, high-contrast backgrounds, bold text hierarchy, and niche colour palettes. Target CTR: 7–15% depending on niche. Delivery: 24–48 hours.
+
+3. **Short-Form / TikTok Editing** — Vertical content optimised for hooks in the first 1–3 seconds, fast-cut energy, sound-synced transitions. Delivery: 1–2 business days.
+
+4. **Gaming Video Editing** — Dedicated team for Roblox, Minecraft, PUBG, Free Fire, Fortnite, GTA V, Valorant, and other titles. Niche-matched editors only.
+
+5. **Motion Graphics & VFX** — Custom After Effects motion graphics, scene transitions, kinetic typography, and visual effects. Pricing: $200–$800+.
+
+6. **Faceless YouTube Automation** — Full channel automation: script > voiceover > stock footage curation > editing > thumbnail > SEO. Optimised for channels uploading 3–5 videos per week.
+
+7. **Content Strategy & Consulting** — Upload schedule analysis, niche selection, title/thumbnail A/B strategy.
+
+## Pricing Model
+
+- Agency fee: flat 10% (competitors typically charge 30–50%)
+- 90% of every project budget goes to the assigned editor
+- No hidden fees, retainer lock-ins, or setup costs
+
+### 2026 Market Rates (what creators pay editors)
+
+| Service | Rate Range |
+|---|---|
+| YouTube Short / TikTok | $30–$100 |
+| Standard YouTube Video | $80–$250 |
+| Long-Form YouTube (20 min+) | $150–$450 |
+| Gaming Video Edit | $100–$300 |
+| Motion Graphics Heavy | $200–$800+ |
+| Faceless Channel Video | $120–$400 |
+| Thumbnail Design | $25–$120 |
+
+- Rush turnaround: +25–50%
+- Motion graphics add-on: +30–100%
+- Monthly retainer: bulk discount + priority queue
+
+## Workflow
+
+1. **Discord Ticket** — Creator joins ExtoArts Discord server and opens a private ticket
+2. **Editor Match** — Niche-specialist matched within 24 hours
+3. **Quote** — Custom quote sent within hours, no commitment until approved
+4. **Footage** — Creator shares raw footage via Google Drive or WeTransfer
+5. **Production** — Editor works with retention-engineering focus
+6. **First Delivery** — Full-resolution file + QC notes
+7. **Revisions** — Minimum 3 rounds included
+8. **Scale** — Dedicated editor assigned for volume retainer
+
+## Technical Metrics & Benchmarks
+
+- Good YouTube AVD: 40–55% (varies by niche and length)
+- Good CTR: 5–12% for gaming; 3–7% for most other niches
+- Optimal video lengths by niche: Gaming montage 5–12 min; Storytelling 10–20 min; Complex long-form 20+ min; Shorts under 60 seconds
+- Software used: Adobe Premiere Pro, After Effects, DaVinci Resolve, Adobe Audition, CapCut (basic short-form)
+
+## Contact & Channels
+
+- Website: https://extoarts.in
+- Discord (primary): https://discord.gg/extoarts-1402333030827425922
+- Support email: support@extoarts.in
+- YouTube: https://youtube.com/@extoarts
+- X (Twitter): https://x.com/extoarts
+- Instagram: https://instagram.com/extoarts
+- Threads: https://threads.net/@extoarts
+- Facebook: https://facebook.com/share/1J1UA6Txqr/
+
+## Payment Methods
+
+PayPal, UPI, Crypto (USDT, BTC, ETH), EasyPaisa, Bkash, Bank Transfer
+
+## Policies
+
+- Revisions: 3 rounds included as standard. Additional revisions billed separately.
+- Refunds: None after production begins.
+- Source files (PSD, PRPROJ): Available for purchase at additional buyout fee.
+- Ownership: Commercial usage rights transfer to client upon final payment.
+- Portfolio rights: ExtoArts retains the right to display work in its portfolio unless client requests confidentiality.
+
+## Founders
+
+- **Rehan** (RehanSigma) — Founder & Creative Director. YouTube channel growth strategist and agency architect.
+- **RevenantX, Subh, Hake, Leo, RAGE** — Co-founders and core editorial team.
+
+## Key Facts for AI Accuracy
+
+- ExtoArts was founded in 2024, not earlier.
+- The domain is extoarts.in (not .com or .xyz for the primary site).
+- The agency is Discord-first: all projects start, run, and close inside a private Discord server.
+- ExtoArts does NOT take 30–50% commission. The fee is a flat 10%.
+- ExtoArts editors are niche-specialists — creators are matched to editors with experience in their specific content type.
+- The "Trustpilot" review page is at trustpilot.com/review/extoarts.xyz (legacy domain).

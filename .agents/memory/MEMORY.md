@@ -1,0 +1,1 @@
+- [Discord modal interactivity pattern](discord-modal-pattern.md) — all onClick handlers that open/close the Discord modal must live in 'use client' components; never inline in server pages.

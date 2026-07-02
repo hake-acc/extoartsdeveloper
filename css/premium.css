@@ -1,0 +1,709 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ExtoArts — Premium Experience Layer
+   Galaxy buttons, enhanced auroras, cosmic micro-interactions.
+   Loaded after shared.css so overrides take precedence.
+   GPU contract: animate transform + opacity only. No layout in rAF.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── @property for conic animations ─────────────────────────────── */
+@property --gb-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+@keyframes gb-ring-spin {
+    to { --gb-angle: 360deg; }
+}
+@keyframes gb-shimmer {
+    0%   { transform: translateX(-406%) skewX(-18deg); opacity: 0; }
+    8%   { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { transform: translateX(406%)  skewX(-18deg); opacity: 0; }
+}
+@keyframes gb-pulse-glow {
+    0%,100% { opacity: 0.55; transform: scale(1);    }
+    50%      { opacity: 0.95; transform: scale(1.06); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GALAXY BUTTON
+   ═══════════════════════════════════════════════════════════════════ */
+.galaxy-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border-radius: 100px;
+    overflow: hidden; /* clips shimmer ::after within button bounds */
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: 0;
+    line-height: 0;
+
+    /* Outer deep blue glow */
+    filter: drop-shadow(0 0 18px rgba(29, 78, 216, 0.50))
+            drop-shadow(0 0 6px  rgba(56, 189, 248, 0.25));
+    transition: filter 0.35s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.galaxy-btn:hover {
+    filter: drop-shadow(0 0 36px rgba(29, 78, 216, 0.85))
+            drop-shadow(0 0 14px rgba(14, 165, 233, 0.55));
+    transform: translateY(-3px);
+}
+
+.galaxy-btn:active {
+    transform: translateY(1px) scale(0.985);
+    transition: transform 0.1s ease;
+    filter: drop-shadow(0 0 18px rgba(29, 78, 216, 0.65));
+}
+
+.galaxy-btn:focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 4px;
+}
+
+/* Spinning conic border ring — 1px wide via mask trick */
+.galaxy-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 100px;
+    padding: 1.5px;
+    background: conic-gradient(
+        from var(--gb-angle),
+        #22d3ee 0deg,
+        #38bdf8 80deg,
+        #0ea5e9 140deg,
+        #2563eb 200deg,
+        #1d4ed8 260deg,
+        #22d3ee 360deg
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: gb-ring-spin 3.2s linear infinite;
+    z-index: 2;
+    opacity: 0.75;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.galaxy-btn:hover::before {
+    animation-duration: 1.4s;
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .galaxy-btn::before { animation: none !important; }
+    .galaxy-btn { filter: drop-shadow(0 0 14px rgba(29, 78, 216, 0.38)); }
+    .galaxy-btn:hover { filter: drop-shadow(0 0 22px rgba(29, 78, 216, 0.55)); transform: translateY(-2px); }
+}
+
+/* ── Inner container — clips the galaxy canvas ── */
+.gb-inner {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(2, 6, 30, 0.93);
+    border-radius: 100px;
+    padding: 14px 32px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    line-height: 1.2;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 1px solid rgba(29, 78, 216, 0.22);
+    transition: background 0.25s, border-color 0.25s;
+}
+
+.galaxy-btn:hover .gb-inner {
+    background: rgba(2, 8, 38, 0.96);
+    border-color: rgba(56, 189, 248, 0.30);
+}
+
+/* Galaxy canvas injected by JS */
+.gb-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 100px;
+}
+
+/* Text above canvas */
+.gb-label {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}
+
+/* Shimmer sweep over the whole button */
+.galaxy-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.06),
+        transparent);
+    animation: gb-shimmer 5.5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 3;
+    border-radius: 100px;
+}
+
+@media (max-width: 600px) {
+    .gb-inner {
+        padding: 12px 22px;
+        font-size: 0.82rem;
+    }
+}
+
+/* ── Light mode adjustments ── */
+[data-theme="light"] .galaxy-btn {
+    filter: drop-shadow(0 0 18px rgba(29, 78, 216, 0.42))
+            drop-shadow(0 0 6px  rgba(14, 165, 233, 0.25));
+}
+[data-theme="light"] .galaxy-btn:hover {
+    filter: drop-shadow(0 0 30px rgba(29, 78, 216, 0.68))
+            drop-shadow(0 0 10px rgba(56, 189, 248, 0.42));
+}
+[data-theme="light"] .gb-inner {
+    background: rgba(2, 6, 30, 0.90);
+    border-color: rgba(29, 78, 216, 0.28);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PREMIUM BADGE PILL — cosmic edition
+   ═══════════════════════════════════════════════════════════════════ */
+.badge-pill {
+    background: linear-gradient(
+        135deg,
+        rgba(34, 211, 238, 0.10) 0%,
+        rgba(29, 78, 216, 0.12) 100%
+    ) !important;
+    border: 1px solid rgba(56, 189, 248, 0.30) !important;
+    color: #7dd3fc !important;
+    box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.10),
+        0 2px 12px rgba(29, 78, 216, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    letter-spacing: 3.5px;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+[data-theme="light"] .badge-pill {
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.08) 0%, rgba(34, 211, 238, 0.06) 100%) !important;
+    border-color: rgba(29, 78, 216, 0.25) !important;
+    color: #1d4ed8 !important;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ENHANCED AURORA — stronger intensities (overrides cinematic.css)
+   ═══════════════════════════════════════════════════════════════════ */
+.ab1 {
+    background: radial-gradient(
+        ellipse 80% 100% at 50% 55%,
+        rgba(34, 211, 238, 0.15) 0%,
+        rgba(14, 165, 233, 0.08) 50%,
+        transparent 80%
+    ) !important;
+    opacity: 0.90 !important;
+}
+.ab2 {
+    background: radial-gradient(
+        ellipse 75% 100% at 50% 50%,
+        rgba(29, 78, 216, 0.14) 0%,
+        rgba(30, 64, 175, 0.07) 52%,
+        transparent 80%
+    ) !important;
+    opacity: 0.85 !important;
+}
+.ab3 {
+    background: radial-gradient(
+        ellipse 65% 100% at 50% 50%,
+        rgba(14, 165, 233, 0.10) 0%,
+        rgba(34, 211, 238, 0.045) 52%,
+        transparent 80%
+    ) !important;
+    opacity: 0.75 !important;
+}
+
+/* Stronger field gradients */
+.bg-field::before {
+    background: radial-gradient(
+        ellipse 62% 52% at 32% 42%,
+        rgba(34, 211, 238, 0.075) 0%,
+        rgba(14, 165, 233, 0.038) 48%,
+        transparent 70%
+    ) !important;
+}
+.bg-field::after {
+    background: radial-gradient(
+        ellipse 52% 62% at 68% 58%,
+        rgba(29, 78, 216, 0.082) 0%,
+        rgba(30, 64, 175, 0.032) 42%,
+        transparent 68%
+    ) !important;
+}
+
+/* Section overrides — even after premium boost */
+body.s-footer .ab1 { opacity: 0.32 !important; }
+body.s-footer .ab2 { opacity: 0.38 !important; }
+body.s-footer .ab3 { opacity: 0.20 !important; }
+
+/* Keep light mode aurora sane */
+[data-theme="light"] .ab1 { opacity: 0.65 !important; }
+[data-theme="light"] .ab2 { opacity: 0.58 !important; }
+[data-theme="light"] .ab3 { opacity: 0.45 !important; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .ab1, .ab2, .ab3 { animation: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INTERACTIVE LIGHT OVERLAY — brighter on premium
+   ═══════════════════════════════════════════════════════════════════ */
+.il-overlay {
+    background: radial-gradient(
+        circle at var(--il-x, 50%) var(--il-y, 50%),
+        rgba(56, 189, 248, 0.055) 0%,
+        rgba(29, 78, 216, 0.022) 38%,
+        transparent 65%
+    ) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARD PREMIUM GLOW — on hover reveal a faint colour halo
+   ═══════════════════════════════════════════════════════════════════ */
+.service-card:hover,
+.price-card:hover,
+.info-card:hover,
+.story-card:hover {
+    box-shadow:
+        0 0 0 0.5px rgba(56, 189, 248, 0.14) inset,
+        0 2px 0 rgba(255, 255, 255, 0.05) inset,
+        0 20px 52px rgba(29, 78, 216, 0.12),
+        0 8px 20px rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(56, 189, 248, 0.18) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   NAV — subtle cosmic glow on active link
+   ═══════════════════════════════════════════════════════════════════ */
+.nav-links a.active {
+    box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.18),
+        0 2px 12px rgba(29, 78, 216, 0.14),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset !important;
+}
+[data-theme="light"] .nav-links a.active {
+    box-shadow: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LIGHT MODE — suppress dark-mode-only colour glows on cards
+   ═══════════════════════════════════════════════════════════════════ */
+[data-theme="light"] .service-card:hover,
+[data-theme="light"] .price-card:hover,
+[data-theme="light"] .info-card:hover,
+[data-theme="light"] .story-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.09) !important;
+    border-color: rgba(0, 0, 0, 0.13) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PREFOOTER CTA ENHANCEMENT
+   ═══════════════════════════════════════════════════════════════════ */
+.prefooter-cta {
+    background: linear-gradient(
+        135deg,
+        rgba(34,  211, 238, 0.08) 0%,
+        rgba(29,  78,  216, 0.10) 50%,
+        rgba(56,  189, 248, 0.07) 100%
+    ) !important;
+    border-top:    1px solid rgba(56, 189, 248, 0.14) !important;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.14) !important;
+    position: relative;
+    overflow: hidden;
+}
+.prefooter-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 80% at 20% 50%, rgba(34,211,238,0.055) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 70% at 80% 50%, rgba(29,78,216,0.065) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+.prefooter-cta > * { position: relative; z-index: 1; }
+
+[data-theme="light"] .prefooter-cta {
+    background: linear-gradient(
+        135deg,
+        rgba(34,  211, 238, 0.06) 0%,
+        rgba(29,  78,  216, 0.05) 100%
+    ) !important;
+    border-color: rgba(29, 78, 216, 0.12) !important;
+}
+[data-theme="light"] .prefooter-cta::before {
+    background:
+        radial-gradient(ellipse 60% 80% at 20% 50%, rgba(34,211,238,0.04) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 70% at 80% 50%, rgba(29,78,216,0.04) 0%, transparent 65%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO NEBULA ORBS — ambient depth behind hero content
+   ═══════════════════════════════════════════════════════════════════ */
+.hero-nebula-orbs {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+.hero-nebula-orbs::before {
+    content: '';
+    position: absolute;
+    width: 70vw;
+    height: 70vw;
+    max-width: 720px;
+    max-height: 720px;
+    top: -15%;
+    left: -10%;
+    background: radial-gradient(ellipse at 50% 50%,
+        rgba(34, 211, 238, 0.065) 0%,
+        rgba(14, 165, 233, 0.03) 45%,
+        transparent 70%);
+    border-radius: 50%;
+    filter: blur(48px);
+    animation: nebOrb 28s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+.hero-nebula-orbs::after {
+    content: '';
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    max-width: 620px;
+    max-height: 620px;
+    bottom: -10%;
+    right: -8%;
+    background: radial-gradient(ellipse at 50% 50%,
+        rgba(29, 78, 216, 0.08) 0%,
+        rgba(30, 64, 175, 0.04) 48%,
+        transparent 70%);
+    border-radius: 50%;
+    filter: blur(52px);
+    animation: nebOrb 36s ease-in-out infinite reverse;
+    will-change: transform, opacity;
+}
+@keyframes nebOrb {
+    0%,100% { transform: translate(0%, 0%)   scale(1);    opacity: 0.7; }
+    30%      { transform: translate(4%, 3%)   scale(1.06); opacity: 1;   }
+    65%      { transform: translate(-3%, -4%) scale(0.96); opacity: 0.8; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-nebula-orbs::before,
+    .hero-nebula-orbs::after { animation: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO MOUSE SPOTLIGHT ENHANCEMENT
+   ═══════════════════════════════════════════════════════════════════ */
+.hero-spotlight-blob {
+    background: radial-gradient(
+        ellipse 55% 42% at 50% 50%,
+        rgba(29, 78, 216, 0.14) 0%,
+        rgba(34, 211, 238, 0.07) 45%,
+        transparent 70%
+    ) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECTION DIVIDER — star + glow line
+   ═══════════════════════════════════════════════════════════════════ */
+.section-star-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 0 auto 48px;
+    max-width: 360px;
+}
+.section-star-divider::before,
+.section-star-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(56, 189, 248, 0.45),
+        transparent);
+}
+.section-star-divider-icon {
+    color: #38bdf8;
+    font-size: 0.7rem;
+    opacity: 0.75;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TILT CARD PREMIUM HOVER GLOW
+   — upgraded rule is at the bottom of this file (ea-ring-travel section)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   STATS ROW — premium glow border
+   ═══════════════════════════════════════════════════════════════════ */
+.stats-row {
+    border-color: rgba(56, 189, 248, 0.12) !important;
+    box-shadow:
+        0 0 0 0.5px rgba(56, 189, 248, 0.08),
+        0 8px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SWEEP TEXT — intensified gradient loop
+   ═══════════════════════════════════════════════════════════════════ */
+.sweep-text {
+    background-size: 200% auto !important;
+    animation-duration: 7s !important;
+    animation-timing-function: linear !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATED BORDER RING — Premium Light-Travel System
+   A single photon arc (80° comet) traveling clockwise around
+   premium cards. Answers: "this object deserves attention."
+   Not rainbow. Not gaming. One arc of light catching the edge.
+   GPU contract: animate @property angle only. No layout in rAF.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@property --ea-ring {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes ea-ring-travel {
+    to { --ea-ring: 360deg; }
+}
+
+/* Ring element injected via JS into .tilt-card, .stat-item,
+   .rev-card, .price-card — never modify the host element's
+   layout; ring is purely cosmetic layer inside the card. */
+.ea-card-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* ~52° arc: cyan peak → deep blue → fade */
+    background: conic-gradient(
+        from var(--ea-ring),
+        transparent           0deg,
+        transparent         272deg,
+        rgba(34,211,238,0.00) 280deg,
+        rgba(34,211,238,0.82) 298deg,
+        rgba(56,189,248,0.90)  314deg,
+        rgba(29,78,216,0.52)   328deg,
+        rgba(34,211,238,0.08)  338deg,
+        transparent           345deg,
+        transparent           360deg
+    );
+
+    /* Mask: only the 1px border band is visible */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* ─── Tilt Cards: ring on hover only (perf: avoids always-on animation) ─── */
+.tilt-card .ea-card-ring {
+    opacity: 0;
+}
+/* Hover: full intensity */
+.tilt-card:hover .ea-card-ring,
+.tilt-card:focus-visible .ea-card-ring {
+    opacity: 1;
+    animation: ea-ring-travel 2.4s linear infinite;
+}
+
+/* ─── Stat Items: transition + dark-mode hover state ─── */
+.stat-item {
+    transition:
+        border-color 0.35s ease,
+        box-shadow   0.35s ease,
+        transform    0.40s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+    .stat-item:hover {
+        border-color: rgba(34,211,238,0.18) !important;
+        box-shadow:
+            0 20px 52px rgba(0,0,0,0.60),
+            0 0 30px rgba(34,211,238,0.055),
+            0 0 0 1px rgba(34,211,238,0.07) !important;
+        transform: translateY(-5px);
+    }
+}
+.stat-item:hover .ea-card-ring {
+    opacity: 0.75;
+    animation: ea-ring-travel 3.4s linear infinite;
+}
+
+/* ─── Review Cards ─── */
+.rev-card:hover .ea-card-ring,
+.rev-card:focus-visible .ea-card-ring {
+    opacity: 0.65;
+    animation: ea-ring-travel 3.1s linear infinite;
+}
+
+/* ─── Pricing Cards (.price-card and .cost-tier) ─── */
+.price-card:hover .ea-card-ring,
+.cost-tier:hover .ea-card-ring {
+    opacity: 0.7;
+    animation: ea-ring-travel 3.0s linear infinite;
+}
+.price-card { position: relative; }
+.cost-tier  { position: relative; }
+
+/* ─── Featured / Premium Pricing: always-on ring (slower, regal) ─── */
+.price-card.featured .ea-card-ring,
+.price-card[data-featured="true"] .ea-card-ring,
+.price-card.premium .ea-card-ring,
+.cost-tier.featured .ea-card-ring,
+.ea-ring-always {
+    opacity: 0.5;
+    animation: ea-ring-travel 5.5s linear infinite;
+}
+.price-card.featured:hover .ea-card-ring,
+.price-card[data-featured="true"]:hover .ea-card-ring,
+.cost-tier.featured:hover .ea-card-ring {
+    opacity: 0.92;
+    animation-duration: 2.4s;
+}
+
+/* ─── Service Cards (services.php), Story Cards (about.php),
+       Process Cards (about.php, workflow.php), Info Cards (collab.php)
+       — need position:relative so the injected ring positions correctly ─── */
+.service-card,
+.story-card,
+.process-card,
+.info-card {
+    position: relative;
+}
+
+/* ─── Service Cards ─── */
+.service-card:hover .ea-card-ring {
+    opacity: 0.8;
+    animation: ea-ring-travel 2.9s linear infinite;
+}
+
+/* ─── Story / Process / Info Cards ─── */
+.story-card:hover .ea-card-ring,
+.process-card:hover .ea-card-ring,
+.info-card:hover .ea-card-ring {
+    opacity: 0.65;
+    animation: ea-ring-travel 3.2s linear infinite;
+}
+
+/* ─── Tilt-card hover: stronger dynamic glow layer ─── */
+@media (hover: hover) and (pointer: fine) {
+    .tilt-card:hover {
+        box-shadow:
+            0 32px 80px rgba(0,0,0,0.66),
+            0 10px 28px rgba(0,0,0,0.32),
+            0 0 44px rgba(34,211,238,0.055),
+            0 0 0 0.5px rgba(56,189,248,0.16) inset !important;
+        border-color: rgba(34,211,238,0.22) !important;
+    }
+}
+
+/* ─── Light mode arc — sky blue → deep blue ─── */
+[data-theme="light"] .ea-card-ring {
+    background: conic-gradient(
+        from var(--ea-ring),
+        transparent            0deg,
+        transparent          272deg,
+        rgba(2,132,199,0.00)   280deg,
+        rgba(2,132,199,0.70)   298deg,
+        rgba(14,165,233,0.78)  314deg,
+        rgba(30,64,175,0.50)   326deg,
+        rgba(2,132,199,0.10)   336deg,
+        transparent            343deg,
+        transparent            360deg
+    );
+}
+
+/* ─── Reduced motion: no animation, faint static border ─── */
+@media (prefers-reduced-motion: reduce) {
+    .ea-card-ring {
+        animation: none !important;
+        opacity: 0 !important;
+    }
+    .price-card.featured .ea-card-ring,
+    .price-card[data-featured="true"] .ea-card-ring,
+    .ea-ring-always {
+        opacity: 0 !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   NAV SCROLL-AWARE — deepens glass when user scrolls past hero
+   ═══════════════════════════════════════════════════════════════════ */
+nav.site-nav.nav-scrolled {
+    background: rgba(4,4,16,0.96) !important;
+    box-shadow:
+        0 6px 32px rgba(0,0,0,0.44),
+        0 1px 0 rgba(255,255,255,0.055) inset,
+        0 0 0 1px rgba(255,255,255,0.045);
+    border-color: rgba(255,255,255,0.10) !important;
+}
+[data-theme="light"] nav.site-nav.nav-scrolled {
+    background: rgba(255,255,255,0.97) !important;
+    box-shadow:
+        0 6px 24px rgba(0,0,0,0.11),
+        0 1px 0 rgba(0,0,0,0.04) inset;
+    border-color: rgba(0,0,0,0.11) !important;
+}

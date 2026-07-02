@@ -1,0 +1,70 @@
+# ExtoArts — Environment Setup Guide
+# ====================================
+# Your credentials are saved in value.json.
+# Follow these steps to move them into Replit Secrets so they are never
+# stored in source code.
+#
+# ──────────────────────────────────────────────────────────────────────────────
+# STEP 1 — Open Replit Secrets
+# ──────────────────────────────────────────────────────────────────────────────
+# In the Replit sidebar, click the lock icon ("Secrets") or go to:
+#   Tools → Secrets
+#
+# ──────────────────────────────────────────────────────────────────────────────
+# STEP 2 — Add each secret
+# ──────────────────────────────────────────────────────────────────────────────
+# For every key listed in value.json, click "New Secret" and enter:
+#   Key:   (the JSON key, e.g.  SUPABASE_URL)
+#   Value: (the JSON value, e.g. https://bigopvwtprisrfhuayxs.supabase.co)
+#
+# Required secrets — all must be set for the site to work:
+#
+#   SUPABASE_URL          Your Supabase project REST URL
+#   SUPABASE_KEY          Your Supabase service-role (secret) API key
+#   DB_HOST               Supabase connection pooler hostname
+#   DB_PORT               Usually 5432
+#   DB_NAME               Usually postgres
+#   DB_USER               Your Supabase DB user (postgres.<project-ref>)
+#   DB_PASS               Your Supabase DB password
+#   RESEND_API_KEY        Resend.com API key for transactional email
+#   SESSION_SECRET        A long random string, e.g. run:
+#                           php -r "echo bin2hex(random_bytes(32));"
+#   TURNSTILE_SITE_KEY    Cloudflare Turnstile site key (for CAPTCHA)
+#   TURNSTILE_SECRET_KEY  Cloudflare Turnstile secret key
+#
+# ──────────────────────────────────────────────────────────────────────────────
+# STEP 3 — Verify
+# ──────────────────────────────────────────────────────────────────────────────
+# After setting all secrets, restart the workflow:
+#   php -S 0.0.0.0:5000 router.php
+#
+# Then visit /login and attempt to sign in. If it works, the DB connection
+# is reading secrets correctly from the environment.
+#
+# ──────────────────────────────────────────────────────────────────────────────
+# STEP 4 — Remove value.json
+# ──────────────────────────────────────────────────────────────────────────────
+# Once all secrets are confirmed working, delete value.json from the project.
+# It contains real credentials and must NOT be committed to version control.
+#
+#   rm value.json
+#
+# The PHP code in includes/db.php and includes/email.php already reads from
+# getenv() first, so Replit Secrets will be picked up automatically.
+#
+# ──────────────────────────────────────────────────────────────────────────────
+# WHERE EACH SECRET IS USED
+# ──────────────────────────────────────────────────────────────────────────────
+#   SUPABASE_URL / SUPABASE_KEY  →  includes/db.php   (all database queries)
+#   DB_HOST / DB_PORT / DB_NAME / DB_USER / DB_PASS  →  includes/db.php (legacy health checks)
+#   RESEND_API_KEY               →  includes/email.php (order/auth emails)
+#   SESSION_SECRET               →  index.php / includes/auth.php
+#   TURNSTILE_SITE_KEY           →  rendered in forms (public, sent to browser)
+#   TURNSTILE_SECRET_KEY         →  includes/auth.php turnstile_verify()
+#
+# ──────────────────────────────────────────────────────────────────────────────
+# WHERE TO GET CREDENTIALS IF LOST
+# ──────────────────────────────────────────────────────────────────────────────
+#   Supabase:   https://supabase.com/dashboard → Settings → API
+#   Resend:     https://resend.com/api-keys
+#   Turnstile:  https://dash.cloudflare.com → Turnstile → your site
