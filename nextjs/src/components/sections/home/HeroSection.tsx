@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 
 const HERO_PHRASES = [
   'Video Editing',
@@ -24,6 +25,16 @@ const TICKER_ITEMS = [
   { icon: 'ti-star-filled', text: '5-Star Rated' },
 ]
 
+const EASE = [0.25, 0.46, 0.45, 0.94] as const
+
+function up(delay = 0) {
+  return {
+    initial: { opacity: 0, y: 24 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay, ease: EASE },
+  }
+}
+
 export function HeroSection() {
   const titleRef = useRef<HTMLHeadingElement>(null)
 
@@ -31,7 +42,7 @@ export function HeroSection() {
     if (!titleRef.current) return
     const words = titleRef.current.querySelectorAll<HTMLElement>('.ea-word')
     words.forEach((w, i) => {
-      setTimeout(() => w.classList.add('in'), i * 80)
+      setTimeout(() => w.classList.add('in'), 280 + i * 80)
     })
   }, [])
 
@@ -46,8 +57,8 @@ export function HeroSection() {
         className="hero"
         aria-label="Hero"
         style={{
-          paddingTop: 'min(24svh, 24vh)',
-          paddingBottom: '6vh',
+          paddingTop: 'min(22svh, 22vh)',
+          paddingBottom: '5vh',
           paddingLeft: '20px',
           paddingRight: '20px',
           display: 'flex',
@@ -59,22 +70,24 @@ export function HeroSection() {
         }}
       >
         {/* Badge */}
-        <div
-          className="hero-badge sr"
-          style={{ marginBottom: 36 }}
+        <motion.div
+          {...up(0.04)}
+          className="hero-badge"
+          style={{ marginBottom: 34 }}
           aria-label="ExtoArts agency badge"
         >
           <span className="hero-badge-dot" aria-hidden="true" />
           <span>YouTube-Focused Creative Agency</span>
           <span aria-hidden="true" style={{ color: 'var(--text-muted)', opacity: 0.4 }}>|</span>
           <span style={{ color: 'var(--text-muted)' }}>Since 2024</span>
-        </div>
+        </motion.div>
 
         {/* Title */}
-        <h1
+        <motion.h1
+          {...up(0.14)}
           ref={titleRef}
           className="hero-title"
-          style={{ marginBottom: 30 }}
+          style={{ marginBottom: 28 }}
         >
           <span>
             <span className="ea-word">Elite</span>{' '}
@@ -96,27 +109,31 @@ export function HeroSection() {
               </span>
             ))}
           </span>
-        </h1>
+        </motion.h1>
 
         {/* Description */}
-        <p
-          className="hero-desc sr"
+        <motion.p
+          {...up(0.26)}
+          className="hero-desc"
           style={{
             fontSize: 'clamp(1rem, 1.8vw, 1.18rem)',
             color: 'var(--text-muted)',
-            maxWidth: 520,
+            maxWidth: 510,
             lineHeight: 1.78,
             fontWeight: 400,
-            marginBottom: 40,
+            marginBottom: 38,
           }}
         >
           ExtoArts is a YouTube agency where{' '}
           <strong style={{ color: 'var(--text-main)', fontWeight: 700 }}>90% of your budget</strong>{' '}
           goes directly to your specialist editor. Real editors. Real results. Flat 10% fee.
-        </p>
+        </motion.p>
 
         {/* CTA row */}
-        <div className="sr" style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <motion.div
+          {...up(0.36)}
+          style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}
+        >
           <button
             className="galaxy-btn"
             onClick={openDiscordModal}
@@ -129,10 +146,13 @@ export function HeroSection() {
           <Link href="/portfolio" className="btn btn-glass" style={{ borderRadius: 999 }}>
             <i className="ti ti-eye" aria-hidden="true" /> View Work
           </Link>
-        </div>
+        </motion.div>
 
         {/* Trust row */}
-        <div className="sr" style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', justifyContent: 'center', marginTop: 28 }}>
+        <motion.div
+          {...up(0.46)}
+          style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', justifyContent: 'center', marginTop: 26 }}
+        >
           <span style={{ fontSize: '0.57rem', color: 'var(--text-muted)', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 700, opacity: 0.6 }}>
             Trusted on
           </span>
@@ -200,20 +220,25 @@ export function HeroSection() {
           }}>
             <i className="ti ti-star-filled" aria-hidden="true" /> 5.0 Rating
           </span>
-        </div>
+        </motion.div>
 
         {/* Scroll indicator */}
-        <div className="scroll-indicator" aria-hidden="true">
+        <motion.div {...up(0.56)} className="scroll-indicator" aria-hidden="true">
           <div className="mouse-outline">
             <div className="mouse-wheel" />
           </div>
           <span style={{ fontSize: '0.57rem', letterSpacing: '2px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Scroll</span>
-        </div>
+        </motion.div>
       </section>
 
       {/* Capability ticker */}
-      <div style={{ padding: '0 0 24px', overflow: 'hidden', position: 'relative' }} aria-hidden="true">
-        {/* fade masks */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, delay: 0.65, ease: EASE }}
+        style={{ padding: '0 0 24px', overflow: 'hidden', position: 'relative' }}
+        aria-hidden="true"
+      >
         <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '10%', background: 'linear-gradient(90deg, var(--bg), transparent)', zIndex: 2, pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '10%', background: 'linear-gradient(270deg, var(--bg), transparent)', zIndex: 2, pointerEvents: 'none' }} />
         <div
@@ -248,7 +273,7 @@ export function HeroSection() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <style>{`
         .hp-badge:hover { opacity: 0.8; transform: translateY(-1px); }
