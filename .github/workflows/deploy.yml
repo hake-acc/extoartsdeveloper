@@ -16,7 +16,6 @@ jobs:
 
       - name: Deploy to Vercel Production
         run: |
-          cd nextjs
           vercel deploy --prod --yes \
-            --scope hakebg2-2131s-projects \
             --token ${{ secrets.VERCEL_TOKEN }}
+        # Deploys from repo root; .vercel/project.json targets extoartsdeveloper-s8vz
