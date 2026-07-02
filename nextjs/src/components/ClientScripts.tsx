@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { GA_ID } from '@/lib/constants'
 
 export function ClientScripts() {
   useEffect(() => {
@@ -13,7 +14,6 @@ export function ClientScripts() {
     }
 
     // Google Analytics — inject after mount
-    const GA_ID = 'G-WTFPZB9Y4C'
     if (GA_ID && !document.getElementById('ea-ga-script')) {
       const w = window as unknown as Record<string, unknown>
       w.dataLayer = (w.dataLayer as unknown[]) || []
