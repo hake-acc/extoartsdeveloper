@@ -511,8 +511,6 @@ h4 { font-size: clamp(1rem, 1.8vw, 1.25rem); letter-spacing: -0.01em; line-heigh
   background: none;
   padding: 0;
   cursor: pointer;
-  filter: drop-shadow(0 0 12px rgba(29,78,216,0.38)) drop-shadow(0 0 4px rgba(34,211,238,0.18));
-  transition: filter 0.3s ease;
   text-decoration: none;
 }
 .galaxy-btn::before {
@@ -520,16 +518,18 @@ h4 { font-size: clamp(1rem, 1.8vw, 1.25rem); letter-spacing: -0.01em; line-heigh
   position: absolute;
   inset: -2px;
   border-radius: 999px;
+  padding: 2px;
   background: conic-gradient(from 0deg, transparent 0deg, #22d3ee 90deg, #1d4ed8 180deg, transparent 270deg);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   animation: ringRotate 5s linear infinite;
-  opacity: 0.55;
+  opacity: 0.8;
   z-index: 0;
   transition: opacity 0.3s, animation-duration 0.3s;
 }
-.galaxy-btn:hover {
-  filter: drop-shadow(0 0 24px rgba(29,78,216,0.62)) drop-shadow(0 0 10px rgba(14,165,233,0.38));
-}
-.galaxy-btn:hover::before { animation-duration: 2.4s !important; opacity: 0.85 !important; }
+.galaxy-btn:hover::before { animation-duration: 2.4s; opacity: 1; }
 .gb-inner {
   background: var(--surface);
   border: 1px solid rgba(34,211,238,0.22);
@@ -543,9 +543,16 @@ h4 { font-size: clamp(1rem, 1.8vw, 1.25rem); letter-spacing: -0.01em; line-heigh
   align-items: center;
   gap: 8px;
   font-family: var(--font-body);
-  transition: background 0.25s, border-color 0.25s;
+  box-shadow: 0 0 14px rgba(29,78,216,0.35), 0 0 5px rgba(34,211,238,0.18);
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.3s;
   position: relative;
   z-index: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .galaxy-btn:hover .gb-inner {
+    box-shadow: 0 0 26px rgba(29,78,216,0.6), 0 0 12px rgba(14,165,233,0.38);
+    border-color: rgba(34,211,238,0.45);
+  }
 }
 
 /* ── Nav CTA ── */
