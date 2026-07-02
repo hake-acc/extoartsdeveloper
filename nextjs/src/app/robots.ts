@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/dashboard', '/login', '/register', '/logout', '/hq-portal', '/apply', '/api/'],
+        disallow: ['/hq-portal'],
       },
       {
         userAgent: [

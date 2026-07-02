@@ -45,13 +45,6 @@ const FAQ_SECTIONS = [
       { q: 'What if I am not happy with the final result?', a: 'Contact us via Discord and explain specifically what needs to change. We will work with you until the result meets the original brief. If the dissatisfaction stems from something we failed to deliver that was clearly in the brief, the additional revision is at no charge.' },
     ],
   },
-  {
-    section: 'Portal & Platform',
-    items: [
-      { q: 'Do I need to create a portal account?', a: 'The client portal is optional. You can work with ExtoArts entirely through Discord. The portal provides a dashboard for tracking project status, accessing files, and managing multiple orders - it is a convenience tool, not a requirement.' },
-      { q: 'Is the client portal secure?', a: 'Yes. The portal uses bcrypt password hashing, CSRF protection, and Cloudflare Turnstile for bot prevention. All sessions expire automatically and require secure cookies. Sensitive data is not stored in the browser.' },
-    ],
-  },
 ]
 
 const faqSchema = {
