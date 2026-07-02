@@ -5,14 +5,6 @@ import { GA_ID } from '@/lib/constants'
 
 export function ClientScripts() {
   useEffect(() => {
-    // Tabler icons — inject stylesheet client-side to avoid SSR hydration mismatch
-    if (!document.querySelector('link[href*="tabler-icons"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css'
-      document.head.appendChild(link)
-    }
-
     // Google Analytics — inject after mount
     if (GA_ID && !document.getElementById('ea-ga-script')) {
       const w = window as unknown as Record<string, unknown>
