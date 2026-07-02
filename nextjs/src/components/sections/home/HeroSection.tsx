@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { AuroraBackground } from '@/components/ui/AuroraBackground'
+import { MagneticButton } from '@/components/ui/MagneticButton'
 
 const HERO_PHRASES = [
   'Video Editing',
@@ -69,6 +71,7 @@ export function HeroSection() {
           zIndex: 10,
         }}
       >
+        <AuroraBackground />
         {/* Badge */}
         <motion.div
           {...up(0.04)}
@@ -86,7 +89,7 @@ export function HeroSection() {
         <motion.h1
           {...up(0.14)}
           ref={titleRef}
-          className="hero-title"
+          className="hero-title font-hero"
           style={{ marginBottom: 28 }}
         >
           <span>
@@ -98,7 +101,7 @@ export function HeroSection() {
           <span
             className="cycle-stack"
             aria-live="polite"
-            style={{ display: 'block', letterSpacing: '-3px', minHeight: '1.1em' }}
+            style={{ display: 'block', letterSpacing: '-1px', minHeight: '1.1em' }}
           >
             {HERO_PHRASES.map((phrase, i) => (
               <span
@@ -134,18 +137,22 @@ export function HeroSection() {
           {...up(0.36)}
           style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}
         >
-          <button
-            className="galaxy-btn"
-            onClick={openDiscordModal}
-            aria-label="Start your project on Discord"
-          >
-            <span className="gb-inner">
-              <i className="ti ti-brand-discord" aria-hidden="true" /> Start a Project
-            </span>
-          </button>
-          <Link href="/portfolio" className="btn btn-glass" style={{ borderRadius: 999 }}>
-            <i className="ti ti-eye" aria-hidden="true" /> View Work
-          </Link>
+          <MagneticButton strength={0.25}>
+            <button
+              className="galaxy-btn"
+              onClick={openDiscordModal}
+              aria-label="Start your project on Discord"
+            >
+              <span className="gb-inner">
+                <i className="ti ti-brand-discord" aria-hidden="true" /> Start a Project
+              </span>
+            </button>
+          </MagneticButton>
+          <MagneticButton strength={0.25}>
+            <Link href="/portfolio" className="btn btn-glass" style={{ borderRadius: 999 }}>
+              <i className="ti ti-eye" aria-hidden="true" /> View Work
+            </Link>
+          </MagneticButton>
         </motion.div>
 
         {/* Trust row */}
@@ -163,7 +170,7 @@ export function HeroSection() {
             className="hp-badge"
             style={{
               background: 'rgba(88,101,242,0.06)',
-              color: '#818cf8',
+              color: '#96cdff',
               borderColor: 'rgba(88,101,242,0.2)',
               fontSize: '0.63rem',
               fontWeight: 800,

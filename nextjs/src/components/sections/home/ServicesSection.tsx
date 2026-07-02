@@ -79,7 +79,7 @@ export function ServicesSection() {
         {SERVICES.map((svc, i) => (
           <article
             key={svc.label}
-            className={`tilt-card glass-card shine-border sr${i % 3 === 0 ? ' sr-left' : i % 3 === 2 ? ' sr-right' : ''}`}
+            className={`tilt-card glass-card shine-border glass-reflect premium-card sr${i % 3 === 0 ? ' sr-left' : i % 3 === 2 ? ' sr-right' : ''}`}
             style={{
               border: '1px solid var(--border)',
               padding: i === 0 ? '40px 36px' : '28px 26px',

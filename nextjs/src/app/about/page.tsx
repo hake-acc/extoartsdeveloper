@@ -130,7 +130,7 @@ export default function AboutPage() {
         <h2 id="values-heading" className="sr-only">ExtoArts Core Values</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
           {[
-            { icon: 'ti-percentage', color: '#22d3ee', title: 'Fair Compensation', desc: 'Editors get 90%. Always. No exceptions, no negotiations, no creative accounting.' },
+            { icon: 'ti-percentage', color: '#69ddff', title: 'Fair Compensation', desc: 'Editors get 90%. Always. No exceptions, no negotiations, no creative accounting.' },
             { icon: 'ti-target', color: '#7c3aed', title: 'Niche Expertise', desc: 'Gaming editors edit gaming. Education editors edit education. No generalists pretending to specialize.' },
             { icon: 'ti-shield-check', color: '#10b981', title: 'Full Transparency', desc: 'Custom quotes are itemized. You know what you\'re paying for before you commit to anything.' },
             { icon: 'ti-clock', color: '#f59e0b', title: 'Deadline Accountability', desc: 'If we miss a deadline without valid reason, the project is on us. That\'s our accountability standard.' },

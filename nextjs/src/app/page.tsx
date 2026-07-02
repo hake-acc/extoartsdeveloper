@@ -9,6 +9,7 @@ import { ReviewsSection } from '@/components/sections/home/ReviewsSection'
 import { FounderSection } from '@/components/sections/home/FounderSection'
 import { WhoWeServe } from '@/components/sections/home/WhoWeServe'
 import { WhyExtoArts } from '@/components/sections/home/WhyExtoArts'
+import { OrganicDivider } from '@/components/ui/OrganicDivider'
 import portfolioDataRaw from '@/data/portfolio.json'
 import type { PortfolioCategory } from '@/types'
 const portfolioData = portfolioDataRaw as unknown as PortfolioCategory[]
@@ -63,8 +64,10 @@ export default function HomePage() {
 
       <HeroSection />
       <StatsSection />
+      <OrganicDivider />
       <ServicesSection />
       <PortfolioPreview categories={portfolioData} />
+      <OrganicDivider />
       <ReviewsSection />
       <WhoWeServe />
       <WhyExtoArts />

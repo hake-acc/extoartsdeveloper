@@ -7,6 +7,9 @@ import { DiscordModal } from '@/components/DiscordModal'
 import { ClientScripts } from '@/components/ClientScripts'
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
+import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
+import { CursorFollower } from '@/components/motion/CursorFollower'
+import { GrainOverlay } from '@/components/ui/GrainOverlay'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -243,6 +246,9 @@ export default function RootLayout({
         <Footer />
         <DiscordModal />
         <ClientScripts />
+        <SmoothScrollProvider />
+        <CursorFollower />
+        <GrainOverlay />
       </body>
     </html>
   )
