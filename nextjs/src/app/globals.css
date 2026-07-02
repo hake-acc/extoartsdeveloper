@@ -504,6 +504,14 @@ h4 { font-size: clamp(1rem, 1.8vw, 1.25rem); letter-spacing: -0.01em; line-heigh
 }
 
 /* ── Galaxy button ── */
+@property --gb-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes gbColorFlow {
+  to { --gb-angle: 360deg; }
+}
 .galaxy-btn {
   position: relative;
   display: inline-flex;
@@ -519,17 +527,17 @@ h4 { font-size: clamp(1rem, 1.8vw, 1.25rem); letter-spacing: -0.01em; line-heigh
   inset: -2px;
   border-radius: 999px;
   padding: 2px;
-  background: conic-gradient(from 0deg, transparent 0deg, #22d3ee 90deg, #1d4ed8 180deg, transparent 270deg);
+  background: conic-gradient(from var(--gb-angle), #22d3ee 0%, #818cf8 25%, #38bdf8 55%, #67e8f9 80%, #22d3ee 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: ringRotate 5s linear infinite;
-  opacity: 0.8;
+  animation: gbColorFlow 4s linear infinite;
+  opacity: 0.9;
   z-index: 0;
-  transition: opacity 0.3s, animation-duration 0.3s;
+  transition: opacity 0.3s;
 }
-.galaxy-btn:hover::before { animation-duration: 2.4s; opacity: 1; }
+.galaxy-btn:hover::before { animation-duration: 2s; opacity: 1; }
 .gb-inner {
   background: var(--surface);
   border: 1px solid rgba(34,211,238,0.22);
