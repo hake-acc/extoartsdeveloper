@@ -1,5 +1,0 @@
-# portal/ — Auth-required portal pages (dashboard, login, chat, HQ, etc.).
-# Requests reach these files ONLY through index.php.
-# Auth is enforced inside each file via auth_require() — this .htaccess is
-# a defence-in-depth layer, not the primary access control.
-Require all denied

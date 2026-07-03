@@ -2,7 +2,7 @@
 
 ## Overview
 
-ExtoArts (extoarts.in) is a YouTube video editing and thumbnail design agency website with a client portal. This is the Next.js 16 migration of the original PHP 8.2 codebase.
+ExtoArts (extoarts.in) is a YouTube video editing and thumbnail design agency website with a client portal, built fully in Next.js. The original PHP 8.2 codebase has been retired and removed from this repo (it was only a reference copy used during migration and is backed up elsewhere) — this repo now contains only the Next.js app.
 
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Supabase (Auth + Database) · Deployed on Vercel / Cloudflare
 
@@ -87,8 +87,9 @@ Copy `nextjs/.env.example` to `nextjs/.env.local` and fill in:
 
 ## User Preferences
 
-- Continue the PHP→Next.js migration; do not restart from scratch
-- Maintain feature parity with PHP implementation
+- PHP→Next.js migration is complete; legacy PHP codebase deleted from repo root (backed up elsewhere, was not the live production server)
+- Maintain feature parity with the original PHP implementation
 - Preserve existing Supabase project compatibility
-- Production reference: https://extoarts.in
-- Deploy target: Vercel + Cloudflare, existing Supabase backend
+- Production reference (still live on old PHP host until custom domain is repointed): https://extoarts.in
+- Deploy target: Vercel (already deploying from repo root via `.vercel/project.json` + `.github/workflows/deploy.yml`), existing Supabase backend
+- Static files previously served by PHP at the repo root (favicons, ads.txt, humans.txt, sw.js, browserconfig.xml, site verification files, .well-known/) now live in `nextjs/public/`

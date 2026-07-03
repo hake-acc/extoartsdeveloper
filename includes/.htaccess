@@ -1,4 +1,0 @@
-# includes/ — Internal PHP modules. Direct HTTP access is always denied.
-# These files are only reached via PHP require_once from pages/, portal/, or api/.
-# Safe to store credentials and internal logic here.
-Require all denied

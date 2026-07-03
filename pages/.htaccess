@@ -1,4 +1,0 @@
-# pages/ — Public marketing pages.
-# Requests reach these files ONLY through index.php (the front controller).
-# Direct HTTP access is denied so URLs always resolve via the clean route map.
-Require all denied

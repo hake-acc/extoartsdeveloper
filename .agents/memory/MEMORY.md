@@ -4,3 +4,4 @@
 - [Radix accordion controlled state](radix-accordion-controlled.md) — Radix single-accordion + per-item local useState causes desync; always lift open state to Root via value/onValueChange.
 - [InView framer-motion typing](inview-framer-typing.md) — useInView margin must be omitted (not passed as string); use amount instead; ref should be HTMLElement; ease must be named string not number[].
 - [MaskTextReveal + CycleStack conflict](masktextreveal-cyclestack.md) — never wrap CycleStack in MaskTextReveal; overflow:hidden clips grid-stacked phrases. Use motion fade on that line instead.
+- [Tabler icon class verification](tabler-icon-verification.md) — invalid ti-* classes render blank silently; verify against the live icon font CSS before using a new icon name.

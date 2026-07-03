@@ -1,3 +1,0 @@
-# templates/ — Shared HTML partials (header.php, footer.php).
-# Never served directly; always included by page or portal files.
-Require all denied
