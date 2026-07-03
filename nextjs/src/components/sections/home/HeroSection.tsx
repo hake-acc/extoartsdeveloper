@@ -63,12 +63,7 @@ function CycleStack() {
       className="cycle-stack"
       aria-live="polite"
       aria-atomic="true"
-      style={{
-        display: 'inline-grid',
-        letterSpacing: '-1.5px',
-        minHeight: '1.1em',
-        verticalAlign: 'bottom',
-      }}
+      style={{ letterSpacing: '-1.5px' }}
     >
       {HERO_PHRASES.map((phrase, i) => (
         <span

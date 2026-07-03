@@ -998,12 +998,15 @@ h4 {
   display: grid !important;
   grid-template-columns: 1fr;
   width: 100%;
-  min-height: 1.12em;
+  /* No fixed min-height — grid row auto-sizes to the tallest phrase */
 }
 .hero-title .cycle-stack .cycle-phrase {
   grid-row: 1 !important;
   grid-column: 1 !important;
   color: var(--primary);
+  /* Allow wrapping so long phrases ("Thumbnail Design") never overflow */
+  white-space: normal !important;
+  text-align: center;
 }
 [data-theme="light"] .hero-title .cycle-stack .cycle-phrase {
   color: var(--primary-deep);
