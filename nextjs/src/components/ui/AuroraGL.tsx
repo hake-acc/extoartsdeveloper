@@ -79,7 +79,7 @@ interface AuroraGLProps {
 }
 
 export function AuroraGL({
-  colorStops = ['#1a0533', '#69ddff', '#dbbadd'],
+  colorStops = ['#100a04', '#c9a84c', '#8b4a2a'],
   amplitude = 1.3,
   blend = 0.55,
   speed = 0.5,

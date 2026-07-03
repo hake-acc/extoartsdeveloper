@@ -104,10 +104,10 @@ export function HeroSection() {
       >
         {/* WebGL Aurora background - graceful CSS fallback if WebGL2 unavailable */}
         <AuroraGL
-          colorStops={['#0d0320', '#69ddff', '#dbbadd']}
-          amplitude={1.4}
-          blend={0.52}
-          speed={0.45}
+          colorStops={['#100a04', '#c9a84c', '#8b4a2a']}
+          amplitude={1.2}
+          blend={0.48}
+          speed={0.3}
           style={{
             zIndex: -1,
             opacity: 0.85,

@@ -176,7 +176,7 @@ function ReviewModal({ review, onClose }: { review: Review; onClose: () => void 
             </div>
           </div>
 
-          <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--primary)', background: 'rgba(105,221,255,0.09)', border: '1px solid rgba(105,221,255,0.18)', padding: '3px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>
+          <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--primary)', background: 'rgba(201,168,76,0.09)', border: '1px solid rgba(201,168,76,0.18)', padding: '3px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>
             {review.type}
           </span>
           <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: 1.76, margin: '0 0 20px' }}>
@@ -275,7 +275,7 @@ export function ReviewsSection() {
       <style>{`
         .rev-card-inner:hover {
           transform: translateY(-4px);
-          box-shadow: 0 18px 52px rgba(0,0,0,0.44), 0 0 0 1px rgba(105,221,255,0.09);
+          box-shadow: 0 18px 52px rgba(0,0,0,0.44), 0 0 0 1px rgba(201,168,76,0.09);
           border-color: rgba(255,255,255,0.11) !important;
         }
       `}</style>

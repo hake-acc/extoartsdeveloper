@@ -26,7 +26,7 @@ function AccordionItem({ item, value, isOpen }: { item: FAQItem; value: string; 
       className="faq-accordion-item"
       style={{
         background: 'var(--surface)',
-        border: `1px solid ${isOpen ? 'rgba(105,221,255,0.22)' : 'var(--border)'}`,
+        border: `1px solid ${isOpen ? 'rgba(201,168,76,0.22)' : 'var(--border)'}`,
         borderRadius: 'var(--radius)',
         overflow: 'hidden',
         transition: 'border-color 0.28s, box-shadow 0.28s',
@@ -65,8 +65,8 @@ function AccordionItem({ item, value, isOpen }: { item: FAQItem; value: string; 
               width: 28,
               height: 28,
               borderRadius: '50%',
-              background: isOpen ? 'rgba(105,221,255,0.12)' : 'rgba(255,255,255,0.04)',
-              border: `1px solid ${isOpen ? 'rgba(105,221,255,0.24)' : 'var(--border)'}`,
+              background: isOpen ? 'rgba(201,168,76,0.12)' : 'rgba(255,255,255,0.04)',
+              border: `1px solid ${isOpen ? 'rgba(201,168,76,0.24)' : 'var(--border)'}`,
               color: isOpen ? 'var(--primary)' : 'var(--text-muted)',
               fontSize: '1.1rem',
               lineHeight: 1,
