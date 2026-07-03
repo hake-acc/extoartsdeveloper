@@ -1,12 +1,12 @@
 import { SectionHeader } from '@/components/ui/SectionHeader'
 
 const CREATOR_TYPES = [
-  { icon: 'ti-device-gamepad-2', title: 'Gaming Creators', desc: 'Roblox, Minecraft, PUBG, Free Fire, Fortnite. Niche-matched editors who understand the culture and pacing of gaming content.', color: '#c9a84c' },
-  { icon: 'ti-eye-off', title: 'Faceless Channels', desc: 'Complete done-for-you production. Script, voiceover, edit, thumbnail, and upload. Just review and approve.', color: '#c47a55' },
-  { icon: 'ti-device-mobile-vibration', title: 'Short-Form Creators', desc: 'TikTok, YouTube Shorts, Instagram Reels. Specialists who understand hook timing and the scroll-stop science.', color: '#a07c5a' },
-  { icon: 'ti-trending-up', title: 'Growth-Stage YouTubers', desc: '10K-500K creators who want professional quality without agency pricing. Flat 10% fee. No lock-in.', color: '#c9a84c' },
-  { icon: 'ti-building', title: 'Content Businesses', desc: 'Brands, agencies, and media companies needing reliable, scalable video editing at a predictable cost.', color: '#c47a55' },
-  { icon: 'ti-briefcase', title: 'First-Time Creators', desc: 'Just starting out and want professional editing from day one. We provide full creative direction alongside editing.', color: '#a07c5a' },
+  { icon: 'ti-device-gamepad-2', title: 'Gaming Creators', desc: 'Roblox, Minecraft, PUBG, Free Fire, Fortnite. Niche-matched editors who understand the culture and pacing of gaming content.', color: '#69ddff' },
+  { icon: 'ti-eye-off', title: 'Faceless Channels', desc: 'Complete done-for-you production. Script, voiceover, edit, thumbnail, and upload. Just review and approve.', color: '#dbbadd' },
+  { icon: 'ti-device-mobile-vibration', title: 'Short-Form Creators', desc: 'TikTok, YouTube Shorts, Instagram Reels. Specialists who understand hook timing and the scroll-stop science.', color: '#be92a2' },
+  { icon: 'ti-trending-up', title: 'Growth-Stage YouTubers', desc: '10K-500K creators who want professional quality without agency pricing. Flat 10% fee. No lock-in.', color: '#69ddff' },
+  { icon: 'ti-building', title: 'Content Businesses', desc: 'Brands, agencies, and media companies needing reliable, scalable video editing at a predictable cost.', color: '#dbbadd' },
+  { icon: 'ti-briefcase', title: 'First-Time Creators', desc: 'Just starting out and want professional editing from day one. We provide full creative direction alongside editing.', color: '#be92a2' },
 ]
 
 export function WhoWeServe() {

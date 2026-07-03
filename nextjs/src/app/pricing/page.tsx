@@ -135,7 +135,7 @@ export default function PricingPage() {
           >
             {[
               { label: 'Your Budget', value: '$200', sub: 'per video', color: 'var(--text-main)', bg: 'rgba(255,255,255,0.04)' },
-              { label: 'ExtoArts Fee', value: '$20', sub: 'flat 10%', color: 'var(--primary)', bg: 'rgba(201,168,76,0.06)' },
+              { label: 'ExtoArts Fee', value: '$20', sub: 'flat 10%', color: 'var(--primary)', bg: 'rgba(105,221,255,0.06)' },
               { label: 'Editor Earns', value: '$180', sub: '90% to you', color: '#a3e635', bg: 'rgba(163,230,53,0.06)' },
             ].map((item) => (
               <div
@@ -186,12 +186,12 @@ export default function PricingPage() {
                 position: 'relative',
                 overflow: 'hidden',
                 borderRadius: 20,
-                border: tier.featured ? '1px solid rgba(201,168,76,0.24)' : '1px solid var(--border)',
+                border: tier.featured ? '1px solid rgba(105,221,255,0.24)' : '1px solid var(--border)',
               } as React.CSSProperties}
             >
               {tier.featured && (
                 <>
-                  <BorderBeam size={100} duration={8} colorFrom="#c9a84c" colorTo="#c47a55" borderWidth={1} />
+                  <BorderBeam size={100} duration={8} colorFrom="#69ddff" colorTo="#dbbadd" borderWidth={1} />
                   <div style={{ position: 'absolute', top: 14, right: 14 }}>
                     <span className="highlight-chip">
                       <i className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.55rem' }} />
@@ -252,12 +252,12 @@ export default function PricingPage() {
                 position: 'relative',
                 overflow: 'hidden',
                 borderRadius: 22,
-                border: pkg.featured ? '1px solid rgba(201,168,76,0.22)' : '1px solid var(--border)',
+                border: pkg.featured ? '1px solid rgba(105,221,255,0.22)' : '1px solid var(--border)',
               } as React.CSSProperties}
             >
               {pkg.featured && (
                 <>
-                  <BorderBeam size={150} duration={9} delay={1} colorFrom="#c9a84c" colorTo="#c47a55" borderWidth={1} />
+                  <BorderBeam size={150} duration={9} delay={1} colorFrom="#69ddff" colorTo="#dbbadd" borderWidth={1} />
                   <div style={{ position: 'absolute', top: 18, right: 18 }}>
                     <span className="highlight-chip">Most Popular</span>
                   </div>

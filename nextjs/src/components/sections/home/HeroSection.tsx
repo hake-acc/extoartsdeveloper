@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { AuroraGL } from '@/components/ui/AuroraGL'
 import { GalaxyButton } from '@/components/ui/GalaxyButton'
 import { MagneticButton } from '@/components/ui/MagneticButton'
+import { MaskTextReveal } from '@/components/motion/MaskTextReveal'
 
 const HERO_PHRASES = [
   'Video Editing',
@@ -104,7 +105,7 @@ export function HeroSection() {
       >
         {/* WebGL Aurora background - graceful CSS fallback if WebGL2 unavailable */}
         <AuroraGL
-          colorStops={['#100a04', '#c9a84c', '#8b4a2a']}
+          colorStops={['#04040b', '#69ddff', '#be92a2']}
           amplitude={1.2}
           blend={0.48}
           speed={0.3}
@@ -130,37 +131,37 @@ export function HeroSection() {
           </span>
         </motion.div>
 
-        {/* Main headline */}
-        <motion.h1
-          {...fade(0.12)}
-          className="hero-title"
-          style={{ marginBottom: 24 }}
-        >
-          <span
-            className="font-hero"
-            style={{
-              display: 'block',
-              fontSize: 'clamp(2.8rem, 6.5vw, 5.8rem)',
-              letterSpacing: '-3px',
-              lineHeight: 1.0,
-              color: 'var(--text-main)',
-              fontWeight: 400,
-            }}
-          >
-            Elite Creative Services
-          </span>
-          <span
-            style={{
-              display: 'block',
-              fontSize: 'clamp(2.5rem, 5.8vw, 5rem)',
-              fontWeight: 900,
-              letterSpacing: '-2.5px',
-              lineHeight: 1.1,
-            }}
-          >
-            for <CycleStack />
-          </span>
-        </motion.h1>
+        {/* Main headline — mask-reveal each line on load */}
+        <h1 className="hero-title" style={{ marginBottom: 24 }}>
+          <MaskTextReveal delay={0.08} duration={0.78}>
+            <span
+              className="font-hero"
+              style={{
+                display: 'block',
+                fontSize: 'clamp(2.8rem, 6.5vw, 5.8rem)',
+                letterSpacing: '-3px',
+                lineHeight: 1.0,
+                color: 'var(--text-main)',
+                fontWeight: 400,
+              }}
+            >
+              Elite Creative Services
+            </span>
+          </MaskTextReveal>
+          <MaskTextReveal delay={0.18} duration={0.78}>
+            <span
+              style={{
+                display: 'block',
+                fontSize: 'clamp(2.5rem, 5.8vw, 5rem)',
+                fontWeight: 900,
+                letterSpacing: '-2.5px',
+                lineHeight: 1.1,
+              }}
+            >
+              for <CycleStack />
+            </span>
+          </MaskTextReveal>
+        </h1>
 
         {/* Sub-text */}
         <motion.p

@@ -159,7 +159,7 @@ export default function FAQPage() {
         <div
           className="tilt-card glass-card"
           style={{
-            border: '1px solid rgba(201,168,76,0.18)',
+            border: '1px solid rgba(105,221,255,0.18)',
             borderRadius: 24,
             padding: 'min(44px,5vw)',
             textAlign: 'center',

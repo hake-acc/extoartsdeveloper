@@ -114,8 +114,8 @@ export function ServicesSection() {
                 <BorderBeam
                   size={180}
                   duration={10}
-                  colorFrom="#c9a84c"
-                  colorTo="#c47a55"
+                  colorFrom="#69ddff"
+                  colorTo="#dbbadd"
                   borderWidth={1}
                 />
               )}

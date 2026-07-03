@@ -47,7 +47,7 @@ export function CursorFollower() {
       if (target.closest('a, button, [role="button"]')) {
         ring!.style.width = '30px'
         ring!.style.height = '30px'
-        ring!.style.borderColor = 'rgba(201,168,76,0.3)'
+        ring!.style.borderColor = 'rgba(105,221,255,0.3)'
         dot!.style.opacity = '1'
       }
     }

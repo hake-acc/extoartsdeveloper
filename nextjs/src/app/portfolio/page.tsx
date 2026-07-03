@@ -79,7 +79,7 @@ function LightboxModal({ item, category, onClose }: { item: PortfolioItem; categ
               <p style={{ fontWeight: 700, color: '#fff', margin: 0, fontSize: '0.92rem', letterSpacing: '-0.2px' }}>{item.title}</p>
               <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', margin: '2px 0 0' }}>{category.name}</p>
             </div>
-            <span style={{ fontSize: '0.64rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--primary)', background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.2)', padding: '4px 12px', borderRadius: 999, flexShrink: 0 }}>
+            <span style={{ fontSize: '0.64rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--primary)', background: 'rgba(105,221,255,0.1)', border: '1px solid rgba(105,221,255,0.2)', padding: '4px 12px', borderRadius: 999, flexShrink: 0 }}>
               {item.project_type === 'video' ? 'Video' : 'Image'}
             </span>
           </div>
@@ -114,7 +114,7 @@ function PortfolioCard({ item, category, index, onClick }: { item: PortfolioItem
         display: 'block',
         width: '100%',
         boxShadow: hovered
-          ? '0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.14)'
+          ? '0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(105,221,255,0.14)'
           : '0 8px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04)',
         transition: 'box-shadow 0.4s cubic-bezier(0.22,1,0.36,1)',
       }}
@@ -265,7 +265,7 @@ export default function PortfolioPage() {
                 transition: 'all 0.22s cubic-bezier(0.16,1,0.3,1)',
                 fontFamily: 'var(--font-body)',
                 letterSpacing: '0.2px',
-                boxShadow: isActive ? '0 0 20px rgba(201,168,76,0.25)' : 'none',
+                boxShadow: isActive ? '0 0 20px rgba(105,221,255,0.25)' : 'none',
               }}
             >
               {name}

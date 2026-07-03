@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
+
 interface GalaxyButtonProps {
   href?: string
   onClick?: () => void
@@ -9,17 +11,64 @@ interface GalaxyButtonProps {
   rel?: string
 }
 
-export function GalaxyButton({ href, onClick, children, className, target, rel }: GalaxyButtonProps) {
+/**
+ * GalaxyButton — spinning conic-gradient border.
+ *
+ * CSS @property animation works in Chrome/Edge but NOT Firefox.
+ * We drive the rotation via requestAnimationFrame so it works everywhere,
+ * and keep the @property declaration as a fallback for when JS hasn't
+ * attached yet (first paint).
+ */
+function useConicRotation(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let angle = 0
+    let raf: number
+
+    function tick() {
+      angle = (angle + 0.5) % 360
+      el!.style.setProperty('--gb-angle', `${angle}deg`)
+      raf = requestAnimationFrame(tick)
+    }
+
+    // Only engage the JS driver if the browser won't animate @property itself.
+    // Chrome/Edge support CSS.registerProperty; Firefox doesn't.
+    const needsJsDriver = !('registerProperty' in (window.CSS ?? {}))
+    if (needsJsDriver) {
+      raf = requestAnimationFrame(tick)
+      return () => cancelAnimationFrame(raf)
+    }
+    // Chrome/Edge: CSS handles it — speed up on hover via class
+    return undefined
+  }, [ref])
+}
+
+function GalaxyInner({
+  href,
+  onClick,
+  children,
+  className,
+  target,
+  rel,
+}: GalaxyButtonProps) {
+  const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null)
+  useConicRotation(ref)
+
   if (href) {
     return (
-      <a href={href} target={target} rel={rel} className={`galaxy-btn ${className ?? ''}`}>
+      <a ref={ref} href={href} target={target} rel={rel} className={`galaxy-btn ${className ?? ''}`}>
         <span className="gb-inner">{children}</span>
       </a>
     )
   }
   return (
-    <button onClick={onClick} className={`galaxy-btn ${className ?? ''}`}>
+    <button ref={ref} onClick={onClick} className={`galaxy-btn ${className ?? ''}`}>
       <span className="gb-inner">{children}</span>
     </button>
   )
+}
+
+export function GalaxyButton(props: GalaxyButtonProps) {
+  return <GalaxyInner {...props} />
 }
