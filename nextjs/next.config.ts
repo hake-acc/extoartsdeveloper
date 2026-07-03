@@ -1,7 +1,10 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ['*.replit.dev', '*.sisko.replit.dev', '*.repl.co', '*.pike.replit.dev'],
+  allowedDevOrigins: ['*.replit.dev', '*.sisko.replit.dev', '*.repl.co', '*.pike.replit.dev', '127.0.0.1'],
+  turbopack: {
+    root: __dirname,
+  },
   images: {
     remotePatterns: [
       {
