@@ -108,21 +108,8 @@ export function ClientScripts() {
       countEls.forEach((el) => cio.observe(el))
     }
 
-    // Cycle/typewriter
-    document.querySelectorAll<HTMLElement>('.cycle-stack').forEach((stack) => {
-      const phrases = Array.from(stack.querySelectorAll<HTMLElement>('.cycle-phrase'))
-      if (!phrases.length) return
-      let idx = 0
-      phrases[0].classList.add('is-active')
-      setInterval(() => {
-        phrases[idx].classList.remove('is-active')
-        phrases[idx].classList.add('is-exit')
-        const prev = idx
-        idx = (idx + 1) % phrases.length
-        phrases[idx].classList.add('is-active')
-        setTimeout(() => { phrases[prev].classList.remove('is-exit') }, 400)
-      }, 2600)
-    })
+    // Note: hero phrase cycling is handled by HeroSection's CycleStack component
+    // (React state + useEffect with proper cleanup) — no DOM-based interval here.
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown)

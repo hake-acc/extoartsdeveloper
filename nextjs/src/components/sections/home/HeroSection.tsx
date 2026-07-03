@@ -1,9 +1,9 @@
 'use client'
 
-import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { AuroraBackground } from '@/components/ui/AuroraBackground'
+import { AuroraGL } from '@/components/ui/AuroraGL'
+import { GalaxyButton } from '@/components/ui/GalaxyButton'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 
 const HERO_PHRASES = [
@@ -27,32 +27,67 @@ const TICKER_ITEMS = [
   { icon: 'ti-star-filled', text: '5-Star Rated' },
 ]
 
-const EASE = [0.25, 0.46, 0.45, 0.94] as const
+const E = [0.16, 1, 0.3, 1] as const
+const fade = (delay = 0, y = 24) => ({
+  initial: { opacity: 0, y },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: E },
+})
 
-function up(delay = 0) {
-  return {
-    initial: { opacity: 0, y: 24 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, delay, ease: EASE },
-  }
+function openDiscordModal() {
+  if (typeof window === 'undefined') return
+  const m = document.getElementById('discordModal')
+  if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden' }
+}
+
+// ── Cycling headline phrase - React-managed with proper cleanup ────────────────
+function CycleStack() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [exitIndex, setExitIndex] = useState<number | null>(null)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIndex((prev) => {
+        const next = (prev + 1) % HERO_PHRASES.length
+        setExitIndex(prev)
+        // Clear exit class after transition
+        setTimeout(() => setExitIndex(null), 400)
+        return next
+      })
+    }, 2600)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <span
+      className="cycle-stack"
+      aria-live="polite"
+      aria-atomic="true"
+      style={{
+        display: 'inline-grid',
+        letterSpacing: '-1.5px',
+        minHeight: '1.1em',
+        verticalAlign: 'bottom',
+      }}
+    >
+      {HERO_PHRASES.map((phrase, i) => (
+        <span
+          key={phrase}
+          className={[
+            'cycle-phrase hero-accent-phrase',
+            i === activeIndex ? 'is-active' : '',
+            i === exitIndex ? 'is-exit' : '',
+          ].filter(Boolean).join(' ')}
+          aria-hidden={i !== activeIndex}
+        >
+          {phrase}
+        </span>
+      ))}
+    </span>
+  )
 }
 
 export function HeroSection() {
-  const titleRef = useRef<HTMLHeadingElement>(null)
-
-  useEffect(() => {
-    if (!titleRef.current) return
-    const words = titleRef.current.querySelectorAll<HTMLElement>('.ea-word')
-    words.forEach((w, i) => {
-      setTimeout(() => w.classList.add('in'), 280 + i * 80)
-    })
-  }, [])
-
-  function openDiscordModal() {
-    const m = document.getElementById('discordModal')
-    if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden' }
-  }
-
   return (
     <>
       <section
@@ -60,7 +95,7 @@ export function HeroSection() {
         aria-label="Hero"
         style={{
           paddingTop: 'min(22svh, 22vh)',
-          paddingBottom: '5vh',
+          paddingBottom: '0',
           paddingLeft: '20px',
           paddingRight: '20px',
           display: 'flex',
@@ -69,222 +104,155 @@ export function HeroSection() {
           textAlign: 'center',
           position: 'relative',
           zIndex: 10,
+          isolation: 'isolate',
         }}
       >
-        <AuroraBackground />
-        {/* Badge */}
-        <motion.div
-          {...up(0.04)}
-          className="hero-badge"
-          style={{ marginBottom: 34 }}
-          aria-label="ExtoArts agency badge"
-        >
-          <span className="hero-badge-dot" aria-hidden="true" />
-          <span>YouTube-Focused Creative Agency</span>
-          <span aria-hidden="true" style={{ color: 'var(--text-muted)', opacity: 0.4 }}>|</span>
-          <span style={{ color: 'var(--text-muted)' }}>Since 2024</span>
+        {/* WebGL Aurora background - graceful CSS fallback if WebGL2 unavailable */}
+        <AuroraGL
+          colorStops={['#0d0320', '#69ddff', '#dbbadd']}
+          amplitude={1.4}
+          blend={0.52}
+          speed={0.45}
+          style={{
+            zIndex: -1,
+            opacity: 0.85,
+            top: '-20%',
+            height: '140%',
+          }}
+        />
+        {/* CSS aurora fallback layer */}
+        <div className="aurora-bg" aria-hidden="true">
+          <div className="aurora-blob" />
+        </div>
+
+        {/* Agency badge */}
+        <motion.div {...fade(0.05)} style={{ marginBottom: 32 }}>
+          <span className="hero-badge" aria-label="YouTube-focused creative agency since 2024">
+            <span className="hero-badge-dot" aria-hidden="true" />
+            <span>YouTube-Focused Creative Agency</span>
+            <span aria-hidden="true" style={{ color: 'var(--text-muted)', opacity: 0.35 }}>|</span>
+            <span style={{ color: 'var(--text-muted)' }}>Since 2024</span>
+          </span>
         </motion.div>
 
-        {/* Title */}
+        {/* Main headline */}
         <motion.h1
-          {...up(0.14)}
-          ref={titleRef}
-          className="hero-title font-hero"
-          style={{ marginBottom: 28 }}
+          {...fade(0.12)}
+          className="hero-title"
+          style={{ marginBottom: 24 }}
         >
-          <span>
-            <span className="ea-word">Elite</span>{' '}
-            <span className="ea-word">Creative</span>{' '}
-            <span className="ea-word">Services</span>{' '}
-            <span className="ea-word">for</span>
+          <span
+            className="font-hero"
+            style={{
+              display: 'block',
+              fontSize: 'clamp(2.8rem, 6.5vw, 5.8rem)',
+              letterSpacing: '-3px',
+              lineHeight: 1.0,
+              color: 'var(--text-main)',
+              fontWeight: 400,
+            }}
+          >
+            Elite Creative Services
           </span>
           <span
-            className="cycle-stack"
-            aria-live="polite"
-            style={{ display: 'block', letterSpacing: '-1px', minHeight: '1.1em' }}
+            style={{
+              display: 'block',
+              fontSize: 'clamp(2.5rem, 5.8vw, 5rem)',
+              fontWeight: 900,
+              letterSpacing: '-2.5px',
+              lineHeight: 1.1,
+            }}
           >
-            {HERO_PHRASES.map((phrase, i) => (
-              <span
-                key={phrase}
-                className={`cycle-phrase hero-accent-phrase${i === 0 ? ' is-active' : ''}`}
-              >
-                {phrase}
-              </span>
-            ))}
+            for <CycleStack />
           </span>
         </motion.h1>
 
-        {/* Description */}
+        {/* Sub-text */}
         <motion.p
-          {...up(0.26)}
-          className="hero-desc"
+          {...fade(0.24)}
           style={{
-            fontSize: 'clamp(1rem, 1.8vw, 1.18rem)',
+            fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
             color: 'var(--text-muted)',
-            maxWidth: 510,
-            lineHeight: 1.78,
+            maxWidth: 500,
+            lineHeight: 1.8,
             fontWeight: 400,
-            marginBottom: 38,
-          }}
+            marginBottom: 40,
+            textWrap: 'balance',
+          } as React.CSSProperties}
         >
           ExtoArts is a YouTube agency where{' '}
-          <strong style={{ color: 'var(--text-main)', fontWeight: 700 }}>90% of your budget</strong>{' '}
+          <strong style={{ color: 'var(--text-main)', fontWeight: 700 }}>
+            90% of your budget
+          </strong>{' '}
           goes directly to your specialist editor. Real editors. Real results. Flat 10% fee.
         </motion.p>
 
-        {/* CTA row */}
+        {/* CTA buttons */}
         <motion.div
-          {...up(0.36)}
-          style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}
+          {...fade(0.32)}
+          style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 56 }}
         >
-          <MagneticButton strength={0.25}>
-            <button
-              className="galaxy-btn"
-              onClick={openDiscordModal}
-              aria-label="Start your project on Discord"
-            >
-              <span className="gb-inner">
-                <i className="ti ti-brand-discord" aria-hidden="true" /> Start a Project
-              </span>
-            </button>
+          <GalaxyButton onClick={openDiscordModal}>
+            <i className="ti ti-brand-discord" aria-hidden="true" />
+            Start a Project
+          </GalaxyButton>
+          <MagneticButton>
+            <a href="/portfolio" className="btn btn-glass" style={{ borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+              <i className="ti ti-eye" aria-hidden="true" />
+              View Work
+            </a>
           </MagneticButton>
-          <MagneticButton strength={0.25}>
-            <Link href="/portfolio" className="btn btn-glass" style={{ borderRadius: 999 }}>
-              <i className="ti ti-eye" aria-hidden="true" /> View Work
-            </Link>
-          </MagneticButton>
-        </motion.div>
-
-        {/* Trust row */}
-        <motion.div
-          {...up(0.46)}
-          style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', justifyContent: 'center', marginTop: 26 }}
-        >
-          <span style={{ fontSize: '0.57rem', color: 'var(--text-muted)', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 700, opacity: 0.6 }}>
-            Trusted on
-          </span>
-          <a
-            href="https://discord.gg/extoarts-1402333030827425922"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hp-badge"
-            style={{
-              background: 'rgba(88,101,242,0.06)',
-              color: '#96cdff',
-              borderColor: 'rgba(88,101,242,0.2)',
-              fontSize: '0.63rem',
-              fontWeight: 800,
-              letterSpacing: '0.3px',
-              padding: '5px 13px',
-              borderRadius: 999,
-              textDecoration: 'none',
-              border: '1px solid',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 5,
-              transition: 'opacity 0.18s, transform 0.18s',
-            }}
-          >
-            <i className="ti ti-brand-discord" aria-hidden="true" /> Discord
-          </a>
-          <a
-            href="https://www.trustpilot.com/review/extoarts.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hp-badge"
-            style={{
-              background: 'rgba(0,182,122,0.055)',
-              color: '#34d399',
-              borderColor: 'rgba(0,182,122,0.2)',
-              fontSize: '0.63rem',
-              fontWeight: 800,
-              letterSpacing: '0.3px',
-              padding: '5px 13px',
-              borderRadius: 999,
-              textDecoration: 'none',
-              border: '1px solid',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 5,
-              transition: 'opacity 0.18s, transform 0.18s',
-            }}
-          >
-            <i className="ti ti-star-filled" aria-hidden="true" /> Trustpilot
-          </a>
-          <span style={{
-            background: 'rgba(245,158,11,0.06)',
-            color: '#f59e0b',
-            borderColor: 'rgba(245,158,11,0.2)',
-            fontSize: '0.63rem',
-            fontWeight: 800,
-            letterSpacing: '0.3px',
-            padding: '5px 13px',
-            borderRadius: 999,
-            border: '1px solid',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 5,
-          }}>
-            <i className="ti ti-star-filled" aria-hidden="true" /> 5.0 Rating
-          </span>
         </motion.div>
 
         {/* Scroll indicator */}
-        <motion.div {...up(0.56)} className="scroll-indicator" aria-hidden="true">
-          <div className="mouse-outline">
-            <div className="mouse-wheel" />
-          </div>
-          <span style={{ fontSize: '0.57rem', letterSpacing: '2px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Scroll</span>
-        </motion.div>
-      </section>
-
-      {/* Capability ticker */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.65, ease: EASE }}
-        style={{ padding: '0 0 24px', overflow: 'hidden', position: 'relative' }}
-        aria-hidden="true"
-      >
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '10%', background: 'linear-gradient(90deg, var(--bg), transparent)', zIndex: 2, pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '10%', background: 'linear-gradient(270deg, var(--bg), transparent)', zIndex: 2, pointerEvents: 'none' }} />
-        <div
-          className="marquee-track"
-          style={{ '--duration': '30s' } as React.CSSProperties}
+        <motion.div
+          {...fade(0.5, 8)}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 6,
+            marginBottom: 32,
+            opacity: 0.35,
+          }}
+          aria-hidden="true"
         >
-          <div className="marquee-inner" style={{ gap: 10, alignItems: 'center' }}>
+          <span style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+            Scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ width: 1, height: 28, background: 'linear-gradient(to bottom, var(--text-muted), transparent)' }}
+          />
+        </motion.div>
+
+        {/* Ticker strip */}
+        <motion.div
+          {...fade(0.42)}
+          className="ticker-outer"
+          aria-hidden="true"
+          style={{
+            width: '100vw',
+            overflow: 'hidden',
+            position: 'relative',
+            borderTop: '1px solid var(--border)',
+            borderBottom: '1px solid var(--border)',
+            padding: '11px 0',
+            marginBottom: -1,
+            background: 'rgba(255,255,255,0.012)',
+          }}
+        >
+          <div className="ticker-track">
             {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-              <span
-                key={i}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 7,
-                  padding: '7px 17px',
-                  border: '1px solid var(--border)',
-                  borderRadius: 999,
-                  background: 'rgba(255,255,255,0.02)',
-                  backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
-                  fontSize: '0.7rem',
-                  fontWeight: 700,
-                  color: 'var(--text-muted)',
-                  letterSpacing: '0.3px',
-                  whiteSpace: 'nowrap',
-                  marginRight: 10,
-                }}
-              >
-                <i className={`ti ${item.icon}`} style={{ color: 'var(--primary)', fontSize: '0.78rem' }} aria-hidden="true" />
+              <span key={i} className="ticker-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '5px 16px', marginRight: 8, borderRadius: 999, border: '1px solid var(--border)', fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', whiteSpace: 'nowrap', background: 'transparent', transition: 'all 0.2s', cursor: 'default', letterSpacing: '0.2px' }}>
+                <i className={`ti ${item.icon}`} style={{ color: 'var(--primary)', fontSize: '0.76rem' }} />
                 {item.text}
               </span>
             ))}
           </div>
-        </div>
-      </motion.div>
-
-      <style>{`
-        .hp-badge:hover { opacity: 0.8; transform: translateY(-1px); }
-      `}</style>
+        </motion.div>
+      </section>
     </>
   )
 }

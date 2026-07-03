@@ -1,166 +1,284 @@
 'use client'
 
 import { useState } from 'react'
-import { SectionHeader } from '@/components/ui/SectionHeader'
+import { motion, AnimatePresence } from 'framer-motion'
 import { reviews } from '@/data/reviews'
 import type { Review } from '@/types'
 
+// ── Review card ──────────────────────────────────────────────────────────────
 function ReviewCard({ review, onClick }: { review: Review; onClick: () => void }) {
   return (
     <button
-      className="rev-card"
-      type="button"
       onClick={onClick}
+      className="rev-card"
       aria-label={`Read full review from ${review.name}`}
-      style={{ minWidth: 300, maxWidth: 320 }}
+      style={{ cursor: 'pointer', textAlign: 'left', background: 'none', border: 'none', padding: 0 }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-        <span style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--primary)', background: 'rgba(34,211,238,0.09)', border: '1px solid rgba(34,211,238,0.18)', padding: '3px 10px', borderRadius: 999 }}>
-          {review.type}
-        </span>
-        <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}>
-          <i className="ti ti-calendar-event" aria-hidden="true" /> {review.date}
-        </span>
-      </div>
-      <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', lineHeight: 1.65, flex: 1, textAlign: 'left', margin: '8px 0' }}>
-        {review.text.length > 120 ? review.text.slice(0, 120) + '...' : review.text}
-      </p>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--border)', flexShrink: 0 }}>
+      <div
+        style={{
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: 18,
+          padding: '24px 22px 20px',
+          width: 310,
+          flexShrink: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 12,
+          transition: 'transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s, border-color 0.35s',
+        }}
+        className="rev-card-inner"
+      >
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '1.5px solid var(--border)',
+              flexShrink: 0,
+            }}
+          >
             {review.img ? (
-              <img src={review.img} alt={review.name} width={36} height={36} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+              <img src={review.img} alt={review.name} width={40} height={40} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg,${review.grad})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', color: '#fff' }}>
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  background: `linear-gradient(135deg,${review.grad})`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 800,
+                  fontSize: '1rem',
+                  color: '#fff',
+                }}
+              >
                 {review.init}
               </div>
             )}
           </div>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)' }}>{review.name}</div>
-            <div style={{ display: 'flex', gap: 2 }} role="img" aria-label="5 out of 5 stars">
-              {[...Array(5)].map((_, i) => (
-                <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.65rem', color: '#f59e0b' }} />
-              ))}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {review.name}
             </div>
+            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 2 }}>{review.type}</div>
+          </div>
+          <div style={{ display: 'flex', gap: 1 }} role="img" aria-label="5 stars">
+            {[...Array(5)].map((_, i) => (
+              <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.62rem', color: '#f59e0b' }} />
+            ))}
           </div>
         </div>
-        <span style={{ fontSize: '0.62rem', fontWeight: 700, color: '#5865f2', display: 'flex', alignItems: 'center', gap: 4, border: '1px solid rgba(88,101,242,0.2)', padding: '3px 8px', borderRadius: 999, background: 'rgba(88,101,242,0.05)' }}>
-          <i className="ti ti-brand-discord" aria-hidden="true" /> Verified
-        </span>
+
+        {/* Text */}
+        <p
+          style={{
+            fontSize: '0.82rem',
+            color: 'var(--text-muted)',
+            lineHeight: 1.72,
+            margin: 0,
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          } as React.CSSProperties}
+        >
+          &ldquo;{review.text}&rdquo;
+        </p>
+
+        {/* Footer */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
+          <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', opacity: 0.6 }}>{review.date}</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.65rem', color: '#5865f2', fontWeight: 700 }}>
+            <i className="ti ti-brand-discord" aria-hidden="true" />
+            Verified
+          </span>
+        </div>
       </div>
     </button>
   )
 }
 
+// ── Review modal ──────────────────────────────────────────────────────────────
 function ReviewModal({ review, onClose }: { review: Review; onClose: () => void }) {
   return (
-    <div
-      className="modal open"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="review-modal-name"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
-    >
-      <div className="modal-box" style={{ maxWidth: 520 }}>
-        <button
-          onClick={onClose}
-          aria-label="Close review"
-          style={{ position: 'absolute', top: 16, right: 16, background: 'none', border: '1px solid var(--border)', borderRadius: 999, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '0.9rem' }}
+    <AnimatePresence>
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="review-modal-name"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 99999,
+          background: 'rgba(0,0,0,0.72)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: 20,
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.93, y: 16 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.93, y: 16 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
+            borderRadius: 24,
+            padding: 'min(40px,5vw)',
+            maxWidth: 460,
+            width: '100%',
+            position: 'relative',
+            boxShadow: '0 48px 120px rgba(0,0,0,0.6)',
+          }}
         >
-          <i className="ti ti-x" aria-hidden="true" />
-        </button>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
-          <div style={{ width: 56, height: 56, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--border)', flexShrink: 0 }}>
-            {review.img ? (
-              <img src={review.img} alt={review.name} width={56} height={56} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            ) : (
-              <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg,${review.grad})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.2rem', color: '#fff' }}>
-                {review.init}
+          <button
+            onClick={onClose}
+            aria-label="Close review"
+            style={{
+              position: 'absolute', top: 16, right: 16,
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid var(--border)',
+              borderRadius: 10, padding: '6px 10px',
+              cursor: 'pointer', color: 'var(--text-muted)',
+              fontSize: '0.85rem', fontFamily: 'var(--font-body)',
+            }}
+          >
+            <i className="ti ti-x" aria-hidden="true" />
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+            <div style={{ width: 52, height: 52, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--border)', flexShrink: 0 }}>
+              {review.img ? (
+                <img src={review.img} alt={review.name} width={52} height={52} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg,${review.grad})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.1rem', color: '#fff' }}>
+                  {review.init}
+                </div>
+              )}
+            </div>
+            <div>
+              <div id="review-modal-name" style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 4 }}>{review.name}</div>
+              <div style={{ display: 'flex', gap: 2 }} role="img" aria-label="5 out of 5 stars">
+                {[...Array(5)].map((_, i) => (
+                  <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.75rem', color: '#f59e0b' }} />
+                ))}
               </div>
-            )}
-          </div>
-          <div style={{ textAlign: 'left' }}>
-            <div id="review-modal-name" style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 4 }}>{review.name}</div>
-            <div style={{ display: 'flex', gap: 2 }} role="img" aria-label="5 out of 5 stars">
-              {[...Array(5)].map((_, i) => (
-                <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.8rem', color: '#f59e0b' }} />
-              ))}
             </div>
           </div>
-        </div>
-        <span style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--primary)', background: 'rgba(34,211,238,0.09)', border: '1px solid rgba(34,211,238,0.18)', padding: '3px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>
-          {review.type}
-        </span>
-        <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.72, textAlign: 'left', margin: '0 0 20px' }}>
-          &ldquo;{review.text}&rdquo;
-        </p>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-          <span>{review.date}</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#5865f2' }}>
-            <i className="ti ti-brand-discord" aria-hidden="true" /> Discord Verified
+
+          <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--primary)', background: 'rgba(105,221,255,0.09)', border: '1px solid rgba(105,221,255,0.18)', padding: '3px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>
+            {review.type}
           </span>
-        </div>
-      </div>
-    </div>
+          <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: 1.76, margin: '0 0 20px' }}>
+            &ldquo;{review.text}&rdquo;
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+            <span>{review.date}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#5865f2', fontWeight: 700 }}>
+              <i className="ti ti-brand-discord" aria-hidden="true" /> Discord Verified
+            </span>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   )
 }
 
+// ── Main section ──────────────────────────────────────────────────────────────
 export function ReviewsSection() {
-  const [selectedReview, setSelectedReview] = useState<Review | null>(null)
+  const [selected, setSelected] = useState<Review | null>(null)
   const row1 = reviews
-  const row2 = [...reviews.slice(3), ...reviews.slice(0, 3)]
+  const row2 = [...reviews.slice(4), ...reviews.slice(0, 4)]
 
   return (
     <>
       <section
         aria-labelledby="reviews-heading"
-        style={{ padding: 'min(80px,7vw) 0', position: 'relative', zIndex: 10 }}
+        style={{ padding: 'min(80px,7vw) 0', position: 'relative', zIndex: 10, overflow: 'hidden' }}
       >
-        <div style={{ padding: '0 min(20px,5%)', maxWidth: 1200, margin: '0 auto' }}>
-          <SectionHeader
-            label="Client Reviews"
-            title={<>Real Creators. <span className="sweep-text">Real Results.</span></>}
-            subtitle="Verified reviews from YouTube creators we've worked with. No fake testimonials."
-          />
-        </div>
-
-        {/* Row 1 */}
-        <div className="marquee-track" style={{ marginBottom: 14, '--duration': '38s' } as React.CSSProperties}>
-          <div className="marquee-inner" style={{ gap: 14, paddingTop: 4, paddingBottom: 4 }}>
-            {[...row1, ...row1].map((r, i) => (
-              <ReviewCard key={`r1-${i}`} review={r} onClick={() => setSelectedReview(r)} />
-            ))}
+        {/* Header */}
+        <div style={{ padding: '0 min(20px,5%)', maxWidth: 1200, margin: '0 auto 56px' }}>
+          <div style={{ textAlign: 'center' }}>
+            <span className="sec-label" style={{ display: 'inline-flex', marginBottom: 16, alignItems: 'center', gap: 8 }}>
+              <span className="gradient-dot" aria-hidden="true" />
+              Client Reviews
+            </span>
+            <h2 id="reviews-heading" style={{ fontSize: 'clamp(1.9rem,3.8vw,3rem)', fontWeight: 900, letterSpacing: '-1.5px', lineHeight: 1.1, marginBottom: 14 }}>
+              What Our Clients Say
+            </h2>
+            <p style={{ fontSize: 'clamp(0.9rem,1.5vw,1rem)', color: 'var(--text-muted)', maxWidth: 420, margin: '0 auto', lineHeight: 1.7 }}>
+              Every review is from a real creator verified via Discord.
+            </p>
           </div>
         </div>
 
-        {/* Row 2 */}
-        <div className="marquee-track" style={{ '--duration': '42s' } as React.CSSProperties}>
-          <div className="marquee-inner reverse" style={{ gap: 14, paddingTop: 4, paddingBottom: 4 }}>
-            {[...row2, ...row2].map((r, i) => (
-              <ReviewCard key={`r2-${i}`} review={r} onClick={() => setSelectedReview(r)} />
-            ))}
+        {/* Row 1 — left */}
+        <div
+          aria-label="Client reviews carousel"
+          style={{ marginBottom: 14 }}
+        >
+          <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(90deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(270deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            <div className="marquee-track" style={{ '--duration': '36s' } as React.CSSProperties}>
+              <div className="marquee-inner" style={{ gap: 14, alignItems: 'stretch' }}>
+                {[...row1, ...row1].map((rev, i) => (
+                  <ReviewCard key={i} review={rev} onClick={() => setSelected(rev)} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Row 2 — right */}
+        <div>
+          <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(90deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(270deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            <div className="marquee-track" style={{ '--duration': '40s' } as React.CSSProperties}>
+              <div className="marquee-inner reverse" style={{ gap: 14, alignItems: 'stretch' }}>
+                {[...row2, ...row2].map((rev, i) => (
+                  <ReviewCard key={i} review={rev} onClick={() => setSelected(rev)} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Rating summary */}
-        <div style={{ textAlign: 'center', marginTop: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, flexWrap: 'wrap', padding: '0 20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }} role="img" aria-label="5 out of 5 stars from 7 reviews">
-            {[...Array(5)].map((_, i) => (
-              <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '1.2rem', color: '#f59e0b' }} />
-            ))}
-            <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)', marginLeft: 6 }}>5.0</span>
+        <div style={{ padding: '48px min(20px,5%) 0', maxWidth: 1200, margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 3 }} role="img" aria-label="5 out of 5 stars">
+              {[...Array(5)].map((_, i) => (
+                <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '1.1rem', color: '#f59e0b' }} />
+              ))}
+            </div>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)' }}>
+              5.0 average from verified creators
+            </span>
           </div>
-          <span style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>7 verified reviews on Discord</span>
-          <a href="https://discord.gg/extoarts-1402333030827425922" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.78rem', color: 'var(--primary)', textDecoration: 'none', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, border: '1px solid rgba(34,211,238,0.22)', padding: '5px 14px', borderRadius: 999 }}>
-            <i className="ti ti-brand-discord" aria-hidden="true" /> See All Reviews
-          </a>
         </div>
       </section>
 
-      {selectedReview && (
-        <ReviewModal review={selectedReview} onClose={() => setSelectedReview(null)} />
-      )}
+      {selected && <ReviewModal review={selected} onClose={() => setSelected(null)} />}
+
+      <style>{`
+        .rev-card-inner:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 18px 52px rgba(0,0,0,0.44), 0 0 0 1px rgba(105,221,255,0.09);
+          border-color: rgba(255,255,255,0.11) !important;
+        }
+      `}</style>
     </>
   )
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 import { NAV_LINKS, DISCORD_URL } from '@/lib/constants'
 
 export function Navbar() {
@@ -10,7 +11,6 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const pathname = usePathname()
-  const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const stored = typeof window !== 'undefined' ? localStorage.getItem('ea-theme') : null
@@ -28,6 +28,14 @@ export function Navbar() {
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
+  // Escape closes drawer
+  useEffect(() => {
+    if (!mobileOpen) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMobileOpen(false) }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
   }, [mobileOpen])
 
   function toggleTheme() {
@@ -52,7 +60,6 @@ export function Navbar() {
   return (
     <>
       <nav
-        ref={navRef}
         className="site-nav"
         aria-label="Main navigation"
         style={{
@@ -61,7 +68,7 @@ export function Navbar() {
           left: 0,
           right: 0,
           zIndex: 9999,
-          padding: scrolled ? '10px min(28px, 4%)' : '18px min(28px, 4%)',
+          padding: scrolled ? '10px min(28px, 4%)' : '20px min(28px, 4%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -69,22 +76,19 @@ export function Navbar() {
           backdropFilter: scrolled ? 'blur(28px) saturate(200%)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(200%)' : 'none',
           borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
-          boxShadow: scrolled ? '0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 32px rgba(0,0,0,0.24)' : 'none',
-          transition: 'padding 0.35s var(--easing), background 0.35s, border-color 0.35s, box-shadow 0.35s',
-          viewTransitionName: 'site-nav',
+          boxShadow: scrolled ? '0 1px 0 rgba(255,255,255,0.03) inset, 0 8px 32px rgba(0,0,0,0.22)' : 'none',
+          transition: 'padding 0.4s cubic-bezier(0.16,1,0.3,1), background 0.4s, border-color 0.4s, box-shadow 0.4s',
         }}
       >
         {/* Logo */}
         <Link
           href="/"
-          className="logo"
           aria-label="ExtoArts home"
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
+            gap: 10,
             textDecoration: 'none',
-            viewTransitionName: 'site-logo',
             flexShrink: 0,
           }}
         >
@@ -112,11 +116,7 @@ export function Navbar() {
         {/* Desktop nav links */}
         <div
           className="nav-links"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-          }}
+          style={{ display: 'flex', alignItems: 'center', gap: 2 }}
         >
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href
@@ -124,21 +124,19 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                style={{
-                  fontSize: '0.72rem',
-                  letterSpacing: '0.6px',
-                  padding: '7px 14px',
-                  borderRadius: 999,
-                  textDecoration: 'none',
-                  color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
-                  fontWeight: isActive ? 700 : 500,
-                  background: isActive ? 'rgba(255,255,255,0.07)' : 'transparent',
-                  border: isActive ? '1px solid rgba(255,255,255,0.1)' : '1px solid transparent',
-                  transition: 'color 0.2s, background 0.2s, border-color 0.2s',
-                  display: 'none',
-                }}
                 className="nav-link-item"
                 aria-current={isActive ? 'page' : undefined}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: 12,
+                  fontSize: '0.82rem',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
+                  textDecoration: 'none',
+                  background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
+                  transition: 'color 0.2s, background 0.2s',
+                  letterSpacing: '-0.01em',
+                }}
               >
                 {link.label}
               </Link>
@@ -146,54 +144,54 @@ export function Navbar() {
           })}
         </div>
 
-        {/* Right controls */}
+        {/* Right actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           {/* Theme toggle */}
           <button
-            onClick={toggleTheme}
             className="theme-toggle"
+            onClick={toggleTheme}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             style={{
               background: 'transparent',
               border: '1px solid var(--border)',
-              borderRadius: 999,
-              width: 34,
-              height: 34,
+              borderRadius: 12,
+              width: 36,
+              height: 36,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               color: 'var(--text-muted)',
-              transition: 'border-color 0.2s, color 0.2s, background 0.2s',
               fontSize: '0.95rem',
+              transition: 'border-color 0.2s, color 0.2s, background 0.2s',
             }}
           >
             <i className={`ti ti-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true" />
           </button>
 
-          {/* Discord CTA */}
+          {/* CTA */}
           <button
             onClick={openDiscordModal}
             className="btn nav-cta"
-            aria-label="Start a project on Discord"
-            style={{ borderRadius: 999 }}
+            aria-label="Start a project"
+            style={{ borderRadius: 14 }}
           >
+            <i className="ti ti-brand-discord" aria-hidden="true" />
             Start a Project
           </button>
 
-          {/* Hamburger */}
+          {/* Hamburger (mobile) */}
           <button
             className="hamburger"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
+            onClick={() => setMobileOpen(v => !v)}
+            aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
             style={{
               background: 'transparent',
               border: '1px solid var(--border)',
-              borderRadius: 999,
-              width: 34,
-              height: 34,
+              borderRadius: 12,
+              width: 36,
+              height: 36,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -203,146 +201,170 @@ export function Navbar() {
               transition: 'border-color 0.2s, background 0.2s',
             }}
           >
-            <i className="ti ti-menu-2" aria-hidden="true" />
+            <i className={`ti ti-${mobileOpen ? 'x' : 'menu-2'}`} aria-hidden="true" />
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu overlay */}
-      {mobileOpen && (
-        <div
-          id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Navigation menu"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 99999,
-            background: 'rgba(0,0,0,0.6)',
-            backdropFilter: 'blur(6px)',
-            WebkitBackdropFilter: 'blur(6px)',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            animation: 'fadeIn 0.2s ease',
-          }}
-          onClick={(e) => { if (e.target === e.currentTarget) setMobileOpen(false) }}
-        >
-          <div
-            style={{
-              width: 'min(300px, 86vw)',
-              background: 'var(--surface)',
-              borderLeft: '1px solid var(--border)',
-              display: 'flex',
-              flexDirection: 'column',
-              padding: '20px',
-              overflowY: 'auto',
-              boxShadow: '-24px 0 80px rgba(0,0,0,0.5)',
-              animation: 'mobileMenuSlideIn 0.3s var(--ease-spring)',
-            }}
-          >
-            {/* Mobile header */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
-              <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-                <img src="/favicon-192.png" width={28} height={28} alt="ExtoArts" style={{ borderRadius: 7 }} />
-                <span style={{ fontWeight: 900, fontSize: '0.98rem', color: 'var(--text-main)', fontFamily: 'var(--font-display)' }}>ExtoArts</span>
-              </Link>
-              <button
-                onClick={() => setMobileOpen(false)}
-                aria-label="Close menu"
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 9990,
+                background: 'rgba(0,0,0,0.55)',
+                backdropFilter: 'blur(6px)',
+                WebkitBackdropFilter: 'blur(6px)',
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Drawer panel */}
+            <motion.div
+              key="drawer"
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: 'fixed',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                width: 'min(340px, 88vw)',
+                zIndex: 9995,
+                background: 'var(--surface)',
+                borderLeft: '1px solid var(--border)',
+                display: 'flex',
+                flexDirection: 'column',
+                overflowY: 'auto',
+                boxShadow: '-24px 0 64px rgba(0,0,0,0.4)',
+              }}
+              role="dialog"
+              aria-label="Mobile navigation"
+              aria-modal="true"
+            >
+              {/* Drawer header */}
+              <div
                 style={{
-                  background: 'transparent',
-                  border: '1px solid var(--border)',
-                  borderRadius: 999,
-                  width: 32,
-                  height: 32,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  color: 'var(--text-muted)',
-                  fontSize: '0.9rem',
+                  justifyContent: 'space-between',
+                  padding: '20px 24px',
+                  borderBottom: '1px solid var(--border)',
                 }}
               >
-                <i className="ti ti-x" aria-hidden="true" />
-              </button>
-            </div>
+                <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}>
+                  <img src="/favicon-192.png" width={28} height={28} alt="ExtoArts" style={{ borderRadius: 7 }} />
+                  <span style={{ fontWeight: 900, fontSize: '0.98rem', color: 'var(--text-main)', fontFamily: 'var(--font-display)' }}>ExtoArts</span>
+                </Link>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close menu"
+                  style={{
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 10,
+                    width: 34,
+                    height: 34,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: 'var(--text-muted)',
+                    fontSize: '0.9rem',
+                    fontFamily: 'var(--font-body)',
+                  }}
+                >
+                  <i className="ti ti-x" aria-hidden="true" />
+                </button>
+              </div>
 
-            {/* Nav links */}
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
-              {[...NAV_LINKS, { href: '/contact', label: 'Contact' }].map((link) => {
-                const isActive = pathname === link.href
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    style={{
-                      padding: '12px 16px',
-                      borderRadius: 12,
-                      textDecoration: 'none',
-                      color: isActive ? 'var(--primary)' : 'var(--text-main)',
-                      fontWeight: isActive ? 700 : 500,
-                      background: isActive ? 'rgba(34,211,238,0.06)' : 'transparent',
-                      fontSize: '0.93rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 10,
-                      transition: 'background 0.2s, color 0.2s',
-                      borderLeft: isActive ? '2px solid var(--primary)' : '2px solid transparent',
-                    }}
-                    aria-current={isActive ? 'page' : undefined}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              })}
-            </nav>
+              {/* Nav links */}
+              <nav style={{ padding: '16px 16px', flex: 1 }}>
+                {NAV_LINKS.map((link, i) => {
+                  const isActive = pathname === link.href
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 + i * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <Link
+                        href={link.href}
+                        aria-current={isActive ? 'page' : undefined}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          padding: '12px 14px',
+                          borderRadius: 12,
+                          fontSize: '0.9rem',
+                          fontWeight: isActive ? 800 : 500,
+                          color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
+                          textDecoration: 'none',
+                          background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
+                          transition: 'background 0.2s, color 0.2s',
+                          marginBottom: 4,
+                        }}
+                      >
+                        {isActive && (
+                          <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--primary)', flexShrink: 0, boxShadow: '0 0 8px var(--primary)' }} />
+                        )}
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  )
+                })}
+              </nav>
 
-            {/* Mobile footer */}
-            <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <a
-                href={DISCORD_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{
-                  background: '#5865f2',
-                  color: '#fff',
-                  borderRadius: 12,
-                  justifyContent: 'center',
-                  width: '100%',
-                  fontWeight: 800,
-                  fontSize: '0.88rem',
-                  boxShadow: '0 4px 16px rgba(88,101,242,0.28)',
-                }}
-              >
-                <i className="ti ti-brand-discord" aria-hidden="true" /> Join Discord
-              </a>
-              <button
-                onClick={toggleTheme}
-                style={{
-                  background: 'transparent',
-                  border: '1px solid var(--border)',
-                  borderRadius: 12,
-                  padding: '11px 16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  cursor: 'pointer',
-                  color: 'var(--text-muted)',
-                  fontSize: '0.85rem',
-                  fontFamily: 'var(--font-body)',
-                  width: '100%',
-                  transition: 'border-color 0.2s',
-                }}
-              >
-                <i className={`ti ti-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true" />
-                {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+              {/* Drawer footer */}
+              <div style={{ padding: '16px 20px 32px', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <button
+                  onClick={() => { openDiscordModal(); setMobileOpen(false) }}
+                  className="btn btn-primary-glow"
+                  style={{ width: '100%', justifyContent: 'center', borderRadius: 14 }}
+                >
+                  <i className="ti ti-brand-discord" aria-hidden="true" />
+                  Start a Project
+                </button>
+                <button
+                  onClick={toggleTheme}
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid var(--border)',
+                    borderRadius: 12,
+                    padding: '11px 16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    cursor: 'pointer',
+                    color: 'var(--text-muted)',
+                    fontSize: '0.85rem',
+                    fontFamily: 'var(--font-body)',
+                    width: '100%',
+                    transition: 'border-color 0.2s',
+                  }}
+                >
+                  <i className={`ti ti-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true" />
+                  {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @media (min-width: 820px) {
@@ -352,19 +374,9 @@ export function Navbar() {
         @media (max-width: 819px) {
           .nav-links { display: none !important; }
         }
-        .nav-link-item:hover {
-          color: var(--text-main) !important;
-          background: rgba(255,255,255,0.05) !important;
-        }
-        .theme-toggle:hover {
-          border-color: var(--border-hover) !important;
-          color: var(--text-main) !important;
-          background: rgba(255,255,255,0.04) !important;
-        }
-        .hamburger:hover {
-          border-color: var(--border-hover) !important;
-          background: rgba(255,255,255,0.04) !important;
-        }
+        .nav-link-item:hover { color: var(--text-main) !important; background: rgba(255,255,255,0.05) !important; }
+        .theme-toggle:hover { border-color: var(--border-hover) !important; color: var(--text-main) !important; }
+        .hamburger:hover { border-color: var(--border-hover) !important; background: rgba(255,255,255,0.04) !important; }
       `}</style>
     </>
   )

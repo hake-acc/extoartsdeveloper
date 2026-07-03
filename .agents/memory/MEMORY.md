@@ -1,2 +1,5 @@
 - [Discord modal interactivity pattern](discord-modal-pattern.md) — all onClick handlers that open/close the Discord modal must live in 'use client' components; never inline in server pages.
 - [Hero cycle animation CSS](hero-cycle-animation.md) — background-clip:text on parent does NOT propagate through cycle-phrase children; use solid color on .cycle-phrase directly and grid layout on .cycle-stack.
+- [Hero cycle React pattern](hero-cycle-react.md) — cycle phrases must use React state + useEffect (not DOM setInterval in ClientScripts) for proper SSR hydration and route-change cleanup.
+- [Radix accordion controlled state](radix-accordion-controlled.md) — Radix single-accordion + per-item local useState causes desync; always lift open state to Root via value/onValueChange.
+- [InView framer-motion typing](inview-framer-typing.md) — useInView margin must be omitted (not passed as string); use amount instead; ref should be HTMLElement; ease must be named string not number[].

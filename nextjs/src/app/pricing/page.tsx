@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/metadata'
 import { JsonLd } from '@/components/JsonLd'
-import { SectionHeader } from '@/components/ui/SectionHeader'
 import { DiscordButton } from '@/components/ui/DiscordButton'
+import { BorderBeam } from '@/components/ui/BorderBeam'
+import { InView } from '@/components/ui/InView'
 
 export const metadata: Metadata = buildMetadata({
   title: 'YouTube Video Editing Pricing & Rates | ExtoArts',
@@ -12,9 +13,30 @@ export const metadata: Metadata = buildMetadata({
 })
 
 const COST_TIERS = [
-  { name: 'Basic Editing', range: '$20 - $80', who: 'Freelancer (Low-tier)', includes: 'Simple cuts, basic transitions, minimal color. Suitable for low-budget or beginner channels.', warning: true },
-  { name: 'Mid-Tier Specialist', range: '$100 - $350', who: 'Experienced Freelancer / ExtoArts', includes: 'Retention-focused editing, motion graphics, professional color grading, thumbnail design.', featured: true },
-  { name: 'Premium Agency', range: '$400 - $1,200+', who: 'Large Agency', includes: 'Full-service production, multiple rounds, dedicated account management, licensed music.', warning: false },
+  {
+    name: 'Basic Editing',
+    range: '$20 - $80',
+    who: 'Freelancer (Low-tier)',
+    includes: 'Simple cuts, basic transitions, minimal color. Suitable for low-budget or beginner channels.',
+    warning: true,
+    featured: false,
+  },
+  {
+    name: 'Mid-Tier Specialist',
+    range: '$100 - $350',
+    who: 'Experienced Freelancer / ExtoArts',
+    includes: 'Retention-focused editing, motion graphics, professional color grading, thumbnail design.',
+    warning: false,
+    featured: true,
+  },
+  {
+    name: 'Premium Agency',
+    range: '$400 - $1,200+',
+    who: 'Large Agency',
+    includes: 'Full-service production, multiple rounds, dedicated account management, licensed music.',
+    warning: false,
+    featured: false,
+  },
 ]
 
 const RETAINER_PACKAGES = [
@@ -34,7 +56,7 @@ const RETAINER_PACKAGES = [
     desc: 'For active YouTubers who upload weekly and need reliable, fast delivery.',
     features: ['8-12 videos per month', 'Priority queue (2-3 days)', 'Unlimited revisions', 'Thumbnails included', 'Short-form repurposing included', 'Dedicated editor assigned'],
     featured: true,
-    cta: 'Most Popular - Get a Quote',
+    cta: 'Most Popular',
   },
   {
     name: 'Agency',
@@ -63,138 +85,216 @@ export default function PricingPage() {
       <JsonLd data={faqSchema} />
       <h1 className="sr-only">ExtoArts Pricing - Flat 10% Agency Fee</h1>
 
-      {/* Page hero */}
-      <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(60px,6vw)', textAlign: 'center', maxWidth: 860, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <span className="hero-badge" style={{ marginBottom: 28 }}>
-          <span className="hero-badge-dot" aria-hidden="true" />
-          Flat 10% Agency Fee
+      {/* Hero */}
+      <section
+        style={{
+          padding: 'min(20vh,160px) min(20px,5%) min(60px,5vw)',
+          textAlign: 'center',
+          maxWidth: 720,
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 10,
+        }}
+      >
+        <span className="sec-label" style={{ display: 'inline-flex', marginBottom: 20, alignItems: 'center', gap: 8 }}>
+          <span className="gradient-dot" aria-hidden="true" />
+          Radical Transparency
         </span>
-        <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
-          Transparent Pricing.<br /><span className="sweep-text">No Surprises.</span>
-        </h1>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 540, margin: '0 auto 44px', lineHeight: 1.72 }}>
-          You set your editing budget. We take 10%. Your editor gets 90%. It&apos;s that simple.
-          No retainer lock-in, no hidden fees, no setup costs.
+        <h2 className="font-hero" style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 400, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 20, color: 'var(--text-main)' }}>
+          Simple, Honest <span className="sweep-text">Pricing.</span>
+        </h2>
+        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
+          You set the budget. We take 10%. Your editor gets 90%. That&apos;s the entire model.
         </p>
+      </section>
 
-        {/* Main pricing model card */}
+      {/* The 10% model explainer */}
+      <section style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <div
-          className="tilt-card glass-card"
-          style={{ border: '1px solid rgba(34,211,238,0.25)', borderRadius: 24, padding: 'min(48px,5vw)', maxWidth: 640, margin: '0 auto', textAlign: 'center' }}
+          className="gradient-border"
+          style={{ padding: 'min(48px,5vw)', textAlign: 'center', borderRadius: 28 }}
         >
-          <div className="tilt-inner">
-            <div style={{ fontSize: 'clamp(3.5rem,8vw,5.5rem)', fontWeight: 900, letterSpacing: '-3px', lineHeight: 1 }}>
-              <span className="gradient-num">10%</span>
-            </div>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', margin: '16px 0 24px', lineHeight: 1.6 }}>
-              Flat agency fee. Nothing more.
-            </p>
-            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', borderRadius: 16, padding: '20px 24px', marginBottom: 28, textAlign: 'left' }}>
-              <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '0 0 10px', fontWeight: 700 }}>Example calculation</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
-                  <span style={{ color: 'var(--text-muted)' }}>Your editing budget</span>
-                  <span style={{ color: 'var(--text-main)', fontWeight: 700 }}>$200 / video</span>
+          <div className="gradient-dot" aria-hidden="true" style={{ display: 'inline-block', width: 10, height: 10, marginBottom: 20 }} />
+          <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 16 }}>
+            The 10% Model - How It Works
+          </h2>
+          <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', maxWidth: 540, margin: '0 auto 36px', lineHeight: 1.78 }}>
+            Most agencies charge 40-70% overhead and give the rest to junior editors. ExtoArts flips the model: senior specialists earn what they deserve, and you get better results.
+          </p>
+
+          {/* Calculator visual */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 14,
+              maxWidth: 640,
+              margin: '0 auto',
+            }}
+            className="fee-calc-grid"
+          >
+            {[
+              { label: 'Your Budget', value: '$200', sub: 'per video', color: 'var(--text-main)', bg: 'rgba(255,255,255,0.04)' },
+              { label: 'ExtoArts Fee', value: '$20', sub: 'flat 10%', color: 'var(--primary)', bg: 'rgba(105,221,255,0.06)' },
+              { label: 'Editor Earns', value: '$180', sub: '90% to you', color: '#a3e635', bg: 'rgba(163,230,53,0.06)' },
+            ].map((item) => (
+              <div
+                key={item.label}
+                style={{
+                  padding: '24px 16px',
+                  background: item.bg,
+                  border: '1px solid var(--border)',
+                  borderRadius: 18,
+                  textAlign: 'center',
+                }}
+              >
+                <div style={{ fontSize: 'clamp(1.6rem,3vw,2.4rem)', fontWeight: 900, color: item.color, letterSpacing: '-1.5px', lineHeight: 1 }}>
+                  {item.value}
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
-                  <span style={{ color: 'var(--text-muted)' }}>ExtoArts fee (10%)</span>
-                  <span style={{ color: 'var(--warm)', fontWeight: 700 }}>-$20</span>
+                <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-muted)', marginTop: 6, textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+                  {item.label}
                 </div>
-                <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '4px 0' }} />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.96rem' }}>
-                  <span style={{ color: 'var(--primary)', fontWeight: 700 }}>Your editor receives</span>
-                  <span style={{ color: 'var(--primary)', fontWeight: 900 }}>$180</span>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4, opacity: 0.7 }}>
+                  {item.sub}
                 </div>
               </div>
-            </div>
-            <DiscordButton
-              className="btn btn-main"
-              style={{ width: '100%', justifyContent: 'center' }}
-            >
-              <i className="ti ti-brand-discord" aria-hidden="true" /> Get a Custom Quote
-            </DiscordButton>
-            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 12 }}>
-              No commitment until you approve the quote. Custom pricing for every project.
-            </p>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Market comparison */}
-      <section style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 1100, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <SectionHeader
-          label="Market Context"
-          title={<>What Does YouTube Editing <span className="sweep-text">Actually Cost?</span></>}
-          subtitle="How ExtoArts compares to freelancers and traditional agencies in 2026."
-        />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-          {COST_TIERS.map((tier) => (
-            <div
+      <section style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <span className="sec-label" style={{ display: 'inline-flex', marginBottom: 14, alignItems: 'center', gap: 8 }}>
+            <span className="gradient-dot" aria-hidden="true" />
+            Market Comparison
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1 }}>
+            Where Does ExtoArts Fit?
+          </h2>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 14 }} className="tier-grid">
+          {COST_TIERS.map((tier, i) => (
+            <InView
               key={tier.name}
-              className={`glass-card sr${tier.featured ? ' tilt-card' : ''}`}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className={`price-card${tier.featured ? ' featured' : ''}`}
               style={{
-                border: tier.featured ? '1px solid rgba(34,211,238,0.28)' : '1px solid var(--border)',
-                borderRadius: 20,
                 padding: '28px 24px',
                 position: 'relative',
-              }}
+                overflow: 'hidden',
+                borderRadius: 20,
+                border: tier.featured ? '1px solid rgba(105,221,255,0.24)' : '1px solid var(--border)',
+              } as React.CSSProperties}
             >
               {tier.featured && (
-                <span style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: 'var(--primary)', color: '#000', fontSize: '0.62rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1.5px', padding: '4px 14px', borderRadius: 999, whiteSpace: 'nowrap' }}>
-                  ExtoArts Range
-                </span>
+                <>
+                  <BorderBeam size={100} duration={8} colorFrom="#69ddff" colorTo="#dbbadd" borderWidth={1} />
+                  <div style={{ position: 'absolute', top: 14, right: 14 }}>
+                    <span className="highlight-chip">
+                      <i className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.55rem' }} />
+                      ExtoArts
+                    </span>
+                  </div>
+                </>
               )}
-              <div className={tier.featured ? 'tilt-inner' : undefined}>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 6 }}>{tier.name}</h3>
-                <div style={{ fontSize: 'clamp(1.5rem,3vw,2rem)', fontWeight: 900, color: tier.featured ? 'var(--primary)' : 'var(--text-main)', letterSpacing: '-1px', marginBottom: 8 }}>{tier.range}</div>
-                <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: 12, fontWeight: 600 }}>{tier.who}</p>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.65, margin: 0 }}>{tier.includes}</p>
+              {tier.warning && (
+                <div style={{ position: 'absolute', top: 14, right: 14 }}>
+                  <span style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#f59e0b', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)', padding: '3px 10px', borderRadius: 999 }}>
+                    Low quality risk
+                  </span>
+                </div>
+              )}
+              <div className="tilt-inner">
+                <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 6, paddingRight: tier.featured || tier.warning ? '60px' : 0 }}>
+                  {tier.name}
+                </h3>
+                <div style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)', fontWeight: 900, color: tier.featured ? 'var(--primary)' : 'var(--text-main)', letterSpacing: '-1.5px', lineHeight: 1, marginBottom: 8 }}>
+                  {tier.range}
+                </div>
+                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  {tier.who}
+                </div>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.7, margin: 0 }}>
+                  {tier.includes}
+                </p>
               </div>
-            </div>
+            </InView>
           ))}
         </div>
       </section>
 
       {/* Retainer packages */}
       <section style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 1100, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <SectionHeader
-          label="Monthly Packages"
-          title={<>Retainer Packages for <span className="sweep-text">Regular Creators.</span></>}
-          subtitle="Lock in priority queue placement and a dedicated editor for consistent monthly volume."
-        />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: 20 }}>
-          {RETAINER_PACKAGES.map((pkg) => (
-            <div
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <span className="sec-label" style={{ display: 'inline-flex', marginBottom: 14, alignItems: 'center', gap: 8 }}>
+            <span className="gradient-dot" aria-hidden="true" />
+            Monthly Plans
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.6rem,3.2vw,2.4rem)', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 12 }}>
+            Retainer Packages
+          </h2>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', maxWidth: 420, margin: '0 auto', lineHeight: 1.72 }}>
+            Lock in a dedicated editor, priority delivery, and consistent quality every month.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }} className="package-grid">
+          {RETAINER_PACKAGES.map((pkg, i) => (
+            <InView
               key={pkg.name}
-              className={`price-card${pkg.featured ? ' featured tilt-card' : ' glass-card'} sr`}
-              style={{ padding: 'min(36px,4vw)', position: 'relative' }}
+              transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className={`price-card${pkg.featured ? ' featured tilt-card glass-card' : ''}`}
+              style={{
+                padding: 'min(36px,3.5vw)',
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: 22,
+                border: pkg.featured ? '1px solid rgba(105,221,255,0.22)' : '1px solid var(--border)',
+              } as React.CSSProperties}
             >
               {pkg.featured && (
-                <div aria-hidden="true" className="ea-card-ring ea-ring-always" />
+                <>
+                  <BorderBeam size={150} duration={9} delay={1} colorFrom="#69ddff" colorTo="#dbbadd" borderWidth={1} />
+                  <div style={{ position: 'absolute', top: 18, right: 18 }}>
+                    <span className="highlight-chip">Most Popular</span>
+                  </div>
+                </>
               )}
               <div className={pkg.featured ? 'tilt-inner' : undefined}>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--text-main)', marginBottom: 6 }}>{pkg.name}</h3>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: 24, lineHeight: 1.6 }}>{pkg.desc}</p>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--text-main)', marginBottom: 6, letterSpacing: '-0.3px' }}>
+                  {pkg.name}
+                </h3>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: 28, lineHeight: 1.65 }}>
+                  {pkg.desc}
+                </p>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
                   {pkg.features.map((f) => (
-                    <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: '0.84rem', color: 'var(--text-muted)' }}>
-                      <i className="ti ti-check" aria-hidden="true" style={{ color: 'var(--primary)', flexShrink: 0 }} />
+                    <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: '0.83rem', color: 'var(--text-muted)' }}>
+                      <i className="ti ti-check" aria-hidden="true" style={{ color: 'var(--primary)', flexShrink: 0, marginTop: '2px' }} />
                       {f}
                     </li>
                   ))}
                 </ul>
                 <DiscordButton
-                  className={`btn ${pkg.featured ? 'btn-main' : 'btn-glass'}`}
+                  className={`btn ${pkg.featured ? 'btn-primary-glow' : 'btn-glass'}`}
                   style={{ width: '100%', justifyContent: 'center' }}
                 >
                   {pkg.cta}
                 </DiscordButton>
               </div>
-            </div>
+            </InView>
           ))}
         </div>
-        <p style={{ textAlign: 'center', fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: 24 }}>
-          All retainer packages are priced based on your video length, complexity, and monthly volume. <Link href="/estimate" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Use our estimator</Link> to get a ballpark figure.
+
+        <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 24, opacity: 0.7 }}>
+          All plans priced based on video length, complexity, and volume.{' '}
+          <Link href="/estimate" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>
+            Use our estimator
+          </Link>{' '}
+          for a ballpark figure.
         </p>
       </section>
 
@@ -204,20 +304,45 @@ export default function PricingPage() {
           <span className="gradient-dot" aria-hidden="true" />
           Payment Methods
         </span>
-        <h2 style={{ fontSize: 'clamp(1.4rem,3vw,2rem)', fontWeight: 900, marginBottom: 16, letterSpacing: '-0.5px' }}>Pay How You&apos;re Comfortable</h2>
-        <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: 28, lineHeight: 1.7 }}>
-          We work with creators worldwide. That means accepting payments in formats that work globally.
+        <h2 style={{ fontSize: 'clamp(1.4rem,3vw,2rem)', fontWeight: 900, marginBottom: 14, letterSpacing: '-0.5px' }}>
+          Pay How You&apos;re Comfortable
+        </h2>
+        <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: 28, lineHeight: 1.7 }}>
+          We work with creators worldwide - accepting payments in formats that work globally.
         </p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
           {['PayPal', 'UPI', 'Bank Transfer', 'USDT', 'BTC', 'ETH', 'EasyPaisa', 'Bkash', 'PKR'].map((m) => (
-            <span key={m} style={{ padding: '7px 16px', border: '1px solid var(--border)', borderRadius: 999, fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', background: 'rgba(255,255,255,0.03)' }}>
+            <span
+              key={m}
+              style={{
+                padding: '8px 18px',
+                border: '1px solid var(--border)',
+                borderRadius: 999,
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                color: 'var(--text-muted)',
+                background: 'rgba(255,255,255,0.025)',
+                transition: 'border-color 0.2s, color 0.2s',
+              }}
+            >
               {m}
             </span>
           ))}
         </div>
-        <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 18 }}>50% deposit before work begins. Remaining balance due before final file delivery.</p>
+        <p style={{ fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: 20, opacity: 0.6 }}>
+          50% deposit before work begins. Remaining balance due before final file delivery.
+        </p>
       </section>
 
+      <style>{`
+        @media (max-width: 700px) {
+          .fee-calc-grid { grid-template-columns: 1fr !important; }
+          .tier-grid, .package-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 900px) {
+          .tier-grid, .package-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </>
   )
 }

@@ -1,122 +1,112 @@
+import { InView } from '@/components/ui/InView'
+
 const STATS = [
   {
-    value: 120,
-    suffix: '+',
+    icon: 'ti-video',
+    value: '120+',
     label: 'Projects Delivered',
-    icon: 'ti-package',
-    desc: 'Completed across all niches',
+    desc: 'Videos edited, thumbnails designed, channels grown',
+    countUp: '120',
   },
   {
-    value: 5.0,
-    suffix: '/5',
-    label: 'Average Rating',
     icon: 'ti-star-filled',
-    decimals: 1,
-    desc: 'Verified Discord reviews',
+    value: '5.0',
+    label: 'Average Rating',
+    desc: 'Verified reviews across Discord and Trustpilot',
+    countUp: '5.0',
   },
   {
-    value: 10,
-    suffix: '%',
+    icon: 'ti-percent',
+    value: '10%',
     label: 'Flat Agency Fee',
-    icon: 'ti-percentage',
-    prefix: 'Only ',
-    desc: '90% goes to your editor',
+    desc: '90% of your budget goes directly to your editor',
   },
   {
-    value: 48,
-    suffix: 'h',
-    label: 'Avg. Turnaround',
     icon: 'ti-clock',
-    prefix: '<',
-    desc: 'For thumbnails & shorts',
+    value: '48h',
+    label: 'Turnaround',
+    desc: 'Rush delivery for urgent projects, guaranteed',
   },
 ]
 
 export function StatsSection() {
   return (
     <section
-      aria-label="Agency statistics"
+      aria-label="Key statistics"
       style={{
-        padding: 'min(64px,6vw) min(20px,5%)',
-        maxWidth: 1100,
+        padding: 'min(80px,7vw) min(20px,5%)',
+        maxWidth: 1200,
         margin: '0 auto',
         position: 'relative',
         zIndex: 10,
       }}
     >
+      <hr className="section-divider" style={{ marginBottom: 'min(72px,6vw)' }} />
+
       <div
-        className="stats-row"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: 14,
-        }}
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}
+        className="stats-grid"
       >
         {STATS.map((stat, i) => (
-          <div
+          <InView
             key={stat.label}
-            className="stat-item glass-card shine-border sr"
+            as="div"
+            transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            variants={{
+              hidden: { opacity: 0, y: 24 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="stat-item glass-card tilt-card shine-border"
             style={{
               border: '1px solid var(--border)',
               borderRadius: 20,
-              padding: '32px 28px',
-              textAlign: 'center',
-              animationDelay: `${i * 50}ms`,
+              padding: 'min(32px,3vw) min(26px,2.5vw)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 12,
               position: 'relative',
               overflow: 'hidden',
-              transition: 'transform 0.35s var(--ease-spring), box-shadow 0.35s',
             }}
           >
             <div className="ea-card-ring" aria-hidden="true" />
-            {/* Icon */}
-            <div
-              className="icon-box"
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: 14,
-                margin: '0 auto 18px',
-              }}
-            >
-              <i className={`ti ${stat.icon}`} aria-hidden="true" style={{ fontSize: '1.25rem' }} />
+            <div className="tilt-inner">
+              <div
+                className="icon-box"
+                style={{ width: 44, height: 44, borderRadius: 12, fontSize: '1.1rem', marginBottom: 16 }}
+                aria-hidden="true"
+              >
+                <i className={`ti ${stat.icon}`} />
+              </div>
+              <div
+                className="stat-number gradient-num"
+                style={{
+                  fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
+                  fontWeight: 900,
+                  letterSpacing: '-2px',
+                  lineHeight: 1,
+                  marginBottom: 8,
+                }}
+                data-count-up={stat.countUp}
+              >
+                {stat.value}
+              </div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.01em', marginBottom: 6 }}>
+                {stat.label}
+              </div>
+              <p style={{ fontSize: '0.74rem', color: 'var(--text-muted)', lineHeight: 1.55, margin: 0 }}>
+                {stat.desc}
+              </p>
             </div>
-            {/* Number */}
-            <div
-              className="stat-number gradient-num"
-              style={{
-                fontSize: 'clamp(2.2rem, 4.5vw, 3rem)',
-                fontWeight: 900,
-                lineHeight: 1,
-                marginBottom: 8,
-              }}
-              data-count-up
-              data-target={stat.value}
-              data-suffix={stat.suffix}
-              data-prefix={stat.prefix ?? ''}
-              data-decimals={stat.decimals ?? 0}
-            >
-              {stat.prefix ?? ''}{stat.value}{stat.suffix}
-            </div>
-            <p style={{
-              fontSize: '0.8rem',
-              color: 'var(--text-main)',
-              margin: '0 0 5px',
-              fontWeight: 700,
-              letterSpacing: '-0.1px',
-            }}>
-              {stat.label}
-            </p>
-            <p style={{
-              fontSize: '0.7rem',
-              color: 'var(--text-muted)',
-              margin: 0,
-              fontWeight: 500,
-            }}>
-              {stat.desc}
-            </p>
-          </div>
+          </InView>
         ))}
       </div>
+
+      <hr className="section-divider" style={{ marginTop: 'min(72px,6vw)' }} />
+
+      <style>{`
+        @media (max-width: 800px) { .stats-grid { grid-template-columns: repeat(2,1fr) !important; } }
+        @media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
     </section>
   )
 }
