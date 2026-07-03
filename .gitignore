@@ -1,0 +1,5 @@
+value.json
+admin.txt
+*.zip
+.env
+.env.local
