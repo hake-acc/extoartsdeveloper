@@ -7,12 +7,13 @@ import { GalaxyButton } from '@/components/ui/GalaxyButton'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 import { MaskTextReveal } from '@/components/motion/MaskTextReveal'
 
-const HERO_PHRASES = [
-  'Video Editing',
-  'Thumbnail Design',
-  'Shorts Editing',
-  'Channel Growth',
-  'Motion Graphics',
+// Each phrase gets its own brand color — all 5 palette colours in sequence
+const HERO_PHRASES: { text: string; color: string }[] = [
+  { text: 'Video Editing',    color: '#69ddff' }, // Frozen Lake
+  { text: 'Thumbnail Design', color: '#96cdff' }, // Sky Blue
+  { text: 'Shorts Editing',   color: '#d8e1ff' }, // Lavender
+  { text: 'Channel Growth',   color: '#dbbadd' }, // Pink Orchid
+  { text: 'Motion Graphics',  color: '#be92a2' }, // Old Rose
 ]
 
 const TICKER_ITEMS = [
@@ -41,7 +42,7 @@ function openDiscordModal() {
   if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden' }
 }
 
-// ── Cycling headline phrase - React-managed with proper cleanup ────────────────
+// ── Cycling headline phrase — each phrase has its own brand colour ─────────────
 function CycleStack() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [exitIndex, setExitIndex] = useState<number | null>(null)
@@ -51,7 +52,6 @@ function CycleStack() {
       setActiveIndex((prev) => {
         const next = (prev + 1) % HERO_PHRASES.length
         setExitIndex(prev)
-        // Clear exit class after transition
         setTimeout(() => setExitIndex(null), 400)
         return next
       })
@@ -68,15 +68,16 @@ function CycleStack() {
     >
       {HERO_PHRASES.map((phrase, i) => (
         <span
-          key={phrase}
+          key={phrase.text}
           className={[
             'cycle-phrase hero-accent-phrase',
             i === activeIndex ? 'is-active' : '',
             i === exitIndex ? 'is-exit' : '',
           ].filter(Boolean).join(' ')}
           aria-hidden={i !== activeIndex}
+          style={{ color: phrase.color }}
         >
-          {phrase}
+          {phrase.text}
         </span>
       ))}
     </span>
@@ -103,9 +104,9 @@ export function HeroSection() {
           isolation: 'isolate',
         }}
       >
-        {/* WebGL Aurora background - graceful CSS fallback if WebGL2 unavailable */}
+        {/* WebGL Aurora — all 5 brand colours */}
         <AuroraGL
-          colorStops={['#04040b', '#69ddff', '#be92a2']}
+          colorStops={['#04040b', '#69ddff', '#96cdff', '#d8e1ff', '#dbbadd', '#be92a2']}
           amplitude={1.2}
           blend={0.48}
           speed={0.3}
@@ -131,9 +132,10 @@ export function HeroSection() {
           </span>
         </motion.div>
 
-        {/* Main headline — mask-reveal each line on load */}
+        {/* Main headline — mask-reveal on the static line; fade on the cycling line */}
         <h1 className="hero-title" style={{ marginBottom: 24 }}>
-          <MaskTextReveal delay={0.08} duration={0.78}>
+          {/* Line 1 — masked slide-up reveal */}
+          <MaskTextReveal delay={0.08} duration={0.82}>
             <span
               className="font-hero"
               style={{
@@ -148,19 +150,21 @@ export function HeroSection() {
               Elite Creative Services
             </span>
           </MaskTextReveal>
-          <MaskTextReveal delay={0.18} duration={0.78}>
-            <span
-              style={{
-                display: 'block',
-                fontSize: 'clamp(2.5rem, 5.8vw, 5rem)',
-                fontWeight: 900,
-                letterSpacing: '-2.5px',
-                lineHeight: 1.1,
-              }}
-            >
-              for <CycleStack />
-            </span>
-          </MaskTextReveal>
+          {/* Line 2 — simple fade so CycleStack animates freely */}
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: 'block',
+              fontSize: 'clamp(2.5rem, 5.8vw, 5rem)',
+              fontWeight: 900,
+              letterSpacing: '-2.5px',
+              lineHeight: 1.1,
+            }}
+          >
+            for <CycleStack />
+          </motion.span>
         </h1>
 
         {/* Sub-text */}
@@ -219,36 +223,72 @@ export function HeroSection() {
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ width: 1, height: 28, background: 'linear-gradient(to bottom, var(--text-muted), transparent)' }}
-          />
-        </motion.div>
-
-        {/* Ticker strip */}
-        <motion.div
-          {...fade(0.42)}
-          className="ticker-outer"
-          aria-hidden="true"
-          style={{
-            width: '100vw',
-            overflow: 'hidden',
-            position: 'relative',
-            borderTop: '1px solid var(--border)',
-            borderBottom: '1px solid var(--border)',
-            padding: '11px 0',
-            marginBottom: -1,
-            background: 'rgba(255,255,255,0.012)',
-          }}
-        >
-          <div className="ticker-track">
-            {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-              <span key={i} className="ticker-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '5px 16px', marginRight: 8, borderRadius: 999, border: '1px solid var(--border)', fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', whiteSpace: 'nowrap', background: 'transparent', transition: 'all 0.2s', cursor: 'default', letterSpacing: '0.2px' }}>
-                <i className={`ti ${item.icon}`} style={{ color: 'var(--primary)', fontSize: '0.76rem' }} />
-                {item.text}
-              </span>
-            ))}
-          </div>
+            style={{
+              width: 20,
+              height: 30,
+              borderRadius: 50,
+              border: '1.5px solid var(--text-muted)',
+              display: 'flex',
+              justifyContent: 'center',
+              paddingTop: 5,
+            }}
+          >
+            <div style={{ width: 3, height: 5, borderRadius: 4, background: 'var(--text-main)' }} />
+          </motion.div>
         </motion.div>
       </section>
+
+      {/* ── Ticker ── */}
+      <div
+        role="marquee"
+        aria-label="Services offered"
+        style={{
+          overflow: 'hidden',
+          background: 'var(--surface)',
+          borderTop: '1px solid var(--border)',
+          borderBottom: '1px solid var(--border)',
+          padding: '14px 0',
+          position: 'relative',
+          zIndex: 10,
+          maskImage: 'linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            width: 'max-content',
+            animation: 'marqueeScroll 28s linear infinite',
+          }}
+          aria-hidden="true"
+        >
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => {
+            // Assign brand colours in sequence across ticker items
+            const TICKER_COLORS = ['#69ddff', '#96cdff', '#d8e1ff', '#dbbadd', '#be92a2']
+            const c = TICKER_COLORS[i % TICKER_COLORS.length]
+            return (
+              <span
+                key={i}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  paddingRight: 44,
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  color: 'var(--text-muted)',
+                  letterSpacing: '0.8px',
+                  textTransform: 'uppercase',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <i className={`ti ${item.icon}`} aria-hidden="true" style={{ color: c, fontSize: '0.85rem' }} />
+                {item.text}
+              </span>
+            )
+          })}
+        </div>
+      </div>
     </>
   )
 }

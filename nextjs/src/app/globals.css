@@ -91,15 +91,15 @@
   --glass-blur: blur(40px) saturate(240%);
   --glass-bg: rgba(14,14,26,0.84);
   --glass-border: rgba(255,255,255,0.07);
-  --ea-stream: linear-gradient(90deg, transparent 0%, rgba(105,221,255,0.75) 22%, rgba(219,186,221,0.9) 78%, transparent 100%);
+  --ea-stream: linear-gradient(90deg, transparent 0%, rgba(105,221,255,0.7) 18%, rgba(150,205,255,0.55) 36%, rgba(216,225,255,0.4) 50%, rgba(219,186,221,0.65) 68%, rgba(190,146,162,0.45) 84%, transparent 100%);
   --ea-surface: rgba(4,4,11,0.92);
   --ea-card-shadow: 0 20px 56px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
   --ea-hover-shadow: 0 32px 80px rgba(0,0,0,0.82), 0 0 40px rgba(105,221,255,0.09), 0 0 0 1px rgba(105,221,255,0.14);
   --section-pad: min(96px, 9vw);
   --aurora-1: rgba(105,221,255,0.16);
   --aurora-2: rgba(150,205,255,0.13);
-  --aurora-3: rgba(219,186,221,0.14);
-  --aurora-4: rgba(190,146,162,0.10);
+  --aurora-3: rgba(216,225,255,0.10);
+  --aurora-4: rgba(219,186,221,0.12);
 }
 
 [data-theme="light"] {
@@ -275,7 +275,7 @@ h4 {
   width: 65%;
   height: 65%;
   border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 50%, rgba(219,186,221,0.12), transparent 70%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(150,205,255,0.11), transparent 70%);
   animation: meshDrift1 22s ease-in-out infinite alternate;
   will-change: transform;
 }
@@ -287,7 +287,7 @@ h4 {
   width: 60%;
   height: 60%;
   border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 50%, rgba(105,221,255,0.08), transparent 68%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(216,225,255,0.07), transparent 68%);
   animation: meshDrift2 28s ease-in-out infinite alternate;
   will-change: transform;
 }
@@ -299,7 +299,7 @@ h4 {
   width: 50%;
   height: 50%;
   border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 50%, rgba(80,80,140,0.045), transparent 70%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(190,146,162,0.04), transparent 70%);
   pointer-events: none;
   z-index: -2;
   animation: meshDrift1 34s ease-in-out infinite alternate-reverse;
@@ -396,7 +396,7 @@ h4 {
 
 /* ── Sweep text ── */
 .sweep-text {
-  background: linear-gradient(135deg, #69ddff 0%, #96cdff 20%, #dbbadd 45%, #be92a2 65%, #96cdff 82%, #69ddff 100%);
+  background: linear-gradient(135deg, #69ddff 0%, #96cdff 18%, #d8e1ff 38%, #dbbadd 60%, #be92a2 82%, #69ddff 100%);
   background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -413,7 +413,7 @@ h4 {
 
 /* ── Gradient number ── */
 .gradient-num {
-  background: linear-gradient(135deg, #69ddff 0%, #96cdff 45%, #69ddff 100%);
+  background: linear-gradient(135deg, #69ddff 0%, #96cdff 22%, #d8e1ff 44%, #dbbadd 68%, #be92a2 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -434,7 +434,7 @@ h4 {
   height: 1px;
   width: 100%;
   border: none;
-  background: linear-gradient(90deg, transparent, var(--primary) 30%, var(--accent) 70%, transparent);
+  background: linear-gradient(90deg, transparent, #69ddff 20%, #96cdff 38%, #d8e1ff 50%, #dbbadd 62%, #be92a2 80%, transparent);
   background-size: 200% 100%;
   animation: gradientLineFlow 6s linear infinite;
   border-radius: 2px;

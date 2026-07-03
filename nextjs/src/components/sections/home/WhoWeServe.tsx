@@ -1,12 +1,13 @@
 import { SectionHeader } from '@/components/ui/SectionHeader'
 
+// All 5 brand colours distributed across 6 creator types
 const CREATOR_TYPES = [
-  { icon: 'ti-device-gamepad-2', title: 'Gaming Creators', desc: 'Roblox, Minecraft, PUBG, Free Fire, Fortnite. Niche-matched editors who understand the culture and pacing of gaming content.', color: '#69ddff' },
-  { icon: 'ti-eye-off', title: 'Faceless Channels', desc: 'Complete done-for-you production. Script, voiceover, edit, thumbnail, and upload. Just review and approve.', color: '#dbbadd' },
-  { icon: 'ti-device-mobile-vibration', title: 'Short-Form Creators', desc: 'TikTok, YouTube Shorts, Instagram Reels. Specialists who understand hook timing and the scroll-stop science.', color: '#be92a2' },
-  { icon: 'ti-trending-up', title: 'Growth-Stage YouTubers', desc: '10K-500K creators who want professional quality without agency pricing. Flat 10% fee. No lock-in.', color: '#69ddff' },
-  { icon: 'ti-building', title: 'Content Businesses', desc: 'Brands, agencies, and media companies needing reliable, scalable video editing at a predictable cost.', color: '#dbbadd' },
-  { icon: 'ti-briefcase', title: 'First-Time Creators', desc: 'Just starting out and want professional editing from day one. We provide full creative direction alongside editing.', color: '#be92a2' },
+  { icon: 'ti-device-gamepad-2', title: 'Gaming Creators',       color: '#69ddff', desc: 'Roblox, Minecraft, PUBG, Free Fire, Fortnite. Niche-matched editors who understand the culture and pacing of gaming content.' },
+  { icon: 'ti-eye-off',          title: 'Faceless Channels',     color: '#96cdff', desc: 'Complete done-for-you production. Script, voiceover, edit, thumbnail, and upload. Just review and approve.' },
+  { icon: 'ti-device-mobile-vibration', title: 'Short-Form Creators', color: '#d8e1ff', desc: 'TikTok, YouTube Shorts, Instagram Reels. Specialists who understand hook timing and the scroll-stop science.' },
+  { icon: 'ti-trending-up',      title: 'Growth-Stage YouTubers', color: '#dbbadd', desc: '10K–500K creators who want professional quality without agency pricing. Flat 10% fee. No lock-in.' },
+  { icon: 'ti-building',         title: 'Content Businesses',    color: '#be92a2', desc: 'Brands, agencies, and media companies needing reliable, scalable video editing at a predictable cost.' },
+  { icon: 'ti-briefcase',        title: 'First-Time Creators',   color: '#69ddff', desc: 'Just starting out and want professional editing from day one. We provide full creative direction alongside editing.' },
 ]
 
 export function WhoWeServe() {
@@ -40,7 +41,7 @@ export function WhoWeServe() {
           <div
             key={type.title}
             className={`tilt-card glass-card sr${i % 3 === 0 ? ' sr-left' : i % 3 === 2 ? ' sr-right' : ''}`}
-            style={{ border: '1px solid var(--border)', padding: 28 }}
+            style={{ border: `1px solid rgba(0,0,0,0)`, padding: 28, borderRadius: 20 }}
           >
             <div className="tilt-inner">
               <div
@@ -49,11 +50,12 @@ export function WhoWeServe() {
                   height: 48,
                   borderRadius: 14,
                   background: `linear-gradient(135deg, ${type.color}18, ${type.color}0a)`,
-                  border: `1px solid ${type.color}28`,
+                  border: `1px solid ${type.color}30`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: 16,
+                  transition: 'box-shadow 0.3s',
                 }}
               >
                 <i className={`ti ${type.icon}`} aria-hidden="true" style={{ color: type.color, fontSize: '1.25rem' }} />

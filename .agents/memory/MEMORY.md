@@ -3,3 +3,4 @@
 - [Hero cycle React pattern](hero-cycle-react.md) — cycle phrases must use React state + useEffect (not DOM setInterval in ClientScripts) for proper SSR hydration and route-change cleanup.
 - [Radix accordion controlled state](radix-accordion-controlled.md) — Radix single-accordion + per-item local useState causes desync; always lift open state to Root via value/onValueChange.
 - [InView framer-motion typing](inview-framer-typing.md) — useInView margin must be omitted (not passed as string); use amount instead; ref should be HTMLElement; ease must be named string not number[].
+- [MaskTextReveal + CycleStack conflict](masktextreveal-cyclestack.md) — never wrap CycleStack in MaskTextReveal; overflow:hidden clips grid-stacked phrases. Use motion fade on that line instead.

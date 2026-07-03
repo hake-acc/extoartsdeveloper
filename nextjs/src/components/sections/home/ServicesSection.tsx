@@ -3,6 +3,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { BorderBeam } from '@/components/ui/BorderBeam'
 import { InView } from '@/components/ui/InView'
 
+// All 5 brand colours distributed across 6 services
 const SERVICES = [
   {
     icon: 'ti-brand-youtube',
@@ -11,6 +12,10 @@ const SERVICES = [
     desc: 'Every cut, hook, and pacing decision is optimized to maximize Average View Duration. We analyze your niche, your audience, and your style — then edit to keep viewers watching.',
     href: '/services#youtube-editing',
     featured: true,
+    color: '#69ddff',   // Frozen Lake
+    rgba: '105,221,255',
+    beamFrom: '#69ddff',
+    beamTo: '#96cdff',
   },
   {
     icon: 'ti-photo',
@@ -18,6 +23,10 @@ const SERVICES = [
     title: 'Viral Thumbnail Design',
     desc: 'CTR-optimized thumbnails built to stop the scroll. Color psychology, composition, and proven click-through frameworks.',
     href: '/services#thumbnail-design',
+    color: '#96cdff',   // Sky Blue
+    rgba: '150,205,255',
+    beamFrom: '#96cdff',
+    beamTo: '#d8e1ff',
   },
   {
     icon: 'ti-device-mobile-vibration',
@@ -25,6 +34,10 @@ const SERVICES = [
     title: 'Shorts & TikTok Editing',
     desc: 'Short-form specialists who understand hook timing, vertical framing, and scroll-stopping techniques that work on algorithm-driven feeds.',
     href: '/services#shorts-editing',
+    color: '#d8e1ff',   // Lavender
+    rgba: '216,225,255',
+    beamFrom: '#d8e1ff',
+    beamTo: '#dbbadd',
   },
   {
     icon: 'ti-device-gamepad-2',
@@ -32,6 +45,10 @@ const SERVICES = [
     title: 'Gaming Video Editing',
     desc: 'Niche-matched gaming editors for Roblox, Minecraft, PUBG, Free Fire, and more. We know the culture, the pacing, and the audience.',
     href: '/services#gaming',
+    color: '#dbbadd',   // Pink Orchid
+    rgba: '219,186,221',
+    beamFrom: '#dbbadd',
+    beamTo: '#be92a2',
   },
   {
     icon: 'ti-sparkles',
@@ -39,6 +56,10 @@ const SERVICES = [
     title: 'Motion Graphics & VFX',
     desc: 'Custom After Effects animations, transitions, and visual effects purpose-built for your channel identity.',
     href: '/services#motion-graphics',
+    color: '#be92a2',   // Old Rose
+    rgba: '190,146,162',
+    beamFrom: '#be92a2',
+    beamTo: '#69ddff',
   },
   {
     icon: 'ti-eye-off',
@@ -46,6 +67,10 @@ const SERVICES = [
     title: 'Faceless Channel Automation',
     desc: 'Script to published video - complete done-for-you production for faceless YouTube channels and automated content businesses.',
     href: '/services#faceless',
+    color: '#96cdff',   // Sky Blue (cycle)
+    rgba: '150,205,255',
+    beamFrom: '#96cdff',
+    beamTo: '#dbbadd',
   },
 ]
 
@@ -96,7 +121,7 @@ export function ServicesSection() {
               }}
               className={`tilt-card glass-card shine-border${isFeatured ? ' ea-ring-parent' : ''}`}
               style={{
-                border: '1px solid var(--border)',
+                border: `1px solid rgba(${svc.rgba},0.14)`,
                 padding: isFeatured ? '40px 36px' : '28px 26px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -114,8 +139,8 @@ export function ServicesSection() {
                 <BorderBeam
                   size={180}
                   duration={10}
-                  colorFrom="#69ddff"
-                  colorTo="#dbbadd"
+                  colorFrom={svc.beamFrom}
+                  colorTo={svc.beamTo}
                   borderWidth={1}
                 />
               )}
@@ -125,13 +150,22 @@ export function ServicesSection() {
               <div className="tilt-inner" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: isFeatured ? 20 : 14 }}>
                 {/* Header */}
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                  {/* Per-service brand-coloured icon box */}
                   <div
-                    className="icon-box service-icon"
                     style={{
                       width: isFeatured ? 64 : 48,
                       height: isFeatured ? 64 : 48,
                       borderRadius: isFeatured ? 18 : 14,
                       fontSize: isFeatured ? '1.6rem' : '1.2rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      background: `linear-gradient(135deg, rgba(${svc.rgba},0.14), rgba(${svc.rgba},0.06))`,
+                      border: `1px solid rgba(${svc.rgba},0.22)`,
+                      boxShadow: `0 0 22px rgba(${svc.rgba},0.08)`,
+                      color: svc.color,
+                      transition: 'box-shadow 0.4s, border-color 0.4s, transform 0.4s var(--ease-spring)',
                     }}
                     aria-hidden="true"
                   >
@@ -181,7 +215,7 @@ export function ServicesSection() {
                   </p>
                 </div>
 
-                {/* Link */}
+                {/* Link — coloured with service brand colour */}
                 <Link
                   href={svc.href}
                   style={{
@@ -190,7 +224,7 @@ export function ServicesSection() {
                     gap: 6,
                     fontSize: '0.77rem',
                     fontWeight: 800,
-                    color: 'var(--primary)',
+                    color: svc.color,
                     textDecoration: 'none',
                     letterSpacing: '0.1px',
                     marginTop: 'auto',
