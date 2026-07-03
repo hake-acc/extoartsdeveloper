@@ -69,7 +69,7 @@ function ReviewCard({ review, onClick }: { review: Review; onClick: () => void }
           </div>
           <div style={{ display: 'flex', gap: 1 }} role="img" aria-label="5 stars">
             {[...Array(5)].map((_, i) => (
-              <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.62rem', color: '#f59e0b' }} />
+              <i key={i} className="ti ti-star" aria-hidden="true" style={{ fontSize: '0.62rem', color: '#f59e0b' }} />
             ))}
           </div>
         </div>
@@ -170,7 +170,7 @@ function ReviewModal({ review, onClose }: { review: Review; onClose: () => void 
               <div id="review-modal-name" style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 4 }}>{review.name}</div>
               <div style={{ display: 'flex', gap: 2 }} role="img" aria-label="5 out of 5 stars">
                 {[...Array(5)].map((_, i) => (
-                  <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.75rem', color: '#f59e0b' }} />
+                  <i key={i} className="ti ti-star" aria-hidden="true" style={{ fontSize: '0.75rem', color: '#f59e0b' }} />
                 ))}
               </div>
             </div>
@@ -260,7 +260,7 @@ export function ReviewsSection() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', gap: 3 }} role="img" aria-label="5 out of 5 stars">
               {[...Array(5)].map((_, i) => (
-                <i key={i} className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '1.1rem', color: '#f59e0b' }} />
+                <i key={i} className="ti ti-star" aria-hidden="true" style={{ fontSize: '1.1rem', color: '#f59e0b' }} />
               ))}
             </div>
             <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)' }}>

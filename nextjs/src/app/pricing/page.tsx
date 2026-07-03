@@ -128,7 +128,7 @@ export default function PricingPage() {
                   <BorderBeam size={100} duration={8} colorFrom="#69ddff" colorTo="#dbbadd" borderWidth={1} />
                   <div style={{ position: 'absolute', top: 14, right: 14 }}>
                     <span className="highlight-chip">
-                      <i className="ti ti-star-filled" aria-hidden="true" style={{ fontSize: '0.55rem' }} />
+                      <i className="ti ti-star" aria-hidden="true" style={{ fontSize: '0.55rem' }} />
                       ExtoArts
                     </span>
                   </div>

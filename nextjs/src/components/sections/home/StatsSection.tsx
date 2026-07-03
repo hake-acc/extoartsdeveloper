@@ -12,7 +12,7 @@ const STATS = [
     rgba: '105,221,255',
   },
   {
-    icon: 'ti-star-filled',
+    icon: 'ti-star',
     value: '5.0',
     label: 'Average Rating',
     desc: 'Verified reviews across Discord and Trustpilot',
@@ -21,7 +21,7 @@ const STATS = [
     rgba: '150,205,255',
   },
   {
-    icon: 'ti-percent',
+    icon: 'ti-percentage',
     value: '10%',
     label: 'Flat Agency Fee',
     desc: '90% of your budget goes directly to your editor',

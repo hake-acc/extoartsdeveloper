@@ -26,7 +26,7 @@ const TICKER_ITEMS = [
   { icon: 'ti-eye', text: 'Faceless YouTube' },
   { icon: 'ti-trending-up', text: 'Retention Editing' },
   { icon: 'ti-video', text: 'Cinematic Cuts' },
-  { icon: 'ti-star-filled', text: '5-Star Rated' },
+  { icon: 'ti-star', text: '5-Star Rated' },
 ]
 
 const E = [0.16, 1, 0.3, 1] as const

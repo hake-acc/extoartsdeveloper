@@ -561,6 +561,7 @@ h4 {
 .stat-item:hover .ea-card-ring,
 .price-card:hover .ea-card-ring { opacity: 1; }
 .ea-ring-always { opacity: 0.55 !important; }
+.ea-ring-parent .ea-card-ring { opacity: 0.55; animation: ringRotate 6s linear infinite; }
 .ea-card-ring-spinning {
   animation: ringRotate 5s linear infinite;
   transform-origin: center;

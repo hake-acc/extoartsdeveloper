@@ -83,7 +83,7 @@ export function Footer() {
             {[
               { icon: 'ti-shield-check', text: 'No lock-in contracts' },
               { icon: 'ti-clock', text: '3-5 day turnaround' },
-              { icon: 'ti-star-filled', text: '5.0 rated on Discord' },
+              { icon: 'ti-star', text: '5.0 rated on Discord' },
             ].map(({ icon, text }) => (
               <span key={text} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>
                 <i className={`ti ${icon}`} aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '0.82rem' }} />
