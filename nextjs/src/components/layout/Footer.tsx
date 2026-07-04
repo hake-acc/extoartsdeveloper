@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { DISCORD_URL, SUPPORT_EMAIL, PAYMENT_METHODS, SOCIAL_LINKS } from '@/lib/constants'
 import { DiscordButton } from '@/components/ui/DiscordButton'
 
@@ -112,7 +113,7 @@ export function Footer() {
           {/* Brand col */}
           <div style={{ gridColumn: 'span 1' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <img src="/favicon-192.png" width={38} height={38} className="logo-mark" alt="ExtoArts logo" style={{ borderRadius: 9 }} />
+              <Image src="/favicon-192.png" width={38} height={38} className="logo-mark" alt="ExtoArts logo" style={{ borderRadius: 9 }} />
               <span style={{ fontWeight: 900, fontSize: '1.08rem', color: 'var(--text-main)', fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}>ExtoArts</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.75, maxWidth: 240, marginBottom: 22 }}>

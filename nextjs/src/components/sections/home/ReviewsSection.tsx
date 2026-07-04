@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { reviews } from '@/data/reviews'
 import type { Review } from '@/types'
@@ -42,7 +43,7 @@ function ReviewCard({ review, onClick }: { review: Review; onClick: () => void }
             }}
           >
             {review.img ? (
-              <img src={review.img} alt={review.name} width={40} height={40} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <Image src={review.img} alt={review.name} width={40} height={40} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
               <div
                 style={{
@@ -159,7 +160,7 @@ function ReviewModal({ review, onClose }: { review: Review; onClose: () => void 
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
             <div style={{ width: 52, height: 52, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--border)', flexShrink: 0 }}>
               {review.img ? (
-                <img src={review.img} alt={review.name} width={52} height={52} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <Image src={review.img} alt={review.name} width={52} height={52} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
                 <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg,${review.grad})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.1rem', color: '#fff' }}>
                   {review.init}

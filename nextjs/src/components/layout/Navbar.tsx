@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NAV_LINKS, DISCORD_URL } from '@/lib/constants'
@@ -265,7 +266,7 @@ export function Navbar() {
                 }}
               >
                 <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}>
-                  <img src="/favicon-192.png" width={28} height={28} alt="ExtoArts" style={{ borderRadius: 7 }} />
+                  <Image src="/favicon-192.png" width={28} height={28} alt="ExtoArts" priority style={{ borderRadius: 7 }} />
                   <span style={{ fontWeight: 900, fontSize: '0.98rem', color: 'var(--text-main)', fontFamily: 'var(--font-display)' }}>ExtoArts</span>
                 </Link>
                 <button
