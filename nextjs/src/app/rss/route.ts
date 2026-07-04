@@ -98,8 +98,6 @@ export function GET() {
     <atom:link href="${feedUrl}" rel="self" type="application/rss+xml"/>
     <description>YouTube editing guides, thumbnail design tips, and creator growth strategy from ExtoArts.</description>
     <language>en-US</language>
-    <managingEditor>support@extoarts.in (Rehan)</managingEditor>
-    <webMaster>support@extoarts.in (ExtoArts)</webMaster>
     <lastBuildDate>${RSS_ITEMS[RSS_ITEMS.length - 1].date}</lastBuildDate>
     <ttl>1440</ttl>
     <image>

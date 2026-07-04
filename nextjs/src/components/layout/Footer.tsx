@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { DISCORD_URL, SUPPORT_EMAIL, PAYMENT_METHODS, SOCIAL_LINKS } from '@/lib/constants'
+import { DISCORD_URL, PAYMENT_METHODS, SOCIAL_LINKS } from '@/lib/constants'
 import { DiscordButton } from '@/components/ui/DiscordButton'
+import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
 const SocialIcon = ({ platform }: { platform: string }) => {
   const icons: Record<string, React.ReactNode> = {
@@ -180,9 +181,12 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <a href={`mailto:${SUPPORT_EMAIL}`} style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">
-                  {SUPPORT_EMAIL}
-                </a>
+                <ObfuscatedEmail
+                  user="support"
+                  domain="extoarts.in"
+                  className="footer-link"
+                  style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }}
+                />
               </li>
             </ul>
           </nav>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import { DISCORD_URL, SUPPORT_EMAIL } from '@/lib/constants'
+import { DISCORD_URL } from '@/lib/constants'
+import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Contact ExtoArts - Start a Project via Discord',
@@ -48,10 +49,9 @@ export default function ContactPage() {
           </a>
 
           {/* Email */}
-          <a
-            href={`mailto:${SUPPORT_EMAIL}`}
+          <div
             className="tilt-card glass-card"
-            style={{ border: '1px solid var(--border)', borderRadius: 24, padding: 36, textDecoration: 'none', display: 'block', textAlign: 'center', transition: 'transform 0.3s, box-shadow 0.3s' }}
+            style={{ border: '1px solid var(--border)', borderRadius: 24, padding: 36, display: 'block', textAlign: 'center', transition: 'transform 0.3s, box-shadow 0.3s' }}
           >
             <div className="tilt-inner">
               <i className="ti ti-mail" aria-hidden="true" style={{ fontSize: '2.5rem', color: 'var(--primary)', marginBottom: 16, display: 'block' }} />
@@ -59,9 +59,9 @@ export default function ContactPage() {
               <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', lineHeight: 1.65, marginBottom: 20 }}>
                 For billing questions, project updates, or general inquiries.
               </p>
-              <span style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--primary)' }}>{SUPPORT_EMAIL}</span>
+              <ObfuscatedEmail user="support" domain="extoarts.in" style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--primary)' }} />
             </div>
-          </a>
+          </div>
         </div>
 
         {/* What happens next */}

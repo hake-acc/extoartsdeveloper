@@ -9,7 +9,6 @@ export function GET() {
   <ShortName>${SITE_NAME}</ShortName>
   <Description>Search ExtoArts — YouTube video editing guides, pricing, and FAQ</Description>
   <Tags>youtube editing thumbnail agency video creator</Tags>
-  <Contact>support@extoarts.in</Contact>
   <Url type="text/html" method="get" template="${SITE_URL}/faq?q={searchTerms}"/>
   <Image height="16" width="16" type="image/x-icon">${SITE_URL}/favicon.ico</Image>
   <Image height="32" width="32" type="image/png">${SITE_URL}/favicon-32.png</Image>

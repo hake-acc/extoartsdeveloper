@@ -1,5 +1,7 @@
 'use client'
 
+import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
+
 export function DiscordModal() {
   function handleClose() {
     const m = document.getElementById('discordModal')
@@ -98,12 +100,11 @@ export function DiscordModal() {
           }}
         >
           Prefer email?{' '}
-          <a
-            href="mailto:support@extoarts.in"
+          <ObfuscatedEmail
+            user="support"
+            domain="extoarts.in"
             style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}
-          >
-            support@extoarts.in
-          </a>
+          />
         </p>
       </div>
     </div>

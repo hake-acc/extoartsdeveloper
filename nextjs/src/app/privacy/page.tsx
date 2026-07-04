@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import { SUPPORT_EMAIL } from '@/lib/constants'
+import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Privacy Policy | ExtoArts',
@@ -37,13 +37,13 @@ export default function PrivacyPage() {
             { num: '5', title: 'Cookies, Local Storage & Analytics', content: 'We use: a localStorage key "ea-theme" (to remember your dark/light mode preference); and Google Analytics 4 for traffic analysis (anonymized, with IP masking). You can opt out of Google Analytics at tools.google.com/dlpage/gaoptout. You can clear localStorage at any time through your browser settings.' },
             { num: '6', title: 'Third-Party Service Providers', content: 'We share data with: Discord (project communication, order tickets); Google Analytics (anonymized traffic analytics); Payment processors (PayPal, UPI, crypto processors - see their respective privacy policies); iili.io/freeimage.host (image hosting for portfolio and OG images); File transfer services (WeTransfer, Google Drive for footage delivery).' },
             { num: '7', title: 'International Transfers', content: 'ExtoArts operates globally. Your data may be processed in countries outside your country of residence, including India, the United States, and the European Union. Where we transfer data internationally, we ensure appropriate safeguards are in place consistent with applicable privacy laws.' },
-            { num: '8', title: 'Data Retention & Deletion', content: 'We retain your personal data as long as your account is active or as needed to provide services. You can request deletion of your account and associated data at any time by emailing support@extoarts.in. Billing records may be retained for up to 7 years for accounting compliance. Anonymized analytics data is retained as per Google Analytics\'s retention settings.' },
-            { num: '9', title: 'Your Privacy Rights', content: 'Depending on your location, you may have the right to: access your personal data; correct inaccurate data; request deletion of your data; object to or restrict processing; and data portability. To exercise these rights, contact us at support@extoarts.in. We will respond within 30 days.' },
-            { num: '10', title: 'CCPA / CPRA Notice (California Residents)', content: 'California residents have the right to know what personal information is collected, used, shared, or sold. ExtoArts does not sell personal information. You may request disclosure, deletion, or correction of your personal data by contacting support@extoarts.in. We will not discriminate against you for exercising your privacy rights.' },
+            { num: '8', title: 'Data Retention & Deletion', content: 'We retain your personal data as long as your account is active or as needed to provide services. You can request deletion of your account and associated data at any time by emailing us. Billing records may be retained for up to 7 years for accounting compliance. Anonymized analytics data is retained as per Google Analytics\'s retention settings.' },
+            { num: '9', title: 'Your Privacy Rights', content: 'Depending on your location, you may have the right to: access your personal data; correct inaccurate data; request deletion of your data; object to or restrict processing; and data portability. To exercise these rights, contact us below. We will respond within 30 days.' },
+            { num: '10', title: 'CCPA / CPRA Notice (California Residents)', content: 'California residents have the right to know what personal information is collected, used, shared, or sold. ExtoArts does not sell personal information. You may request disclosure, deletion, or correction of your personal data by contacting us below. We will not discriminate against you for exercising your privacy rights.' },
             { num: '11', title: 'Children & Minors', content: 'ExtoArts services are not directed at children under 13. We do not knowingly collect personal information from children under 13. If we discover that we have inadvertently collected data from a child under 13, we will delete it promptly. Users between 13-18 should have parental consent before using our services.' },
             { num: '12', title: 'Security', content: 'We implement appropriate technical and organizational security measures including bcrypt password hashing, CSRF token protection, rate limiting, Cloudflare bot protection, and encrypted HTTPS connections. However, no system is perfectly secure, and we cannot guarantee absolute security of your data.' },
             { num: '13', title: 'Changes to This Policy', content: 'We may update this Privacy Policy periodically. Material changes will be announced in the ExtoArts Discord server and via the client portal notification system at least 7 days before taking effect. The effective date at the top of this page will always reflect the most recent update.' },
-            { num: '14', title: 'Contact', content: `For privacy questions, data requests, or complaints, contact us at ${SUPPORT_EMAIL}. We aim to respond within 30 days.` },
+            { num: '14', title: 'Contact', content: null },
           ].map((section) => (
             <section key={section.num} id={`priv-${section.num}`} style={{ scrollMarginTop: 90 }}>
               <h2 style={{ fontSize: 'clamp(1rem,2vw,1.3rem)', fontWeight: 800, color: 'var(--text-main)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 12, letterSpacing: '-0.3px' }}>
@@ -53,7 +53,13 @@ export default function PrivacyPage() {
                 {section.title}
               </h2>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.78, margin: 0 }}>
-                {section.content}
+                {section.content ?? (
+                  <>
+                    For privacy questions, data requests, or complaints, contact us at{' '}
+                    <ObfuscatedEmail user="support" domain="extoarts.in" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }} />
+                    . We aim to respond within 30 days.
+                  </>
+                )}
               </p>
             </section>
           ))}
@@ -62,7 +68,7 @@ export default function PrivacyPage() {
         <div style={{ marginTop: 52, paddingTop: 28, borderTop: '1px solid var(--border)', textAlign: 'center' }}>
           <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
             Privacy questions?{' '}
-            <a href={`mailto:${SUPPORT_EMAIL}`} style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>{SUPPORT_EMAIL}</a>
+            <ObfuscatedEmail user="support" domain="extoarts.in" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }} />
           </p>
         </div>
       </section>
