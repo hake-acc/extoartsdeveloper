@@ -38,11 +38,13 @@ export function BorderBeam({
       className="pointer-events-none absolute inset-0 rounded-[inherit]"
       style={{
         border: `${borderWidth}px solid transparent`,
-        WebkitMask: 'linear-gradient(transparent, transparent), linear-gradient(#000, #000)',
-        mask: 'linear-gradient(transparent, transparent), linear-gradient(#000, #000)',
+        WebkitMaskImage: 'linear-gradient(#000, #000), linear-gradient(#000, #000)',
+        maskImage: 'linear-gradient(#000, #000), linear-gradient(#000, #000)',
+        WebkitMaskClip: 'padding-box, border-box',
+        maskClip: 'padding-box, border-box',
         WebkitMaskComposite: 'xor',
         maskComposite: 'exclude',
-      }}
+      } as React.CSSProperties}
     >
       <motion.div
         className={cn('absolute aspect-square', className)}
