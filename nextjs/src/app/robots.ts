@@ -7,15 +7,23 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/hq-portal'],
+        disallow: [
+          '/hq-portal', '/admin', '/dashboard', '/login', '/register', '/logout',
+          '/apply', '/api/', '/order/', '/chat', '/health', '/*?*',
+        ],
+      },
+      {
+        userAgent: ['Googlebot', 'Bingbot'],
+        allow: '/',
+        disallow: ['/hq-portal', '/admin', '/dashboard', '/api/', '/order/', '/*?*'],
       },
       {
         userAgent: [
-          'GPTBot', 'ChatGPT-User', 'Google-Extended', 'Anthropic-ai', 'Claude-Web',
-          'CCBot', 'cohere-ai', 'PerplexityBot', 'Applebot-Extended', 'Bytespider',
-          'PetalBot', 'YouBot', 'AI2Bot',
+          'Google-Extended', 'OAI-SearchBot', 'ChatGPT-User', 'GPTBot', 'anthropic-ai',
+          'ClaudeBot', 'PerplexityBot', 'DuckDuckBot', 'Applebot', 'Applebot-Extended',
+          'CohereBot', 'Meta-ExternalAgent',
         ],
-        disallow: '/',
+        allow: ['/', '/llms.txt'],
       },
     ],
     sitemap: [`${SITE_URL}/sitemap.xml`],
