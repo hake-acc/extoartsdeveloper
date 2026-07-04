@@ -214,6 +214,10 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://iili.io" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
+        />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link
           rel="preload"
@@ -235,7 +239,6 @@ export default function RootLayout({
       </head>
       <body>
         <Script id="ea-theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('ea-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.replace('no-js','js');})();`}</Script>
-        <Script id="ea-tabler-css" strategy="beforeInteractive">{`(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css';document.head.appendChild(l);})();`}</Script>
         <a href="#main-content" className="skip-link">Skip to content</a>
         <div className="mesh-glow" aria-hidden="true" />
         <div id="page-progress" aria-hidden="true" />

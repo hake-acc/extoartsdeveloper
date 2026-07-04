@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import fs from 'fs'
+import path from 'path'
 import { SITE_URL, DISCORD_URL } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
 import { HeroSection } from '@/components/sections/home/HeroSection'
@@ -10,9 +12,32 @@ import { FounderSection } from '@/components/sections/home/FounderSection'
 import { WhoWeServe } from '@/components/sections/home/WhoWeServe'
 import { WhyExtoArts } from '@/components/sections/home/WhyExtoArts'
 import { OrganicDivider } from '@/components/ui/OrganicDivider'
-import portfolioDataRaw from '@/data/portfolio.json'
 import type { PortfolioCategory } from '@/types'
-const portfolioData = portfolioDataRaw as unknown as PortfolioCategory[]
+
+const THUMB_DIR = path.join(process.cwd(), 'public', 'portfolio', 'Thumbnails')
+const IMG_EXT = new Set(['.webp', '.jpg', '.jpeg', '.png'])
+
+function getLatestThumbnails(count = 4): PortfolioCategory[] {
+  try {
+    const files = fs.readdirSync(THUMB_DIR)
+      .filter(f => IMG_EXT.has(path.extname(f).toLowerCase()))
+      .map(f => ({
+        name: f,
+        mtime: fs.statSync(path.join(THUMB_DIR, f)).mtimeMs,
+      }))
+      .sort((a, b) => b.mtime - a.mtime)
+      .slice(0, count)
+
+    return files.map((f, i) => ({
+      id: `thumb-${i}`,
+      thumb: `/portfolio/Thumbnails/${f.name}`,
+      name: path.basename(f.name, path.extname(f.name)).replace(/[-_]/g, ' '),
+      meta: 'Thumbnail Design',
+    }))
+  } catch {
+    return []
+  }
+}
 
 export const metadata: Metadata = {
   title: 'YouTube Video Editing & Thumbnail Design | ExtoArts',
