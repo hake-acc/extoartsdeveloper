@@ -214,10 +214,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://iili.io" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
-        />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link
           rel="preload"
