@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { AuroraGL } from '@/components/ui/AuroraGL'
+import { FluidGradient } from '@/components/ui/FluidGradient'
 import { GalaxyButton } from '@/components/ui/GalaxyButton'
 import { MagneticButton } from '@/components/ui/MagneticButton'
 import { MaskTextReveal } from '@/components/motion/MaskTextReveal'
@@ -104,23 +104,34 @@ export function HeroSection() {
           isolation: 'isolate',
         }}
       >
-        {/* WebGL Aurora — all 5 brand colours */}
-        <AuroraGL
-          colorStops={['#04040b', '#69ddff', '#96cdff', '#d8e1ff', '#dbbadd', '#be92a2']}
-          amplitude={1.2}
-          blend={0.48}
-          speed={0.3}
+        {/* Fluid Gradient background — exact Framer component, ExtoArts palette */}
+        <div
+          aria-hidden="true"
           style={{
+            position: 'absolute',
+            inset: 0,
             zIndex: -1,
-            opacity: 0.85,
-            top: '-20%',
-            height: '140%',
+          }}
+        >
+          <FluidGradient
+            color1="#69ddff"
+            color2="#be92a2"
+            color3="#dbbadd"
+            gradientSpeed={3}
+            blur={120}
+          />
+        </div>
+        {/* Dark overlay so text stays readable */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: -1,
+            background: 'rgba(3,3,5,0.72)',
+            pointerEvents: 'none',
           }}
         />
-        {/* CSS aurora fallback layer */}
-        <div className="aurora-bg" aria-hidden="true">
-          <div className="aurora-blob" />
-        </div>
 
         {/* Agency badge */}
         <motion.div {...fade(0.05)} style={{ marginBottom: 32 }}>
