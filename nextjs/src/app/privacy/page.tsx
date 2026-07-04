@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
 export default function PrivacyPage() {
   return (
     <>
-      <h1 className="sr-only">ExtoArts Privacy Policy</h1>
+      <p className="sr-only">ExtoArts Privacy Policy</p>
 
       <section style={{ padding: 'min(18vh,130px) min(20px,5%) min(100px,10vw)', maxWidth: 820, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <div style={{ marginBottom: 48, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>

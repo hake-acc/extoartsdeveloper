@@ -49,7 +49,7 @@ export default function AboutPage() {
     <>
       <JsonLd data={personSchema} />
       <JsonLd data={faqSchema} />
-      <h1 className="sr-only">About ExtoArts - YouTube Creative Agency</h1>
+      <p className="sr-only">About ExtoArts - YouTube Creative Agency</p>
 
       {/* Hero */}
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(60px,6vw)', textAlign: 'center', maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 10 }}>

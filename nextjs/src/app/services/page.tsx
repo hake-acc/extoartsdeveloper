@@ -88,7 +88,7 @@ export default function ServicesPage() {
   return (
     <>
       <JsonLd data={faqSchema} />
-      <h1 className="sr-only">ExtoArts YouTube Video Editing Services</h1>
+      <p className="sr-only">ExtoArts YouTube Video Editing Services</p>
 
       {/* Page hero */}
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(60px,6vw)', textAlign: 'center', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>

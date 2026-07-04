@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
 export default function ContactPage() {
   return (
     <>
-      <h1 className="sr-only">Contact ExtoArts</h1>
+      <p className="sr-only">Contact ExtoArts</p>
 
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(80px,7vw)', textAlign: 'center', maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <span className="hero-badge" style={{ marginBottom: 28 }}>

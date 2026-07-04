@@ -77,7 +77,7 @@ export default async function PortfolioPage() {
   return (
     <>
       <JsonLd data={portfolioSchema} />
-      <h1 className="sr-only">ExtoArts Portfolio</h1>
+      <p className="sr-only">ExtoArts Portfolio</p>
 
       {/* Hero */}
       <section style={{

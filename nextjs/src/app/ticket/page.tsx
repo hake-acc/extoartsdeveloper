@@ -54,7 +54,7 @@ export default function TicketPage() {
 
   return (
     <>
-      <h1 className="sr-only">Submit a Support Ticket - ExtoArts</h1>
+      <p className="sr-only">Submit a Support Ticket - ExtoArts</p>
 
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(100px,10vw)', maxWidth: 680, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>

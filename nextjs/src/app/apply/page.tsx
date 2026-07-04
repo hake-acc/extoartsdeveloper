@@ -116,7 +116,7 @@ export default function ApplyPage() {
 
   return (
     <>
-      <h1 className="sr-only">Apply as a Video Editor - ExtoArts</h1>
+      <p className="sr-only">Apply as a Video Editor - ExtoArts</p>
 
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(100px,10vw)', maxWidth: 780, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         {/* Header */}

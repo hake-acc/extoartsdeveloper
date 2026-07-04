@@ -51,7 +51,7 @@ export default function EstimatePage() {
 
   return (
     <>
-      <h1 className="sr-only">YouTube Video Editing Cost Estimator - ExtoArts</h1>
+      <p className="sr-only">YouTube Video Editing Cost Estimator - ExtoArts</p>
 
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(40px,4vw)', textAlign: 'center', maxWidth: 760, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <span className="hero-badge" style={{ marginBottom: 28 }}>

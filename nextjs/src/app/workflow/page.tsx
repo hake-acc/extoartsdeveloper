@@ -40,7 +40,7 @@ export default function WorkflowPage() {
   return (
     <>
       <JsonLd data={howToSchema} />
-      <h1 className="sr-only">How ExtoArts Works - YouTube Editing Workflow</h1>
+      <p className="sr-only">How ExtoArts Works - YouTube Editing Workflow</p>
 
       {/* Hero */}
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(60px,6vw)', textAlign: 'center', maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 10 }}>

@@ -88,7 +88,7 @@ export default function HomePage() {
       <JsonLd data={faqSchema} />
       <JsonLd data={webPageSchema} />
 
-      <h1 className="sr-only">ExtoArts - YouTube Video Editing Agency & Thumbnail Design</h1>
+      <p className="sr-only">ExtoArts - YouTube Video Editing Agency & Thumbnail Design</p>
 
       <HeroSection />
       <StatsSection />

@@ -31,7 +31,7 @@ export default function CollabPage() {
   return (
     <>
       <JsonLd data={webPageSchema} />
-      <h1 className="sr-only">Brand Partnerships &amp; Creative Collaborations | ExtoArts</h1>
+      <p className="sr-only">Brand Partnerships &amp; Creative Collaborations | ExtoArts</p>
 
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: 'min(20vh,180px) min(20px,5%) min(100px,10vw)', position: 'relative', zIndex: 10 }}>
 

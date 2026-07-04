@@ -17,8 +17,6 @@ export default function PricingPage() {
   return (
     <>
       <JsonLd data={PRICING_FAQ_SCHEMA} />
-      <h1 className="sr-only">ExtoArts Pricing - Flat 10% Agency Fee</h1>
-
       {/* Hero */}
       <section
         style={{
@@ -34,9 +32,10 @@ export default function PricingPage() {
           <span className="gradient-dot" aria-hidden="true" />
           Radical Transparency
         </span>
-        <h2 className="font-hero" style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 400, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 20, color: 'var(--text-main)' }}>
+        <h1 className="font-hero" style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 400, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 20, color: 'var(--text-main)' }}>
           Simple, Honest <span className="sweep-text">Pricing.</span>
-        </h2>
+        </h1>
+        <p className="sr-only">ExtoArts Pricing - Flat 10% Agency Fee</p>
         <p style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
           You set the budget. We take 10%. Your editor gets 90%. That&apos;s the entire model.
         </p>

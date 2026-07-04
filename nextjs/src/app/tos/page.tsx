@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
 export default function TosPage() {
   return (
     <>
-      <h1 className="sr-only">ExtoArts Terms of Service</h1>
+      <p className="sr-only">ExtoArts Terms of Service</p>
 
       <section style={{ padding: 'min(18vh,130px) min(20px,5%) min(100px,10vw)', maxWidth: 820, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         {/* Header */}
