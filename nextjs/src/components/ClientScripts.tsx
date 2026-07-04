@@ -76,22 +76,6 @@ export function ClientScripts() {
     }
   }, [pathname])
 
-  // Card ring injection — re-run on route change
-  useEffect(() => {
-    const sel = '.tilt-card, .stat-item, .rev-card, .price-card'
-    document.querySelectorAll<HTMLElement>(sel).forEach((card) => {
-      if (card.querySelector('.ea-card-ring')) return
-      const ring = document.createElement('span')
-      ring.className = 'ea-card-ring'
-      ring.setAttribute('aria-hidden', 'true')
-      card.appendChild(ring)
-    })
-    document.querySelectorAll<HTMLElement>('.price-card.featured').forEach((card) => {
-      const r = card.querySelector('.ea-card-ring')
-      if (r) r.classList.add('ea-ring-always')
-    })
-  }, [pathname])
-
   // Count-up — re-run on route change
   useEffect(() => {
     const countEls = document.querySelectorAll<HTMLElement>('[data-count-up]')

@@ -357,14 +357,6 @@ h4 {
 @keyframes ringRotate {
   to { transform: rotate(360deg); }
 }
-@property --ea-ring-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes eaRingFlow {
-  to { --ea-ring-angle: 360deg; }
-}
 @keyframes floatY {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-8px); }
@@ -549,34 +541,6 @@ h4 {
   box-shadow: 0 10px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04) !important;
 }
 
-/* ── Card ring animation ── */
-.ea-card-ring {
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s;
-  background: conic-gradient(from var(--ea-ring-angle, 0deg), transparent 60%, rgba(105,221,255,0.7) 78%, rgba(219,186,221,0.55) 90%, transparent 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 1.5px;
-  z-index: 0;
-}
-.tilt-card:hover .ea-card-ring,
-.price-card:hover .ea-card-ring { opacity: 1; }
-/* Stat cards: always-on animated border beam via @property angle */
-.stat-item .ea-card-ring {
-  opacity: 0.75;
-  animation: eaRingFlow 4s linear infinite;
-}
-.ea-ring-always { opacity: 0.65 !important; animation: eaRingFlow 5s linear infinite !important; }
-.ea-ring-parent .ea-card-ring { opacity: 0.55; animation: eaRingFlow 6s linear infinite; }
-.ea-card-ring-spinning {
-  animation: eaRingFlow 5s linear infinite;
-}
 
 /* ── Scroll reveal ── */
 .sr {
