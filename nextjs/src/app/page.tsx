@@ -12,12 +12,12 @@ import { FounderSection } from '@/components/sections/home/FounderSection'
 import { WhoWeServe } from '@/components/sections/home/WhoWeServe'
 import { WhyExtoArts } from '@/components/sections/home/WhyExtoArts'
 import { OrganicDivider } from '@/components/ui/OrganicDivider'
-import type { PortfolioCategory } from '@/types'
+import type { PortfolioPreviewItem } from '@/types'
 
 const THUMB_DIR = path.join(process.cwd(), 'public', 'portfolio', 'Thumbnails')
 const IMG_EXT = new Set(['.webp', '.jpg', '.jpeg', '.png'])
 
-function getLatestThumbnails(count = 4): PortfolioCategory[] {
+function getLatestThumbnails(count = 4): PortfolioPreviewItem[] {
   try {
     const files = fs.readdirSync(THUMB_DIR)
       .filter(f => IMG_EXT.has(path.extname(f).toLowerCase()))
@@ -34,7 +34,8 @@ function getLatestThumbnails(count = 4): PortfolioCategory[] {
       name: path.basename(f.name, path.extname(f.name)).replace(/[-_]/g, ' '),
       meta: 'Thumbnail Design',
     }))
-  } catch {
+  } catch (err) {
+    console.error('[getLatestThumbnails] failed to read thumbnails dir:', err)
     return []
   }
 }

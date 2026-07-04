@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import type { PortfolioCategory } from '@/types'
+import type { PortfolioPreviewItem } from '@/types'
 
-export function PortfolioPreview({ categories }: { categories: PortfolioCategory[] }) {
+export function PortfolioPreview({ categories }: { categories: PortfolioPreviewItem[] }) {
   const featured = categories.slice(0, 4)
 
   return (

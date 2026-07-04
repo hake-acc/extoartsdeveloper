@@ -16,6 +16,14 @@ export interface PortfolioCategory {
   items: PortfolioItem[]
 }
 
+/** Lightweight shape used by the home-page portfolio preview grid */
+export interface PortfolioPreviewItem {
+  id: string
+  thumb: string
+  name: string
+  meta: string
+}
+
 export interface Review {
   img: string
   init: string
