@@ -243,7 +243,7 @@ export function Navbar() {
                 right: 0,
                 bottom: 0,
                 width: 'min(340px, 88vw)',
-                zIndex: 9995,
+                zIndex: 10000,
                 background: 'var(--surface)',
                 borderLeft: '1px solid var(--border)',
                 display: 'flex',

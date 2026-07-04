@@ -549,7 +549,7 @@ h4 {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s;
-  background: conic-gradient(from 180deg, transparent 60%, rgba(105,221,255,0.55) 80%, rgba(219,186,221,0.40) 90%, transparent 100%);
+  background: conic-gradient(from var(--ring-angle, 180deg), transparent 60%, rgba(105,221,255,0.55) 80%, rgba(219,186,221,0.40) 90%, transparent 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -558,8 +558,13 @@ h4 {
   z-index: 0;
 }
 .tilt-card:hover .ea-card-ring,
-.stat-item:hover .ea-card-ring,
 .price-card:hover .ea-card-ring { opacity: 1; }
+/* Stat cards: always-on spinning border beam */
+.stat-item .ea-card-ring {
+  opacity: 0.6;
+  animation: ringRotate 5s linear infinite;
+  transform-origin: center;
+}
 .ea-ring-always { opacity: 0.55 !important; }
 .ea-ring-parent .ea-card-ring { opacity: 0.55; animation: ringRotate 6s linear infinite; }
 .ea-card-ring-spinning {
