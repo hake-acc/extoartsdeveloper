@@ -80,6 +80,8 @@ const webPageSchema = {
 }
 
 export default function HomePage() {
+  const latestThumbs = getLatestThumbnails(4)
+
   return (
     <>
       <JsonLd data={faqSchema} />
@@ -91,7 +93,7 @@ export default function HomePage() {
       <StatsSection />
       <OrganicDivider />
       <ServicesSection />
-      <PortfolioPreview categories={portfolioData} />
+      <PortfolioPreview categories={latestThumbs} />
       <OrganicDivider />
       <ReviewsSection />
       <WhoWeServe />
