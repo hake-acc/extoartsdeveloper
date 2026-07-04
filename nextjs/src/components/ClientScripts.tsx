@@ -1,11 +1,14 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { GA_ID } from '@/lib/constants'
 
 export function ClientScripts() {
+  const pathname = usePathname()
+
+  // One-time setup: analytics + progress bar
   useEffect(() => {
-    // Google Analytics — inject after mount
     if (GA_ID && !document.getElementById('ea-ga-script')) {
       const w = window as unknown as Record<string, unknown>
       w.dataLayer = (w.dataLayer as unknown[]) || []
@@ -19,7 +22,6 @@ export function ClientScripts() {
       document.head.appendChild(s)
     }
 
-    // Progress bar
     const bar = document.getElementById('page-progress')
     if (bar) {
       let ticking = false
@@ -34,8 +36,32 @@ export function ClientScripts() {
       }, { passive: true })
     }
 
-    // Scroll reveal
-    const srEls = document.querySelectorAll<HTMLElement>('.sr')
+    // Discord modal helpers — exposed globally for inline button use
+    function openModal(id: string) {
+      const m = document.getElementById(id)
+      if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden' }
+    }
+    function closeModal(id: string) {
+      const m = document.getElementById(id)
+      if (m) { m.classList.remove('open'); document.body.style.overflow = '' }
+    }
+    ;(window as unknown as Record<string, unknown>).openModal = openModal
+    ;(window as unknown as Record<string, unknown>).closeModal = closeModal
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') closeModal('discordModal')
+    }
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
+  // Re-run on every route change: scroll reveal + card rings + count-up
+  useEffect(() => {
+    // Scroll reveal — observe all .sr elements that haven't been revealed yet
+    const srEls = document.querySelectorAll<HTMLElement>('.sr:not(.in-view)')
     if (srEls.length) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
@@ -44,11 +70,14 @@ export function ClientScripts() {
             io.unobserve(e.target)
           }
         })
-      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' })
+      }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' })
       srEls.forEach((el) => io.observe(el))
+      return () => io.disconnect()
     }
+  }, [pathname])
 
-    // Card ring injection
+  // Card ring injection — re-run on route change
+  useEffect(() => {
     const sel = '.tilt-card, .stat-item, .rev-card, .price-card'
     document.querySelectorAll<HTMLElement>(sel).forEach((card) => {
       if (card.querySelector('.ea-card-ring')) return
@@ -61,60 +90,36 @@ export function ClientScripts() {
       const r = card.querySelector('.ea-card-ring')
       if (r) r.classList.add('ea-ring-always')
     })
+  }, [pathname])
 
-    // Discord modal helpers — exposed globally for inline button use
-    function openModal(id: string) {
-      const m = document.getElementById(id)
-      if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden' }
-    }
-    function closeModal(id: string) {
-      const m = document.getElementById(id)
-      if (m) { m.classList.remove('open'); document.body.style.overflow = '' }
-    }
-    // Attach to window so vanilla-JS inline scripts can call openModal('discordModal')
-    ;(window as unknown as Record<string, unknown>).openModal = openModal;
-    ;(window as unknown as Record<string, unknown>).closeModal = closeModal
-
-    // Keyboard close
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') closeModal('discordModal')
-    }
-    document.addEventListener('keydown', handleKeyDown)
-
-    // Count-up
+  // Count-up — re-run on route change
+  useEffect(() => {
     const countEls = document.querySelectorAll<HTMLElement>('[data-count-up]')
-    if (countEls.length) {
-      const cio = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return
-          const el = e.target as HTMLElement
-          const target = parseFloat(el.dataset.target ?? '0')
-          const suffix = el.dataset.suffix ?? ''
-          const prefix = el.dataset.prefix ?? ''
-          const dec = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0
-          const dur = 1800
-          const start = performance.now()
-          function tick(now: number) {
-            const p = Math.min((now - start) / dur, 1)
-            const ease = 1 - Math.pow(1 - p, 3)
-            const val = target * ease
-            el.textContent = prefix + (dec ? val.toFixed(dec) : Math.round(val)) + suffix
-            if (p < 1) requestAnimationFrame(tick)
-          }
-          requestAnimationFrame(tick)
-          cio.unobserve(el)
-        })
-      }, { threshold: 0.5 })
-      countEls.forEach((el) => cio.observe(el))
-    }
-
-    // Note: hero phrase cycling is handled by HeroSection's CycleStack component
-    // (React state + useEffect with proper cleanup) — no DOM-based interval here.
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
+    if (!countEls.length) return
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return
+        const el = e.target as HTMLElement
+        const target = parseFloat(el.dataset.countUp ?? '0')
+        const suffix = el.dataset.suffix ?? ''
+        const prefix = el.dataset.prefix ?? ''
+        const dec = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0
+        const dur = 1800
+        const start = performance.now()
+        function tick(now: number) {
+          const p = Math.min((now - start) / dur, 1)
+          const ease = 1 - Math.pow(1 - p, 3)
+          const val = target * ease
+          el.textContent = prefix + (dec ? val.toFixed(dec) : Math.round(val)) + suffix
+          if (p < 1) requestAnimationFrame(tick)
+        }
+        requestAnimationFrame(tick)
+        cio.unobserve(el)
+      })
+    }, { threshold: 0.5 })
+    countEls.forEach((el) => cio.observe(el))
+    return () => cio.disconnect()
+  }, [pathname])
 
   return null
 }
