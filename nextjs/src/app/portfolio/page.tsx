@@ -29,7 +29,7 @@ function readFolder(sub: string): GalleryImage[] {
     .sort((a, b) => b.mtime - a.mtime)
     .map(({ file }) => ({
       src: `/portfolio/${sub}/${file}`,
-      alt: file.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+      alt: sub === 'Logos' ? 'ExtoArts logo design' : sub === 'Banners' ? 'ExtoArts channel banner' : 'ExtoArts portfolio work',
       width: sub === 'Banners' ? 2560 : sub === 'Logos' ? 800 : 1280,
       height: sub === 'Banners' ? 1440 : sub === 'Logos' ? 800 : 720,
     }))

@@ -38,7 +38,7 @@ function Lightbox({ image, tab, onClose }: { image: GalleryImage; tab: Portfolio
       }}
       role="dialog"
       aria-modal="true"
-      aria-label={`${image.alt} preview`}
+      aria-label="Image preview"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.92, y: 16 }}
@@ -79,7 +79,6 @@ function Lightbox({ image, tab, onClose }: { image: GalleryImage; tab: Portfolio
             unoptimized={image.src.includes('iili.io')}
           />
         </div>
-        <p style={{ textAlign: 'center', marginTop: 16, fontSize: '0.8rem', color: 'rgba(255,255,255,0.45)' }}>{image.alt}</p>
       </motion.div>
     </motion.div>
   )
