@@ -12,30 +12,21 @@ import { FounderSection } from '@/components/sections/home/FounderSection'
 import { WhoWeServe } from '@/components/sections/home/WhoWeServe'
 import { WhyExtoArts } from '@/components/sections/home/WhyExtoArts'
 import { OrganicDivider } from '@/components/ui/OrganicDivider'
-import type { PortfolioPreviewItem } from '@/types'
-
-const THUMB_DIR = path.join(process.cwd(), 'public', 'portfolio', 'Thumbnails')
 const IMG_EXT = new Set(['.webp', '.jpg', '.jpeg', '.png'])
 
-function getLatestThumbnails(count = 4): PortfolioPreviewItem[] {
-  try {
-    const files = fs.readdirSync(THUMB_DIR)
-      .filter(f => IMG_EXT.has(path.extname(f).toLowerCase()))
-      .map(f => ({
-        name: f,
-        mtime: fs.statSync(path.join(THUMB_DIR, f)).mtimeMs,
-      }))
-      .sort((a, b) => b.mtime - a.mtime)
-      .slice(0, count)
+interface PortfolioItem { src: string; alt: string }
 
-    return files.map((f, i) => ({
-      id: `thumb-${i}`,
-      thumb: `/portfolio/Thumbnails/${f.name}`,
-      name: path.basename(f.name, path.extname(f.name)).replace(/[-_]/g, ' '),
-      meta: 'Thumbnail Design',
-    }))
+function readPortfolioFolder(sub: string, altLabel: string): PortfolioItem[] {
+  try {
+    const dir = path.join(process.cwd(), 'public', 'portfolio', sub)
+    if (!fs.existsSync(dir)) return []
+    return fs.readdirSync(dir)
+      .filter(f => IMG_EXT.has(path.extname(f).toLowerCase()))
+      .map(f => ({ name: f, mtime: fs.statSync(path.join(dir, f)).mtimeMs }))
+      .sort((a, b) => b.mtime - a.mtime)
+      .map(({ name }) => ({ src: `/portfolio/${sub}/${name}`, alt: altLabel }))
   } catch (err) {
-    console.error('[getLatestThumbnails] failed to read thumbnails dir:', err)
+    console.error(`[readPortfolioFolder] failed for ${sub}:`, err)
     return []
   }
 }
@@ -81,7 +72,9 @@ const webPageSchema = {
 }
 
 export default function HomePage() {
-  const latestThumbs = getLatestThumbnails(4)
+  const thumbnails = readPortfolioFolder('Thumbnails', 'ExtoArts thumbnail design')
+  const logos      = readPortfolioFolder('Logos',      'ExtoArts logo design')
+  const banners    = readPortfolioFolder('Banners',    'ExtoArts channel banner')
 
   return (
     <>
@@ -94,7 +87,7 @@ export default function HomePage() {
       <StatsSection />
       <OrganicDivider />
       <ServicesSection />
-      <PortfolioPreview categories={latestThumbs} />
+      <PortfolioPreview thumbnails={thumbnails} logos={logos} banners={banners} />
       <OrganicDivider />
       <ReviewsSection />
       <WhoWeServe />

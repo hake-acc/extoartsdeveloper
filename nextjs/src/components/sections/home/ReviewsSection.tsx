@@ -256,17 +256,59 @@ export function ReviewsSection() {
           </div>
         </div>
 
-        {/* Rating summary */}
+        {/* Rating summary + external profile badges */}
         <div style={{ padding: '48px min(20px,5%) 0', maxWidth: 1200, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 24 }}>
             <div style={{ display: 'flex', gap: 3 }} role="img" aria-label="5 out of 5 stars">
               {[...Array(5)].map((_, i) => (
                 <i key={i} className="ti ti-star" aria-hidden="true" style={{ fontSize: '1.1rem', color: '#f59e0b' }} />
               ))}
             </div>
             <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)' }}>
-              5.0 average from verified creators
+              5.0 average · verified creators on Discord
             </span>
+          </div>
+          {/* External trust badges */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <a
+              href="https://www.trustpilot.com/review/extoarts.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                padding: '9px 18px', borderRadius: 999,
+                border: '1px solid rgba(0,182,122,0.35)',
+                background: 'rgba(0,182,122,0.07)',
+                textDecoration: 'none', color: 'var(--text-muted)',
+                fontSize: '0.78rem', fontWeight: 700,
+                transition: 'border-color 0.2s, background 0.2s',
+              }}
+              className="trust-badge"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#00b67a"/>
+              </svg>
+              <span style={{ color: '#00b67a' }}>4.5</span>
+              <span>on Trustpilot</span>
+            </a>
+            <a
+              href="https://ytjobs.co/talent/profile/528947?r=179"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                padding: '9px 18px', borderRadius: 999,
+                border: '1px solid rgba(255,0,0,0.25)',
+                background: 'rgba(255,0,0,0.05)',
+                textDecoration: 'none', color: 'var(--text-muted)',
+                fontSize: '0.78rem', fontWeight: 700,
+                transition: 'border-color 0.2s, background 0.2s',
+              }}
+              className="trust-badge"
+            >
+              <i className="ti ti-brand-youtube" aria-hidden="true" style={{ color: '#ff0000', fontSize: '0.95rem' }} />
+              Verified on YTJobs
+            </a>
           </div>
         </div>
       </section>

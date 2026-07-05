@@ -120,7 +120,7 @@ export function Navbar() {
           style={{ display: 'flex', alignItems: 'center', gap: 2 }}
         >
           {NAV_LINKS.map((link) => {
-            const isActive = pathname === link.href
+            const isActive = link.href === '/' ? pathname === '/' : pathname === link.href
             return (
               <Link
                 key={link.href}
@@ -128,6 +128,7 @@ export function Navbar() {
                 className="nav-link-item"
                 aria-current={isActive ? 'page' : undefined}
                 style={{
+                  position: 'relative',
                   padding: '8px 14px',
                   borderRadius: 12,
                   fontSize: '0.82rem',
@@ -137,9 +138,24 @@ export function Navbar() {
                   background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
                   transition: 'color 0.2s, background 0.2s',
                   letterSpacing: '-0.01em',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 2,
                 }}
               >
                 {link.label}
+                {/* Active page indicator — glowing dot */}
+                <span style={{
+                  display: 'block',
+                  width: isActive ? 16 : 0,
+                  height: 2,
+                  borderRadius: 999,
+                  background: 'var(--primary)',
+                  boxShadow: isActive ? '0 0 6px var(--primary)' : 'none',
+                  transition: 'width 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s',
+                  marginTop: 1,
+                }} aria-hidden="true" />
               </Link>
             )
           })}

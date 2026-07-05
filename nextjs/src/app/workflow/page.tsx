@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/metadata'
 import { JsonLd } from '@/components/JsonLd'
-import { SectionHeader } from '@/components/ui/SectionHeader'
 import { SITE_URL } from '@/lib/constants'
 import { DiscordButton } from '@/components/ui/DiscordButton'
 
@@ -13,14 +12,14 @@ export const metadata: Metadata = buildMetadata({
 })
 
 const STEPS = [
-  { num: '01', icon: 'ti-message-circle', title: 'Discovery Call (Discord Ticket)', desc: 'You join our Discord server and open a private ticket. Share your niche, style references, video length, upload frequency, and editing budget. A team lead reviews your brief personally.', duration: '1-2 hours' },
-  { num: '02', icon: 'ti-users', title: 'Editor Matching', desc: 'Based on your niche and style, we identify the specialist editor in our team who fits best. You receive their portfolio section showing work from creators in your category.', duration: 'Same day' },
-  { num: '03', icon: 'ti-file-invoice', title: 'Custom Quote', desc: 'We send a fully itemized quote: editing rate, agency fee (10%), turnaround time, revision rounds, and any add-ons. No hidden fees appear after approval.', duration: '2-4 hours' },
-  { num: '04', icon: 'ti-upload', title: 'Footage Submission', desc: 'You approve the quote and pay a 50% deposit. Then you send your raw footage via your preferred file transfer method (Google Drive, WeTransfer, Dropbox). We provide guidance if needed.', duration: '24 hours' },
-  { num: '05', icon: 'ti-movie', title: 'Production & Editing', desc: 'Your assigned editor begins production. You receive progress updates via Discord. The editor follows your style guide, uses your approved music, and builds to your content benchmarks.', duration: '3-5 business days' },
-  { num: '06', icon: 'ti-eye', title: 'Review & Revisions', desc: 'We deliver a first cut for your review. You provide feedback directly in Discord with timestamps. We apply revisions until you\'re satisfied. Most projects close in 1-2 revision rounds.', duration: '1-2 days' },
-  { num: '07', icon: 'ti-check', title: 'Final Delivery & Payment', desc: 'Once you approve the final version, we send all export files (YouTube-optimized MP4, any raw files requested). The remaining 50% balance is due before the final delivery link is shared.', duration: 'Same day as approval' },
-  { num: '08', icon: 'ti-refresh', title: 'Ongoing Retainer (Optional)', desc: 'For creators with consistent upload schedules, we set up a dedicated workflow: recurring file submission, priority queue, monthly invoice, and a reserved editor slot.', duration: 'Ongoing' },
+  { num: '01', icon: 'ti-message-circle', title: 'Discovery Call (Discord Ticket)', desc: 'You join our Discord server and open a private ticket. Share your niche, style references, video length, upload frequency, and editing budget. A team lead reviews your brief personally.', duration: '1-2 hours', color: '#69ddff' },
+  { num: '02', icon: 'ti-users', title: 'Editor Matching', desc: 'Based on your niche and style, we identify the specialist editor in our team who fits best. You receive their portfolio section showing work from creators in your category.', duration: 'Same day', color: '#96cdff' },
+  { num: '03', icon: 'ti-file-invoice', title: 'Custom Quote', desc: 'We send a fully itemized quote: editing rate, agency fee (10%), turnaround time, revision rounds, and any add-ons. No hidden fees appear after approval.', duration: '2-4 hours', color: '#dbbadd' },
+  { num: '04', icon: 'ti-upload', title: 'Footage Submission', desc: 'You approve the quote and pay a 50% deposit. Then you send your raw footage via your preferred file transfer method (Google Drive, WeTransfer, Dropbox). We provide guidance if needed.', duration: '24 hours', color: '#be92a2' },
+  { num: '05', icon: 'ti-movie', title: 'Production & Editing', desc: 'Your assigned editor begins production. You receive progress updates via Discord. The editor follows your style guide, uses your approved music, and builds to your content benchmarks.', duration: '3-5 business days', color: '#69ddff' },
+  { num: '06', icon: 'ti-eye', title: 'Review & Revisions', desc: 'We deliver a first cut for your review. You provide feedback directly in Discord with timestamps. We apply revisions until you\'re satisfied. Most projects close in 1-2 revision rounds.', duration: '1-2 days', color: '#96cdff' },
+  { num: '07', icon: 'ti-check', title: 'Final Delivery & Payment', desc: 'Once you approve the final version, we send all export files (YouTube-optimized MP4, any raw files requested). The remaining 50% balance is due before the final delivery link is shared.', duration: 'Same day', color: '#a3e635' },
+  { num: '08', icon: 'ti-refresh', title: 'Ongoing Retainer (Optional)', desc: 'For creators with consistent upload schedules, we set up a dedicated workflow: recurring file submission, priority queue, monthly invoice, and a reserved editor slot.', duration: 'Ongoing', color: '#dbbadd' },
 ]
 
 const howToSchema = {
@@ -46,80 +45,140 @@ export default function WorkflowPage() {
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(60px,6vw)', textAlign: 'center', maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <span className="hero-badge" style={{ marginBottom: 28 }}>
           <span className="hero-badge-dot" aria-hidden="true" />
-          8-Step Process
+          8-Step Pipeline
         </span>
         <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
           A Process Built<br /><span className="sweep-text">for Creators.</span>
         </h1>
         <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto', lineHeight: 1.72 }}>
-          Every ExtoArts project follows the same transparent workflow. No surprises, no black boxes - just clear milestones from brief to delivery.
+          Every ExtoArts project follows the same transparent pipeline. Clear checkpoints, no black boxes - brief to delivery with zero surprises.
         </p>
       </section>
 
-      {/* Steps */}
-      <section style={{ padding: '0 min(20px,5%) min(100px,10vw)', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <div style={{ position: 'relative' }}>
-          {/* Timeline line */}
-          <div style={{ position: 'absolute', left: 28, top: 0, bottom: 0, width: 1, background: 'var(--border)' }} aria-hidden="true" />
+      {/* Pipeline */}
+      <section style={{ padding: '0 min(20px,5%) min(100px,10vw)', maxWidth: 860, margin: '0 auto', position: 'relative', zIndex: 10 }}>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-            {STEPS.map((step, i) => (
-              <article
-                key={step.num}
-                className="sr"
-                style={{ display: 'flex', gap: 28, paddingBottom: i < STEPS.length - 1 ? 40 : 0, animationDelay: `${i * 60}ms` }}
-              >
-                {/* Step number */}
-                <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <div
-                    style={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: '50%',
-                      background: 'var(--surface)',
-                      border: '2px solid rgba(34,211,238,0.3)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      boxShadow: '0 0 20px rgba(34,211,238,0.08)',
-                      position: 'relative',
-                      zIndex: 1,
-                    }}
-                  >
-                    <i className={`ti ${step.icon}`} aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '1.3rem' }} />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="tilt-card glass-card" style={{ border: '1px solid var(--border)', borderRadius: 18, padding: '24px 28px', flex: 1, marginBottom: i < STEPS.length - 1 ? 0 : 0 }}>
-                  <div className="tilt-inner">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ fontSize: '0.6rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--primary)', background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.16)', padding: '3px 10px', borderRadius: 999 }}>
-                          Step {step.num}
-                        </span>
-                        <h2 style={{ fontSize: 'clamp(0.95rem,2vw,1.15rem)', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.2px' }}>
-                          {step.title}
-                        </h2>
-                      </div>
-                      <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap' }}>
-                        <i className="ti ti-clock" aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '0.8rem' }} />
-                        {step.duration}
-                      </span>
-                    </div>
-                    <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.72, margin: 0 }}>
-                      {step.desc}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+        {/* Progress bar header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 56, padding: '0 4px', overflowX: 'auto' }}>
+          {STEPS.map((step, i) => (
+            <div key={step.num} style={{ display: 'flex', alignItems: 'center', flex: i < STEPS.length - 1 ? '1 1 auto' : '0 0 auto' }}>
+              {/* Step dot */}
+              <div style={{
+                width: 32, height: 32, borderRadius: '50%',
+                background: `rgba(${i < 3 ? '105,221,255' : i < 6 ? '150,205,255' : '219,186,221'},0.12)`,
+                border: `2px solid ${step.color}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0, fontSize: '0.62rem', fontWeight: 900, color: step.color,
+                boxShadow: `0 0 12px ${step.color}30`,
+              }}>
+                {step.num}
+              </div>
+              {/* Connector */}
+              {i < STEPS.length - 1 && (
+                <div style={{
+                  flex: 1, height: 2, minWidth: 8,
+                  background: `linear-gradient(90deg, ${step.color}60, ${STEPS[i + 1].color}60)`,
+                }} />
+              )}
+            </div>
+          ))}
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: 56 }}>
-          <DiscordButton className="btn btn-main" style={{ marginRight: 12 }}>
+        {/* Steps */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {STEPS.map((step, i) => (
+            <article
+              key={step.num}
+              className="sr"
+              style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 0, animationDelay: `${i * 50}ms` }}
+            >
+              {/* Left: checkpoint circle + connector line */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 4 }}>
+                {/* Checkpoint circle */}
+                <div style={{
+                  width: 52, height: 52, borderRadius: '50%',
+                  background: `linear-gradient(135deg, ${step.color}18, ${step.color}08)`,
+                  border: `2px solid ${step.color}50`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0, position: 'relative', zIndex: 1,
+                  boxShadow: `0 0 20px ${step.color}20`,
+                }}>
+                  {/* Inner check ring */}
+                  <div style={{
+                    width: 36, height: 36, borderRadius: '50%',
+                    background: `${step.color}15`,
+                    border: `1px solid ${step.color}40`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <i className={`ti ${step.icon}`} aria-hidden="true" style={{ color: step.color, fontSize: '0.95rem' }} />
+                  </div>
+                  {/* Step number badge */}
+                  <span style={{
+                    position: 'absolute', top: -4, right: -4,
+                    width: 18, height: 18, borderRadius: '50%',
+                    background: step.color, color: '#000',
+                    fontSize: '0.5rem', fontWeight: 900,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: `0 0 8px ${step.color}80`,
+                  }}>
+                    {step.num}
+                  </span>
+                </div>
+                {/* Connector line */}
+                {i < STEPS.length - 1 && (
+                  <div style={{
+                    width: 2, flex: 1, minHeight: 20, marginTop: 4,
+                    background: `linear-gradient(180deg, ${step.color}40, ${STEPS[i + 1].color}20)`,
+                    borderRadius: 999,
+                  }} />
+                )}
+              </div>
+
+              {/* Right: content card */}
+              <div
+                className="tilt-card glass-card"
+                style={{
+                  border: `1px solid var(--border)`,
+                  borderLeft: `2px solid ${step.color}30`,
+                  borderRadius: 18,
+                  padding: '20px 24px',
+                  marginLeft: 12,
+                  marginBottom: i < STEPS.length - 1 ? 0 : 0,
+                }}
+              >
+                <div className="tilt-inner">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{
+                        fontSize: '0.56rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px',
+                        color: step.color,
+                        background: `${step.color}12`,
+                        border: `1px solid ${step.color}28`,
+                        padding: '3px 10px', borderRadius: 999,
+                      }}>
+                        Checkpoint {step.num}
+                      </span>
+                      <h2 style={{ fontSize: 'clamp(0.9rem,1.8vw,1.05rem)', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.2px' }}>
+                        {step.title}
+                      </h2>
+                    </div>
+                    <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap', flexShrink: 0 }}>
+                      <i className="ti ti-clock" aria-hidden="true" style={{ color: step.color, fontSize: '0.8rem' }} />
+                      {step.duration}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.72, margin: 0 }}>
+                    {step.desc}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div style={{ textAlign: 'center', marginTop: 56, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <DiscordButton className="btn btn-main">
             <i className="ti ti-brand-discord" aria-hidden="true" /> Start Your Project
           </DiscordButton>
           <Link href="/pricing" className="btn btn-glass">
@@ -127,6 +186,14 @@ export default function WorkflowPage() {
           </Link>
         </div>
       </section>
+
+      <style>{`
+        @media (max-width: 540px) {
+          article[style*="grid-template-columns: 72px"] {
+            grid-template-columns: 52px 1fr !important;
+          }
+        }
+      `}</style>
     </>
   )
 }

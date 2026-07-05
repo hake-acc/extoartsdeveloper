@@ -8,7 +8,11 @@ export const FOUNDER_PHOTO = 'https://iili.io/BZ0qsef.jpg'
 export const SUPPORT_EMAIL = 'support@extoarts.in'
 export const TWITTER_HANDLE = '@extoarts'
 
+export const YTJOBS_URL = 'https://ytjobs.co/talent/profile/528947?r=179'
+export const TRUSTPILOT_URL = 'https://www.trustpilot.com/review/extoarts.in'
+
 export const NAV_LINKS = [
+  { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Pricing', href: '/pricing' },

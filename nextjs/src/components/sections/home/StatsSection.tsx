@@ -13,10 +13,9 @@ const STATS = [
   },
   {
     icon: 'ti-star',
-    value: '5.0',
-    label: 'Average Rating',
-    desc: 'Verified reviews across Discord and Trustpilot',
-    countUp: '5.0',
+    value: '4.5★',
+    label: 'Trustpilot Rating',
+    desc: '5.0 on Discord · 4.5 on Trustpilot · verified reviews',
     color: '#96cdff',   // Sky Blue
     rgba: '150,205,255',
   },
