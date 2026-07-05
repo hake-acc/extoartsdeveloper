@@ -78,7 +78,7 @@ export function Navbar() {
           WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(200%)' : 'none',
           borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
           boxShadow: scrolled ? '0 1px 0 rgba(255,255,255,0.03) inset, 0 8px 32px rgba(0,0,0,0.22)' : 'none',
-          transition: 'padding 0.4s cubic-bezier(0.16,1,0.3,1), background 0.4s, border-color 0.4s, box-shadow 0.4s',
+          transition: 'padding 0.22s cubic-bezier(0.16,1,0.3,1), background 0.22s, border-color 0.18s, box-shadow 0.22s',
         }}
       >
         {/* Logo */}

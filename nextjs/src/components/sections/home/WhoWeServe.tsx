@@ -1,4 +1,7 @@
+'use client'
+
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { InView } from '@/components/ui/InView'
 
 // All 5 brand colours distributed across 6 creator types
 const CREATOR_TYPES = [
@@ -35,12 +38,14 @@ export function WhoWeServe() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: 16,
         }}
-        className="ea-stagger"
       >
         {CREATOR_TYPES.map((type, i) => (
-          <div
+          <InView
             key={type.title}
-            className={`tilt-card glass-card sr${i % 3 === 0 ? ' sr-left' : i % 3 === 2 ? ' sr-right' : ''}`}
+            as="div"
+            variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
+            transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+            className="tilt-card glass-card"
             style={{ border: `1px solid rgba(0,0,0,0)`, padding: 28, borderRadius: 20 }}
           >
             <div className="tilt-inner">
@@ -67,7 +72,7 @@ export function WhoWeServe() {
                 {type.desc}
               </p>
             </div>
-          </div>
+          </InView>
         ))}
       </div>
     </section>

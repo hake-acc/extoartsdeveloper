@@ -38,7 +38,7 @@ export function MaskTextReveal({
   children,
   lines,
   delay = 0,
-  stagger = 0.1,
+  stagger = 0.08,
   duration = 0.72,
   inView: triggerInView = false,
   className,

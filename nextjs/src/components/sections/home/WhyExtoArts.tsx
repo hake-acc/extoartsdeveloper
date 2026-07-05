@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { InView } from '@/components/ui/InView'
 
 const REASONS = [
   {
@@ -77,12 +80,14 @@ export function WhyExtoArts() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
           gap: 14,
         }}
-        className="ea-stagger"
       >
         {REASONS.map((reason, i) => (
-          <div
+          <InView
             key={reason.title}
-            className="glass-card shine-border sr"
+            as="div"
+            variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
+            transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+            className="glass-card shine-border"
             style={{
               border: '1px solid var(--border)',
               borderRadius: 20,
@@ -150,7 +155,7 @@ export function WhyExtoArts() {
                 </span>
               </div>
             </div>
-          </div>
+          </InView>
         ))}
       </div>
 
@@ -164,7 +169,9 @@ export function WhyExtoArts() {
       </div>
 
       <style>{`
-        .glass-card:hover .reason-icon { transform: scale(1.08) rotate(-4deg); }
+        @media (hover: hover) and (pointer: fine) {
+          .glass-card:hover .reason-icon { transform: scale(1.08) rotate(-4deg); }
+        }
       `}</style>
     </section>
   )

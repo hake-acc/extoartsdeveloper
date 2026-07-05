@@ -86,7 +86,7 @@ function NMItem({
         {/* ── Neumorphic ± circle ── */}
         <motion.span
           animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -121,7 +121,7 @@ function NMItem({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
             style={{ overflow: 'hidden' }}
           >
             <div

@@ -242,7 +242,9 @@ export function Footer() {
           color: var(--primary) !important;
           border-color: rgba(34,211,238,0.28) !important;
           background: rgba(34,211,238,0.06) !important;
-          transform: translateY(-2px) !important;
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .footer-social-icon:hover { transform: translateY(-2px) !important; }
         }
       `}</style>
     </>

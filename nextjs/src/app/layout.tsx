@@ -8,6 +8,7 @@ import { ClientScripts } from '@/components/ClientScripts'
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
 import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
+import { MotionProvider } from '@/components/motion/MotionProvider'
 import { CursorFollower } from '@/components/motion/CursorFollower'
 import { GrainOverlay } from '@/components/ui/GrainOverlay'
 
@@ -236,18 +237,20 @@ export default function RootLayout({
       <body>
         <Script id="ea-theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('ea-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.replace('no-js','js');})();`}</Script>
         <a href="#main-content" className="skip-link">Skip to content</a>
-        <div className="mesh-glow" aria-hidden="true" />
-        <div id="page-progress" aria-hidden="true" />
-        <Navbar />
-        <main id="main-content">
-          {children}
-        </main>
-        <Footer />
-        <DiscordModal />
-        <ClientScripts />
-        <SmoothScrollProvider />
-        <CursorFollower />
-        <GrainOverlay />
+        <MotionProvider>
+          <div className="mesh-glow" aria-hidden="true" />
+          <div id="page-progress" aria-hidden="true" />
+          <Navbar />
+          <main id="main-content">
+            {children}
+          </main>
+          <Footer />
+          <DiscordModal />
+          <ClientScripts />
+          <SmoothScrollProvider />
+          <CursorFollower />
+          <GrainOverlay />
+        </MotionProvider>
       </body>
     </html>
   )

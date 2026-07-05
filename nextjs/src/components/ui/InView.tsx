@@ -4,7 +4,7 @@
 // Scroll-triggered reveal wrapper using Framer Motion
 
 import { useRef } from 'react'
-import { motion, useInView, type Variants } from 'framer-motion'
+import { motion, useInView, type Variants, type Transition } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 interface InViewProps {
@@ -12,7 +12,7 @@ interface InViewProps {
   className?: string
   style?: React.CSSProperties
   variants?: Variants
-  transition?: object
+  transition?: Transition
   viewOptions?: {
     once?: boolean
     amount?: number | 'some' | 'all'
@@ -30,7 +30,7 @@ export function InView({
   className,
   style,
   variants = defaultVariants,
-  transition = { duration: 0.5, ease: 'easeOut' },
+  transition = { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
   viewOptions = { once: true, amount: 0.15 },
   as = 'div',
 }: InViewProps) {

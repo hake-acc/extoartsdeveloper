@@ -107,8 +107,7 @@ function ReviewCard({ review, onClick }: { review: Review; onClick: () => void }
 // ── Review modal ──────────────────────────────────────────────────────────────
 function ReviewModal({ review, onClose }: { review: Review; onClose: () => void }) {
   return (
-    <AnimatePresence>
-      <motion.div
+    <motion.div
         role="dialog"
         aria-modal="true"
         aria-labelledby="review-modal-name"
@@ -191,7 +190,6 @@ function ReviewModal({ review, onClose }: { review: Review; onClose: () => void 
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
   )
 }
 
@@ -313,13 +311,17 @@ export function ReviewsSection() {
         </div>
       </section>
 
-      {selected && <ReviewModal review={selected} onClose={() => setSelected(null)} />}
+      <AnimatePresence>
+        {selected && <ReviewModal key="review-modal" review={selected} onClose={() => setSelected(null)} />}
+      </AnimatePresence>
 
       <style>{`
         .rev-card-inner:hover {
-          transform: translateY(-4px);
           box-shadow: 0 18px 52px rgba(0,0,0,0.44), 0 0 0 1px rgba(105,221,255,0.09);
           border-color: rgba(255,255,255,0.11) !important;
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .rev-card-inner:hover { transform: translateY(-4px); }
         }
       `}</style>
     </>
