@@ -27,6 +27,7 @@ const personSchema = {
 }
 
 const FAQ_ITEMS = [
+  { q: 'What does "ExtoArts" mean as a brand name?', a: 'ExtoArts is a coined brand name built from the idea of extending creative arts - the craft of video editing, thumbnail design, and channel strategy pushed beyond ordinary limits. Founder Rehan chose it to reflect a simple principle: extend what is possible for YouTube creators through skilled production, fair pricing, and a team that genuinely cares about the work.' },
   { q: 'When was ExtoArts founded?', a: 'ExtoArts was founded in 2024 by Rehan with the goal of creating a fair-compensation video editing agency where editors receive 90% of the client budget.' },
   { q: 'Where is ExtoArts based?', a: 'ExtoArts operates fully remotely with editors working across different time zones, allowing us to serve creators worldwide with fast turnaround times.' },
   { q: 'Is ExtoArts a legitimate agency?', a: 'Yes. ExtoArts is a real creative agency with verified client reviews on Discord. All reviews shown on our website are from real projects completed for actual YouTube creators.' },
@@ -96,8 +97,11 @@ export default function AboutPage() {
               <blockquote style={{ borderLeft: '2px solid var(--primary)', paddingLeft: 18, margin: '0 0 24px', color: 'var(--text-muted)', fontStyle: 'italic', fontSize: '1rem', lineHeight: 1.7 }}>
                 &ldquo;The best editors deserve the most money. That&apos;s why we take 10%, not 40%.&rdquo;
               </blockquote>
+              <blockquote style={{ borderLeft: '2px solid rgba(34,211,238,0.3)', paddingLeft: 18, margin: '0 0 20px', color: 'var(--text-muted)', fontStyle: 'italic', fontSize: '0.88rem', lineHeight: 1.7 }}>
+                &ldquo;I built ExtoArts because I watched creators overpay for mediocre work, over and over again. Good editing shouldn&apos;t cost 40% of your budget in agency fees - that math has never made sense.&rdquo;
+              </blockquote>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.75, marginBottom: 24 }}>
-                Rehan founded ExtoArts in 2024 after seeing how traditional agencies systematically underpaid editors while overcharging creators. His solution was radical transparency: one flat fee, no hidden margins, no retainer lock-ins. Every client knows exactly where their money goes.
+                Rehan is the founder and creative director of ExtoArts, a global YouTube video editing agency launched in 2024. He co-founded ExtoArts with five specialist editors (RevenantX, Subh, Hake, Leo, and RAGE) to solve a specific problem: creators couldn&apos;t afford agencies with 30-50% fees, and freelancers lacked the QC infrastructure agencies provide. The 10% model was built as the practical solution.
               </p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.78rem', color: '#5865f2', textDecoration: 'none', padding: '9px 16px', border: '1px solid rgba(88,101,242,0.25)', borderRadius: 12, background: 'rgba(88,101,242,0.06)', fontWeight: 700 }}>
@@ -123,6 +127,65 @@ export default function AboutPage() {
             }
           }
         `}</style>
+      </section>
+
+      {/* The 10% Golden Rule */}
+      <section aria-labelledby="golden-rule-heading" style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 1100, margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'stretch' }} className="about-two-col">
+          <div className="tilt-card glass-card sr" style={{ border: '1px solid var(--border)', borderRadius: 24, padding: 'min(44px,4.5vw)' }}>
+            <div className="tilt-inner">
+              <h2 id="golden-rule-heading" style={{ fontSize: 'clamp(1.4rem,2.8vw,2rem)', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 16, color: 'var(--text-main)' }}>
+                The 10% <span className="sweep-text">Golden Rule</span>
+              </h2>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.78, marginBottom: 16 }}>
+                Traditional agencies charge 30-50% commission on creator budgets, leaving the actual editor underpaid and unmotivated. ExtoArts charges a flat 10%. <strong style={{ color: 'var(--text-main)' }}>90% of your money goes directly to the artist building your video.</strong>
+              </p>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.78, margin: 0 }}>
+                On a $500 edit, that means $450 to your editor versus $250-$350 at a traditional agency. Better pay produces better output - the math is simple.
+              </p>
+            </div>
+          </div>
+          <div className="tilt-card glass-card sr" style={{ border: '1px solid var(--border)', borderRadius: 24, padding: 'min(44px,4.5vw)' }}>
+            <div className="tilt-inner">
+              <h2 style={{ fontSize: 'clamp(1.4rem,2.8vw,2rem)', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 16, color: 'var(--text-main)' }}>
+                Vetted Before <span className="sweep-text">They Edit</span>
+              </h2>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.78, marginBottom: 16 }}>
+                Every editor on ExtoArts passes a review on actual project edits before being assigned client work. We evaluate pacing decisions, hook quality, audio mixing, and communication under a real brief - not just a portfolio link.
+              </p>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.78, margin: 0 }}>
+                Only editors who clear the full review take on projects. No generalists, no shortcuts.
+              </p>
+            </div>
+          </div>
+        </div>
+        <style>{`@media (max-width: 700px) { .about-two-col { grid-template-columns: 1fr !important; } }`}</style>
+      </section>
+
+      {/* The 3-step process */}
+      <section aria-labelledby="process-heading" style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        <h2 id="process-heading" style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)', fontWeight: 900, letterSpacing: '-1px', textAlign: 'center', marginBottom: 12, color: 'var(--text-main)' }}>
+          How a Project <span className="sweep-text">Actually Works</span>
+        </h2>
+        <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textAlign: 'center', maxWidth: 480, margin: '0 auto 48px', lineHeight: 1.72 }}>
+          Every project runs through three stages inside a private Discord ticket. You always know where things stand without having to ask.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }} className="process-grid">
+          {[
+            { num: '01', title: 'The Brief', desc: 'Join our Discord, open a private ticket, and share your footage, assets, and vision. We\'ll review it and clarify what we need before the edit starts.' },
+            { num: '02', title: 'The Match', desc: 'We pair your project with the best-fit specialist. A storyteller for vlogs, a high-energy editor for gaming, a punchy artist for shorts. No one-size-fits-all.' },
+            { num: '03', title: 'The Polish', desc: 'We deliver the first draft, you give feedback, we refine. This keeps going until it\'s exactly what you had in mind, and ready to post.' },
+          ].map((step) => (
+            <div key={step.num} className="tilt-card glass-card sr" style={{ border: '1px solid var(--border)', borderRadius: 20, padding: 28, textAlign: 'center' }}>
+              <div className="tilt-inner">
+                <div style={{ fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 900, color: 'var(--primary)', opacity: 0.15, letterSpacing: '-2px', lineHeight: 1, marginBottom: 12 }} aria-hidden="true">{step.num}</div>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 10 }}>{step.title}</h3>
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <style>{`@media (max-width: 700px) { .process-grid { grid-template-columns: 1fr !important; } }`}</style>
       </section>
 
       {/* Values */}

@@ -31,7 +31,7 @@ export const RETAINER_PACKAGES = [
     price: 'Custom',
     period: '/month',
     desc: 'For new creators getting consistent professional quality from the start.',
-    features: ['4 videos per month', 'Standard turnaround (3-5 days)', '2 revisions per video', 'Thumbnail design included', 'Discord priority support'],
+    features: ['4 videos per month', 'Standard turnaround (3-5 days)', '3 revision rounds per video', 'Thumbnail design included', 'Discord priority support'],
     featured: false,
     cta: 'Get a Quote',
   },

@@ -72,15 +72,26 @@ const SERVICES = [
     turnaround: '7-14 days per video',
     badge: 'Full Automation',
   },
+  {
+    id: 'strategy',
+    icon: 'ti-chart-line',
+    num: '07',
+    title: 'Content Strategy & Consulting',
+    desc: 'Not sure what\'s holding your channel back? We\'ll take an honest look at your content, your thumbnails, your titles, and your editing style, and tell you exactly what\'s working, what isn\'t, and what to do about it. No generic advice - specific, actionable direction for your niche.',
+    features: ['Full channel audit and benchmarking', 'Competitor retention analysis', 'Thumbnail and title CTR review', 'Content calendar and topic strategy', 'YouTube SEO and keyword guidance', 'Growth strategy roadmap'],
+    turnaround: '3-5 business days',
+    badge: 'Channel Growth',
+  },
 ]
 
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
-    { '@type': 'Question', name: 'What YouTube video editing services does ExtoArts offer?', acceptedAnswer: { '@type': 'Answer', text: 'ExtoArts offers high-retention YouTube video editing, viral thumbnail design, TikTok and YouTube Shorts editing, custom motion graphics and VFX, specialist gaming video editing, and full done-for-you faceless YouTube channel automation.' } },
+    { '@type': 'Question', name: 'What YouTube video editing services does ExtoArts offer?', acceptedAnswer: { '@type': 'Answer', text: 'ExtoArts offers high-retention YouTube video editing, viral thumbnail design, TikTok and YouTube Shorts editing, custom motion graphics and VFX, specialist gaming video editing, full done-for-you faceless YouTube channel automation, and content strategy and consulting for channel growth.' } },
     { '@type': 'Question', name: 'How does ExtoArts match video editors to creators?', acceptedAnswer: { '@type': 'Answer', text: 'ExtoArts assigns editors based on niche expertise, not availability. A gaming creator gets a specialist gaming editor with a proven portfolio in Roblox, Minecraft, or PUBG content.' } },
     { '@type': 'Question', name: 'What is the turnaround time for YouTube video editing?', acceptedAnswer: { '@type': 'Answer', text: 'Standard turnaround for YouTube video editing through ExtoArts is 3-5 business days for most projects. Rush delivery (24-48 hours) is available. Retainer clients receive priority scheduling.' } },
+    { '@type': 'Question', name: 'Does ExtoArts offer content strategy and consulting?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. ExtoArts offers content strategy and consulting including full channel audits, competitor retention analysis, thumbnail and title CTR review, content calendar planning, YouTube SEO, and a tailored growth strategy roadmap.' } },
   ],
 }
 
@@ -94,7 +105,7 @@ export default function ServicesPage() {
       <section style={{ padding: 'min(20vh,160px) min(20px,5%) min(60px,6vw)', textAlign: 'center', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <span className="hero-badge" style={{ marginBottom: 28 }}>
           <span className="hero-badge-dot" aria-hidden="true" />
-          Six Core Services
+          Seven Core Services
         </span>
         <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
           Every Service.<br /><span className="sweep-text">Built for YouTube.</span>
@@ -114,10 +125,10 @@ export default function ServicesPage() {
 
       {/* Stats strip */}
       <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '18px min(20px,5%)', display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 60, background: 'rgba(255,255,255,0.02)' }}>
-        {[['10%', 'Flat Agency Fee'], ['90%', 'Goes to Your Editor'], ['3-5 Days', 'Standard Turnaround'], ['5.0', 'Average Rating']].map(([val, label]) => (
+        {[['50%+', 'Target viewer retention above platform average'], ['35-70%', 'More clicks from custom thumbnails vs auto-generated frames'], ['24-48h', 'Standard thumbnail delivery. Video edits in 3-7 days'], ['10%', 'Flat agency fee. 90% of your budget goes to your editor']].map(([val, label]) => (
           <div key={label} style={{ textAlign: 'center', padding: '0 16px' }}>
             <div style={{ fontSize: 'clamp(1.2rem,2.5vw,1.6rem)', fontWeight: 900, color: 'var(--primary)', letterSpacing: '-1px', lineHeight: 1 }}>{val}</div>
-            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4, fontWeight: 600, letterSpacing: '0.3px' }}>{label}</div>
+            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4, fontWeight: 600, letterSpacing: '0.3px', maxWidth: 200 }}>{label}</div>
           </div>
         ))}
       </div>
@@ -171,6 +182,45 @@ export default function ServicesPage() {
           </article>
         ))}
       </div>
+
+      {/* How to Hire section — from old site */}
+      <section style={{ padding: '0 min(20px,5%) min(100px,10vw)', maxWidth: 1100, margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <span className="sec-label" style={{ display: 'inline-flex', marginBottom: 14, alignItems: 'center', gap: 8 }}>
+            <span className="gradient-dot" aria-hidden="true" />
+            How to Hire
+          </span>
+          <h2 style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 12, color: 'var(--text-main)' }}>
+            How to Hire a Video Editor Through ExtoArts
+          </h2>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.72 }}>
+            No forms, no waiting weeks. Join the Discord, open a ticket, and get a niche-matched editor with a custom quote the same day.
+          </p>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
+          {[
+            { num: '01', title: 'Join Discord + Open a Ticket', desc: 'Join the ExtoArts server and open a private ticket. All briefs, files, revisions, and deliveries happen in one organized private channel.' },
+            { num: '02', title: 'Share Your Brief', desc: 'Tell us your channel niche, style references, and editing budget. Gaming channels get gaming editors - not generalists.' },
+            { num: '03', title: 'Get Your Matched Editor', desc: 'We assign a specialist editor the same day. You receive a custom quote with no commitment until you approve it.' },
+            { num: '04', title: 'Receive Your First Edit', desc: 'Approve the quote, send your footage, and receive your first edit within the agreed turnaround. Revisions handled in the same ticket.' },
+          ].map((step) => (
+            <div key={step.num} className="tilt-card glass-card sr" style={{ border: '1px solid var(--border)', borderRadius: 20, padding: 28 }}>
+              <div className="tilt-inner">
+                <span style={{ fontSize: '0.62rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--primary)', background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.16)', padding: '3px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>
+                  Step {step.num}
+                </span>
+                <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 10, letterSpacing: '-0.2px' }}>{step.title}</h3>
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginTop: 40 }}>
+          <Link href="/pricing" className="btn btn-glass"><i className="ti ti-percentage" aria-hidden="true" /> Video Editing Cost Guide</Link>
+          <Link href="/portfolio" className="btn btn-glass"><i className="ti ti-photo" aria-hidden="true" /> Creator Results</Link>
+          <Link href="/faq" className="btn btn-glass"><i className="ti ti-help-circle" aria-hidden="true" /> FAQ</Link>
+        </div>
+      </section>
 
     </>
   )
