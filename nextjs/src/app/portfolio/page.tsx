@@ -5,6 +5,7 @@ import { buildMetadata } from '@/lib/metadata'
 import { JsonLd } from '@/components/JsonLd'
 import type { GalleryImage } from './PortfolioClient'
 import { PortfolioClient } from './PortfolioClient'
+import { FocusSliceCarousel } from '@/components/ui/FocusSliceCarousel'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Portfolio - YouTube Thumbnails, Logos & Channel Banners | ExtoArts',
@@ -14,52 +15,31 @@ export const metadata: Metadata = buildMetadata({
 
 const ALLOWED_EXT = /\.(jpg|jpeg|png|webp|gif|avif)$/i
 
+// Only ever load locally-uploaded "All Artists Samples" — legacy CDN links
+// (old iili.io game-category thumbnails) must never be surfaced in the portfolio.
 function readFolder(sub: string): GalleryImage[] {
   const dir = path.join(process.cwd(), 'public', 'portfolio', sub)
   if (!fs.existsSync(dir)) return []
   return fs.readdirSync(dir)
     .filter((f) => ALLOWED_EXT.test(f))
     .map((f) => ({
-      src: `/portfolio/${sub}/${f}`,
-      alt: f.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+      file: f,
+      mtime: fs.statSync(path.join(dir, f)).mtimeMs,
+    }))
+    .sort((a, b) => b.mtime - a.mtime)
+    .map(({ file }) => ({
+      src: `/portfolio/${sub}/${file}`,
+      alt: file.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
       width: sub === 'Banners' ? 2560 : sub === 'Logos' ? 800 : 1280,
       height: sub === 'Banners' ? 1440 : sub === 'Logos' ? 800 : 720,
     }))
 }
 
-// Merge CDN thumbnails from portfolio.json with local uploads
 async function getPortfolioData() {
-  const local = readFolder('Thumbnails')
-  const logos = readFolder('Logos')
-  const banners = readFolder('Banners')
-
-  // Pull CDN images from existing portfolio.json
-  let cdnThumbnails: GalleryImage[] = []
-  try {
-    const raw = fs.readFileSync(
-      path.join(process.cwd(), 'src', 'data', 'portfolio.json'),
-      'utf8'
-    )
-    const cats = JSON.parse(raw) as Array<{
-      name: string
-      items: Array<{ title: string; thumbnail_url: string }>
-    }>
-    cdnThumbnails = cats.flatMap((cat) =>
-      cat.items.map((item) => ({
-        src: item.thumbnail_url,
-        alt: item.title,
-        width: 1280,
-        height: 720,
-      }))
-    )
-  } catch {
-    // portfolio.json unavailable — skip CDN images
-  }
-
   return {
-    thumbnails: [...local, ...cdnThumbnails],
-    logos,
-    banners,
+    thumbnails: readFolder('Thumbnails'),
+    logos: readFolder('Logos'),
+    banners: readFolder('Banners'),
   }
 }
 
@@ -112,6 +92,23 @@ export default async function PortfolioPage() {
           Thumbnails built for CTR. Logos built for identity. Banners built for first impressions.
         </p>
       </section>
+
+      {/* Featured samples carousel — newest "All Artists Samples" only */}
+      {thumbnails.length > 0 && (
+        <section
+          aria-label="Featured samples"
+          style={{ padding: '0 min(20px,5%) min(64px,7vw)' }}
+        >
+          <FocusSliceCarousel
+            items={thumbnails.map((t) => ({
+              src: t.src,
+              alt: t.alt,
+              subtitle: 'Thumbnail Design',
+            }))}
+            maxVisible={6}
+          />
+        </section>
+      )}
 
       {/* Tabs + grid */}
       <PortfolioClient
