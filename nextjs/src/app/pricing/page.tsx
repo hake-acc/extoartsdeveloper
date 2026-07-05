@@ -6,6 +6,7 @@ import { DiscordButton } from '@/components/ui/DiscordButton'
 import { BorderBeam } from '@/components/ui/BorderBeam'
 import { InView } from '@/components/ui/InView'
 import { COST_TIERS, RETAINER_PACKAGES, PRICING_FAQ_SCHEMA } from '@/data/pricing'
+import { TenPercentModelVisual } from '@/components/sections/pricing/TenPercentModelVisual'
 
 export const metadata: Metadata = buildMetadata({
   title: 'YouTube Video Editing Pricing & Rates | ExtoArts',
@@ -41,60 +42,8 @@ export default function PricingPage() {
         </p>
       </section>
 
-      {/* The 10% model explainer */}
-      <section style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <div
-          className="gradient-border"
-          style={{ padding: 'min(48px,5vw)', textAlign: 'center', borderRadius: 28 }}
-        >
-          <div className="gradient-dot" aria-hidden="true" style={{ display: 'inline-block', width: 10, height: 10, marginBottom: 20 }} />
-          <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 16 }}>
-            The 10% Model - How It Works
-          </h2>
-          <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', maxWidth: 540, margin: '0 auto 36px', lineHeight: 1.78 }}>
-            Most agencies charge 40-70% overhead and give the rest to junior editors. ExtoArts flips the model: senior specialists earn what they deserve, and you get better results.
-          </p>
-
-          {/* Calculator visual */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 14,
-              maxWidth: 640,
-              margin: '0 auto',
-            }}
-            className="fee-calc-grid"
-          >
-            {[
-              { label: 'Your Budget', value: '$200', sub: 'per video', color: 'var(--text-main)', bg: 'rgba(255,255,255,0.04)' },
-              { label: 'ExtoArts Fee', value: '$20', sub: 'flat 10%', color: 'var(--primary)', bg: 'rgba(105,221,255,0.06)' },
-              { label: 'Editor Earns', value: '$180', sub: '90% to you', color: '#a3e635', bg: 'rgba(163,230,53,0.06)' },
-            ].map((item) => (
-              <div
-                key={item.label}
-                style={{
-                  padding: '24px 16px',
-                  background: item.bg,
-                  border: '1px solid var(--border)',
-                  borderRadius: 18,
-                  textAlign: 'center',
-                }}
-              >
-                <div style={{ fontSize: 'clamp(1.6rem,3vw,2.4rem)', fontWeight: 900, color: item.color, letterSpacing: '-1.5px', lineHeight: 1 }}>
-                  {item.value}
-                </div>
-                <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-muted)', marginTop: 6, textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-                  {item.label}
-                </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4, opacity: 0.7 }}>
-                  {item.sub}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* The 10% model explainer — interactive motion graphic */}
+      <TenPercentModelVisual />
 
       {/* Market comparison */}
       <section style={{ padding: '0 min(20px,5%) min(80px,7vw)', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
