@@ -8,3 +8,4 @@
 - [Portfolio image sourcing](portfolio-data-sourcing.md) — portfolio only reads local public/portfolio/* folders sorted by mtime desc; never reintroduce a CDN/JSON merge (legacy iili.io links must stay gone).
 - [CSS border-beam mask-clip requirement](css-border-beam-mask.md) — animated border-beam gradients need explicit mask-clip or they render as a solid moving block instead of a thin border ring.
 - [Animation audit decisions](animation-audit-decisions.md) — full audit decisions: hover gating, MotionConfig, AnimatePresence lift, spring interpolation, easing constants, and reduced-motion strategy.
+- [GitHub push instructions](../github-push.md) — token + remote URL pattern to push to hake-acc/extoartsdeveloper; read this before any git push.
