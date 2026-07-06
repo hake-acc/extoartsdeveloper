@@ -391,13 +391,10 @@ h4 {
     padding-right: max(16px, 4%) !important;
   }
 
-  /* Glass cards full width on mobile */
+  /* Glass cards — dark mode only gets the dark bg boost */
   .glass-card {
     padding: 18px 16px !important;
     border-radius: 14px !important;
-    background: rgba(5, 5, 7, 0.75) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
   }
 
   /* Ink cards */
@@ -420,14 +417,6 @@ h4 {
     font-size: 1.2rem !important;
   }
 
-  /* Text visibility: MUCH stronger contrast on mobile */
-  h1, h2, h3, h4 {
-    text-shadow: 0 2px 12px rgba(0,0,0,0.85), 0 0 32px rgba(0,0,0,0.6) !important;
-  }
-  p {
-    text-shadow: 0 1px 6px rgba(0,0,0,0.7) !important;
-    color: var(--text-muted) !important;
-  }
   /* Force section text on top of backgrounds */
   section h1, section h2, section h3 {
     position: relative;
@@ -435,8 +424,7 @@ h4 {
   }
 
   /* Glass card text contrast */
-  .glass-card h3, .glass-card p {
-    text-shadow: none !important;
+  .glass-card h3 {
     color: var(--text-main) !important;
   }
   .glass-card p {
@@ -457,6 +445,76 @@ h4 {
   .section-header-inner {
     text-align: center !important;
     align-items: center !important;
+  }
+}
+
+/* ── Mobile: Dark mode text visibility ── */
+/* Only apply shadows in dark mode so light mode stays clean */
+@media (max-width: 640px) {
+  :root:not([data-theme="light"]) h1,
+  :root:not([data-theme="light"]) h2,
+  :root:not([data-theme="light"]) h3,
+  :root:not([data-theme="light"]) h4 {
+    text-shadow: 0 2px 14px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7) !important;
+  }
+  :root:not([data-theme="light"]) section p {
+    text-shadow: 0 1px 8px rgba(0,0,0,0.75) !important;
+  }
+  /* Glass cards: dark bg only in dark mode */
+  :root:not([data-theme="light"]) .glass-card {
+    background: rgba(5, 5, 7, 0.78) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+  }
+  /* Dark mode card text override */
+  :root:not([data-theme="light"]) .glass-card h3 {
+    text-shadow: none !important;
+    color: var(--text-main) !important;
+  }
+  :root:not([data-theme="light"]) .glass-card p {
+    text-shadow: none !important;
+    color: var(--text-muted) !important;
+  }
+}
+
+/* ── Mobile: Light mode text clean-up ── */
+@media (max-width: 640px) {
+  [data-theme="light"] h1,
+  [data-theme="light"] h2,
+  [data-theme="light"] h3,
+  [data-theme="light"] h4,
+  [data-theme="light"] p {
+    text-shadow: none !important;
+  }
+  [data-theme="light"] h1,
+  [data-theme="light"] h2,
+  [data-theme="light"] h3 {
+    color: var(--text-main) !important;
+  }
+  [data-theme="light"] p {
+    color: var(--text-muted) !important;
+  }
+  /* Light mode glass cards: light frosted look */
+  [data-theme="light"] .glass-card {
+    background: rgba(255, 255, 255, 0.82) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border-color: rgba(0,0,0,0.09) !important;
+  }
+  [data-theme="light"] .glass-card h3 {
+    color: var(--text-main) !important;
+  }
+  [data-theme="light"] .glass-card p {
+    color: var(--text-muted) !important;
+  }
+  /* Light mode workflow cards */
+  [data-theme="light"] .tilt-card {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border-color: rgba(0,0,0,0.1) !important;
+  }
+  /* Light mode ink cards */
+  [data-theme="light"] .ink-card {
+    color: var(--text-main) !important;
   }
 }
 
