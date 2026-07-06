@@ -1,4 +1,5 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
+
 export default function TwitterPage() {
-  redirect('https://x.com/extoarts')
+  permanentRedirect('https://x.com/extoarts')
 }

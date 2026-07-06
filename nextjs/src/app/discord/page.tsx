@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 
 export default function DiscordPage() {
-  redirect('https://discord.gg/extoarts-1402333030827425922')
+  permanentRedirect('https://discord.gg/extoarts-1402333030827425922')
 }

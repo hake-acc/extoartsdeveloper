@@ -5,8 +5,8 @@ import { DiscordButton } from '@/components/ui/DiscordButton'
 import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Brand Partnerships & Creative Collabs | ExtoArts',
-  description: 'Commission motion graphics, VFX, thumbnails, video editing, and post-production from ExtoArts. One-off creative work for brands and creators with a high quality bar.',
+  title: 'Brand Partnerships & Creative Collabs',
+  description: 'Motion graphics, VFX, thumbnails, and video editing from ExtoArts. One-off creative work for brands and creators who want a high quality bar.',
   path: '/collab',
 })
 
@@ -16,7 +16,7 @@ const webPageSchema = {
   '@id': `${SITE_URL}/collab`,
   url: `${SITE_URL}/collab`,
   name: 'Brand Partnerships & Creative Collaborations | ExtoArts',
-  description: 'Commission motion graphics, VFX, thumbnails, video editing, and post-production from ExtoArts. One-off creative work for brands and creators with a high quality bar.',
+  description: 'Motion graphics, VFX, thumbnails, and video editing from ExtoArts. One-off creative work for brands and creators who want a high quality bar.',
   inLanguage: 'en-US',
   publisher: { '@id': `${SITE_URL}/#organization` },
   isPartOf: { '@id': `${SITE_URL}/#website` },

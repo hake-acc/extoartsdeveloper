@@ -9,7 +9,7 @@ import { COST_TIERS, RETAINER_PACKAGES, PRICING_FAQ_SCHEMA } from '@/data/pricin
 import { TenPercentModelVisual } from '@/components/sections/pricing/TenPercentModelVisual'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'YouTube Video Editing Pricing & Rates | ExtoArts',
+  title: 'YouTube Video Editing Pricing & Rates',
   description: 'ExtoArts charges a flat 10% agency fee - 90% goes to your editor. Transparent YouTube video editing rates, project pricing, and monthly retainer packages.',
   path: '/pricing',
 })

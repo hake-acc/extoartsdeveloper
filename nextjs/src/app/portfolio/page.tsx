@@ -8,7 +8,7 @@ import { PortfolioClient } from './PortfolioClient'
 import { FocusSliceCarousel } from '@/components/ui/FocusSliceCarousel'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Portfolio - YouTube Thumbnails, Logos & Channel Banners | ExtoArts',
+  title: 'Portfolio — YouTube Thumbnails, Logos & Channel Banners',
   description: 'Browse ExtoArts creative work: YouTube thumbnails, brand logos, and channel banners designed for real creators.',
   path: '/portfolio',
 })

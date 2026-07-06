@@ -1,4 +1,5 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
+
 export default function InstagramPage() {
-  redirect('https://www.instagram.com/extoarts?igsh=enVlYm9hczNiYjgw')
+  permanentRedirect('https://www.instagram.com/extoarts?igsh=enVlYm9hczNiYjgw')
 }

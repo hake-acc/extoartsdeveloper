@@ -22,23 +22,24 @@ const STEPS = [
   { num: '08', icon: 'ti-refresh', title: 'Ongoing Retainer (Optional)', desc: 'For creators with consistent upload schedules, we set up a dedicated workflow: recurring file submission, priority queue, monthly invoice, and a reserved editor slot.', duration: 'Ongoing', color: '#dbbadd' },
 ]
 
-const howToSchema = {
+const workflowSchema = {
   '@context': 'https://schema.org',
-  '@type': 'HowTo',
+  '@type': 'ItemList',
   name: 'How to Work with ExtoArts for YouTube Video Editing',
   description: 'The complete workflow for working with ExtoArts from first contact to final delivery.',
-  step: STEPS.map((s, i) => ({
-    '@type': 'HowToStep',
+  numberOfItems: STEPS.length,
+  itemListElement: STEPS.map((s, i) => ({
+    '@type': 'ListItem',
     position: i + 1,
     name: s.title,
-    text: s.desc,
+    description: s.desc,
   })),
 }
 
 export default function WorkflowPage() {
   return (
     <>
-      <JsonLd data={howToSchema} />
+      <JsonLd data={workflowSchema} />
       <p className="sr-only">How ExtoArts Works - YouTube Editing Workflow</p>
 
       {/* Hero */}

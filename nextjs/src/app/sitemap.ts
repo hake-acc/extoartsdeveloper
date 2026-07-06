@@ -19,13 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/apply`, priority: 0.5, changeFrequency: 'monthly' as const },
     { url: `${base}/tos`, priority: 0.3, changeFrequency: 'yearly' as const },
     { url: `${base}/privacy`, priority: 0.3, changeFrequency: 'yearly' as const },
-    // Social redirect pages (indexed for canonicalization)
-    { url: `${base}/discord`, priority: 0.4, changeFrequency: 'yearly' as const },
-    { url: `${base}/youtube`, priority: 0.3, changeFrequency: 'yearly' as const },
-    { url: `${base}/instagram`, priority: 0.3, changeFrequency: 'yearly' as const },
-    { url: `${base}/twitter`, priority: 0.3, changeFrequency: 'yearly' as const },
-    { url: `${base}/threads`, priority: 0.3, changeFrequency: 'yearly' as const },
-    { url: `${base}/facebook`, priority: 0.3, changeFrequency: 'yearly' as const },
   ]
 
   const now = new Date().toISOString()
