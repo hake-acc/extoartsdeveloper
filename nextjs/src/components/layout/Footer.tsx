@@ -61,10 +61,24 @@ export function Footer() {
             Ready to level up<br />
             <span className="sweep-text">your channel?</span>
           </h2>
-          <p className="sr" style={{ fontSize: '0.97rem', color: 'var(--text-muted)', margin: '0 auto 32px', lineHeight: 1.7 }}>
-            Get a custom quote in hours. No commitment, no sales script.
-            <br />Just real editors doing great work.
-          </p>
+          <div className="page-hero-bg" style={{ margin: '0 auto 32px' }}>
+            <p className="hero-subtitle sr" style={{ fontSize: '0.97rem', lineHeight: 1.7, margin: '0 0 16px' }}>
+              Get a custom quote in hours. No commitment, no sales script.
+              <br />Just real editors doing great work.
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>
+              {[
+                { icon: 'ti-shield-check', text: 'No lock-in contracts' },
+                { icon: 'ti-clock', text: '3-5 day turnaround' },
+                { icon: 'ti-star', text: '5.0 rated on Discord' },
+              ].map(({ icon, text }) => (
+                <span key={text} className="hero-subtitle" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.75rem', fontWeight: 600 }}>
+                  <i className={`ti ${icon}`} aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '0.82rem' }} />
+                  {text}
+                </span>
+              ))}
+            </div>
+          </div>
           <div className="sr" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
             <DiscordButton className="galaxy-btn">
               <span className="gb-inner">
@@ -81,20 +95,9 @@ export function Footer() {
               <i className="ti ti-arrow-right" aria-hidden="true" /> View Portfolio
             </a>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 28, flexWrap: 'wrap' }}>
-            {[
-              { icon: 'ti-shield-check', text: 'No lock-in contracts' },
-              { icon: 'ti-clock', text: '3-5 day turnaround' },
-              { icon: 'ti-star', text: '5.0 rated on Discord' },
-            ].map(({ icon, text }) => (
-              <span key={text} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-                <i className={`ti ${icon}`} aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '0.82rem' }} />
-                {text}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
+
 
       <footer
         className="site-footer"

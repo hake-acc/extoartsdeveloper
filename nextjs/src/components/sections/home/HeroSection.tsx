@@ -106,15 +106,10 @@ export function HeroSection() {
               target.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }
           }}
-          className="brush-btn"
+          className="btn btn-main"
           aria-label="Let's Clear Things Up"
         >
-          <svg className="brush-btn-bg" viewBox="0 0 200 60" preserveAspectRatio="none">
-            <path d="M 12,14 C 45,10 95,9 140,12 C 175,14 188,12 190,16 C 193,25 192,42 190,48 C 187,52 170,50 135,51 C 90,52 40,49 14,47 C 10,46 8,35 9,28 C 10,22 10,14 12,14 Z" />
-          </svg>
-          <span className="relative z-10 flex items-center gap-2">
-            Let's Clear Things Up <span style={{ fontSize: '0.85rem' }}>&rarr;</span>
-          </span>
+          Let's Clear Things Up <span style={{ fontSize: '1.2rem', marginLeft: '6px' }}>&rarr;</span>
         </button>
       </motion.div>
     </section>

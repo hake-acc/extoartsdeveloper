@@ -110,9 +110,11 @@ export default function ServicesPage() {
         <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
           Every Service.<br /><span className="sweep-text">Built for YouTube.</span>
         </h1>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 560, margin: '0 auto 44px', lineHeight: 1.72 }}>
-          Specialist editors matched to your niche. From gaming thumbnails to full channel automation - we cover the complete YouTube production pipeline.
-        </p>
+        <div className="page-hero-bg" style={{ margin: '0 auto 44px', maxWidth: 600 }}>
+          <p className="hero-subtitle" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.72, margin: 0 }}>
+            Specialist editors matched to your niche. From gaming thumbnails to full channel automation - we cover the complete YouTube production pipeline.
+          </p>
+        </div>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <DiscordButton className="btn btn-main">
             <i className="ti ti-brand-discord" aria-hidden="true" /> Get a Quote on Discord
@@ -193,9 +195,11 @@ export default function ServicesPage() {
           <h2 style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 12, color: 'var(--text-main)' }}>
             How to Hire a Video Editor Through ExtoArts
           </h2>
-          <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.72 }}>
-            No forms, no waiting weeks. Join the Discord, open a ticket, and get a niche-matched editor with a custom quote the same day.
-          </p>
+          <div className="page-hero-bg" style={{ maxWidth: 560, margin: '0 auto' }}>
+            <p className="hero-subtitle" style={{ fontSize: '0.9rem', lineHeight: 1.72, margin: 0 }}>
+              No forms, no waiting weeks. Join the Discord, open a ticket, and get a niche-matched editor with a custom quote the same day.
+            </p>
+          </div>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
           {[

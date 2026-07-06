@@ -93,73 +93,44 @@ export function WhyExtoArts() {
             as="div"
             variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-card shine-border"
+            className="ink-card"
             style={{
-              border: '1px solid var(--border)',
-              borderRadius: 20,
-              padding: '28px 26px',
               display: 'flex',
-              gap: 18,
-              alignItems: 'flex-start',
-              position: 'relative',
-              overflow: 'hidden',
-              transition: 'transform 0.35s var(--ease-spring), box-shadow 0.35s, border-color 0.35s',
+              flexDirection: 'column',
+              gap: 24,
             }}
           >
-            {/* Subtle corner glow */}
-            <div style={{
-              position: 'absolute',
-              top: 0, right: 0,
-              width: '40%',
-              height: '40%',
-              background: `radial-gradient(ellipse at top right, ${reason.colorVar}, transparent 70%)`,
-              pointerEvents: 'none',
-              zIndex: 0,
-            }} aria-hidden="true" />
+            {/* Remove neon background glow for authentic paper look */}
 
-            <div style={{ position: 'relative', zIndex: 1, display: 'flex', gap: 18, alignItems: 'flex-start', width: '100%' }}>
-              <div
-                style={{
-                  width: 46,
-                  height: 46,
-                  borderRadius: 13,
-                  background: reason.colorVar,
-                  border: `1px solid ${reason.borderVar}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  transition: 'transform 0.3s var(--ease-spring)',
-                }}
-                className="reason-icon"
-              >
-                <i className={`ti ${reason.icon}`} aria-hidden="true" style={{ color: reason.iconColor, fontSize: '1.18rem' }} />
-              </div>
+            <div className="ink-card-icon">
+              <i className={`ti ${reason.icon}`} aria-hidden="true" style={{ fontSize: '1.5rem', zIndex: 1 }} />
+            </div>
 
-              <div style={{ flex: 1 }}>
-                <h3 style={{
-                  fontSize: '0.98rem',
-                  fontWeight: 800,
-                  color: 'var(--text-main)',
-                  marginBottom: 9,
-                  letterSpacing: '-0.25px',
-                  lineHeight: 1.3,
-                }}>
-                  {reason.title}
-                </h3>
-                <p style={{
-                  fontSize: '0.83rem',
-                  color: 'var(--text-muted)',
-                  lineHeight: 1.72,
-                  margin: '0 0 12px',
-                }}>
-                  {reason.desc}
-                </p>
-                <span className="highlight-chip">
-                  <i className="ti ti-check" aria-hidden="true" style={{ fontSize: '0.7rem' }} />
-                  {reason.highlight}
-                </span>
-              </div>
+            <div style={{ flex: 1, zIndex: 1 }}>
+              <h3 className="ink-card-title">
+                {reason.title}
+              </h3>
+              <p style={{
+                fontSize: '0.9rem',
+                lineHeight: 1.8,
+                margin: '0 0 20px',
+                fontFamily: 'var(--font-body)',
+              }}>
+                {reason.desc}
+              </p>
+              <span className="highlight-chip" style={{
+                background: 'transparent',
+                border: '1px dashed #1a1525',
+                padding: '6px 14px',
+              }}>
+                <i className="ti ti-check" aria-hidden="true" style={{ fontSize: '0.8rem', marginRight: '4px' }} />
+                {reason.highlight}
+              </span>
+            </div>
+            
+            {/* Decorative Hanko Stamp */}
+            <div className="hanko-stamp">
+              証
             </div>
           </InView>
         ))}

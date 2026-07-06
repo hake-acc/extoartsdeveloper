@@ -211,15 +211,11 @@ export function Navbar() {
           {/* CTA: Brush Button */}
           <button
             onClick={openDiscordModal}
-            className="brush-btn"
-            aria-label="Start a project"
+            className="btn nav-cta"
+            aria-label="Start a project on Discord"
           >
-            <svg className="brush-btn-bg" viewBox="0 0 200 60" preserveAspectRatio="none">
-              <path d="M 12,14 C 45,10 95,9 140,12 C 175,14 188,12 190,16 C 193,25 192,42 190,48 C 187,52 170,50 135,51 C 90,52 40,49 14,47 C 10,46 8,35 9,28 C 10,22 10,14 12,14 Z" />
-            </svg>
-            <span className="relative z-10 flex items-center gap-2">
-              Start a Project <span style={{ fontSize: '0.85rem' }}>&rarr;</span>
-            </span>
+            <i className="ti ti-brand-discord" aria-hidden="true" style={{ fontSize: '1.2em' }} />
+            Get a Quote
           </button>
 
           {/* Hamburger (Mobile Toggle) */}
@@ -368,15 +364,11 @@ export function Navbar() {
               <div style={{ padding: '24px 20px 48px', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <button
                   onClick={() => { openDiscordModal(); setMobileOpen(false) }}
-                  className="brush-btn"
-                  style={{ width: '100%', padding: '14px 24px' }}
+                  className="btn nav-cta"
+                  style={{ width: '100%', padding: '14px 24px', justifyContent: 'center' }}
                 >
-                  <svg className="brush-btn-bg" viewBox="0 0 200 60" preserveAspectRatio="none">
-                    <path d="M 12,14 C 45,10 95,9 140,12 C 175,14 188,12 190,16 C 193,25 192,42 190,48 C 187,52 170,50 135,51 C 90,52 40,49 14,47 C 10,46 8,35 9,28 C 10,22 10,14 12,14 Z" />
-                  </svg>
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    Start a Project &rarr;
-                  </span>
+                  <i className="ti ti-brand-discord" aria-hidden="true" style={{ fontSize: '1.2em' }} />
+                  Get a Quote
                 </button>
                 <button
                   onClick={toggleTheme}

@@ -1,5 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400..900&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css');
 @import "tailwindcss";
+
+/* ── Theme Toggle Visibility Fix ── */
+.theme-toggle {
+  background-color: var(--surface-raised) !important;
+  border: 1px solid var(--border-hover) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+.theme-toggle:hover {
+  background-color: rgba(124, 58, 237, 0.15) !important;
+  border-color: var(--primary-accent) !important;
+  transform: translateY(-1px);
+}
+[data-theme="light"] .theme-toggle {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+}
 
 @font-face {
   font-family: 'Plus Jakarta Sans';
@@ -636,79 +657,71 @@ h4 {
 .marquee-inner.reverse { animation-name: marqueeScrollReverse; }
 .marquee-track:hover .marquee-inner { animation-play-state: paused; }
 
-/* ── Button base ── */
 .btn {
-  padding: 13px 26px;
-  border-radius: 18px;
+  padding: 20px 52px;
+  border-radius: 0;
   font-weight: 700;
   text-decoration: none;
   border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   transition: transform 0.16s ease-out, box-shadow 0.28s, background 0.25s, border-color 0.25s;
-  letter-spacing: 0.15px;
-  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  font-size: 1.8rem;
   cursor: pointer;
   touch-action: manipulation;
   position: relative;
-  overflow: hidden;
-  font-family: var(--font-body);
+  overflow: visible;
+  font-family: 'Caveat', cursive, var(--font-body);
 }
 .btn:active { transform: scale(0.97); }
 
-.btn-main {
-  background: var(--text-main) !important;
-  color: var(--bg) !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.18), 0 6px 22px rgba(0,0,0,0.24), 0 1px 0 rgba(255,255,255,0.14) inset;
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-main:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.22), 0 16px 40px rgba(0,0,0,0.3); }
-}
-.btn-glass {
-  background: rgba(255,255,255,0.045) !important;
-  color: var(--text-main) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset;
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  font-size: 0.83rem !important;
-  letter-spacing: 0.12px !important;
-  padding: 12px 24px !important;
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-glass:hover { border-color: rgba(255,255,255,0.2) !important; transform: translateY(-2px); background: rgba(255,255,255,0.08) !important; }
-}
-[data-theme="light"] .btn-glass {
-  background: rgba(0,0,0,0.04) !important;
-  border-color: rgba(0,0,0,0.11) !important;
-  color: var(--text-main) !important;
-}
-@media (hover: hover) and (pointer: fine) {
-  [data-theme="light"] .btn-glass:hover { border-color: rgba(0,0,0,0.22) !important; background: rgba(0,0,0,0.07) !important; }
-}
-.btn-primary-glow {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%) !important;
-  color: #000 !important;
+.btn-main, .btn-primary-glow, .galaxy-btn {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230a0515' /%3E%3Cstop offset='40%25' stop-color='%232b1a4a' /%3E%3Cstop offset='100%25' stop-color='%233a2463' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
   border: none !important;
-  box-shadow: 0 0 28px rgba(105,221,255,0.32), 0 6px 20px rgba(0,0,0,0.28), 0 1px 0 rgba(255,255,255,0.2) inset !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.2px !important;
+  box-shadow: none !important;
+  color: #f4efe6 !important;
+  border-radius: 0 !important;
+  padding: 20px 56px !important;
 }
-@media (hover: hover) and (pointer: fine) {
-  .btn-primary-glow:hover { transform: translateY(-3px); box-shadow: 0 0 44px rgba(105,221,255,0.48), 0 8px 28px rgba(0,0,0,0.3) !important; }
+.btn-main:hover, .btn-primary-glow:hover, .galaxy-btn:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  transform: translateY(-2px) scale(1.04) !important;
+  box-shadow: 0 8px 24px rgba(43, 26, 74, 0.4) !important;
 }
 
-/* ── Galaxy button ── */
-@property --gb-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
+.btn-glass {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='none' stroke='url(%23grad)' stroke-width='3' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--text-main) !important;
+  border-radius: 0 !important;
+  padding: 20px 56px !important;
 }
-@keyframes gbColorFlow {
-  to { --gb-angle: 360deg; }
+.btn-glass:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  color: #f4efe6 !important;
+  transform: translateY(-2px) scale(1.04) !important;
 }
+[data-theme="light"] .btn-glass {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='none' stroke='url(%23grad)' stroke-width='4' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+}
+[data-theme="light"] .btn-glass:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  color: #f4efe6 !important;
+}
+
+/* ── Galaxy button override ── */
 .galaxy-btn {
   position: relative;
   display: inline-flex;
@@ -719,64 +732,168 @@ h4 {
   text-decoration: none;
 }
 .galaxy-btn::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 999px;
-  padding: 2px;
-  background: conic-gradient(from var(--gb-angle), #69ddff 0%, #dbbadd 25%, #96cdff 55%, #be92a2 80%, #69ddff 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: gbColorFlow 4s linear infinite;
-  opacity: 0.9;
-  z-index: 0;
-  transition: opacity 0.3s;
+  display: none !important;
 }
-.galaxy-btn:hover::before { animation-duration: 2s; opacity: 1; }
 .gb-inner {
-  background: var(--surface);
-  border: 1px solid rgba(105,221,255,0.2);
-  border-radius: 999px;
-  padding: 14px 30px;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.18px;
-  color: var(--text-main);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  box-shadow: 0 0 16px rgba(219,186,221,0.38), 0 0 6px rgba(105,221,255,0.2);
-  transition: background 0.25s, border-color 0.25s, box-shadow 0.3s;
-  position: relative;
-  z-index: 1;
-}
-@media (hover: hover) and (pointer: fine) {
-  .galaxy-btn:hover .gb-inner {
-    box-shadow: 0 0 32px rgba(219,186,221,0.65), 0 0 14px rgba(105,221,255,0.4);
-    border-color: rgba(105,221,255,0.4);
-    background: rgba(14,14,26,0.96);
-  }
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+  font-weight: 700;
+  font-family: 'Caveat', cursive, var(--font-body);
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
 }
 
 /* ── Nav CTA ── */
 .nav-cta {
-  background: var(--primary) !important;
-  color: #000 !important;
-  border-color: var(--primary) !important;
-  font-size: 0.77rem !important;
-  font-weight: 800 !important;
-  padding: 9px 20px !important;
-  letter-spacing: 0.2px !important;
-  box-shadow: 0 0 20px rgba(105,221,255,0.3), 0 4px 14px rgba(0,0,0,0.28) !important;
-  transition: background 0.22s, box-shadow 0.22s, transform 0.22s var(--easing) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230a0515' /%3E%3Cstop offset='40%25' stop-color='%232b1a4a' /%3E%3Cstop offset='100%25' stop-color='%233a2463' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  color: #f4efe6 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 16px 40px !important;
+  font-size: 1.7rem !important;
+  font-family: 'Caveat', cursive, var(--font-body) !important;
+  transition: transform 0.25s ease !important;
 }
-@media (hover: hover) and (pointer: fine) {
-  .nav-cta:hover { background: #69ddff !important; color: #000 !important; box-shadow: 0 0 32px rgba(105,221,255,0.48), 0 6px 22px rgba(0,0,0,0.3) !important; transform: translateY(-1px) !important; }
+.nav-cta:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeGaussianBlur stdDeviation='0.4' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  transform: scale(1.05) !important;
 }
-[data-theme="light"] .nav-cta { background: var(--primary) !important; color: #fff !important; }
+[data-theme="light"] .nav-cta {
+  color: #ffffff !important;
+}
+
+/* ── Japanese Washi Paper Cards ── */
+.ink-card {
+  position: relative;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 36px 32px !important;
+  overflow: visible !important;
+  z-index: 1;
+  color: #1a1525 !important;
+}
+
+.ink-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  /* Creamy Japanese washi paper base */
+  background-color: #f4efe6;
+  /* Subtle paper fiber texture */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  /* Torn paper edge mask */
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Outer shadow for the paper */
+.ink-card::after {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: -4px; bottom: -4px;
+  z-index: -2;
+  background: rgba(0, 0, 0, 0.4);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  filter: blur(8px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.ink-card:hover::before {
+  transform: translateY(-4px) scale(1.01);
+  filter: brightness(1.02);
+}
+.ink-card:hover::after {
+  transform: translateY(4px);
+  opacity: 0.7;
+}
+
+.ink-card-title {
+  font-family: 'Caveat', cursive, var(--font-body);
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  color: #1a1525 !important;
+  margin-bottom: 16px !important;
+  display: block;
+}
+
+/* Force dark ink color for text inside paper cards */
+.ink-card p {
+  color: #3b304c !important;
+  font-weight: 500;
+}
+.ink-card .highlight-chip {
+  color: #1a1525 !important;
+  border-color: #1a1525 !important;
+  font-weight: 600;
+}
+
+.ink-card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+  /* Dark ink wash for icons */
+  background: #1a1525 !important;
+  color: #f4efe6 !important;
+}
+/* Hand-drawn circle effect around the icon in ink */
+.ink-card-icon::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: -6px; right: -6px; bottom: -6px;
+  border: 2px solid #1a1525;
+  border-radius: 55% 45% 50% 40% / 45% 55% 40% 50%;
+  opacity: 0.8;
+  animation: handDrawnRotate 10s linear infinite;
+}
+@keyframes handDrawnRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.hanko-stamp {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #d32f2f;
+  color: #d32f2f;
+  font-family: serif;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transform: rotate(-15deg);
+  opacity: 0.85;
+  pointer-events: none;
+  background: rgba(211, 47, 47, 0.05);
+}
+
+
 
 /* ── Cycle / typewriter stack ── */
 .cycle-stack {
@@ -1175,18 +1292,33 @@ h4 {
 /* .hero-subtitle — use on page hero <p> tags for theme-aware muted text */
 .hero-subtitle { color: var(--text-muted); }
 [data-theme="light"] .hero-subtitle {
-  color: var(--text-soft);
-  text-shadow: 0 1px 12px rgba(255,252,246,0.9), 0 0 32px rgba(255,252,246,0.7);
+  color: #1a1a2e;
+  text-shadow:
+    0 0 3px #fff,
+    0 0 6px #fff,
+    0 0 12px rgba(255,255,255,0.95),
+    0 0 24px rgba(255,255,255,0.8),
+    1px 0 0 rgba(255,255,255,0.9),
+    -1px 0 0 rgba(255,255,255,0.9),
+    0 1px 0 rgba(255,255,255,0.9),
+    0 -1px 0 rgba(255,255,255,0.9);
 }
 /* .page-hero-bg — frosted parchment background behind hero text in light mode */
 [data-theme="light"] .page-hero-bg {
-  background: rgba(244, 239, 230, 0.55);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 32px 40px;
+  background: rgba(244, 239, 230, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 20px;
+  padding: 28px 36px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 20px rgba(0,0,0,0.04);
 }
-
+/* Global: section-level paragraphs that are direct children of non-card sections */
+[data-theme="light"] section > p {
+  text-shadow:
+    0 0 4px #fff,
+    0 0 10px rgba(255,255,255,0.9),
+    0 0 22px rgba(255,255,255,0.7);
+}
 
 /* ── Preview card ── */
 .preview-card {
@@ -1676,13 +1808,13 @@ html[data-theme="light"] .bg-image-light {
   width: 100%;
   height: 100%;
   z-index: -1;
-  fill: var(--primary-accent);
+  fill: #43207c;
   transition: fill 0.25s ease, filter 0.25s ease;
-  filter: drop-shadow(0 4px 10px rgba(124, 58, 237, 0.25));
+  filter: drop-shadow(0 4px 10px rgba(67, 32, 124, 0.25));
 }
 .brush-btn:hover .brush-btn-bg {
-  fill: var(--primary-accent-hover);
-  filter: drop-shadow(0 6px 16px rgba(124, 58, 237, 0.45));
+  fill: #5b2ea1;
+  filter: drop-shadow(0 6px 16px rgba(91, 46, 161, 0.45));
 }
 
 /* ── Torn edge / Ink Splatter Ribbon ── */

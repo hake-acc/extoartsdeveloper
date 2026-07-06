@@ -64,3 +64,7 @@
 ### FIXED - Stats strip on services page nearly invisible
 - File: src/app/services/page.tsx
 - Fix: Changed background from rgba(255,255,255,0.02) to var(--surface-2)
+
+### FIXED - Buttons styled with organic brushstroke background
+- File: src/app/globals.css -> .btn-main, .btn-primary-glow, .galaxy-btn, .btn-glass, .nav-cta, .brush-btn-bg
+- Fix: Styled all principal and outline buttons with inline SVG path representing the ink brushstroke background. Adopted #43207c (deep ink-wash purple) for theme-adaptability in both light and dark modes, with bright hover fills and outlines.
