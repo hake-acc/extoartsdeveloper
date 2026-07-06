@@ -22,16 +22,20 @@ export function ClientScripts() {
       document.head.appendChild(s)
     }
 
-    const bar = document.getElementById('page-progress')
-    if (bar) {
+    const arrow = document.getElementById('page-progress-arrow')
+    if (arrow) {
       let ticking = false
       function upd() {
         const s = document.documentElement
         const p = s.scrollTop / (s.scrollHeight - s.clientHeight) || 0
-        bar!.style.transform = `scaleX(${p})`
+        const maxX = window.innerWidth - 84 // Fire (24px) + Brush (60px)
+        arrow!.style.transform = `translate(${p * maxX}px, -50%)`
         ticking = false
       }
       window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(upd); ticking = true }
+      }, { passive: true })
+      window.addEventListener('resize', () => {
         if (!ticking) { requestAnimationFrame(upd); ticking = true }
       }, { passive: true })
     }

@@ -11,6 +11,14 @@ import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
 import { MotionProvider } from '@/components/motion/MotionProvider'
 import { CursorFollower } from '@/components/motion/CursorFollower'
 import { GrainOverlay } from '@/components/ui/GrainOverlay'
+import type { Viewport } from 'next'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -241,7 +249,42 @@ export default function RootLayout({
         <div className="bg-image-layer bg-image-dark" aria-hidden="true" />
         <MotionProvider>
           <div className="mesh-glow" aria-hidden="true" />
-          <div id="page-progress" aria-hidden="true" />
+          <div id="page-progress-container" aria-hidden="true">
+            <div id="page-progress-arrow">
+              <svg width="24" height="20" viewBox="0 0 24 20" className="fire-trail" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="fire-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgba(255, 75, 31, 0)" />
+                    <stop offset="50%" stopColor="#ff4b1f" />
+                    <stop offset="100%" stopColor="#ff9068" />
+                  </linearGradient>
+                </defs>
+                <path className="flame-main" d="M 24,10 Q 15,2 5,8 Q 0,10 0,10 Q 0,10 5,12 Q 15,18 24,10 Z" fill="url(#fire-grad)" />
+                <path className="flame-inner" d="M 24,10 Q 18,6 10,9 Q 6,10 6,10 Q 6,10 10,11 Q 18,14 24,10 Z" fill="#ffc371" />
+              </svg>
+              <svg width="60" height="20" viewBox="0 0 60 20" fill="url(#brush-gradient)" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="brush-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="var(--purple)" />
+                    <stop offset="50%" stopColor="var(--primary)" />
+                    <stop offset="100%" stopColor="var(--accent)" />
+                  </linearGradient>
+                </defs>
+                <g>
+                  {/* Handle */}
+                  <path d="M 2,8.5 L 40,8.5 L 40,11.5 L 2,11.5 Z" />
+                  {/* Ferrule Bump 1 */}
+                  <rect x="40" y="7.5" width="3" height="5" rx="1" />
+                  {/* Ferrule Indent */}
+                  <rect x="43" y="8.5" width="2" height="3" />
+                  {/* Ferrule Bump 2 */}
+                  <rect x="45" y="7.5" width="3" height="5" rx="1" />
+                  {/* Bristles */}
+                  <path d="M 48,7.5 C 51,7 55,9.5 60,10 C 55,10.5 51,13 48,12.5 Z" />
+                </g>
+              </svg>
+            </div>
+          </div>
           <Navbar />
           <main id="main-content">
             {children}

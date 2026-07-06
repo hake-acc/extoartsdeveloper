@@ -279,25 +279,55 @@ body {
 .skip-link:focus { top: 0; }
 
 /* ── Progress bar ── */
-#page-progress {
+#page-progress-container {
   position: fixed;
   top: 0;
   left: 0;
-  height: 2px;
-  z-index: 9999999;
-  background: linear-gradient(90deg, var(--purple), var(--primary), var(--accent));
-  background-size: 200% 100%;
   width: 100%;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  box-shadow: 0 0 14px var(--primary);
+  height: 2px;
+  background: rgba(124, 58, 237, 0.15);
+  z-index: 9999999;
   pointer-events: none;
-  animation: progressShimmer 2s linear infinite;
 }
-@keyframes progressShimmer {
-  0% { background-position: 0% 0; }
-  100% { background-position: 200% 0; }
+#page-progress-arrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px var(--primary));
+  will-change: transform;
+  transition: transform 0.15s ease-out;
+}
+#page-progress-arrow svg {
+  animation: flyArrow 0.8s ease-in-out infinite alternate;
+}
+@keyframes flyArrow {
+  0% { transform: translateX(-3px); }
+  100% { transform: translateX(3px); }
+}
+
+.fire-trail {
+  filter: drop-shadow(0 0 6px #ff4b1f);
+  margin-right: -4px;
+}
+.flame-main {
+  animation: flickerOuter 0.15s ease-in-out infinite alternate;
+  transform-origin: right center;
+}
+.flame-inner {
+  animation: flickerInner 0.12s ease-in-out infinite alternate;
+  transform-origin: right center;
+}
+@keyframes flickerOuter {
+  0% { transform: scaleX(0.8) scaleY(0.9); opacity: 0.8; }
+  100% { transform: scaleX(1.1) scaleY(1.1); opacity: 1; }
+}
+@keyframes flickerInner {
+  0% { transform: scaleX(0.7) scaleY(0.8); opacity: 0.7; }
+  100% { transform: scaleX(1.0) scaleY(1.2); opacity: 1; }
 }
 
 /* ── Typography ── */
