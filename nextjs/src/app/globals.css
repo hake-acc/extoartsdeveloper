@@ -477,87 +477,86 @@ h4 {
   }
 }
 
-/* ── Mobile: Light mode text visibility ── */
+/* ── Light mode text visibility (Global) ── */
 /* Light mode has DARK text on DARK ink backgrounds — parchment overlay solves ALL text globally */
-@media (max-width: 640px) {
-  /* Parchment wash layer between bg image and content — fixes ALL text on ALL pages */
-  html[data-theme="light"] body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: rgba(244, 239, 230, 0.62);
-    z-index: -9;
-    pointer-events: none;
-  }
+/* Parchment wash layer between bg image and content — fixes ALL text on ALL pages */
+html[data-theme="light"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(244, 239, 230, 0.62);
+  z-index: -9;
+  pointer-events: none;
+}
 
-  /* Text colors stay correct in light mode (no shadow needed with overlay) */
-  html[data-theme="light"] h1,
-  html[data-theme="light"] h2,
-  html[data-theme="light"] h3,
-  html[data-theme="light"] h4 {
-    text-shadow: none !important;
-    color: var(--text-main) !important;
-  }
-  html[data-theme="light"] p {
-    text-shadow: none !important;
-    color: var(--text-muted) !important;
-  }
+/* Text colors stay correct in light mode (no shadow needed with overlay) */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] .nav-logo-text {
+  text-shadow: none !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="light"] p {
+  text-shadow: none !important;
+  color: var(--text-muted) !important;
+}
 
-  /* Light mode glass cards: solid parchment-frosted */
-  html[data-theme="light"] .glass-card {
-    background: rgba(255, 252, 246, 0.93) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border-color: rgba(0,0,0,0.08) !important;
-  }
-  html[data-theme="light"] .glass-card h3,
-  html[data-theme="light"] .glass-card h2 {
-    text-shadow: none !important;
-    color: var(--text-main) !important;
-  }
-  html[data-theme="light"] .glass-card p {
-    text-shadow: none !important;
-    color: var(--text-muted) !important;
-  }
+/* Light mode glass cards: solid parchment-frosted */
+html[data-theme="light"] .glass-card {
+  background: rgba(255, 252, 246, 0.93) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+html[data-theme="light"] .glass-card h3,
+html[data-theme="light"] .glass-card h2 {
+  text-shadow: none !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="light"] .glass-card p {
+  text-shadow: none !important;
+  color: var(--text-muted) !important;
+}
 
-  /* Tilt cards (workflow, pricing) */
-  html[data-theme="light"] .tilt-card {
-    background: rgba(255, 252, 246, 0.93) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border-color: rgba(0,0,0,0.08) !important;
-  }
-  html[data-theme="light"] .tilt-card h2,
-  html[data-theme="light"] .tilt-card h3 {
-    text-shadow: none !important;
-    color: var(--text-main) !important;
-  }
-  html[data-theme="light"] .tilt-card p {
-    text-shadow: none !important;
-    color: var(--text-muted) !important;
-  }
+/* Tilt cards (workflow, pricing) */
+html[data-theme="light"] .tilt-card {
+  background: rgba(255, 252, 246, 0.93) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+html[data-theme="light"] .tilt-card h2,
+html[data-theme="light"] .tilt-card h3 {
+  text-shadow: none !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="light"] .tilt-card p {
+  text-shadow: none !important;
+  color: var(--text-muted) !important;
+}
 
-  /* Ink cards */
-  html[data-theme="light"] .ink-card {
-    background: rgba(255, 252, 246, 0.9) !important;
-    color: var(--text-main) !important;
-  }
-  html[data-theme="light"] .ink-card h3,
-  html[data-theme="light"] .ink-card p {
-    text-shadow: none !important;
-  }
+/* Ink cards */
+html[data-theme="light"] .ink-card {
+  background: rgba(255, 252, 246, 0.9) !important;
+  color: var(--text-main) !important;
+}
+html[data-theme="light"] .ink-card h3,
+html[data-theme="light"] .ink-card p {
+  text-shadow: none !important;
+}
 
-  /* sr scroll-reveal cards */
-  html[data-theme="light"] article.sr {
-    background: rgba(255, 252, 246, 0.92) !important;
-    border-radius: 18px !important;
-    padding: 16px !important;
-  }
-  html[data-theme="light"] article.sr h2,
-  html[data-theme="light"] article.sr h3,
-  html[data-theme="light"] article.sr p {
-    text-shadow: none !important;
-  }
+/* sr scroll-reveal cards */
+html[data-theme="light"] article.sr {
+  background: rgba(255, 252, 246, 0.92) !important;
+  border-radius: 18px !important;
+  padding: 16px !important;
+}
+html[data-theme="light"] article.sr h2,
+html[data-theme="light"] article.sr h3,
+html[data-theme="light"] article.sr p {
+  text-shadow: none !important;
 }
 
 /* ── Mesh background ── */

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export function HeroSection() {
   const E = [0.16, 1, 0.3, 1] as const
-  
+
   const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
@@ -47,7 +47,7 @@ export function HeroSection() {
         }}
       >
         <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
-        FAQ Center
+        Home Page
         <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
       </motion.div>
 
