@@ -1,4 +1,5 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
+
 export default function ThreadsPage() {
-  redirect('https://www.threads.net/@extoarts')
+  permanentRedirect('https://www.threads.net/@extoarts')
 }

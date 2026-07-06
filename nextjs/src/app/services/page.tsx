@@ -6,7 +6,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { DiscordButton } from '@/components/ui/DiscordButton'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'YouTube Video Editing Services - Thumbnails & Shorts | ExtoArts',
+  title: 'YouTube Video Editing Services — Thumbnails, Shorts & Gaming',
   description: 'High-retention YouTube editing, viral thumbnail design, TikTok Shorts editing, and channel automation. Specialist editors matched to your niche and style.',
   path: '/services',
 })

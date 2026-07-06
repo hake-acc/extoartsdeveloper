@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/metadata'
 import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Terms of Service | ExtoArts',
+  title: 'Terms of Service',
   description: 'ExtoArts Terms of Service - Version 4.0. Governing the use of ExtoArts video editing, thumbnail design, and related creative services.',
   path: '/tos',
 })

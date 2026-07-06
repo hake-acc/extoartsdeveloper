@@ -19,6 +19,7 @@ export const NAV_LINKS = [
   { label: 'Workflow', href: '/workflow' },
   { label: 'About', href: '/about' },
   { label: 'FAQ', href: '/faq' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export const SOCIAL_LINKS = [

@@ -1,0 +1,164 @@
+{
+  "summary": {
+    "health_score": 69,
+    "business_type": "YouTube Creative Agency",
+    "stack": "Next.js 16 / Vercel",
+    "audit_date": "2026-07-06",
+    "pages_crawled": 14,
+    "top_findings": [
+      "Homepage og:image missing — no social preview card on any platform",
+      "HowTo schema on /workflow deprecated since September 2023",
+      "robots.txt /*?* blocks site's own SearchAction /faq?q= endpoint",
+      "/estimate page has no canonical tag",
+      "Hreflang not implemented despite 13 locales defined in code"
+    ],
+    "quick_wins": [
+      "Add og:image to homepage layout.tsx (30 min)",
+      "Replace HowTo with ItemList on /workflow (1 hr)",
+      "Add Allow: /faq?q= to robots.txt (15 min)",
+      "Add canonical + unique title to /estimate (20 min)",
+      "Remove duplicate ExtoArts suffix from /services and /portfolio titles (20 min)"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 62,
+      "what_works": ["HTTPS enforced", "All pages 200", "Security headers (HSTS, X-Frame, nosniff, Referrer)", "robots.txt with AI crawler section", "Sitemap valid"],
+      "findings": [
+        { "title": "robots.txt /*?* blocks SearchAction /faq?q= endpoint", "severity": "Critical", "description": "Disallow: /*?* applies to all bots, blocking the site's own SearchAction and OpenSearch target URL /faq?q=", "recommendation": "Add Allow: /faq?q= before the /*?* rule, or replace with Disallow: /*?utm_*" },
+        { "title": "Social redirect pages use 307 (temporary) instead of 308 (permanent)", "severity": "High", "description": "307 does not pass PageRank. /discord, /youtube, /instagram, /twitter, /facebook, /threads all 307.", "recommendation": "Set permanent: true in next.config.ts redirects" },
+        { "title": "www.extoarts.in does not redirect to non-www canonical", "severity": "High", "description": "www redirects to https://www.extoarts.in (adds HTTPS only), not to https://extoarts.in. Canonical is non-www.", "recommendation": "Add Vercel redirect rule for www → non-www" },
+        { "title": "Social redirect pages in sitemap.xml are 307 redirects", "severity": "High", "description": "6 social redirect URLs appear in sitemap but return 307. Wastes crawl budget.", "recommendation": "Remove /discord, /youtube, /instagram, /twitter, /threads, /facebook from sitemap.ts" },
+        { "title": "Missing Content-Security-Policy header", "severity": "Medium", "description": "No CSP header on any response.", "recommendation": "Add permissive CSP in next.config.ts headers()" },
+        { "title": "lastmod in sitemap always current timestamp", "severity": "Medium", "description": "All 20 sitemap entries share the same lastmod (build-time new Date()). Misleads Google crawl scheduler.", "recommendation": "Store and reference real per-route content dates in sitemap.ts" }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 65,
+      "what_works": ["All pages have unique meta descriptions", "Canonical tags on all pages except /estimate", "Keyword targeting on-point (YouTube video editing, thumbnail design, flat-fee, 10% agency fee)", "Strong internal linking from homepage"],
+      "findings": [
+        { "title": "/estimate missing canonical tag + generic title", "severity": "Critical", "description": "No canonical tag. Title is identical to homepage fallback. Meta description is generic.", "recommendation": "Add generateMetadata() with unique canonical, title 'YouTube Editing Cost Estimator | Get an Instant Quote | ExtoArts', and unique meta description" },
+        { "title": "Duplicate brand name in /services and /portfolio titles", "severity": "High", "description": "/services: 'YouTube Video Editing Services - Thumbnails & Shorts | ExtoArts | ExtoArts' (78 chars). /portfolio: 81 chars. Both over 60-char limit with duplicate suffix.", "recommendation": "Remove second ExtoArts from both titles" },
+        { "title": "Homepage OG title weaker than page title", "severity": "High", "description": "Page title: 'YouTube Video Editing & Thumbnail Design | ExtoArts'. OG title: 'ExtoArts - YouTube Editing Agency'. Social shares under-sell.", "recommendation": "Align og:title with page title or use deliberate social-optimised version" },
+        { "title": "Homepage H1 not keyword-optimised", "severity": "Medium", "description": "H1: 'Where You Are Valued.' — brand positioning, not search intent. Competitors rank for 'YouTube video editing agency'.", "recommendation": "Consider keyword-forward H1 or ensure H2/paragraph with target keywords is above fold" },
+        { "title": "/collab meta description 165 chars (over 155 limit)", "severity": "Medium", "description": "'Commission motion graphics, VFX, thumbnails, video editing, and post-production from ExtoArts. One-off creative work for brands and creators with a high quality bar.'", "recommendation": "Trim to ≤155 chars" },
+        { "title": "Hreflang not implemented despite 13 locales in constants.ts", "severity": "Info", "description": "HREFLANG_LOCALES array defines 13 English locales. Zero hreflang link tags in any page head.", "recommendation": "Implement via alternates.languages in generateMetadata() across all pages" }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 58,
+      "what_works": ["Organization + ProfessionalService schema with @graph", "WebSite + SearchAction", "FAQPage on relevant pages (valuable for AI citation)", "AggregateRating on service pages", "CollectionPage on /portfolio", "WebPage schema per page"],
+      "findings": [
+        { "title": "HowTo schema on /workflow — deprecated September 2023", "severity": "Critical", "description": "HowTo rich results removed by Google Sept 2023. Schema generates zero SERP benefit and may flag stale markup.", "recommendation": "Replace with ItemList schema. Preserve all 8 step contents." },
+        { "title": "og:image missing on homepage", "severity": "High", "description": "No <meta property='og:image'> on homepage. Interior pages have it. All social shares of extoarts.in / show no image.", "recommendation": "Add openGraph.images to root layout.tsx metadata using DEFAULT_OG_IMAGE" },
+        { "title": "Missing og:type and primary og:locale", "severity": "High", "description": "Has og:locale:alternate (en_GB, en_AU, en_CA) but no og:type or primary og:locale.", "recommendation": "Add og:type: 'website' and og:locale: 'en_US'" },
+        { "title": "Missing og:image dimensions", "severity": "High", "description": "No og:image:width or og:image:height on any page. Some platforms skip image without dimensions.", "recommendation": "Add og:image:width: 2048, og:image:height: 1144" },
+        { "title": "Missing VideoObject schema", "severity": "Medium", "description": "No VideoObject schema despite being a video editing agency with YouTube channel. Missed video rich result opportunity.", "recommendation": "Add VideoObject schema to /portfolio for embedded/linked videos" },
+        { "title": "Missing Service schema on /services", "severity": "Medium", "description": "4 services listed with no Service schema.", "recommendation": "Add @type: Service for each offering with provider, serviceType, areaServed, offers" },
+        { "title": "Missing BreadcrumbList sitewide", "severity": "Medium", "description": "No BreadcrumbList schema or visible breadcrumb UI on any inner page.", "recommendation": "Add BreadcrumbList to all inner pages" },
+        { "title": "AggregateRating not linked to Trustpilot", "severity": "High", "description": "TRUSTPILOT_URL defined in constants.ts but not referenced in Organization or AggregateRating schema.", "recommendation": "Add sameAs: Trustpilot URL to Organization schema" }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 72,
+      "what_works": ["Strong founder E-E-A-T (Rehan persona)", "Detailed llms.txt v14.0 with citations", "Word counts: /faq 4011w, /services 3471w, /about 3484w", "Pricing transparency", "19+ FAQ Q&A pairs"],
+      "findings": [
+        { "title": "No blog/article content despite 7 articles ready", "severity": "High", "description": "7 well-written articles exist as RSS descriptions only. Competitors capture 'how to increase YouTube AVD', 'gaming thumbnail CTR tips' traffic that ExtoArts has content for but zero pages for.", "recommendation": "Build /blog/[slug] pages (Task #2)" },
+        { "title": "AggregateRating review source unverifiable", "severity": "High", "description": "Ratings on multiple pages with no link to review platform. Trustpilot URL exists in code but unused in schema.", "recommendation": "Wire AggregateRating to Trustpilot via sameAs and itemReviewed" },
+        { "title": "Portfolio page under-describes work", "severity": "Medium", "description": "111-char meta description, 1727 words. No niche specificity. 72 images with likely generic alt text.", "recommendation": "Expand copy with niche categories, style descriptions, and real results" },
+        { "title": "Contact page light on content", "severity": "Medium", "description": "1690 words, primarily CTAs. No 'what to expect' content.", "recommendation": "Add brief process section to improve E-E-A-T and reduce bounce" }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 75,
+      "what_works": ["Vercel edge CDN (x-vercel-cache: HIT)", "Next.js 16 + Turbopack", "WOFF2 font with immutable cache", "Brotli/gzip enabled", "AVIF/WebP image formats configured", "Low HTML weight (113KB)"],
+      "findings": [
+        { "title": "Heavy animation library stack (Framer Motion + GSAP + Lenis + OGL)", "severity": "Medium", "description": "Combined JS payload likely 200-400KB gzipped. May cause TBT issues on mobile.", "recommendation": "Run PageSpeed Insights mobile. If TBT > 200ms, lazy-load animation libraries" },
+        { "title": "72 portfolio images from external CDN (iili.io)", "severity": "Medium", "description": "LCP risk on /portfolio. No control over image delivery speed.", "recommendation": "Migrate to Vercel Blob or Cloudflare R2" },
+        { "title": "PSI data not available during audit", "severity": "Info", "description": "PageSpeed Insights API rate-limited during audit. Run manually at pagespeed.web.dev", "recommendation": "Target: LCP < 2.5s, INP < 200ms, CLS < 0.1 mobile" }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 82,
+      "what_works": ["llms.txt v14.0 — exceptional quality with citations and benchmarks", "robots.txt AI crawler section (12 crawlers explicitly allowed)", "FAQPage schema (AI citation value)", "OpenSearch descriptor", "RSS + JSON feeds"],
+      "findings": [
+        { "title": "Speakable schema CSS selectors may not match rendered DOM", "severity": "Medium", "description": "Uses .hero, .torn-banner, .services-grid, .steps-grid. Should be verified in server-rendered HTML.", "recommendation": "Inspect production HTML source to confirm CSS classes are present server-side" },
+        { "title": "No passage-level AI-citable content on service/pricing pages", "severity": "Medium", "description": "Pages lack self-contained 134-167 word answer blocks that AI engines can cite directly.", "recommendation": "Add one paragraph per key service page that directly answers 'What does ExtoArts cost / do / offer'" },
+        { "title": "No external entity authority signals", "severity": "Low", "description": "Brand new (2024), no Wikipedia/Wikidata entry, no Clutch/G2 listings.", "recommendation": "Submit to Clutch.co, DesignRush, G2 for indexed third-party citations" }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 80,
+      "what_works": ["0 images missing alt attributes across all pages", "AVIF + WebP via Next.js Image component", "Font preload working correctly"],
+      "findings": [
+        { "title": "All portfolio and OG images on iili.io (uncontrolled CDN)", "severity": "High", "description": "No SLA, no cache headers control, single point of failure for all social previews and portfolio.", "recommendation": "Migrate to Vercel Blob or Cloudflare R2" },
+        { "title": "Portfolio alt text quality likely generic", "severity": "Medium", "description": "72 images have alt= attributes but auto-populated from data source — likely filename-level not descriptive.", "recommendation": "Audit actual alt values; replace with descriptive keyword-rich alternatives" },
+        { "title": "No image sitemap", "severity": "Low", "description": "Portfolio images may not be discoverable by Google Image Search without a sitemap-images.xml.", "recommendation": "Add /sitemap-images.xml route in Next.js app router" }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Week 1",
+        "items": [
+          "Homepage og:image (30 min)",
+          "HowTo → ItemList on /workflow (1 hr)",
+          "robots.txt SearchAction fix (15 min)",
+          "/estimate canonical + unique title (20 min)",
+          "/services + /portfolio title dedup (20 min)"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact",
+        "timeframe": "Weeks 2-3",
+        "items": [
+          "Social redirects 307 → 308 (30 min)",
+          "Remove social URLs from sitemap (20 min)",
+          "www → non-www redirect (30 min)",
+          "Hreflang for 13 English locales (2 hrs)",
+          "og:type, og:locale, og:image dimensions (30 min)",
+          "AggregateRating + Trustpilot reference (1 hr)",
+          "Blog pages /blog/[slug] (4-8 hrs)"
+        ]
+      },
+      {
+        "name": "Phase 3: Content & Schema",
+        "timeframe": "Month 2",
+        "items": [
+          "Service schema on /services",
+          "BreadcrumbList sitewide",
+          "VideoObject schema on /portfolio",
+          "Migrate images from iili.io",
+          "Portfolio + contact page copy improvements",
+          "Real lastmod dates in sitemap"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring & Iteration",
+        "timeframe": "Ongoing",
+        "items": [
+          "Google Search Console setup + sitemap submission",
+          "Monthly PageSpeed Insights check",
+          "SEO drift baseline after Phase 1",
+          "Blog content calendar (1 article/month)",
+          "Clutch.co, G2, DesignRush listings",
+          "Trustpilot review campaign"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "extoarts.in-audit/findings/",
+    "report": "extoarts.in-audit/FULL-AUDIT-REPORT.md",
+    "action_plan": "extoarts.in-audit/ACTION-PLAN.md"
+  }
+}

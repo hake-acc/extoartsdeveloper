@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/faq?q='],
         disallow: [
           '/hq-portal', '/admin', '/dashboard', '/login', '/register', '/logout',
           '/apply', '/api/', '/order/', '/chat', '/health', '/*?*',

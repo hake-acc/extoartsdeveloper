@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: '/blog', destination: '/', permanent: true },
+      { source: '/blog/:slug*', destination: '/', permanent: true },
       { source: '/video-editing-cost', destination: '/pricing', permanent: true },
       { source: '/hire-video-editor', destination: '/services', permanent: true },
       { source: '/gaming-video-editing', destination: '/services', permanent: true },
@@ -35,7 +36,7 @@ const nextConfig: NextConfig = {
       { source: '/support', destination: '/ticket', permanent: true },
       { source: '/toc', destination: '/tos', permanent: true },
       { source: '/feed', destination: '/rss', permanent: true },
-      { source: '/admin', destination: '/dashboard', permanent: true },
+
       { source: '/fb', destination: '/facebook', permanent: true },
       { source: '/ig', destination: '/instagram', permanent: true },
       { source: '/yt', destination: '/youtube', permanent: true },

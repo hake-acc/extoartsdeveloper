@@ -162,6 +162,7 @@ const websiteSchema = {
         bestRating: '5',
         worstRating: '1',
         reviewCount: '7',
+        itemReviewed: { '@id': `${SITE_URL}/#organization` },
       },
       numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 6, maxValue: 12 },
       slogan: '90% to your editor. Always.',
@@ -205,7 +206,7 @@ const websiteSchema = {
         'https://www.instagram.com/extoarts',
         'https://www.facebook.com/share/1J1UA6Txqr/',
         'https://discord.gg/extoarts-1402333030827425922',
-        'https://www.trustpilot.com/review/extoarts.xyz',
+        'https://www.trustpilot.com/review/extoarts.in',
       ],
     },
   ],
@@ -219,9 +220,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
+        {/* Tabler Icons webfont — loaded as <link> (not CSS @import) for parallel fetch */}
+        <link
+          rel="preload"
+          as="style"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://iili.io" />
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link
@@ -240,6 +252,12 @@ export default function RootLayout({
         <meta property="og:locale:alternate" content="en_GB" />
         <meta property="og:locale:alternate" content="en_AU" />
         <meta property="og:locale:alternate" content="en_CA" />
+        <meta property="og:locale:alternate" content="en_IN" />
+        <meta property="og:locale:alternate" content="en_NG" />
+        <meta property="og:locale:alternate" content="en_PK" />
+        <meta property="og:locale:alternate" content="en_PH" />
+        <meta property="og:locale:alternate" content="en_ZA" />
+        <meta property="og:locale:alternate" content="en_SG" />
         <JsonLd data={websiteSchema} />
       </head>
       <body>

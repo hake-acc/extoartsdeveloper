@@ -1,20 +1,53 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
+import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/sections/home/HeroSection'
-import { GettingStartedRibbon } from '@/components/sections/home/GettingStartedRibbon'
-import { ServicesSection } from '@/components/sections/home/ServicesSection'
-import { ProcessSection } from '@/components/sections/home/ProcessSection'
+
+// Below-the-fold sections: deferred until after LCP
+const GettingStartedRibbon = dynamic(() => import('@/components/sections/home/GettingStartedRibbon').then(m => ({ default: m.GettingStartedRibbon })), { ssr: true })
+const ServicesSection = dynamic(() => import('@/components/sections/home/ServicesSection').then(m => ({ default: m.ServicesSection })), { ssr: true })
+const ProcessSection = dynamic(() => import('@/components/sections/home/ProcessSection').then(m => ({ default: m.ProcessSection })), { ssr: true })
 
 export const metadata: Metadata = {
-  title: 'YouTube Video Editing & Thumbnail Design | ExtoArts',
+  title: { absolute: 'YouTube Video Editing & Thumbnail Design | ExtoArts' },
   description:
     'ExtoArts is a YouTube video editing agency for creators. High-retention edits, thumbnail design, Shorts editing, and channel automation. Flat-fee pricing.',
-  alternates: { canonical: `${SITE_URL}/` },
+  alternates: {
+    canonical: `${SITE_URL}/`,
+    languages: {
+      'en': `${SITE_URL}/`,
+      'en-US': `${SITE_URL}/`,
+      'en-GB': `${SITE_URL}/`,
+      'en-IN': `${SITE_URL}/`,
+      'en-AU': `${SITE_URL}/`,
+      'en-CA': `${SITE_URL}/`,
+      'en-NG': `${SITE_URL}/`,
+      'en-PK': `${SITE_URL}/`,
+      'en-PH': `${SITE_URL}/`,
+      'en-ZA': `${SITE_URL}/`,
+      'en-BD': `${SITE_URL}/`,
+      'en-NZ': `${SITE_URL}/`,
+      'en-SG': `${SITE_URL}/`,
+      'x-default': `${SITE_URL}/`,
+    },
+  },
   openGraph: {
-    title: 'ExtoArts - YouTube Editing Agency',
-    description: 'YouTube editing agency for creators. High-retention edits, flat-fee pricing.',
+    type: 'website',
+    locale: 'en_US',
+    title: 'YouTube Video Editing & Thumbnail Design | ExtoArts',
+    description: 'YouTube video editing agency for creators. High-retention edits, thumbnail design, Shorts editing, and channel automation. Flat-fee pricing.',
     url: `${SITE_URL}/`,
+    siteName: 'ExtoArts',
+    images: [
+      {
+        url: 'https://iili.io/BZ0qLb4.png',
+        width: 2048,
+        height: 1144,
+        alt: 'ExtoArts - YouTube Video Editing Agency',
+        type: 'image/png',
+      },
+    ],
   },
 }
 
