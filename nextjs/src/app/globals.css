@@ -478,23 +478,29 @@ h4 {
 }
 
 /* ── Mobile: Light mode text visibility ── */
-/* Light mode has DARK text on DARK ink backgrounds — parchment glow makes it pop */
+/* Light mode has DARK text on DARK ink backgrounds — parchment overlay solves ALL text globally */
 @media (max-width: 640px) {
+  /* Parchment wash layer between bg image and content — fixes ALL text on ALL pages */
+  html[data-theme="light"] body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(244, 239, 230, 0.62);
+    z-index: -9;
+    pointer-events: none;
+  }
+
+  /* Text colors stay correct in light mode (no shadow needed with overlay) */
   html[data-theme="light"] h1,
   html[data-theme="light"] h2,
   html[data-theme="light"] h3,
   html[data-theme="light"] h4 {
-    text-shadow:
-      0 0 18px rgba(244, 239, 230, 1),
-      0 0 36px rgba(244, 239, 230, 0.9),
-      0 2px 8px rgba(244, 239, 230, 0.95) !important;
+    text-shadow: none !important;
     color: var(--text-main) !important;
   }
   html[data-theme="light"] p {
+    text-shadow: none !important;
     color: var(--text-muted) !important;
-    text-shadow:
-      0 0 10px rgba(244, 239, 230, 0.95),
-      0 0 22px rgba(244, 239, 230, 0.8) !important;
   }
 
   /* Light mode glass cards: solid parchment-frosted */

@@ -97,20 +97,22 @@ export default function WorkflowPage() {
                 {/* Checkpoint circle */}
                 <div style={{
                   width: 52, height: 52, borderRadius: '50%',
-                  background: `linear-gradient(135deg, ${step.color}18, ${step.color}08)`,
-                  border: `2px solid ${step.color}50`,
+                  background: 'var(--surface)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  border: `2px solid ${step.color}90`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0, position: 'relative', zIndex: 1,
-                  boxShadow: `0 0 20px ${step.color}20`,
+                  boxShadow: `0 0 20px ${step.color}30, inset 0 0 10px ${step.color}20`,
                 }}>
                   {/* Inner check ring */}
                   <div style={{
                     width: 36, height: 36, borderRadius: '50%',
-                    background: `${step.color}15`,
-                    border: `1px solid ${step.color}40`,
+                    background: 'var(--surface-2)',
+                    border: `1px solid ${step.color}70`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
-                    <i className={`ti ${step.icon}`} aria-hidden="true" style={{ color: step.color, fontSize: '0.95rem' }} />
+                    <i className={`ti ${step.icon}`} aria-hidden="true" style={{ color: step.color, fontSize: '0.95rem', textShadow: `0 0 10px ${step.color}80` }} />
                   </div>
                   {/* Step number badge */}
                   <span style={{
@@ -128,8 +130,9 @@ export default function WorkflowPage() {
                 {i < STEPS.length - 1 && (
                   <div style={{
                     width: 2, flex: 1, minHeight: 20, marginTop: 4,
-                    background: `linear-gradient(180deg, ${step.color}40, ${STEPS[i + 1].color}20)`,
+                    background: `linear-gradient(180deg, ${step.color}, ${STEPS[i + 1].color}90)`,
                     borderRadius: 999,
+                    boxShadow: `0 0 8px ${step.color}40`,
                   }} />
                 )}
               </div>

@@ -201,14 +201,16 @@ export function TenPercentModelVisual() {
       whileHover={{ y: -4 }}
       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
       style={{
-        background: 'rgba(163,230,53,0.05)',
-        border: '1px solid rgba(163,230,53,0.18)',
+        background: 'var(--surface)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: '1px solid rgba(163,230,53,0.25)',
         borderRadius: 22,
         padding: isMobile ? '20px 18px' : 'min(28px,3.5vw)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
-        boxShadow: '0 8px 28px var(--shadow)',
+        boxShadow: '0 8px 28px var(--shadow), 0 0 0 1px rgba(163,230,53,0.05)',
       }}
     >
       <div aria-hidden="true" style={{ position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)', width: 140, height: 70, background: 'radial-gradient(ellipse, rgba(163,230,53,0.22) 0%, transparent 70%)', pointerEvents: 'none' }} />
@@ -229,14 +231,16 @@ export function TenPercentModelVisual() {
       whileHover={{ y: -4 }}
       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
       style={{
-        background: 'var(--primary-glow)',
+        background: 'var(--surface)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         border: '1px solid var(--primary-glow)',
         borderRadius: 22,
         padding: isMobile ? '20px 18px' : 'min(28px,3.5vw)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
-        boxShadow: '0 8px 28px var(--shadow)',
+        boxShadow: '0 8px 28px var(--shadow), 0 0 0 1px rgba(124,58,237,0.05)',
       }}
     >
       <div aria-hidden="true" style={{ position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)', width: 140, height: 70, background: 'radial-gradient(ellipse, var(--primary-glow) 0%, transparent 70%)', pointerEvents: 'none' }} />
@@ -356,9 +360,13 @@ export function TenPercentModelVisual() {
         transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         style={{
           marginTop: 20, padding: '16px 24px',
-          background: 'rgba(245,158,11,0.04)', border: '1px solid rgba(245,158,11,0.16)',
+          background: 'var(--surface)', 
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(245,158,11,0.25)',
           borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
           gap: 20, flexWrap: 'wrap',
+          boxShadow: '0 8px 28px var(--shadow), 0 0 0 1px rgba(245,158,11,0.05)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.8rem', color: 'var(--text-muted)' }}>
