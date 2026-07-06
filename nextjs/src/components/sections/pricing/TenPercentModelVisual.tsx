@@ -318,7 +318,7 @@ export function TenPercentModelVisual() {
             style={{
               width: '100%', appearance: 'none', height: 5, borderRadius: 999,
               background: `linear-gradient(90deg, var(--primary) ${((budget - 100) / 2900) * 100}%, var(--border-hover) ${((budget - 100) / 2900) * 100}%)`,
-              outline: 'none', cursor: 'pointer',
+              cursor: 'pointer',
             }}
           />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6, fontSize: '0.68rem', color: 'var(--text-muted)', opacity: 0.55, fontWeight: 600 }}>

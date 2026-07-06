@@ -37,7 +37,6 @@ export default function TicketPage() {
     color: 'var(--text-main)',
     fontSize: '0.9rem',
     fontFamily: 'var(--font-body)',
-    outline: 'none',
     transition: 'border-color 0.2s',
     boxSizing: 'border-box',
   }

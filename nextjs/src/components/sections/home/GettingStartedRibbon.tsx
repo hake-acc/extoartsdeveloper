@@ -150,7 +150,6 @@ export function GettingStartedRibbon() {
                     textAlign: 'left',
                     width: '100%',
                     padding: '8px 0',
-                    outline: 'none',
                   }}
                 >
                   {/* Ink Splatter Icon */}

@@ -197,7 +197,6 @@ export function ServicesSection() {
                   alignItems: 'center',
                   gap: '6px',
                   transition: 'color 0.25s ease, gap 0.25s ease',
-                  outline: 'none',
                 }}
               >
                 Explore <span className="arrow" style={{ fontSize: '0.9rem', transition: 'transform 0.25s' }}>&rarr;</span>

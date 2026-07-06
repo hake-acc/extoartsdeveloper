@@ -102,7 +102,6 @@ export function Navbar() {
           aria-label="ExtoArts home"
           style={{
             textDecoration: 'none',
-            outline: 'none',
           }}
         >
           <span
@@ -185,8 +184,8 @@ export function Navbar() {
               background: 'transparent',
               border: '1px solid var(--border)',
               borderRadius: '12px',
-              width: '38px',
-              height: '38px',
+              width: '44px',
+              height: '44px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -194,7 +193,6 @@ export function Navbar() {
               color: 'var(--text-muted)',
               fontSize: '1rem',
               transition: 'border-color 0.25s, color 0.25s, background-color 0.25s',
-              outline: 'none',
             }}
           >
             <motion.span
@@ -228,8 +226,8 @@ export function Navbar() {
               background: 'transparent',
               border: '1px solid var(--border)',
               borderRadius: '12px',
-              width: '38px',
-              height: '38px',
+              width: '44px',
+              height: '44px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -237,7 +235,6 @@ export function Navbar() {
               color: 'var(--text-muted)',
               fontSize: '1.1rem',
               transition: 'border-color 0.25s, background-color 0.25s',
-              outline: 'none',
             }}
           >
             <i className={`ti ti-${mobileOpen ? 'x' : 'menu-2'}`} aria-hidden="true" />
@@ -313,8 +310,8 @@ export function Navbar() {
                     background: 'transparent',
                     border: '1px solid var(--border)',
                     borderRadius: '10px',
-                    width: '34px',
-                    height: '34px',
+                    width: '44px',
+                    height: '44px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -413,8 +410,8 @@ export function Navbar() {
             background: rgba(124, 58, 237, 0.08) !important;
           }
           .theme-toggle {
-            width: 34px !important;
-            height: 34px !important;
+            width: 44px !important;
+            height: 44px !important;
           }
         }
         .nav-link-item::after {

@@ -44,6 +44,21 @@ const nextConfig: NextConfig = {
     ]
   },
   async headers() {
+    const csp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net",
+      "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
+      "font-src 'self' data: https://cdn.jsdelivr.net",
+      "img-src 'self' data: blob: https://iili.io https://freeimage.host https://www.googletagmanager.com",
+      "connect-src 'self' https://www.google-analytics.com https://*.supabase.co",
+      "frame-src 'self' https://discord.com",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'self'",
+      'upgrade-insecure-requests',
+    ].join('; ')
+
     return [
       {
         source: '/(.*)',
@@ -52,6 +67,8 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
       {

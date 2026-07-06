@@ -3,16 +3,22 @@ import { SITE_URL } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
 import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/sections/home/HeroSection'
+import { getPortfolioData } from '@/lib/portfolio'
 
 // Below-the-fold sections: deferred until after LCP
 const GettingStartedRibbon = dynamic(() => import('@/components/sections/home/GettingStartedRibbon').then(m => ({ default: m.GettingStartedRibbon })), { ssr: true })
+const WhyExtoArts = dynamic(() => import('@/components/sections/home/WhyExtoArts').then(m => ({ default: m.WhyExtoArts })), { ssr: true })
+const StatsSection = dynamic(() => import('@/components/sections/home/StatsSection').then(m => ({ default: m.StatsSection })), { ssr: true })
 const ServicesSection = dynamic(() => import('@/components/sections/home/ServicesSection').then(m => ({ default: m.ServicesSection })), { ssr: true })
+const PortfolioPreview = dynamic(() => import('@/components/sections/home/PortfolioPreview').then(m => ({ default: m.PortfolioPreview })), { ssr: true })
 const ProcessSection = dynamic(() => import('@/components/sections/home/ProcessSection').then(m => ({ default: m.ProcessSection })), { ssr: true })
+const FounderSection = dynamic(() => import('@/components/sections/home/FounderSection').then(m => ({ default: m.FounderSection })), { ssr: true })
+const ReviewsSection = dynamic(() => import('@/components/sections/home/ReviewsSection').then(m => ({ default: m.ReviewsSection })), { ssr: true })
 
 export const metadata: Metadata = {
   title: { absolute: 'YouTube Video Editing & Thumbnail Design | ExtoArts' },
   description:
-    'ExtoArts is a YouTube video editing agency for creators. High-retention edits, thumbnail design, Shorts editing, and channel automation. Flat-fee pricing.',
+    'High-retention YouTube editing, thumbnail design, and Shorts editing for creators. Flat-fee pricing, real editors, fast turnaround.',
   alternates: {
     canonical: `${SITE_URL}/`,
     languages: {
@@ -36,7 +42,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     title: 'YouTube Video Editing & Thumbnail Design | ExtoArts',
-    description: 'YouTube video editing agency for creators. High-retention edits, thumbnail design, Shorts editing, and channel automation. Flat-fee pricing.',
+    description: 'High-retention YouTube editing, thumbnail design, and Shorts editing for creators. Flat-fee pricing, real editors, fast turnaround.',
     url: `${SITE_URL}/`,
     siteName: 'ExtoArts',
     images: [
@@ -69,7 +75,7 @@ const webPageSchema = {
   '@id': `${SITE_URL}/`,
   url: `${SITE_URL}/`,
   name: 'ExtoArts | YouTube Video Editing Agency, Thumbnail Design & Shorts Editing',
-  description: 'YouTube video editing agency for creators. High-retention video editing, viral thumbnail design, TikTok and YouTube Shorts editing, channel automation, fair pricing, and real editors.',
+  description: 'High-retention YouTube editing, thumbnail design, and Shorts editing for creators. Flat-fee pricing, real editors, fast turnaround.',
   inLanguage: 'en-US',
   datePublished: '2024-01-01',
   dateModified: '2026-06-17',
@@ -79,7 +85,9 @@ const webPageSchema = {
   speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.hero', '.torn-banner', '.services-grid', '.steps-grid'] },
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { thumbnails, logos, banners } = await getPortfolioData()
+
   return (
     <>
       <JsonLd data={faqSchema} />
@@ -93,11 +101,26 @@ export default function HomePage() {
       {/* B. Getting Started Ribbon (Dark Banner with Accordions) */}
       <GettingStartedRibbon />
 
+      {/* Why ExtoArts - real differentiators vs traditional agencies */}
+      <WhyExtoArts />
+
+      {/* Stats - track record numbers */}
+      <StatsSection />
+
       {/* C. Services Grid ("Crafted for Creators") */}
       <ServicesSection />
 
+      {/* Portfolio preview - real client work */}
+      <PortfolioPreview thumbnails={thumbnails.slice(0, 9)} logos={logos.slice(0, 9)} banners={banners.slice(0, 9)} />
+
       {/* D. Process Steps ("Simple. Clear. Effective.") */}
       <ProcessSection />
+
+      {/* Founder bio */}
+      <FounderSection />
+
+      {/* Client reviews */}
+      <ReviewsSection />
     </>
   )
 }
