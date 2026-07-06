@@ -121,16 +121,11 @@ export function HeroSection() {
             blur={120}
           />
         </div>
-        {/* Dark overlay so text stays readable */}
+        {/* Overlay — dark in dark mode, light-tinted in light mode */}
         <div
           aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: -1,
-            background: 'rgba(3,3,5,0.72)',
-            pointerEvents: 'none',
-          }}
+          className="hero-gradient-overlay"
+          style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }}
         />
 
         {/* Agency badge */}

@@ -1057,6 +1057,26 @@ h4 {
   animation: badgePulse 2.8s ease infinite;
 }
 
+/* ── Hero gradient overlay (theme-aware) ── */
+.hero-gradient-overlay {
+  background: rgba(3,3,5,0.72);
+}
+[data-theme="light"] .hero-gradient-overlay {
+  background: rgba(216,225,255,0.54);
+}
+/* Override inline phrase colors in light mode */
+[data-theme="light"] .hero-accent-phrase {
+  color: var(--primary-deep) !important;
+}
+[data-theme="light"] .hero-badge {
+  border-color: rgba(74,63,143,0.22);
+  background: rgba(74,63,143,0.07);
+  box-shadow: 0 2px 14px rgba(74,63,143,0.08);
+}
+[data-theme="light"] .hero-badge-dot {
+  box-shadow: 0 0 8px rgba(74,63,143,0.7);
+}
+
 /* ── Preview card ── */
 .preview-card {
   box-shadow: 0 20px 56px rgba(0,0,0,0.64), 0 0 0 1px rgba(255,255,255,0.05);

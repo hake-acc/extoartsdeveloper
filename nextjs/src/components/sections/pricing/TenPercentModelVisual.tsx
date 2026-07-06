@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useId } from 'react'
 import { animate, motion } from 'framer-motion'
 
-/* ── Locale-safe formatter (matches SSR + CSR) ────────────────── */
+/* ── Locale-safe formatter ─────────────────────────────────────── */
 const fmt = (n: number) => n.toLocaleString('en-US')
 
 /* ── Animated counter ─────────────────────────────────────────── */
@@ -66,14 +66,20 @@ function DiamondIcon({ size = 30 }: { size?: number }) {
   )
 }
 
-/* ── Flow SVG connector ───────────────────────────────────────── */
-function FlowConnector({ id, editorPct }: { id: string; editorPct: number }) {
-  const leftPath  = 'M50 2 C50 32 14 32 14 58'
-  const rightPath = 'M50 2 C50 32 86 32 86 58'
+/* ── Flow SVG connector — desktop fork / mobile parallel ──────── */
+function FlowConnector({ id, editorPct, mobile }: { id: string; editorPct: number; mobile: boolean }) {
+  const editorW = Math.round(2 + (editorPct / 100) * 5)
+  const feeW    = Math.round(1.5 + ((100 - editorPct) / 100) * 3)
 
-  // Normalize to viewBox scale — keeps stroke widths in a sane 2-7 range
-  const editorW = Math.round(2 + (editorPct / 100) * 5)          // 90% → ~6.5 → 7
-  const feeW    = Math.round(1.5 + ((100 - editorPct) / 100) * 3) // 10% → ~1.8 → 2
+  // Desktop: fork left (editor) / fork right (fee)
+  const dLeftPath  = 'M50 2 C50 30 12 30 12 58'
+  const dRightPath = 'M50 2 C50 30 88 30 88 58'
+  // Mobile: two straight parallel lines side by side
+  const mLeftPath  = 'M34 2 L34 58'
+  const mRightPath = 'M66 2 L66 58'
+
+  const leftPath  = mobile ? mLeftPath  : dLeftPath
+  const rightPath = mobile ? mRightPath : dRightPath
 
   const leftParticles  = [0, 0.55, 1.1]
   const rightParticles = [0, 0.9]
@@ -83,19 +89,19 @@ function FlowConnector({ id, editorPct }: { id: string; editorPct: number }) {
       viewBox="0 0 100 60"
       preserveAspectRatio="none"
       aria-hidden="true"
-      style={{ width: '100%', height: 110, display: 'block', overflow: 'visible' }}
+      style={{ width: '100%', height: mobile ? 80 : 110, display: 'block', overflow: 'visible' }}
     >
       <defs>
-        <linearGradient id={`${id}-lg`} x1="50%" y1="0%" x2="14%" y2="100%">
-          <stop offset="0%" stopColor="#69ddff" stopOpacity="0.3"/>
-          <stop offset="100%" stopColor="#a3e635" stopOpacity="0.85"/>
+        <linearGradient id={`${id}-lg`} x1="50%" y1="0%" x2={mobile ? '34%' : '12%'} y2="100%">
+          <stop offset="0%" stopColor="#a3e635" stopOpacity="0.4"/>
+          <stop offset="100%" stopColor="#a3e635" stopOpacity="0.95"/>
         </linearGradient>
-        <linearGradient id={`${id}-rg`} x1="50%" y1="0%" x2="86%" y2="100%">
-          <stop offset="0%" stopColor="#69ddff" stopOpacity="0.3"/>
-          <stop offset="100%" stopColor="#69ddff" stopOpacity="0.8"/>
+        <linearGradient id={`${id}-rg`} x1="50%" y1="0%" x2={mobile ? '66%' : '88%'} y2="100%">
+          <stop offset="0%" stopColor="#69ddff" stopOpacity="0.4"/>
+          <stop offset="100%" stopColor="#69ddff" stopOpacity="0.9"/>
         </linearGradient>
-        <filter id={`${id}-glow`} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="1.4" result="blur"/>
+        <filter id={`${id}-glow`} x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="1.8" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
         <path id={`${id}-lp`} d={leftPath}/>
@@ -103,8 +109,8 @@ function FlowConnector({ id, editorPct }: { id: string; editorPct: number }) {
       </defs>
 
       {/* Ambient glow behind paths */}
-      <path d={leftPath}  stroke="#a3e635" strokeWidth={editorW + 4} strokeLinecap="round" fill="none" opacity="0.05"/>
-      <path d={rightPath} stroke="#69ddff" strokeWidth={feeW + 4}    strokeLinecap="round" fill="none" opacity="0.06"/>
+      <path d={leftPath}  stroke="#a3e635" strokeWidth={editorW + 5} strokeLinecap="round" fill="none" opacity="0.07"/>
+      <path d={rightPath} stroke="#69ddff" strokeWidth={feeW + 5}    strokeLinecap="round" fill="none" opacity="0.08"/>
 
       {/* Editor path — 90% (wider, green) */}
       <path
@@ -132,8 +138,8 @@ function FlowConnector({ id, editorPct }: { id: string; editorPct: number }) {
 
       {/* Particles — editor path */}
       {leftParticles.map((delay, i) => (
-        <circle key={`lp${i}`} r={2.2} fill="#a3e635" opacity="0.95" filter={`url(#${id}-glow)`}>
-          <animateMotion dur="1.6s" repeatCount="indefinite" begin={`${delay}s`}>
+        <circle key={`lp${i}`} r={2.4} fill="#a3e635" opacity="0.95" filter={`url(#${id}-glow)`}>
+          <animateMotion dur="1.4s" repeatCount="indefinite" begin={`${delay}s`}>
             <mpath href={`#${id}-lp`}/>
           </animateMotion>
         </circle>
@@ -141,12 +147,20 @@ function FlowConnector({ id, editorPct }: { id: string; editorPct: number }) {
 
       {/* Particles — fee path */}
       {rightParticles.map((delay, i) => (
-        <circle key={`rp${i}`} r={1.8} fill="#69ddff" opacity="0.9" filter={`url(#${id}-glow)`}>
-          <animateMotion dur="2.2s" repeatCount="indefinite" begin={`${delay}s`}>
+        <circle key={`rp${i}`} r={2} fill="#69ddff" opacity="0.92" filter={`url(#${id}-glow)`}>
+          <animateMotion dur="2s" repeatCount="indefinite" begin={`${delay}s`}>
             <mpath href={`#${id}-rp`}/>
           </animateMotion>
         </circle>
       ))}
+
+      {/* Mobile labels on the paths */}
+      {mobile && (
+        <>
+          <text x="24" y="32" fontSize="7" fill="#a3e635" opacity="0.85" textAnchor="middle" fontWeight="700">90%</text>
+          <text x="76" y="32" fontSize="7" fill="#69ddff" opacity="0.85" textAnchor="middle" fontWeight="700">10%</text>
+        </>
+      )}
     </svg>
   )
 }
@@ -154,7 +168,16 @@ function FlowConnector({ id, editorPct }: { id: string; editorPct: number }) {
 /* ── Main exported component ──────────────────────────────────── */
 export function TenPercentModelVisual() {
   const [budget, setBudget] = useState(500)
+  const [isMobile, setIsMobile] = useState(false)
   const id = useId().replace(/:/g, '')
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 540px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   const editorEarns = budget * 0.9
   const extoFee     = budget * 0.1
@@ -173,22 +196,11 @@ export function TenPercentModelVisual() {
     >
       {/* Heading */}
       <div style={{ textAlign: 'center', marginBottom: 36 }}>
-        <span
-          className="sec-label"
-          style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}
-        >
+        <span className="sec-label" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
           <span className="gradient-dot" aria-hidden="true" />
           Radical Transparency
         </span>
-        <h2
-          style={{
-            fontSize: 'clamp(1.5rem,3vw,2.2rem)',
-            fontWeight: 900,
-            letterSpacing: '-1px',
-            lineHeight: 1.1,
-            marginBottom: 10,
-          }}
-        >
+        <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 10 }}>
           How the 10% Model Works
         </h2>
         <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', maxWidth: 440, margin: '0 auto', lineHeight: 1.75 }}>
@@ -203,11 +215,12 @@ export function TenPercentModelVisual() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: 12,
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid var(--border)',
+            background: 'var(--surface)',
+            border: '1px solid var(--border-hover)',
             borderRadius: 999,
             padding: '10px 22px',
             marginBottom: 14,
+            boxShadow: '0 2px 12px var(--shadow)',
           }}
         >
           <WalletIcon size={18}/>
@@ -228,12 +241,13 @@ export function TenPercentModelVisual() {
             value={budget}
             onChange={(e) => setBudget(Number(e.target.value))}
             aria-label="Set your budget to see the 10% split"
+            className="flow-range"
             style={{
               width: '100%',
               appearance: 'none',
               height: 5,
               borderRadius: 999,
-              background: `linear-gradient(90deg, var(--primary) ${((budget - 100) / 2900) * 100}%, rgba(255,255,255,0.08) ${((budget - 100) / 2900) * 100}%)`,
+              background: `linear-gradient(90deg, var(--primary) ${((budget - 100) / 2900) * 100}%, var(--border-hover) ${((budget - 100) / 2900) * 100}%)`,
               outline: 'none',
               cursor: 'pointer',
             }}
@@ -248,7 +262,7 @@ export function TenPercentModelVisual() {
       {/* Flow diagram */}
       <div style={{ position: 'relative' }}>
 
-        {/* Budget hub — top center */}
+        {/* Budget hub */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: -4 }}>
           <motion.div
             key={budget}
@@ -268,18 +282,12 @@ export function TenPercentModelVisual() {
               textAlign: 'center',
               position: 'relative',
               overflow: 'hidden',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(105,221,255,0.08)',
+              boxShadow: '0 8px 32px var(--shadow), 0 0 0 1px var(--primary-glow)',
             }}
           >
-            <div
-              style={{
-                width: 44, height: 44, borderRadius: 14,
-                background: 'rgba(105,221,255,0.1)',
-                border: '1px solid rgba(105,221,255,0.2)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-            >
+            {/* Subtle glow behind icon */}
+            <div aria-hidden="true" style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)', width: 100, height: 50, background: 'radial-gradient(ellipse, var(--primary-glow) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div style={{ width: 44, height: 44, borderRadius: 14, background: 'var(--primary-glow)', border: '1px solid var(--primary-glow)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)' }}>
               <WalletIcon size={24}/>
             </div>
             <div>
@@ -294,42 +302,35 @@ export function TenPercentModelVisual() {
         </div>
 
         {/* Animated SVG connector */}
-        <FlowConnector id={id} editorPct={90}/>
+        <FlowConnector id={id} editorPct={90} mobile={isMobile}/>
 
         {/* Two destination cards */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="flow-cards">
 
-          {/* Editor card */}
+          {/* Editor card — 90% */}
           <motion.div
-            whileHover={{ y: -3, boxShadow: '0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(163,230,53,0.22)' }}
-            transition={{ duration: 0.25 }}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              background: 'rgba(163,230,53,0.04)',
-              border: '1px solid rgba(163,230,53,0.16)',
+              background: 'rgba(163,230,53,0.05)',
+              border: '1px solid rgba(163,230,53,0.18)',
               borderRadius: 22,
               padding: 'min(28px,3.5vw)',
               textAlign: 'center',
               position: 'relative',
               overflow: 'hidden',
-              boxShadow: '0 8px 28px rgba(0,0,0,0.36)',
+              boxShadow: '0 8px 28px var(--shadow)',
+              transition: 'box-shadow 0.25s',
             }}
           >
-            <div
-              aria-hidden="true"
-              style={{
-                position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)',
-                width: 120, height: 60,
-                background: 'radial-gradient(ellipse, rgba(163,230,53,0.18) 0%, transparent 70%)',
-                pointerEvents: 'none',
-              }}
-            />
-            <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(163,230,53,0.1)', border: '1px solid rgba(163,230,53,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', color: '#a3e635' }}>
+            <div aria-hidden="true" style={{ position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)', width: 140, height: 70, background: 'radial-gradient(ellipse, rgba(163,230,53,0.22) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(163,230,53,0.12)', border: '1px solid rgba(163,230,53,0.24)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', color: '#a3e635' }}>
               <FilmIcon size={30}/>
             </div>
             <div style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)', fontWeight: 900, color: '#a3e635', letterSpacing: '-2px', lineHeight: 1, marginBottom: 4 }}>
               <AnimCount value={Math.round(editorEarns)}/>
             </div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(163,230,53,0.1)', border: '1px solid rgba(163,230,53,0.2)', borderRadius: 999, padding: '3px 10px', fontSize: '0.68rem', fontWeight: 800, color: '#a3e635', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 10 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(163,230,53,0.12)', border: '1px solid rgba(163,230,53,0.22)', borderRadius: 999, padding: '3px 10px', fontSize: '0.68rem', fontWeight: 800, color: '#a3e635', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 10 }}>
               90% → Editor
             </div>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
@@ -337,37 +338,30 @@ export function TenPercentModelVisual() {
             </p>
           </motion.div>
 
-          {/* ExtoArts fee card */}
+          {/* ExtoArts fee card — 10% */}
           <motion.div
-            whileHover={{ y: -3, boxShadow: '0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(105,221,255,0.22)' }}
-            transition={{ duration: 0.25 }}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              background: 'rgba(105,221,255,0.04)',
-              border: '1px solid rgba(105,221,255,0.16)',
+              background: 'var(--primary-glow)',
+              border: '1px solid var(--primary-glow)',
               borderRadius: 22,
               padding: 'min(28px,3.5vw)',
               textAlign: 'center',
               position: 'relative',
               overflow: 'hidden',
-              boxShadow: '0 8px 28px rgba(0,0,0,0.36)',
+              boxShadow: '0 8px 28px var(--shadow)',
+              transition: 'box-shadow 0.25s',
             }}
           >
-            <div
-              aria-hidden="true"
-              style={{
-                position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)',
-                width: 120, height: 60,
-                background: 'radial-gradient(ellipse, rgba(105,221,255,0.15) 0%, transparent 70%)',
-                pointerEvents: 'none',
-              }}
-            />
-            <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(105,221,255,0.1)', border: '1px solid rgba(105,221,255,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', color: 'var(--primary)' }}>
+            <div aria-hidden="true" style={{ position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)', width: 140, height: 70, background: 'radial-gradient(ellipse, var(--primary-glow) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div style={{ width: 52, height: 52, borderRadius: 16, background: 'var(--primary-glow)', border: '1px solid var(--primary-glow)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', color: 'var(--primary)' }}>
               <DiamondIcon size={28}/>
             </div>
             <div style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)', fontWeight: 900, color: 'var(--primary)', letterSpacing: '-2px', lineHeight: 1, marginBottom: 4 }}>
               <AnimCount value={Math.round(extoFee)}/>
             </div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(105,221,255,0.1)', border: '1px solid rgba(105,221,255,0.2)', borderRadius: 999, padding: '3px 10px', fontSize: '0.68rem', fontWeight: 800, color: 'var(--primary)', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 10 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'var(--primary-glow)', border: '1px solid var(--primary-glow)', borderRadius: 999, padding: '3px 10px', fontSize: '0.68rem', fontWeight: 800, color: 'var(--primary)', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 10 }}>
               10% → ExtoArts
             </div>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
@@ -387,7 +381,7 @@ export function TenPercentModelVisual() {
           marginTop: 20,
           padding: '16px 24px',
           background: 'rgba(245,158,11,0.04)',
-          border: '1px solid rgba(245,158,11,0.14)',
+          border: '1px solid rgba(245,158,11,0.16)',
           borderRadius: 16,
           display: 'flex',
           alignItems: 'center',
@@ -406,7 +400,7 @@ export function TenPercentModelVisual() {
             in overhead
           </span>
         </div>
-        <div style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.08)', flexShrink: 0 }}/>
+        <div style={{ width: 1, height: 18, background: 'var(--border-hover)', flexShrink: 0 }}/>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.8rem', color: 'var(--text-muted)' }}>
           <i className="ti ti-check" aria-hidden="true" style={{ color: '#a3e635', fontSize: '0.95rem' }}/>
           <span>
@@ -420,28 +414,28 @@ export function TenPercentModelVisual() {
       </motion.div>
 
       <style>{`
-        input[type="range"]::-webkit-slider-thumb {
+        .flow-range::-webkit-slider-thumb {
           appearance: none;
           width: 18px;
           height: 18px;
           border-radius: 50%;
           background: var(--primary);
           cursor: pointer;
-          box-shadow: 0 0 0 3px rgba(105,221,255,0.2), 0 0 12px rgba(105,221,255,0.4);
-          border: 2px solid #04040b;
+          box-shadow: 0 0 0 3px var(--primary-glow), 0 0 12px var(--primary-glow);
+          border: 2px solid var(--bg);
           transition: box-shadow 0.2s;
         }
-        input[type="range"]::-webkit-slider-thumb:hover {
-          box-shadow: 0 0 0 5px rgba(105,221,255,0.25), 0 0 20px rgba(105,221,255,0.5);
+        .flow-range::-webkit-slider-thumb:hover {
+          box-shadow: 0 0 0 5px var(--primary-glow), 0 0 20px var(--primary-glow);
         }
-        input[type="range"]::-moz-range-thumb {
+        .flow-range::-moz-range-thumb {
           width: 18px;
           height: 18px;
           border-radius: 50%;
           background: var(--primary);
           cursor: pointer;
-          border: 2px solid #04040b;
-          box-shadow: 0 0 0 3px rgba(105,221,255,0.2);
+          border: 2px solid var(--bg);
+          box-shadow: 0 0 0 3px var(--primary-glow);
         }
         @keyframes flowDash {
           to { stroke-dashoffset: -22; }
