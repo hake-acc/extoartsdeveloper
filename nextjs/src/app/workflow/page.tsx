@@ -47,36 +47,36 @@ export default function WorkflowPage() {
           <span className="hero-badge-dot" aria-hidden="true" />
           8-Step Pipeline
         </span>
-        <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
+        <h1 style={{ fontSize: 'clamp(2rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)', textShadow: '0 2px 16px rgba(0,0,0,0.7)' }}>
           A Process Built<br /><span className="sweep-text">for Creators.</span>
         </h1>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto', lineHeight: 1.72 }}>
+        <p style={{ fontSize: 'clamp(0.9rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto', lineHeight: 1.72, textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}>
           Every ExtoArts project follows the same transparent pipeline. Clear checkpoints, no black boxes - brief to delivery with zero surprises.
         </p>
       </section>
 
       {/* Pipeline */}
-      <section style={{ padding: '0 min(20px,5%) min(100px,10vw)', maxWidth: 860, margin: '0 auto', position: 'relative', zIndex: 10 }}>
+      <section style={{ padding: '0 min(16px,4%) min(80px,10vw)', maxWidth: 860, margin: '0 auto', position: 'relative', zIndex: 10, width: '100%', boxSizing: 'border-box' }}>
 
         {/* Progress bar header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 56, padding: '0 4px', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 40, padding: '0 4px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' as React.CSSProperties['WebkitOverflowScrolling'] }}>
           {STEPS.map((step, i) => (
-            <div key={step.num} style={{ display: 'flex', alignItems: 'center', flex: i < STEPS.length - 1 ? '1 1 auto' : '0 0 auto' }}>
+            <div key={step.num} style={{ display: 'flex', alignItems: 'center', flex: i < STEPS.length - 1 ? '1 1 auto' : '0 0 auto', minWidth: 0 }}>
               {/* Step dot */}
               <div style={{
-                width: 32, height: 32, borderRadius: '50%',
+                width: 28, height: 28, borderRadius: '50%',
                 background: `rgba(${i < 3 ? '105,221,255' : i < 6 ? '150,205,255' : '219,186,221'},0.12)`,
                 border: `2px solid ${step.color}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0, fontSize: '0.62rem', fontWeight: 900, color: step.color,
-                boxShadow: `0 0 12px ${step.color}30`,
+                flexShrink: 0, fontSize: '0.55rem', fontWeight: 900, color: step.color,
+                boxShadow: `0 0 10px ${step.color}30`,
               }}>
                 {step.num}
               </div>
               {/* Connector */}
               {i < STEPS.length - 1 && (
                 <div style={{
-                  flex: 1, height: 2, minWidth: 8,
+                  flex: 1, height: 2, minWidth: 6,
                   background: `linear-gradient(90deg, ${step.color}60, ${STEPS[i + 1].color}60)`,
                 }} />
               )}
@@ -85,12 +85,12 @@ export default function WorkflowPage() {
         </div>
 
         {/* Steps */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
           {STEPS.map((step, i) => (
             <article
               key={step.num}
-              className="sr"
-              style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 0, animationDelay: `${i * 50}ms` }}
+              className="sr workflow-article"
+              style={{ display: 'grid', gridTemplateColumns: '60px 1fr', gap: 0, animationDelay: `${i * 50}ms`, width: '100%', minWidth: 0 }}
             >
               {/* Left: checkpoint circle + connector line */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 4 }}>
@@ -147,18 +147,19 @@ export default function WorkflowPage() {
                 }}
               >
                 <div className="tilt-inner">
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0, flex: 1 }}>
                       <span style={{
                         fontSize: '0.56rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px',
                         color: step.color,
                         background: `${step.color}12`,
                         border: `1px solid ${step.color}28`,
                         padding: '3px 10px', borderRadius: 999,
+                        alignSelf: 'flex-start',
                       }}>
                         Checkpoint {step.num}
                       </span>
-                      <h2 style={{ fontSize: 'clamp(0.9rem,1.8vw,1.05rem)', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.2px' }}>
+                      <h2 className="workflow-card-title" style={{ fontSize: 'clamp(0.85rem,2.5vw,1.05rem)', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.2px', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>
                         {step.title}
                       </h2>
                     </div>
@@ -167,7 +168,7 @@ export default function WorkflowPage() {
                       {step.duration}
                     </span>
                   </div>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.72, margin: 0 }}>
+                  <p style={{ fontSize: 'clamp(0.78rem,2vw,0.85rem)', color: 'var(--text-muted)', lineHeight: 1.72, margin: 0 }}>
                     {step.desc}
                   </p>
                 </div>
@@ -188,9 +189,26 @@ export default function WorkflowPage() {
       </section>
 
       <style>{`
+        .workflow-article {
+          width: 100%;
+          box-sizing: border-box;
+          overflow: hidden;
+        }
         @media (max-width: 540px) {
-          article[style*="grid-template-columns: 72px"] {
-            grid-template-columns: 52px 1fr !important;
+          .workflow-article {
+            grid-template-columns: 48px 1fr !important;
+          }
+          .workflow-article > div:first-child > div:first-child {
+            width: 42px !important;
+            height: 42px !important;
+          }
+          .workflow-article > div:last-child {
+            margin-left: 8px !important;
+            padding: 14px 14px !important;
+          }
+          .workflow-card-title {
+            font-size: 0.88rem !important;
+            font-family: var(--font-body) !important;
           }
         }
       `}</style>
