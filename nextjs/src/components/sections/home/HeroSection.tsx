@@ -160,7 +160,7 @@ export function HeroSection() {
           fontWeight: 400,
         }}
       >
-        Everything you need to know about working with ExtoArts &mdash; from first contact to final delivery.
+        Everything you need to know about working with ExtoArts: from first contact to final delivery.
       </motion.p>
 
       {/* CTA Button */}
