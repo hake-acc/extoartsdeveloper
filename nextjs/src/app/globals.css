@@ -477,44 +477,80 @@ h4 {
   }
 }
 
-/* ── Mobile: Light mode text clean-up ── */
+/* ── Mobile: Light mode text visibility ── */
+/* Light mode has DARK text on DARK ink backgrounds — parchment glow makes it pop */
 @media (max-width: 640px) {
   html[data-theme="light"] h1,
   html[data-theme="light"] h2,
   html[data-theme="light"] h3,
-  html[data-theme="light"] h4,
-  html[data-theme="light"] p {
-    text-shadow: none !important;
-  }
-  html[data-theme="light"] h1,
-  html[data-theme="light"] h2,
-  html[data-theme="light"] h3 {
+  html[data-theme="light"] h4 {
+    text-shadow:
+      0 0 18px rgba(244, 239, 230, 1),
+      0 0 36px rgba(244, 239, 230, 0.9),
+      0 2px 8px rgba(244, 239, 230, 0.95) !important;
     color: var(--text-main) !important;
   }
   html[data-theme="light"] p {
     color: var(--text-muted) !important;
+    text-shadow:
+      0 0 10px rgba(244, 239, 230, 0.95),
+      0 0 22px rgba(244, 239, 230, 0.8) !important;
   }
-  /* Light mode glass cards: light frosted look */
+
+  /* Light mode glass cards: solid parchment-frosted */
   html[data-theme="light"] .glass-card {
-    background: rgba(255, 255, 255, 0.82) !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    border-color: rgba(0,0,0,0.09) !important;
+    background: rgba(255, 252, 246, 0.93) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: rgba(0,0,0,0.08) !important;
   }
-  html[data-theme="light"] .glass-card h3 {
+  html[data-theme="light"] .glass-card h3,
+  html[data-theme="light"] .glass-card h2 {
+    text-shadow: none !important;
     color: var(--text-main) !important;
   }
   html[data-theme="light"] .glass-card p {
+    text-shadow: none !important;
     color: var(--text-muted) !important;
   }
-  /* Light mode workflow/tilt cards */
+
+  /* Tilt cards (workflow, pricing) */
   html[data-theme="light"] .tilt-card {
-    background: rgba(255, 255, 255, 0.88) !important;
-    border-color: rgba(0,0,0,0.1) !important;
+    background: rgba(255, 252, 246, 0.93) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: rgba(0,0,0,0.08) !important;
   }
-  /* Light mode ink cards */
-  html[data-theme="light"] .ink-card {
+  html[data-theme="light"] .tilt-card h2,
+  html[data-theme="light"] .tilt-card h3 {
+    text-shadow: none !important;
     color: var(--text-main) !important;
+  }
+  html[data-theme="light"] .tilt-card p {
+    text-shadow: none !important;
+    color: var(--text-muted) !important;
+  }
+
+  /* Ink cards */
+  html[data-theme="light"] .ink-card {
+    background: rgba(255, 252, 246, 0.9) !important;
+    color: var(--text-main) !important;
+  }
+  html[data-theme="light"] .ink-card h3,
+  html[data-theme="light"] .ink-card p {
+    text-shadow: none !important;
+  }
+
+  /* sr scroll-reveal cards */
+  html[data-theme="light"] article.sr {
+    background: rgba(255, 252, 246, 0.92) !important;
+    border-radius: 18px !important;
+    padding: 16px !important;
+  }
+  html[data-theme="light"] article.sr h2,
+  html[data-theme="light"] article.sr h3,
+  html[data-theme="light"] article.sr p {
+    text-shadow: none !important;
   }
 }
 
@@ -1937,6 +1973,15 @@ html:not([data-theme="light"]) .bg-image-dark {
 }
 html[data-theme="light"] .bg-image-light {
   opacity: 1;
+}
+
+/* On mobile in light mode, add a frosted parchment overlay
+   so dark ink elements don't make text invisible */
+@media (max-width: 640px) {
+  html[data-theme="light"] .bg-image-light {
+    opacity: 1;
+    filter: contrast(0.65) brightness(1.25) saturate(0.7);
+  }
 }
 
 /* ── Brush Underline & Highlights ── */

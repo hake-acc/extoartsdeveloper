@@ -241,6 +241,15 @@ export default function EstimatePage() {
             position: static !important;
           }
         }
+        /* Light mode: estimate panels need solid backgrounds */
+        @media (max-width: 640px) {
+          html[data-theme="light"] div[style*="glass"],
+          html[data-theme="light"] div[style*="borderRadius"],
+          html[data-theme="light"] div[style*="border-radius"] {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+          }
+        }
       `}</style>
     </>
   )

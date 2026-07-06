@@ -224,6 +224,26 @@ export default function PricingPage() {
         @media (max-width: 900px) {
           .tier-grid, .package-grid { grid-template-columns: 1fr !important; }
         }
+        /* Light mode: price cards readable over ink backgrounds */
+        @media (max-width: 640px) {
+          html[data-theme="light"] .price-card {
+            background: rgba(255, 252, 246, 0.93) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+          }
+          html[data-theme="light"] .price-card h2,
+          html[data-theme="light"] .price-card h3,
+          html[data-theme="light"] .price-card p,
+          html[data-theme="light"] .price-card span,
+          html[data-theme="light"] .price-card li {
+            text-shadow: none !important;
+            color: var(--text-main) !important;
+          }
+          html[data-theme="light"] .price-card p,
+          html[data-theme="light"] .price-card li {
+            color: var(--text-muted) !important;
+          }
+        }
       `}</style>
     </>
   )
