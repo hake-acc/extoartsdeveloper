@@ -235,8 +235,10 @@ export default function RootLayout({
         <JsonLd data={websiteSchema} />
       </head>
       <body>
-        <Script id="ea-theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('ea-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.replace('no-js','js');})();`}</Script>
+        <Script id="ea-theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('ea-theme');if(t==='light'||(!t&&window.matchMedia('(prefers-color-scheme:light)').matches))document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.replace('no-js','js');})();`}</Script>
         <a href="#main-content" className="skip-link">Skip to content</a>
+        <div className="bg-image-layer bg-image-light" aria-hidden="true" />
+        <div className="bg-image-layer bg-image-dark" aria-hidden="true" />
         <MotionProvider>
           <div className="mesh-glow" aria-hidden="true" />
           <div id="page-progress" aria-hidden="true" />

@@ -1,35 +1,10 @@
 import type { Metadata } from 'next'
-import fs from 'fs'
-import path from 'path'
-import { SITE_URL, DISCORD_URL } from '@/lib/constants'
+import { SITE_URL } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
 import { HeroSection } from '@/components/sections/home/HeroSection'
-import { StatsSection } from '@/components/sections/home/StatsSection'
+import { GettingStartedRibbon } from '@/components/sections/home/GettingStartedRibbon'
 import { ServicesSection } from '@/components/sections/home/ServicesSection'
-import { PortfolioPreview } from '@/components/sections/home/PortfolioPreview'
-import { ReviewsSection } from '@/components/sections/home/ReviewsSection'
-import { FounderSection } from '@/components/sections/home/FounderSection'
-import { WhoWeServe } from '@/components/sections/home/WhoWeServe'
-import { WhyExtoArts } from '@/components/sections/home/WhyExtoArts'
-import { OrganicDivider } from '@/components/ui/OrganicDivider'
-const IMG_EXT = new Set(['.webp', '.jpg', '.jpeg', '.png'])
-
-interface PortfolioItem { src: string; alt: string }
-
-function readPortfolioFolder(sub: string, altLabel: string): PortfolioItem[] {
-  try {
-    const dir = path.join(process.cwd(), 'public', 'portfolio', sub)
-    if (!fs.existsSync(dir)) return []
-    return fs.readdirSync(dir)
-      .filter(f => IMG_EXT.has(path.extname(f).toLowerCase()))
-      .map(f => ({ name: f, mtime: fs.statSync(path.join(dir, f)).mtimeMs }))
-      .sort((a, b) => b.mtime - a.mtime)
-      .map(({ name }) => ({ src: `/portfolio/${sub}/${name}`, alt: altLabel }))
-  } catch (err) {
-    console.error(`[readPortfolioFolder] failed for ${sub}:`, err)
-    return []
-  }
-}
+import { ProcessSection } from '@/components/sections/home/ProcessSection'
 
 export const metadata: Metadata = {
   title: 'YouTube Video Editing & Thumbnail Design | ExtoArts',
@@ -68,14 +43,10 @@ const webPageSchema = {
   about: { '@id': `${SITE_URL}/#organization` },
   publisher: { '@id': `${SITE_URL}/#organization` },
   isPartOf: { '@id': `${SITE_URL}/#website` },
-  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.services-hero', '.stat-item', '.services-section'] },
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.hero', '.torn-banner', '.services-grid', '.steps-grid'] },
 }
 
 export default function HomePage() {
-  const thumbnails = readPortfolioFolder('Thumbnails', 'ExtoArts thumbnail design')
-  const logos      = readPortfolioFolder('Logos',      'ExtoArts logo design')
-  const banners    = readPortfolioFolder('Banners',    'ExtoArts channel banner')
-
   return (
     <>
       <JsonLd data={faqSchema} />
@@ -83,16 +54,17 @@ export default function HomePage() {
 
       <p className="sr-only">ExtoArts - YouTube Video Editing Agency & Thumbnail Design</p>
 
+      {/* A. Hero Section ("FAQ Center") */}
       <HeroSection />
-      <StatsSection />
-      <OrganicDivider />
+
+      {/* B. Getting Started Ribbon (Dark Banner with Accordions) */}
+      <GettingStartedRibbon />
+
+      {/* C. Services Grid ("Crafted for Creators") */}
       <ServicesSection />
-      <PortfolioPreview thumbnails={thumbnails} logos={logos} banners={banners} />
-      <OrganicDivider />
-      <ReviewsSection />
-      <WhoWeServe />
-      <WhyExtoArts />
-      <FounderSection />
+
+      {/* D. Process Steps ("Simple. Clear. Effective.") */}
+      <ProcessSection />
     </>
   )
 }

@@ -8,32 +8,36 @@ const STATS = [
     label: 'Projects Delivered',
     desc: 'Videos edited, thumbnails designed, channels grown',
     countUp: '120',
-    color: '#69ddff',   // Frozen Lake
-    rgba: '105,221,255',
+    color: 'var(--c-gaming)',
+    glow: 'var(--c-gaming-glow)',
+    border: 'var(--c-gaming-border)',
   },
   {
     icon: 'ti-star',
     value: '4.5★',
     label: 'Trustpilot Rating',
     desc: '5.0 on Discord · 4.5 on Trustpilot · verified reviews',
-    color: '#96cdff',   // Sky Blue
-    rgba: '150,205,255',
+    color: 'var(--c-faceless)',
+    glow: 'var(--c-faceless-glow)',
+    border: 'var(--c-faceless-border)',
   },
   {
     icon: 'ti-percentage',
     value: '10%',
     label: 'Flat Agency Fee',
     desc: '90% of your budget goes directly to your editor',
-    color: '#dbbadd',   // Pink Orchid
-    rgba: '219,186,221',
+    color: 'var(--c-growth)',
+    glow: 'var(--c-growth-glow)',
+    border: 'var(--c-growth-border)',
   },
   {
     icon: 'ti-clock',
     value: '48h',
     label: 'Turnaround',
     desc: 'Rush delivery for urgent projects, guaranteed',
-    color: '#be92a2',   // Old Rose
-    rgba: '190,146,162',
+    color: 'var(--c-business)',
+    glow: 'var(--c-business-glow)',
+    border: 'var(--c-business-border)',
   },
 ]
 
@@ -66,7 +70,7 @@ export function StatsSection() {
             }}
             className="stat-item glass-card tilt-card shine-border"
             style={{
-              border: `1px solid rgba(${stat.rgba},0.15)`,
+              border: `1px solid ${stat.border}`,
               borderRadius: 20,
               padding: 'min(32px,3vw) min(26px,2.5vw)',
               display: 'flex',
@@ -90,9 +94,9 @@ export function StatsSection() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
-                  background: `linear-gradient(135deg, rgba(${stat.rgba},0.14), rgba(${stat.rgba},0.06))`,
-                  border: `1px solid rgba(${stat.rgba},0.22)`,
-                  boxShadow: `0 0 16px rgba(${stat.rgba},0.08)`,
+                  background: stat.glow,
+                  border: `1px solid ${stat.border}`,
+                  boxShadow: `0 0 16px ${stat.glow}`,
                   color: stat.color,
                   transition: 'box-shadow 0.3s, border-color 0.3s',
                 }}
@@ -110,7 +114,7 @@ export function StatsSection() {
                   letterSpacing: '-2px',
                   lineHeight: 1,
                   marginBottom: 8,
-                  background: `linear-gradient(135deg, ${stat.color} 0%, #eeeef8 55%, ${stat.color} 100%)`,
+                  background: `linear-gradient(135deg, ${stat.color} 0%, var(--text-main) 55%, ${stat.color} 100%)`,
                   backgroundSize: '200% auto',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',

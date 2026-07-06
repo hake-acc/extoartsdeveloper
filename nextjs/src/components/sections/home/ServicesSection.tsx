@@ -1,256 +1,247 @@
-import Link from 'next/link'
-import { SectionHeader } from '@/components/ui/SectionHeader'
-import { BorderBeam } from '@/components/ui/BorderBeam'
-import { InView } from '@/components/ui/InView'
+'use client'
 
-// All 5 brand colours distributed across 6 services
-const SERVICES = [
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+
+interface ServiceItem {
+  icon: string
+  title: string
+  desc: string
+  href: string
+}
+
+const SERVICES: ServiceItem[] = [
   {
-    icon: 'ti-brand-youtube',
-    label: 'SVC-01',
-    title: 'High-Retention YouTube Editing',
-    desc: 'Every cut, hook, and pacing decision is optimized to maximize Average View Duration. We analyze your niche, your audience, and your style — then edit to keep viewers watching.',
+    icon: 'ti-video',
+    title: 'YouTube Video Editing',
+    desc: 'High-retention edits that keep viewers watching till the end.',
     href: '/services#youtube-editing',
-    featured: true,
-    color: '#69ddff',   // Frozen Lake
-    rgba: '105,221,255',
-    beamFrom: '#69ddff',
-    beamTo: '#96cdff',
   },
   {
     icon: 'ti-photo',
-    label: 'SVC-02',
-    title: 'Viral Thumbnail Design',
-    desc: 'CTR-optimized thumbnails built to stop the scroll. Color psychology, composition, and proven click-through frameworks.',
+    title: 'Thumbnail Design',
+    desc: 'Scroll-stopping thumbnails that boost CTR and views.',
     href: '/services#thumbnail-design',
-    color: '#96cdff',   // Sky Blue
-    rgba: '150,205,255',
-    beamFrom: '#96cdff',
-    beamTo: '#d8e1ff',
   },
   {
     icon: 'ti-device-mobile-vibration',
-    label: 'SVC-03',
-    title: 'Shorts & TikTok Editing',
-    desc: 'Short-form specialists who understand hook timing, vertical framing, and scroll-stopping techniques that work on algorithm-driven feeds.',
+    title: 'YouTube Shorts',
+    desc: 'Viral short-form edits built for maximum reach.',
     href: '/services#shorts-editing',
-    color: '#d8e1ff',   // Lavender
-    rgba: '216,225,255',
-    beamFrom: '#d8e1ff',
-    beamTo: '#dbbadd',
   },
   {
-    icon: 'ti-device-gamepad-2',
-    label: 'SVC-04',
-    title: 'Gaming Video Editing',
-    desc: 'Niche-matched gaming editors for Roblox, Minecraft, PUBG, Free Fire, and more. We know the culture, the pacing, and the audience.',
-    href: '/services#gaming',
-    color: '#dbbadd',   // Pink Orchid
-    rgba: '219,186,221',
-    beamFrom: '#dbbadd',
-    beamTo: '#be92a2',
-  },
-  {
-    icon: 'ti-sparkles',
-    label: 'SVC-05',
-    title: 'Motion Graphics & VFX',
-    desc: 'Custom After Effects animations, transitions, and visual effects purpose-built for your channel identity.',
-    href: '/services#motion-graphics',
-    color: '#be92a2',   // Old Rose
-    rgba: '190,146,162',
-    beamFrom: '#be92a2',
-    beamTo: '#69ddff',
-  },
-  {
-    icon: 'ti-eye-off',
-    label: 'SVC-06',
-    title: 'Faceless Channel Automation',
-    desc: 'Script to published video - complete done-for-you production for faceless YouTube channels and automated content businesses.',
-    href: '/services#faceless',
-    color: '#96cdff',   // Sky Blue (cycle)
-    rgba: '150,205,255',
-    beamFrom: '#96cdff',
-    beamTo: '#dbbadd',
+    icon: 'ti-settings-automation',
+    title: 'Channel Automation',
+    desc: 'We handle your content engine so you can focus on growth.',
+    href: '/services#automation',
   },
 ]
 
 export function ServicesSection() {
+  const E = [0.16, 1, 0.3, 1] as const
+
   return (
     <section
       id="services"
-      aria-labelledby="services-heading"
+      aria-labelledby="services-title"
       style={{
-        padding: 'min(96px,8vw) min(20px,5%)',
-        maxWidth: 1200,
+        padding: 'min(96px, 9vw) min(40px, 6%)',
+        maxWidth: '1240px',
         margin: '0 auto',
         position: 'relative',
         zIndex: 10,
       }}
     >
-      <SectionHeader
-        label="What We Do"
-        title={
-          <>
-            Premium Services.<br />
-            <span className="sweep-text" style={{ display: 'block' }}>Every Niche.</span>
-          </>
-        }
-        subtitle="Specialist editors matched to your content type, not generalists assigned by availability."
-      />
-
+      {/* Section Header */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 14,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          textAlign: 'left',
+          marginBottom: '56px',
         }}
-        className="services-bento"
       >
-        {SERVICES.map((svc, i) => {
-          const isFeatured = i === 0
-          const delay = i * 0.06
+        {/* Overline with flanking lines */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            letterSpacing: '0.25em',
+            color: 'var(--primary-accent)',
+            textTransform: 'uppercase',
+            fontFamily: 'var(--font-body)',
+            marginBottom: '20px',
+          }}
+        >
+          <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
+          Our Services
+          <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
+        </div>
 
-          return (
-            <InView
-              key={svc.label}
-              as="article"
-              transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
-              variants={{
-                hidden: { opacity: 0, y: 20, scale: 0.97 },
-                visible: { opacity: 1, y: 0, scale: 1 },
-              }}
-              className={`tilt-card glass-card shine-border${isFeatured ? ' ea-ring-parent' : ''}`}
+        {/* Title: Crafted for Creators. */}
+        <h2
+          id="services-title"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 400,
+            fontSize: 'clamp(2.5rem, 5vw, 3.8rem)',
+            color: 'var(--text-main)',
+            letterSpacing: '-1.5px',
+            lineHeight: 1.05,
+          }}
+        >
+          Crafted for{' '}
+          <span style={{ position: 'relative', display: 'inline-block' }}>
+            Creators.
+            {/* Small purple enso circle accent */}
+            <svg
+              className="enso-circle-accent"
+              viewBox="0 0 100 100"
+              fill="none"
+              stroke="var(--primary-accent)"
+              strokeWidth="7"
+              strokeLinecap="round"
               style={{
-                border: `1px solid rgba(${svc.rgba},0.14)`,
-                padding: isFeatured ? '40px 36px' : '28px 26px',
+                position: 'absolute',
+                right: '-28px',
+                top: '15%',
+                width: '30px',
+                height: '30px',
+                transform: 'rotate(-25deg)',
+                opacity: 0.95,
+              }}
+              aria-hidden="true"
+            >
+              <path d="M 80,45 C 80,20 60,10 40,15 C 20,20 10,40 15,60 C 20,80 40,90 60,85 C 75,80 82,65 75,55 C 70,50 60,50 55,55" />
+            </svg>
+          </span>
+        </h2>
+      </div>
+
+      {/* 4-Column Grid */}
+      <div className="services-grid">
+        {SERVICES.map((svc, idx) => {
+          const delay = idx * 0.08
+          return (
+            <motion.article
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.7, delay, ease: E }}
+              className="service-card"
+              style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: isFeatured ? 20 : 14,
-                gridColumn: isFeatured ? 'span 1' : undefined,
-                gridRow: isFeatured ? 'span 2' : undefined,
-                position: 'relative',
-                overflow: 'hidden',
-                borderRadius: 20,
-                textDecoration: 'none',
-              } as React.CSSProperties}
+                alignItems: 'flex-start',
+                textAlign: 'left',
+              }}
             >
-              {/* Border beam on featured card */}
-              {isFeatured && (
-                <BorderBeam
-                  size={180}
-                  duration={10}
-                  colorFrom={svc.beamFrom}
-                  colorTo={svc.beamTo}
-                  borderWidth={1}
-                />
-              )}
-
-              <div className="ea-card-ring" aria-hidden="true" />
-
-              <div className="tilt-inner" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: isFeatured ? 20 : 14 }}>
-                {/* Header */}
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
-                  {/* Per-service brand-coloured icon box */}
-                  <div
-                    style={{
-                      width: isFeatured ? 64 : 48,
-                      height: isFeatured ? 64 : 48,
-                      borderRadius: isFeatured ? 18 : 14,
-                      fontSize: isFeatured ? '1.6rem' : '1.2rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      background: `linear-gradient(135deg, rgba(${svc.rgba},0.14), rgba(${svc.rgba},0.06))`,
-                      border: `1px solid rgba(${svc.rgba},0.22)`,
-                      boxShadow: `0 0 22px rgba(${svc.rgba},0.08)`,
-                      color: svc.color,
-                      transition: 'box-shadow 0.4s, border-color 0.4s, transform 0.4s var(--ease-spring)',
-                    }}
-                    aria-hidden="true"
-                  >
-                    <i className={`ti ${svc.icon}`} />
-                  </div>
-                  <span
-                    className="service-num"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      fontSize: '0.58rem',
-                      fontWeight: 900,
-                      color: 'var(--text-muted)',
-                      letterSpacing: '2px',
-                      textTransform: 'uppercase',
-                      opacity: 0.5,
-                    }}
-                  >
-                    {svc.label}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div style={{ flex: 1 }}>
-                  <h3
-                    style={{
-                      fontSize: isFeatured ? 'clamp(1.2rem,2vw,1.55rem)' : '1rem',
-                      fontWeight: 800,
-                      letterSpacing: '-0.02em',
-                      lineHeight: 1.2,
-                      color: 'var(--text-main)',
-                      marginBottom: isFeatured ? 14 : 10,
-                    }}
-                  >
-                    {svc.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: isFeatured ? '0.95rem' : '0.83rem',
-                      color: 'var(--text-muted)',
-                      lineHeight: 1.75,
-                      margin: 0,
-                    }}
-                  >
-                    {svc.desc}
-                  </p>
-                </div>
-
-                {/* Link — coloured with service brand colour */}
-                <Link
-                  href={svc.href}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    fontSize: '0.77rem',
-                    fontWeight: 800,
-                    color: svc.color,
-                    textDecoration: 'none',
-                    letterSpacing: '0.1px',
-                    marginTop: 'auto',
-                    opacity: 0.8,
-                    transition: 'opacity 0.2s, gap 0.2s',
-                  }}
-                  className="svc-link"
-                >
-                  Learn more
-                  <i className="ti ti-arrow-right" aria-hidden="true" style={{ fontSize: '0.8rem' }} />
-                </Link>
+              {/* Splatter Icon */}
+              <div className="splatter-icon-container" style={{ marginBottom: '24px' }}>
+                <svg className="splatter-bg" viewBox="0 0 100 100" fill="currentColor">
+                  <path d="M50,25 C62,20 72,30 68,45 C64,60 55,68 42,64 C28,60 32,40 37,30 C42,20 45,28 50,25 Z" />
+                  <circle cx="28" cy="28" r="3.5" />
+                  <circle cx="72" cy="42" r="3" />
+                  <circle cx="60" cy="65" r="2.5" />
+                  <circle cx="36" cy="58" r="3" />
+                  <circle cx="48" cy="72" r="1.5" />
+                </svg>
+                <i className={`ti ${svc.icon}`} style={{ fontSize: '1.4rem', zIndex: 1 }} aria-hidden="true" />
               </div>
-            </InView>
+
+              {/* Bold Title */}
+              <h3
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 800,
+                  fontSize: '1.15rem',
+                  color: 'var(--text-main)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.25,
+                  marginBottom: '12px',
+                }}
+              >
+                {svc.title}
+              </h3>
+
+              {/* Description */}
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.86rem',
+                  color: 'var(--text-muted)',
+                  lineHeight: 1.6,
+                  marginBottom: '24px',
+                  flexGrow: 1,
+                }}
+              >
+                {svc.desc}
+              </p>
+
+              {/* Explore Link */}
+              <Link
+                href={svc.href}
+                className="explore-link"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  color: 'var(--primary-accent)',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  transition: 'color 0.25s ease, gap 0.25s ease',
+                  outline: 'none',
+                }}
+              >
+                Explore <span className="arrow" style={{ fontSize: '0.9rem', transition: 'transform 0.25s' }}>&rarr;</span>
+              </Link>
+            </motion.article>
           )
         })}
       </div>
 
       <style>{`
-        @media (max-width: 860px) {
-          .services-bento { grid-template-columns: repeat(2,1fr) !important; }
-          .services-bento > *:first-child { grid-row: span 1 !important; }
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
         }
-        @media (max-width: 560px) {
-          .services-bento { grid-template-columns: 1fr !important; }
+
+        .explore-link:hover {
+          color: var(--primary-accent-hover) !important;
         }
-        .svc-link:hover { opacity: 1 !important; gap: 10px !important; }
+        .explore-link:hover .arrow {
+          transform: translateX(4px);
+        }
+        .explore-link:focus-visible {
+          outline: 2px solid var(--primary-accent);
+          outline-offset: 4px;
+          border-radius: 4px;
+        }
+
+        @media (max-width: 1024px) {
+          .services-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 24px !important;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .services-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          .service-card {
+            padding: 28px 20px !important;
+          }
+        }
       `}</style>
     </section>
   )

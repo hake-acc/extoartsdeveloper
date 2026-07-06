@@ -82,13 +82,15 @@ export default async function PortfolioPage() {
         }}>
           Our <span className="sweep-text">Portfolio</span>
         </h1>
-        <p style={{
-          fontSize: 'clamp(0.95rem,1.8vw,1.1rem)',
-          color: 'var(--text-muted)',
-          maxWidth: 520,
-          margin: '0 auto',
-          lineHeight: 1.72,
-        }}>
+        <p
+          className="hero-subtitle"
+          style={{
+            fontSize: 'clamp(0.95rem,1.8vw,1.1rem)',
+            maxWidth: 520,
+            margin: '0 auto',
+            lineHeight: 1.72,
+          }}
+        >
           Thumbnails built for CTR. Logos built for identity. Banners built for first impressions.
         </p>
       </section>

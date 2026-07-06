@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { NAV_LINKS, DISCORD_URL } from '@/lib/constants'
+import { NAV_LINKS } from '@/lib/constants'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -13,19 +12,30 @@ export function Navbar() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const pathname = usePathname()
 
+  // Sync theme state on mount
   useEffect(() => {
-    const stored = typeof window !== 'undefined' ? localStorage.getItem('ea-theme') : null
-    if (stored === 'light') setTheme('light')
+    const stored = localStorage.getItem('ea-theme')
+    if (stored === 'light') {
+      setTheme('light')
+    } else if (stored === 'dark') {
+      setTheme('dark')
+    } else {
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
+      setTheme(prefersLight ? 'light' : 'dark')
+    }
   }, [])
 
+  // Listen to scroll to apply backdrop blur
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close mobile drawer on path changes
   useEffect(() => { setMobileOpen(false) }, [pathname])
 
+  // Prevent scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -54,9 +64,15 @@ export function Navbar() {
   function openDiscordModal() {
     if (typeof window !== 'undefined') {
       const m = document.getElementById('discordModal')
-      if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden' }
+      if (m) {
+        m.classList.add('open')
+        document.body.style.overflow = 'hidden'
+      }
     }
   }
+
+  // Filter out Home from links, as requested
+  const links = NAV_LINKS.filter((link) => link.href !== '/')
 
   return (
     <>
@@ -69,58 +85,52 @@ export function Navbar() {
           left: 0,
           right: 0,
           zIndex: 9999,
-          padding: scrolled ? '10px min(28px, 4%)' : '20px min(28px, 4%)',
+          padding: scrolled ? '12px min(40px, 6%)' : '24px min(40px, 6%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           background: scrolled ? 'var(--nav-bg)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(28px) saturate(200%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(200%)' : 'none',
+          backdropFilter: scrolled ? 'var(--glass-blur)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'var(--glass-blur)' : 'none',
           borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
-          boxShadow: scrolled ? '0 1px 0 rgba(255,255,255,0.03) inset, 0 8px 32px rgba(0,0,0,0.22)' : 'none',
-          transition: 'padding 0.22s cubic-bezier(0.16,1,0.3,1), background 0.22s, border-color 0.18s, box-shadow 0.22s',
+          boxShadow: scrolled ? '0 4px 30px rgba(0, 0, 0, 0.15)' : 'none',
+          transition: 'padding 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, border-color 0.3s, box-shadow 0.3s',
         }}
       >
-        {/* Logo */}
+        {/* Left Side: Logo */}
         <Link
           href="/"
           aria-label="ExtoArts home"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
             textDecoration: 'none',
-            flexShrink: 0,
+            outline: 'none',
           }}
         >
-          <img
-            src="/favicon-192.png"
-            width={32}
-            height={32}
-            alt="ExtoArts logo"
-            style={{ borderRadius: 8 }}
-          />
           <span
             style={{
-              fontWeight: 900,
-              fontSize: '1.05rem',
-              letterSpacing: '-0.4px',
-              color: 'var(--text-main)',
               fontFamily: 'var(--font-display)',
-              transition: 'color 0.2s',
+              fontWeight: 400,
+              fontSize: '1.9rem',
+              letterSpacing: '-1.5px',
+              color: 'var(--text-main)',
+              transition: 'color 0.25s ease-in-out',
             }}
           >
             ExtoArts
           </span>
         </Link>
 
-        {/* Desktop nav links */}
+        {/* Center: Desktop Links */}
         <div
           className="nav-links"
-          style={{ display: 'flex', alignItems: 'center', gap: 2 }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
         >
-          {NAV_LINKS.map((link) => {
-            const isActive = link.href === '/' ? pathname === '/' : pathname === link.href
+          {links.map((link) => {
+            const isActive = pathname === link.href
             return (
               <Link
                 key={link.href}
@@ -129,41 +139,44 @@ export function Navbar() {
                 aria-current={isActive ? 'page' : undefined}
                 style={{
                   position: 'relative',
-                  padding: '8px 14px',
-                  borderRadius: 12,
-                  fontSize: '0.82rem',
+                  padding: '8px 16px',
+                  fontSize: '0.85rem',
                   fontWeight: isActive ? 700 : 500,
                   color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
                   textDecoration: 'none',
-                  background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
-                  transition: 'color 0.2s, background 0.2s',
+                  transition: 'color 0.25s ease-in-out',
+                  fontFamily: 'var(--font-body)',
                   letterSpacing: '-0.01em',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 2,
                 }}
               >
                 {link.label}
-                {/* Active page indicator — glowing dot */}
-                <span style={{
-                  display: 'block',
-                  width: isActive ? 16 : 0,
-                  height: 2,
-                  borderRadius: 999,
-                  background: 'var(--primary)',
-                  boxShadow: isActive ? '0 0 6px var(--primary)' : 'none',
-                  transition: 'width 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s',
-                  marginTop: 1,
-                }} aria-hidden="true" />
+                {/* Active Underline */}
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavUnderline"
+                    className="absolute bottom-0 left-4 right-4 h-[2px]"
+                    style={{
+                      background: 'var(--primary-accent)',
+                      boxShadow: '0 0 8px var(--primary-accent)',
+                      borderRadius: '99px',
+                    }}
+                    aria-hidden="true"
+                  />
+                )}
               </Link>
             )
           })}
         </div>
 
-        {/* Right actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-          {/* Theme toggle */}
+        {/* Right Side: Theme Toggle + CTA */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+          }}
+        >
+          {/* Theme Toggle */}
           <button
             className="theme-toggle"
             onClick={toggleTheme}
@@ -171,51 +184,64 @@ export function Navbar() {
             style={{
               background: 'transparent',
               border: '1px solid var(--border)',
-              borderRadius: 12,
-              width: 36,
-              height: 36,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: 'var(--text-muted)',
-              fontSize: '0.95rem',
-              transition: 'border-color 0.2s, color 0.2s, background 0.2s',
-            }}
-          >
-            <i className={`ti ti-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true" />
-          </button>
-
-          {/* CTA */}
-          <button
-            onClick={openDiscordModal}
-            className="btn nav-cta"
-            aria-label="Start a project"
-            style={{ borderRadius: 14 }}
-          >
-            <i className="ti ti-brand-discord" aria-hidden="true" />
-            Start a Project
-          </button>
-
-          {/* Hamburger (mobile) */}
-          <button
-            className="hamburger"
-            onClick={() => setMobileOpen(v => !v)}
-            aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-            aria-expanded={mobileOpen}
-            style={{
-              background: 'transparent',
-              border: '1px solid var(--border)',
-              borderRadius: 12,
-              width: 36,
-              height: 36,
+              borderRadius: '12px',
+              width: '38px',
+              height: '38px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               color: 'var(--text-muted)',
               fontSize: '1rem',
-              transition: 'border-color 0.2s, background 0.2s',
+              transition: 'border-color 0.25s, color 0.25s, background-color 0.25s',
+              outline: 'none',
+            }}
+          >
+            <motion.span
+              key={theme}
+              initial={{ rotate: -45, opacity: 0, scale: 0.8 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 0.2 }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <i className={`ti ti-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true" />
+            </motion.span>
+          </button>
+
+          {/* CTA: Brush Button */}
+          <button
+            onClick={openDiscordModal}
+            className="brush-btn"
+            aria-label="Start a project"
+          >
+            <svg className="brush-btn-bg" viewBox="0 0 200 60" preserveAspectRatio="none">
+              <path d="M 12,14 C 45,10 95,9 140,12 C 175,14 188,12 190,16 C 193,25 192,42 190,48 C 187,52 170,50 135,51 C 90,52 40,49 14,47 C 10,46 8,35 9,28 C 10,22 10,14 12,14 Z" />
+            </svg>
+            <span className="relative z-10 flex items-center gap-2">
+              Start a Project <span style={{ fontSize: '0.85rem' }}>&rarr;</span>
+            </span>
+          </button>
+
+          {/* Hamburger (Mobile Toggle) */}
+          <button
+            className="hamburger"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={mobileOpen}
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--border)',
+              borderRadius: '12px',
+              width: '38px',
+              height: '38px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: 'var(--text-muted)',
+              fontSize: '1.1rem',
+              transition: 'border-color 0.25s, background-color 0.25s',
+              outline: 'none',
             }}
           >
             <i className={`ti ti-${mobileOpen ? 'x' : 'menu-2'}`} aria-hidden="true" />
@@ -223,7 +249,7 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
+      {/* Mobile Drawer Navigation */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -239,14 +265,14 @@ export function Navbar() {
                 position: 'fixed',
                 inset: 0,
                 zIndex: 9990,
-                background: 'rgba(0,0,0,0.55)',
-                backdropFilter: 'blur(6px)',
-                WebkitBackdropFilter: 'blur(6px)',
+                background: 'rgba(0, 0, 0, 0.4)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
               }}
               aria-hidden="true"
             />
 
-            {/* Drawer panel */}
+            {/* Drawer Panel */}
             <motion.div
               key="drawer"
               initial={{ x: '100%', opacity: 0 }}
@@ -258,120 +284,117 @@ export function Navbar() {
                 top: 0,
                 right: 0,
                 bottom: 0,
-                width: 'min(340px, 88vw)',
+                width: 'min(340px, 85vw)',
                 zIndex: 10000,
                 background: 'var(--surface)',
                 borderLeft: '1px solid var(--border)',
                 display: 'flex',
                 flexDirection: 'column',
                 overflowY: 'auto',
-                boxShadow: '-24px 0 64px rgba(0,0,0,0.4)',
+                boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.35)',
               }}
               role="dialog"
               aria-label="Mobile navigation"
               aria-modal="true"
             >
-              {/* Drawer header */}
+              {/* Drawer Header */}
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  padding: '20px 24px',
+                  padding: '24px 24px',
                   borderBottom: '1px solid var(--border)',
                 }}
               >
-                <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}>
-                  <Image src="/favicon-192.png" width={28} height={28} alt="ExtoArts" priority style={{ borderRadius: 7 }} />
-                  <span style={{ fontWeight: 900, fontSize: '0.98rem', color: 'var(--text-main)', fontFamily: 'var(--font-display)' }}>ExtoArts</span>
+                <Link href="/" style={{ textDecoration: 'none' }}>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', color: 'var(--text-main)' }}>ExtoArts</span>
                 </Link>
                 <button
                   onClick={() => setMobileOpen(false)}
                   aria-label="Close menu"
                   style={{
-                    background: 'rgba(255,255,255,0.05)',
+                    background: 'transparent',
                     border: '1px solid var(--border)',
-                    borderRadius: 10,
-                    width: 34,
-                    height: 34,
+                    borderRadius: '10px',
+                    width: '34px',
+                    height: '34px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
                     color: 'var(--text-muted)',
-                    fontSize: '0.9rem',
-                    fontFamily: 'var(--font-body)',
+                    fontSize: '1rem',
                   }}
                 >
                   <i className="ti ti-x" aria-hidden="true" />
                 </button>
               </div>
 
-              {/* Nav links */}
-              <nav style={{ padding: '16px 16px', flex: 1 }}>
-                {NAV_LINKS.map((link, i) => {
+              {/* Drawer Nav links */}
+              <nav style={{ padding: '24px 16px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {links.map((link) => {
                   const isActive = pathname === link.href
                   return (
-                    <motion.div
+                    <Link
                       key={link.href}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + i * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      href={link.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '12px 16px',
+                        borderRadius: '12px',
+                        fontSize: '0.95rem',
+                        fontWeight: isActive ? 700 : 500,
+                        color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
+                        textDecoration: 'none',
+                        background: isActive ? 'rgba(124, 58, 237, 0.08)' : 'transparent',
+                        transition: 'background-color 0.25s, color 0.25s',
+                        fontFamily: 'var(--font-body)',
+                      }}
                     >
-                      <Link
-                        href={link.href}
-                        aria-current={isActive ? 'page' : undefined}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 12,
-                          padding: '12px 14px',
-                          borderRadius: 12,
-                          fontSize: '0.9rem',
-                          fontWeight: isActive ? 800 : 500,
-                          color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
-                          textDecoration: 'none',
-                          background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
-                          transition: 'background 0.2s, color 0.2s',
-                          marginBottom: 4,
-                        }}
-                      >
-                        {isActive && (
-                          <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--primary)', flexShrink: 0, boxShadow: '0 0 8px var(--primary)' }} />
-                        )}
-                        {link.label}
-                      </Link>
-                    </motion.div>
+                      {isActive && (
+                        <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--primary-accent)', boxShadow: '0 0 8px var(--primary-accent)' }} />
+                      )}
+                      {link.label}
+                    </Link>
                   )
                 })}
               </nav>
 
-              {/* Drawer footer */}
-              <div style={{ padding: '16px 20px 32px', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {/* Drawer Footer Actions */}
+              <div style={{ padding: '24px 20px 48px', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <button
                   onClick={() => { openDiscordModal(); setMobileOpen(false) }}
-                  className="btn btn-primary-glow"
-                  style={{ width: '100%', justifyContent: 'center', borderRadius: 14 }}
+                  className="brush-btn"
+                  style={{ width: '100%', padding: '14px 24px' }}
                 >
-                  <i className="ti ti-brand-discord" aria-hidden="true" />
-                  Start a Project
+                  <svg className="brush-btn-bg" viewBox="0 0 200 60" preserveAspectRatio="none">
+                    <path d="M 12,14 C 45,10 95,9 140,12 C 175,14 188,12 190,16 C 193,25 192,42 190,48 C 187,52 170,50 135,51 C 90,52 40,49 14,47 C 10,46 8,35 9,28 C 10,22 10,14 12,14 Z" />
+                  </svg>
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    Start a Project &rarr;
+                  </span>
                 </button>
                 <button
                   onClick={toggleTheme}
                   style={{
                     background: 'transparent',
                     border: '1px solid var(--border)',
-                    borderRadius: 12,
-                    padding: '11px 16px',
+                    borderRadius: '12px',
+                    padding: '12px 16px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
+                    justifyContent: 'center',
+                    gap: '10px',
                     cursor: 'pointer',
                     color: 'var(--text-muted)',
-                    fontSize: '0.85rem',
+                    fontSize: '0.9rem',
                     fontFamily: 'var(--font-body)',
                     width: '100%',
-                    transition: 'border-color 0.2s',
+                    transition: 'border-color 0.25s, color 0.25s',
                   }}
                 >
                   <i className={`ti ti-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true" />
@@ -384,16 +407,43 @@ export function Navbar() {
       </AnimatePresence>
 
       <style>{`
-        @media (min-width: 820px) {
+        @media (min-width: 860px) {
           .nav-link-item { display: block !important; }
           .hamburger { display: none !important; }
         }
-        @media (max-width: 819px) {
+        @media (max-width: 859px) {
           .nav-links { display: none !important; }
         }
-        .nav-link-item:hover { color: var(--text-main) !important; background: rgba(255,255,255,0.05) !important; }
-        .theme-toggle:hover { border-color: var(--border-hover) !important; color: var(--text-main) !important; }
-        .hamburger:hover { border-color: var(--border-hover) !important; background: rgba(255,255,255,0.04) !important; }
+        .nav-link-item::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 16px;
+          right: 16px;
+          height: 2px;
+          background-color: var(--primary-accent);
+          transform: scaleX(0);
+          transform-origin: bottom right;
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+          border-radius: 99px;
+          box-shadow: 0 0 8px var(--primary-accent);
+        }
+        .nav-link-item:hover::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
+        .nav-link-item:hover {
+          color: var(--text-main) !important;
+        }
+        .theme-toggle:hover {
+          border-color: var(--border-hover) !important;
+          color: var(--text-main) !important;
+          background-color: rgba(124, 58, 237, 0.05) !important;
+        }
+        .hamburger:hover {
+          border-color: var(--border-hover) !important;
+          background-color: rgba(124, 58, 237, 0.05) !important;
+        }
       `}</style>
     </>
   )

@@ -3,14 +3,56 @@
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { InView } from '@/components/ui/InView'
 
-// All 5 brand colours distributed across 6 creator types
+// All creator types mapped to theme-aware variables
 const CREATOR_TYPES = [
-  { icon: 'ti-device-gamepad-2', title: 'Gaming Creators',       color: '#69ddff', desc: 'Roblox, Minecraft, PUBG, Free Fire, Fortnite. Niche-matched editors who understand the culture and pacing of gaming content.' },
-  { icon: 'ti-eye-off',          title: 'Faceless Channels',     color: '#96cdff', desc: 'Complete done-for-you production. Script, voiceover, edit, thumbnail, and upload. Just review and approve.' },
-  { icon: 'ti-device-mobile-vibration', title: 'Short-Form Creators', color: '#d8e1ff', desc: 'TikTok, YouTube Shorts, Instagram Reels. Specialists who understand hook timing and the scroll-stop science.' },
-  { icon: 'ti-trending-up',      title: 'Growth-Stage YouTubers', color: '#dbbadd', desc: '10K–500K creators who want professional quality without agency pricing. Flat 10% fee. No lock-in.' },
-  { icon: 'ti-building',         title: 'Content Businesses',    color: '#be92a2', desc: 'Brands, agencies, and media companies needing reliable, scalable video editing at a predictable cost.' },
-  { icon: 'ti-briefcase',        title: 'First-Time Creators',   color: '#69ddff', desc: 'Just starting out and want professional editing from day one. We provide full creative direction alongside editing.' },
+  { 
+    icon: 'ti-device-gamepad-2', 
+    title: 'Gaming Creators',       
+    color: 'var(--c-gaming)', 
+    glow: 'var(--c-gaming-glow)', 
+    border: 'var(--c-gaming-border)',
+    desc: 'Roblox, Minecraft, PUBG, Free Fire, Fortnite. Niche-matched editors who understand the culture and pacing of gaming content.' 
+  },
+  { 
+    icon: 'ti-eye-off',          
+    title: 'Faceless Channels',     
+    color: 'var(--c-faceless)', 
+    glow: 'var(--c-faceless-glow)', 
+    border: 'var(--c-faceless-border)',
+    desc: 'Complete done-for-you production. Script, voiceover, edit, thumbnail, and upload. Just review and approve.' 
+  },
+  { 
+    icon: 'ti-device-mobile-vibration', 
+    title: 'Short-Form Creators', 
+    color: 'var(--c-shortform)', 
+    glow: 'var(--c-shortform-glow)', 
+    border: 'var(--c-shortform-border)',
+    desc: 'TikTok, YouTube Shorts, Instagram Reels. Specialists who understand hook timing and the scroll-stop science.' 
+  },
+  { 
+    icon: 'ti-trending-up',      
+    title: 'Growth-Stage YouTubers', 
+    color: 'var(--c-growth)', 
+    glow: 'var(--c-growth-glow)', 
+    border: 'var(--c-growth-border)',
+    desc: '10K–500K creators who want professional quality without agency pricing. Flat 10% fee. No lock-in.' 
+  },
+  { 
+    icon: 'ti-building',         
+    title: 'Content Businesses',    
+    color: 'var(--c-business)', 
+    glow: 'var(--c-business-glow)', 
+    border: 'var(--c-business-border)',
+    desc: 'Brands, agencies, and media companies needing reliable, scalable video editing at a predictable cost.' 
+  },
+  { 
+    icon: 'ti-briefcase',        
+    title: 'First-Time Creators',   
+    color: 'var(--c-firsttime)', 
+    glow: 'var(--c-firsttime-glow)', 
+    border: 'var(--c-firsttime-border)',
+    desc: 'Just starting out and want professional editing from day one. We provide full creative direction alongside editing.' 
+  },
 ]
 
 export function WhoWeServe() {
@@ -46,7 +88,7 @@ export function WhoWeServe() {
             variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
             className="tilt-card glass-card"
-            style={{ border: `1px solid rgba(0,0,0,0)`, padding: 28, borderRadius: 20 }}
+            style={{ border: `1px solid var(--border)`, padding: 28, borderRadius: 20 }}
           >
             <div className="tilt-inner">
               <div
@@ -54,8 +96,8 @@ export function WhoWeServe() {
                   width: 48,
                   height: 48,
                   borderRadius: 14,
-                  background: `linear-gradient(135deg, ${type.color}18, ${type.color}0a)`,
-                  border: `1px solid ${type.color}30`,
+                  background: type.glow,
+                  border: `1px solid ${type.border}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

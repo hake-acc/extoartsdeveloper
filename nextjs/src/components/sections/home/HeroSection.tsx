@@ -1,300 +1,122 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { FluidGradient } from '@/components/ui/FluidGradient'
-import { GalaxyButton } from '@/components/ui/GalaxyButton'
-import { MagneticButton } from '@/components/ui/MagneticButton'
-import { MaskTextReveal } from '@/components/motion/MaskTextReveal'
-
-// Each phrase gets its own brand color — all 5 palette colours in sequence
-const HERO_PHRASES: { text: string; color: string }[] = [
-  { text: 'Video Editing',    color: '#69ddff' }, // Frozen Lake
-  { text: 'Thumbnail Design', color: '#96cdff' }, // Sky Blue
-  { text: 'Shorts Editing',   color: '#d8e1ff' }, // Lavender
-  { text: 'Channel Growth',   color: '#dbbadd' }, // Pink Orchid
-  { text: 'Motion Graphics',  color: '#be92a2' }, // Old Rose
-]
-
-const TICKER_ITEMS = [
-  { icon: 'ti-brand-youtube', text: 'YouTube Editing' },
-  { icon: 'ti-photo', text: 'Thumbnail Design' },
-  { icon: 'ti-device-mobile-vibration', text: 'Shorts & TikTok' },
-  { icon: 'ti-chart-line', text: 'Channel Automation' },
-  { icon: 'ti-sparkles', text: 'Motion Graphics' },
-  { icon: 'ti-device-gamepad-2', text: 'Gaming Channels' },
-  { icon: 'ti-eye', text: 'Faceless YouTube' },
-  { icon: 'ti-trending-up', text: 'Retention Editing' },
-  { icon: 'ti-video', text: 'Cinematic Cuts' },
-  { icon: 'ti-star', text: '5-Star Rated' },
-]
-
-const E = [0.16, 1, 0.3, 1] as const
-const fade = (delay = 0, y = 24) => ({
-  initial: { opacity: 0, y },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: E },
-})
-
-function openDiscordModal() {
-  if (typeof window === 'undefined') return
-  const m = document.getElementById('discordModal')
-  if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden' }
-}
-
-// ── Cycling headline phrase — each phrase has its own brand colour ─────────────
-function CycleStack() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [exitIndex, setExitIndex] = useState<number | null>(null)
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActiveIndex((prev) => {
-        const next = (prev + 1) % HERO_PHRASES.length
-        setExitIndex(prev)
-        setTimeout(() => setExitIndex(null), 400)
-        return next
-      })
-    }, 2600)
-    return () => clearInterval(id)
-  }, [])
-
-  return (
-    <span
-      className="cycle-stack"
-      aria-live="polite"
-      aria-atomic="true"
-      style={{ letterSpacing: '-1.5px' }}
-    >
-      {HERO_PHRASES.map((phrase, i) => (
-        <span
-          key={phrase.text}
-          className={[
-            'cycle-phrase hero-accent-phrase',
-            i === activeIndex ? 'is-active' : '',
-            i === exitIndex ? 'is-exit' : '',
-          ].filter(Boolean).join(' ')}
-          aria-hidden={i !== activeIndex}
-          style={{ color: phrase.color }}
-        >
-          {phrase.text}
-        </span>
-      ))}
-    </span>
-  )
-}
 
 export function HeroSection() {
+  const E = [0.16, 1, 0.3, 1] as const
+  
+  const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, delay, ease: E },
+  })
+
   return (
-    <>
-      <section
-        className="hero"
-        aria-label="Hero"
+    <section
+      className="hero"
+      aria-label="FAQ Center Hero"
+      style={{
+        paddingTop: 'min(24svh, 24vh)',
+        paddingBottom: 'min(120px, 12vw)',
+        paddingLeft: 'min(40px, 6%)',
+        paddingRight: 'min(40px, 6%)',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        position: 'relative',
+        zIndex: 10,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        textAlign: 'left',
+      }}
+    >
+      {/* Overline "FAQ CENTER" with flanking lines */}
+      <motion.div
+        {...fadeUp(0.1)}
         style={{
-          paddingTop: 'min(22svh, 22vh)',
-          paddingBottom: '0',
-          paddingLeft: '20px',
-          paddingRight: '20px',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
-          textAlign: 'center',
-          position: 'relative',
-          zIndex: 10,
-          isolation: 'isolate',
+          gap: '12px',
+          fontSize: '0.72rem',
+          fontWeight: 700,
+          letterSpacing: '0.25em',
+          color: 'var(--primary-accent)',
+          textTransform: 'uppercase',
+          fontFamily: 'var(--font-body)',
+          marginBottom: '28px',
         }}
       >
-        {/* Fluid Gradient background — exact Framer component, ExtoArts palette */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: -1,
-          }}
-        >
-          <FluidGradient
-            color1="#69ddff"
-            color2="#be92a2"
-            color3="#dbbadd"
-            gradientSpeed={3}
-            blur={120}
-          />
-        </div>
-        {/* Overlay — dark in dark mode, light-tinted in light mode */}
-        <div
-          aria-hidden="true"
-          className="hero-gradient-overlay"
-          style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }}
-        />
+        <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
+        FAQ Center
+        <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
+      </motion.div>
 
-        {/* Agency badge */}
-        <motion.div {...fade(0.05)} style={{ marginBottom: 32 }}>
-          <span className="hero-badge" aria-label="YouTube-focused creative agency since 2024">
-            <span className="hero-badge-dot" aria-hidden="true" />
-            <span>YouTube-Focused Creative Agency</span>
-            <span aria-hidden="true" style={{ color: 'var(--text-muted)', opacity: 0.35 }}>|</span>
-            <span style={{ color: 'var(--text-muted)' }}>Since 2024</span>
-          </span>
-        </motion.div>
-
-        {/* Main headline — mask-reveal on the static line; fade on the cycling line */}
-        <h1 className="hero-title" style={{ marginBottom: 24 }}>
-          {/* Line 1 — masked slide-up reveal */}
-          <MaskTextReveal delay={0.08} duration={0.82}>
-            <span
-              className="font-hero"
-              style={{
-                display: 'block',
-                fontSize: 'clamp(2.8rem, 6.5vw, 5.8rem)',
-                letterSpacing: '-3px',
-                lineHeight: 1.0,
-                color: 'var(--text-main)',
-                fontWeight: 400,
-              }}
-            >
-              Elite Creative Services
-            </span>
-          </MaskTextReveal>
-          {/* Line 2 — simple fade so CycleStack animates freely */}
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              display: 'block',
-              fontSize: 'clamp(2.5rem, 5.8vw, 5rem)',
-              fontWeight: 900,
-              letterSpacing: '-2.5px',
-              lineHeight: 1.1,
-            }}
-          >
-            for <CycleStack />
-          </motion.span>
-        </h1>
-
-        {/* Sub-text */}
-        <motion.p
-          {...fade(0.24)}
-          style={{
-            fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
-            color: 'var(--text-muted)',
-            maxWidth: 500,
-            lineHeight: 1.8,
-            fontWeight: 400,
-            marginBottom: 40,
-            textWrap: 'balance',
-          } as React.CSSProperties}
-        >
-          ExtoArts is a YouTube agency where{' '}
-          <strong style={{ color: 'var(--text-main)', fontWeight: 700 }}>
-            90% of your budget
-          </strong>{' '}
-          goes directly to your specialist editor. Real editors. Real results. Flat 10% fee.
-        </motion.p>
-
-        {/* CTA buttons */}
-        <motion.div
-          {...fade(0.32)}
-          style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 56 }}
-        >
-          <GalaxyButton onClick={openDiscordModal}>
-            <i className="ti ti-brand-discord" aria-hidden="true" />
-            Start a Project
-          </GalaxyButton>
-          <MagneticButton>
-            <a href="/portfolio" className="btn btn-glass" style={{ borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-              <i className="ti ti-eye" aria-hidden="true" />
-              View Work
-            </a>
-          </MagneticButton>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          {...fade(0.5, 8)}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 6,
-            marginBottom: 32,
-            opacity: 0.35,
-          }}
-          aria-hidden="true"
-        >
-          <span style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-            Scroll
-          </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              width: 20,
-              height: 30,
-              borderRadius: 50,
-              border: '1.5px solid var(--text-muted)',
-              display: 'flex',
-              justifyContent: 'center',
-              paddingTop: 5,
-            }}
-          >
-            <div style={{ width: 3, height: 5, borderRadius: 4, background: 'var(--text-main)' }} />
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ── Ticker ── */}
-      <div
-        role="marquee"
-        aria-label="Services offered"
+      {/* Massive Title: Answers to Everything. */}
+      <motion.h1
+        {...fadeUp(0.2)}
         style={{
-          overflow: 'hidden',
-          background: 'var(--surface)',
-          borderTop: '1px solid var(--border)',
-          borderBottom: '1px solid var(--border)',
-          padding: '14px 0',
-          position: 'relative',
-          zIndex: 10,
-          maskImage: 'linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)',
+          fontSize: 'clamp(3.2rem, 7.5vw, 5.8rem)',
+          lineHeight: 1.0,
+          letterSpacing: '-2px',
+          color: 'var(--text-main)',
+          marginBottom: '36px',
+          fontWeight: 400,
+          fontFamily: 'var(--font-display)',
+          maxWidth: '800px',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            width: 'max-content',
-            animation: 'marqueeScroll 28s linear infinite',
+        Answers <br style={{ display: 'none' }} />
+        to{' '}
+        <span className="brush-highlight">
+          Everything.
+          <svg className="brush-underline" viewBox="0 0 100 10" preserveAspectRatio="none">
+            <path
+              d="M 2,6 C 25,3 55,4 98,7 C 75,7 40,8 10,9"
+              fill="none"
+              stroke="var(--primary-accent)"
+              strokeWidth="2.8"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
+      </motion.h1>
+
+      {/* Descriptive Subtext */}
+      <motion.p
+        {...fadeUp(0.3)}
+        style={{
+          fontSize: 'clamp(1rem, 1.8vw, 1.12rem)',
+          color: 'var(--text-muted)',
+          lineHeight: 1.8,
+          maxWidth: '520px',
+          marginBottom: '44px',
+          fontFamily: 'var(--font-body)',
+          fontWeight: 400,
+        }}
+      >
+        Everything you need to know about working with ExtoArts &mdash; from first contact to final delivery.
+      </motion.p>
+
+      {/* CTA Button */}
+      <motion.div {...fadeUp(0.4)}>
+        <button
+          onClick={() => {
+            const target = document.getElementById('getting-started')
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
           }}
-          aria-hidden="true"
+          className="brush-btn"
+          aria-label="Let's Clear Things Up"
         >
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => {
-            // Assign brand colours in sequence across ticker items
-            const TICKER_COLORS = ['#69ddff', '#96cdff', '#d8e1ff', '#dbbadd', '#be92a2']
-            const c = TICKER_COLORS[i % TICKER_COLORS.length]
-            return (
-              <span
-                key={i}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  paddingRight: 44,
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  color: 'var(--text-muted)',
-                  letterSpacing: '0.8px',
-                  textTransform: 'uppercase',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                <i className={`ti ${item.icon}`} aria-hidden="true" style={{ color: c, fontSize: '0.85rem' }} />
-                {item.text}
-              </span>
-            )
-          })}
-        </div>
-      </div>
-    </>
+          <svg className="brush-btn-bg" viewBox="0 0 200 60" preserveAspectRatio="none">
+            <path d="M 12,14 C 45,10 95,9 140,12 C 175,14 188,12 190,16 C 193,25 192,42 190,48 C 187,52 170,50 135,51 C 90,52 40,49 14,47 C 10,46 8,35 9,28 C 10,22 10,14 12,14 Z" />
+          </svg>
+          <span className="relative z-10 flex items-center gap-2">
+            Let's Clear Things Up <span style={{ fontSize: '0.85rem' }}>&rarr;</span>
+          </span>
+        </button>
+      </motion.div>
+    </section>
   )
 }

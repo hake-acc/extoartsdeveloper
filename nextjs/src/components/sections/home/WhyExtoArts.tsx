@@ -10,48 +10,54 @@ const REASONS = [
     title: '10% Flat Fee - No Hidden Costs',
     desc: 'Traditional agencies take 30-50%. We take 10%. 90% of your editing budget goes directly to the specialist editor assigned to your project.',
     highlight: '90% to your editor',
-    color: 'rgba(105,221,255,0.08)',
-    borderColor: 'rgba(105,221,255,0.18)',
+    colorVar: 'var(--c-gaming-glow)',
+    borderVar: 'var(--c-gaming-border)',
+    iconColor: 'var(--c-gaming)',
   },
   {
     icon: 'ti-target',
     title: 'Niche-Matched Specialists',
     desc: "We don't assign a generalist editor to your gaming channel. You get a gaming editor - someone who lives and breathes your content type.",
     highlight: 'Not generalists',
-    color: 'rgba(219,186,221,0.08)',
-    borderColor: 'rgba(219,186,221,0.18)',
+    colorVar: 'var(--c-growth-glow)',
+    borderVar: 'var(--c-growth-border)',
+    iconColor: 'var(--c-growth)',
   },
   {
     icon: 'ti-clock-check',
     title: 'Real Deadlines. Real Accountability.',
     desc: "Missed deadline = free project. That's our policy. We don't give excuses - we give results within the timeframe we agree on.",
     highlight: '3-5 day turnaround',
-    color: 'rgba(105,221,255,0.08)',
-    borderColor: 'rgba(105,221,255,0.18)',
+    colorVar: 'var(--c-shortform-glow)',
+    borderVar: 'var(--c-shortform-border)',
+    iconColor: 'var(--c-shortform)',
   },
   {
     icon: 'ti-shield-check',
     title: 'No Lock-In. No Retainers Required.',
     desc: 'Pay per project or set up a monthly volume deal. Either way, no minimum commitments, no setup fees, and no cancellation penalties.',
     highlight: 'Start anytime',
-    color: 'rgba(219,186,221,0.08)',
-    borderColor: 'rgba(219,186,221,0.18)',
+    colorVar: 'var(--c-faceless-glow)',
+    borderVar: 'var(--c-faceless-border)',
+    iconColor: 'var(--c-faceless)',
   },
   {
     icon: 'ti-brand-discord',
     title: 'Direct Communication via Discord',
     desc: 'No ticket queues, no account managers. You talk directly to your editor in a private Discord channel. Revisions are fast and collaborative.',
     highlight: 'Zero friction',
-    color: 'rgba(190,146,162,0.10)',
-    borderColor: 'rgba(190,146,162,0.20)',
+    colorVar: 'var(--c-business-glow)',
+    borderVar: 'var(--c-business-border)',
+    iconColor: 'var(--c-business)',
   },
   {
     icon: 'ti-award',
     title: 'Verified 5-Star Track Record',
     desc: 'Every review on our Discord server is from a real client who received and approved their project. No fake reviews, no inflated ratings.',
     highlight: '5.0 average rating',
-    color: 'rgba(105,221,255,0.10)',
-    borderColor: 'rgba(105,221,255,0.22)',
+    colorVar: 'var(--c-firsttime-glow)',
+    borderVar: 'var(--c-firsttime-border)',
+    iconColor: 'var(--c-firsttime)',
   },
 ]
 
@@ -106,7 +112,7 @@ export function WhyExtoArts() {
               top: 0, right: 0,
               width: '40%',
               height: '40%',
-              background: `radial-gradient(ellipse at top right, ${reason.color}, transparent 70%)`,
+              background: `radial-gradient(ellipse at top right, ${reason.colorVar}, transparent 70%)`,
               pointerEvents: 'none',
               zIndex: 0,
             }} aria-hidden="true" />
@@ -117,8 +123,8 @@ export function WhyExtoArts() {
                   width: 46,
                   height: 46,
                   borderRadius: 13,
-                  background: reason.color,
-                  border: `1px solid ${reason.borderColor}`,
+                  background: reason.colorVar,
+                  border: `1px solid ${reason.borderVar}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -127,7 +133,7 @@ export function WhyExtoArts() {
                 }}
                 className="reason-icon"
               >
-                <i className={`ti ${reason.icon}`} aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '1.18rem' }} />
+                <i className={`ti ${reason.icon}`} aria-hidden="true" style={{ color: reason.iconColor, fontSize: '1.18rem' }} />
               </div>
 
               <div style={{ flex: 1 }}>

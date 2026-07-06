@@ -124,7 +124,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Stats strip */}
-      <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '18px min(20px,5%)', display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 60, background: 'rgba(255,255,255,0.02)' }}>
+      <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '18px min(20px,5%)', display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 60, background: 'var(--surface-2)' }}>
         {[['50%+', 'Target viewer retention above platform average'], ['35-70%', 'More clicks from custom thumbnails vs auto-generated frames'], ['24-48h', 'Standard thumbnail delivery. Video edits in 3-7 days'], ['10%', 'Flat agency fee. 90% of your budget goes to your editor']].map(([val, label]) => (
           <div key={label} style={{ textAlign: 'center', padding: '0 16px' }}>
             <div style={{ fontSize: 'clamp(1.2rem,2.5vw,1.6rem)', fontWeight: 900, color: 'var(--primary)', letterSpacing: '-1px', lineHeight: 1 }}>{val}</div>
@@ -144,7 +144,7 @@ export default function ServicesPage() {
           >
             <div className="tilt-inner">
               {svc.badge && (
-                <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--primary)', background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.18)', padding: '4px 12px', borderRadius: 999, display: 'inline-block', marginBottom: 20 }}>
+                <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--primary)', background: 'var(--primary-glow)', border: '1px solid var(--border-hover)', padding: '4px 12px', borderRadius: 999, display: 'inline-block', marginBottom: 20 }}>
                   {svc.badge}
                 </span>
               )}
@@ -206,7 +206,7 @@ export default function ServicesPage() {
           ].map((step) => (
             <div key={step.num} className="tilt-card glass-card sr" style={{ border: '1px solid var(--border)', borderRadius: 20, padding: 28 }}>
               <div className="tilt-inner">
-                <span style={{ fontSize: '0.62rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--primary)', background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.16)', padding: '3px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>
+                <span style={{ fontSize: '0.62rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--primary)', background: 'var(--primary-glow)', border: '1px solid var(--border-hover)', padding: '3px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>
                   Step {step.num}
                 </span>
                 <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 10, letterSpacing: '-0.2px' }}>{step.title}</h3>
