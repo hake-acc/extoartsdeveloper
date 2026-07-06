@@ -192,22 +192,61 @@ export function ProcessSection() {
       </div>
 
       <style>{`
+        /* Hide the legacy full-width connector; we'll draw per-step segments */
         .desktop-connector-line {
-          position: absolute;
-          top: 26px;
-          left: 12.5%;
-          right: 12.5%;
-          height: 0;
-          border-top: 2px dotted var(--border-subtle);
-          z-index: 1;
+          display: none;
         }
         .mobile-connector-line {
           display: none;
         }
+
         .steps-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 24px;
+          align-items: start;
+        }
+
+        /* Per-step connector segments for desktop: each step draws
+           a left and right dotted segment that meet between items. */
+        @media (min-width: 1025px) {
+          .step-item {
+            position: relative;
+          }
+
+          .step-item::before,
+          .step-item::after {
+            content: '';
+            position: absolute;
+            top: 26px;
+            height: 0;
+            border-top: 2px dotted var(--border-subtle);
+            z-index: 1;
+            width: calc(50% + 12px);
+          }
+
+          /* left segment reaches halfway to previous column (plus half gap) */
+          .step-item::before {
+            left: calc(-50% - 12px);
+          }
+
+          /* right segment reaches halfway to next column (plus half gap) */
+          .step-item::after {
+            left: calc(100% - 12px);
+          }
+
+          /* don't draw segments outside the row */
+          .step-item:first-child::before,
+          .step-item:last-child::after {
+            display: none;
+          }
+
+          /* ensure the circle sits above the connector */
+          .step-circle {
+            position: relative;
+            z-index: 2;
+            background: var(--bg);
+          }
         }
 
         .step-item:hover .step-circle {
@@ -217,9 +256,6 @@ export function ProcessSection() {
         }
 
         @media (max-width: 1024px) {
-          .desktop-connector-line {
-            display: none !important;
-          }
           .steps-grid {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 40px !important;
@@ -235,8 +271,17 @@ export function ProcessSection() {
             grid-template-columns: 1fr !important;
             gap: 0 !important;
           }
+          /* Vertical connector for mobile: dashed purple line behind the circles */
           .mobile-connector-line {
-            display: none !important;
+            display: block !important;
+            position: absolute;
+            left: 32px;
+            top: 8px;
+            bottom: 8px;
+            width: 0;
+            border-left: 4px dashed var(--primary-accent);
+            z-index: 1;
+            opacity: 0.95;
           }
           .step-item {
             flex-direction: row !important;
