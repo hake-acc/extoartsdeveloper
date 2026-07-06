@@ -233,34 +233,41 @@ export function ProcessSection() {
         @media (max-width: 640px) {
           .steps-grid {
             grid-template-columns: 1fr !important;
-            gap: 32px !important;
+            gap: 0 !important;
           }
           .mobile-connector-line {
-            display: block !important;
-            position: absolute;
-            top: 26px;
-            bottom: 26px;
-            left: 26px;
-            width: 0;
-            border-left: 2px dotted var(--border-subtle);
-            z-index: 1;
+            display: none !important;
           }
           .step-item {
             flex-direction: row !important;
             align-items: flex-start !important;
             text-align: left !important;
-            gap: 16px;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+          }
+          .step-item:last-child {
+            border-bottom: none;
           }
           .step-circle {
             margin-bottom: 0 !important;
             flex-shrink: 0;
+            width: 48px !important;
+            height: 48px !important;
+            font-size: 1.1rem !important;
+            background: var(--nav-bg) !important;
+            border: 2px solid var(--primary-accent) !important;
           }
           .step-item h3 {
+            font-size: 1rem !important;
             margin-top: 4px;
-            margin-bottom: 6px !important;
+            margin-bottom: 8px !important;
+            color: var(--text-main) !important;
           }
           .step-item p {
             max-width: 100% !important;
+            font-size: 0.88rem !important;
+            color: var(--text-muted) !important;
           }
         }
       `}</style>

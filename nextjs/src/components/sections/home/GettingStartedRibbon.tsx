@@ -322,9 +322,13 @@ export function GettingStartedRibbon() {
         }
 
         @media (max-width: 640px) {
+          .ribbon-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
           .ribbon-items-row {
             grid-template-columns: 1fr !important;
-            gap: 16px !important;
+            gap: 0 !important;
           }
           .desktop-popover-container {
             display: none !important;
@@ -333,8 +337,13 @@ export function GettingStartedRibbon() {
             display: block !important;
           }
           .ribbon-trigger {
-            padding: 12px 0 !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+            padding: 14px 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            font-size: 0.9rem !important;
+          }
+          .ribbon-trigger span {
+            color: #f4efe6 !important;
+            font-size: 0.9rem !important;
           }
         }
       `}</style>

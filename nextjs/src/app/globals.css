@@ -374,6 +374,70 @@ h4 {
   h3 { font-size: clamp(1.1rem, 5vw, 1.48rem) !important; line-height: 1.18 !important; }
 }
 
+/* ── Mobile Global Fixes ── */
+@media (max-width: 640px) {
+  /* Section padding */
+  section {
+    padding-left: max(16px, 4%) !important;
+    padding-right: max(16px, 4%) !important;
+  }
+
+  /* Glass cards full width on mobile */
+  .glass-card {
+    padding: 20px 18px !important;
+    border-radius: 14px !important;
+  }
+
+  /* Ink cards */
+  .ink-card {
+    padding: 24px 20px !important;
+  }
+
+  /* Button sizing on mobile */
+  .btn {
+    font-size: 1.4rem !important;
+    padding: 14px 32px !important;
+  }
+  .btn-main, .btn-primary-glow, .galaxy-btn {
+    padding: 14px 32px !important;
+    font-size: 1.4rem !important;
+  }
+  .btn-glass {
+    padding: 12px 28px !important;
+    font-size: 1.35rem !important;
+  }
+
+  /* Grid: force single column for narrow content */
+  [style*="repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Text visibility: stronger contrast on mobile */
+  p, .text-muted {
+    color: var(--text-muted);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+  h1, h2, h3 {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+
+  /* Prevent fire/arrow progress bar from showing weird */
+  #page-progress-container {
+    height: 3px !important;
+  }
+
+  /* Reduce section top/bottom padding */
+  .prefooter-cta {
+    padding: 60px 20px !important;
+  }
+
+  /* SectionHeader centering on mobile */
+  .section-header-inner {
+    text-align: center !important;
+    align-items: center !important;
+  }
+}
+
 /* ── Mesh background ── */
 .mesh-glow {
   position: fixed;

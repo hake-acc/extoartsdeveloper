@@ -83,7 +83,7 @@ export function WhyExtoArts() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(310px, 100%), 1fr))',
           gap: 14,
         }}
       >

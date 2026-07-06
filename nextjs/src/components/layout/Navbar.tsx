@@ -85,7 +85,7 @@ export function Navbar() {
           left: 0,
           right: 0,
           zIndex: 9999,
-          padding: scrolled ? '12px min(40px, 6%)' : '24px min(40px, 6%)',
+          padding: scrolled ? '10px min(24px, 4%)' : '18px min(24px, 4%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -107,6 +107,7 @@ export function Navbar() {
           }}
         >
           <span
+            className="nav-logo-text"
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 400,
@@ -211,7 +212,7 @@ export function Navbar() {
           {/* CTA: Brush Button */}
           <button
             onClick={openDiscordModal}
-            className="btn nav-cta"
+            className="btn nav-cta nav-cta-desktop"
             aria-label="Start a project on Discord"
           >
             <i className="ti ti-brand-discord" aria-hidden="true" style={{ fontSize: '1.2em' }} />
@@ -405,6 +406,17 @@ export function Navbar() {
         }
         @media (max-width: 859px) {
           .nav-links { display: none !important; }
+          .nav-cta-desktop { display: none !important; }
+          .nav-logo-text { font-size: 1.5rem !important; letter-spacing: -1px !important; }
+          .hamburger {
+            display: flex !important;
+            border-color: var(--border-hover) !important;
+            background: rgba(124, 58, 237, 0.08) !important;
+          }
+          .theme-toggle {
+            width: 34px !important;
+            height: 34px !important;
+          }
         }
         .nav-link-item::after {
           content: '';
@@ -434,7 +446,7 @@ export function Navbar() {
         }
         .hamburger:hover {
           border-color: var(--border-hover) !important;
-          background-color: rgba(124, 58, 237, 0.05) !important;
+          background-color: rgba(124, 58, 237, 0.12) !important;
         }
       `}</style>
     </>
