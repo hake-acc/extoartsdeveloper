@@ -86,8 +86,7 @@ export function Footer() {
               </span>
             </DiscordButton>
             <a
-              href="https://discord.gg/extoarts-1402333030827425922"
-              target="_blank"
+              href="https://extoarts.vercel.app/portfolio"
               rel="noopener noreferrer"
               className="btn btn-glass"
               style={{ borderRadius: 999 }}
