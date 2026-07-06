@@ -220,9 +220,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
+        {/* Tabler Icons webfont — loaded as <link> (not CSS @import) for parallel fetch */}
+        <link
+          rel="preload"
+          as="style"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://iili.io" />
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link

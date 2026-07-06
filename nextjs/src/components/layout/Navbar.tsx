@@ -71,8 +71,7 @@ export function Navbar() {
     }
   }
 
-  // Filter out Home from links, as requested
-  const links = NAV_LINKS.filter((link) => link.href !== '/')
+  const links = NAV_LINKS
 
   return (
     <>

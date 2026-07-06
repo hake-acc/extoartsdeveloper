@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
+import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/sections/home/HeroSection'
-import { GettingStartedRibbon } from '@/components/sections/home/GettingStartedRibbon'
-import { ServicesSection } from '@/components/sections/home/ServicesSection'
-import { ProcessSection } from '@/components/sections/home/ProcessSection'
+
+// Below-the-fold sections: deferred until after LCP
+const GettingStartedRibbon = dynamic(() => import('@/components/sections/home/GettingStartedRibbon').then(m => ({ default: m.GettingStartedRibbon })), { ssr: true })
+const ServicesSection = dynamic(() => import('@/components/sections/home/ServicesSection').then(m => ({ default: m.ServicesSection })), { ssr: true })
+const ProcessSection = dynamic(() => import('@/components/sections/home/ProcessSection').then(m => ({ default: m.ProcessSection })), { ssr: true })
 
 export const metadata: Metadata = {
   title: { absolute: 'YouTube Video Editing & Thumbnail Design | ExtoArts' },
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: { absolute: 'YouTube Video Editing & Thumbnail Design | ExtoArts' },
+    title: 'YouTube Video Editing & Thumbnail Design | ExtoArts',
     description: 'YouTube video editing agency for creators. High-retention edits, thumbnail design, Shorts editing, and channel automation. Flat-fee pricing.',
     url: `${SITE_URL}/`,
     siteName: 'ExtoArts',
