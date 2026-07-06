@@ -51,7 +51,9 @@ export function FocusSliceCarousel({ items, maxVisible = 6 }: Props) {
             aria-pressed={isActive}
             style={{
               position: 'relative',
-              flex: isActive ? 5 : 1,
+              flexGrow: isActive ? 5 : 1,
+              flexShrink: 0,
+              flexBasis: 0,
               minWidth: isActive ? 220 : 56,
               height: '100%',
               borderRadius: 22,
@@ -60,7 +62,6 @@ export function FocusSliceCarousel({ items, maxVisible = 6 }: Props) {
               padding: 0,
               cursor: 'pointer',
               background: '#111',
-              flexShrink: 0,
             }}
           >
             <Image
