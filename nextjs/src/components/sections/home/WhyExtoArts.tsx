@@ -120,7 +120,8 @@ export function WhyExtoArts() {
               </p>
               <span className="highlight-chip" style={{
                 background: 'transparent',
-                border: '1px dashed #1a1525',
+                borderStyle: 'dashed',
+                borderWidth: '1px',
                 padding: '6px 14px',
               }}>
                 <i className="ti ti-check" aria-hidden="true" style={{ fontSize: '0.8rem', marginRight: '4px' }} />
