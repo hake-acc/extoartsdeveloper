@@ -83,7 +83,8 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Link',
-            value: '</llms.txt>; rel="service-doc", </sitemap.xml>; rel="index"',
+            value:
+              '</llms.txt>; rel="service-doc", </sitemap.xml>; rel="index", </.well-known/api-catalog>; rel="api-catalog"',
           },
         ],
       },
