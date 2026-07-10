@@ -11,9 +11,15 @@ export async function GET() {
   return NextResponse.json(
     {
       resource: SITE_URL,
-      authorization_servers: [],
+      // Point to our AS document so scanners can follow the full discovery
+      // chain: PRM → AS → agent_auth block.  The issuer in the AS document
+      // matches this URL per RFC 8414.
+      authorization_servers: [SITE_URL],
       scopes_supported: [],
-      bearer_methods_supported: [],
+      // RFC 9728 requires "header" to be listed even for public resources —
+      // it describes the bearer token transport method, not that tokens are
+      // required.  All endpoints are public and anonymous.
+      bearer_methods_supported: ['header'],
       resource_documentation: `${SITE_URL}/auth.md`,
     },
     {
