@@ -79,6 +79,15 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: '/',
+        headers: [
+          {
+            key: 'Link',
+            value: '</llms.txt>; rel="service-doc", </sitemap.xml>; rel="index"',
+          },
+        ],
+      },
+      {
         source: '/fonts/(.*)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
