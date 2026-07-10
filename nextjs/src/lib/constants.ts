@@ -53,6 +53,11 @@ export const SOCIAL_LINKS = [
     href: 'https://www.facebook.com/share/1J1UA6Txqr/',
     label: 'ExtoArts on Facebook',
   },
+  {
+    platform: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/exto-arts-924272421',
+    label: 'ExtoArts on LinkedIn',
+  },
 ]
 
 export const PAYMENT_METHODS = ['PayPal', 'UPI', 'Crypto', 'EasyPaisa', 'Bkash', 'Bank Transfer']
