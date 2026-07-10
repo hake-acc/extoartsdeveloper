@@ -12,6 +12,7 @@ export async function GET() {
     {
       resource: SITE_URL,
       authorization_servers: [],
+      scopes_supported: [],
       bearer_methods_supported: [],
       resource_documentation: `${SITE_URL}/auth.md`,
     },
