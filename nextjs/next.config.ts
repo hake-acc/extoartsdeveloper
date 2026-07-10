@@ -1,24 +1,32 @@
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 import type { NextConfig } from 'next'
+import withBundleAnalyzer from '@next/bundle-analyzer'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dir = dirname(__filename)
+
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+  openAnalyzer: false,
+})
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   allowedDevOrigins: ['*.replit.dev', '*.sisko.replit.dev', '*.repl.co', '*.pike.replit.dev', '127.0.0.1'],
   turbopack: {
-    root: __dirname,
+    root: __dir,
   },
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'iili.io',
-      },
-      {
-        protocol: 'https',
-        hostname: 'freeimage.host',
-      },
+      { protocol: 'https', hostname: 'iili.io' },
+      { protocol: 'https', hostname: 'freeimage.host' },
     ],
     formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 3600,
+    deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   async redirects() {
     return [
@@ -36,7 +44,6 @@ const nextConfig: NextConfig = {
       { source: '/support', destination: '/ticket', permanent: true },
       { source: '/toc', destination: '/tos', permanent: true },
       { source: '/feed', destination: '/rss', permanent: true },
-
       { source: '/fb', destination: '/facebook', permanent: true },
       { source: '/ig', destination: '/instagram', permanent: true },
       { source: '/yt', destination: '/youtube', permanent: true },
@@ -46,11 +53,11 @@ const nextConfig: NextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net https://va.vercel-scripts.com",
       "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
       "font-src 'self' data: https://cdn.jsdelivr.net",
       "img-src 'self' data: blob: https://iili.io https://freeimage.host https://www.googletagmanager.com",
-      "connect-src 'self' https://www.google-analytics.com https://*.supabase.co",
+      "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://*.vercel-analytics.com https://vitals.vercel-insights.com",
       "frame-src 'self' https://discord.com",
       "object-src 'none'",
       "base-uri 'self'",
@@ -77,8 +84,14 @@ const nextConfig: NextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
     ]
   },
 }
 
-export default nextConfig
+export default withAnalyzer(nextConfig)

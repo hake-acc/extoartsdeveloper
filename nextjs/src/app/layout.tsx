@@ -1,16 +1,14 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
-import { DiscordModal } from '@/components/DiscordModal'
 import { ClientScripts } from '@/components/ClientScripts'
+import { ClientProviders } from '@/components/ClientProviders'
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
-import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
-import { MotionProvider } from '@/components/motion/MotionProvider'
-import { CursorFollower } from '@/components/motion/CursorFollower'
-import { GrainOverlay } from '@/components/ui/GrainOverlay'
 import type { Viewport } from 'next'
 
 export const viewport: Viewport = {
@@ -138,7 +136,7 @@ const organizationSchema = {
     representativeOfPage: true,
   },
   description:
-    'ExtoArts is a YouTube video editing agency founded in 2024 that provides high-retention video editing, thumbnail design, YouTube Shorts and TikTok editing, motion graphics, and full YouTube channel automation. ExtoArts charges a flat 10% agency fee - 90% of a creator\'s budget goes directly to the specialist editor.',
+    "ExtoArts is a YouTube video editing agency founded in 2024 that provides high-retention video editing, thumbnail design, YouTube Shorts and TikTok editing, motion graphics, and full YouTube channel automation. ExtoArts charges a flat 10% agency fee - 90% of a creator's budget goes directly to the specialist editor.",
   priceRange: '$$',
   currenciesAccepted: 'USD, PayPal, Crypto, PKR',
   paymentAccepted: 'PayPal, Bank Transfer, USDT, BTC, ETH, UPI, EasyPaisa, Bkash',
@@ -211,15 +209,11 @@ const organizationSchema = {
   ],
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        {/* Tabler Icons webfont — loaded as <link> (not CSS @import) for parallel fetch */}
+        {/* Tabler Icons — preloaded for parallel fetch, stylesheet applied immediately */}
         <link
           rel="preload"
           as="style"
@@ -233,14 +227,22 @@ export default function RootLayout({
         />
         <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://iili.io" />
-        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {/* Critical font preloads — served from /fonts/ with 1yr immutable cache */}
         <link
           rel="preload"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
           href="/fonts/plus-jakarta-sans.woff2"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+          href="/fonts/caveat.woff2"
         />
         <link rel="alternate" type="application/rss+xml" title="ExtoArts Creator Insights" href="/rss" />
         <link rel="alternate" type="application/json" title="ExtoArts Creator Insights" href="/feed.json" />
@@ -266,11 +268,11 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">Skip to content</a>
         <div className="bg-image-layer bg-image-light" aria-hidden="true" />
         <div className="bg-image-layer bg-image-dark" aria-hidden="true" />
-        <MotionProvider>
+        <ClientProviders>
           <div className="mesh-glow" aria-hidden="true" />
           <div id="page-progress-container" aria-hidden="true">
             <div id="page-progress-arrow">
-              <svg width="24" height="20" viewBox="0 0 24 20" className="fire-trail" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="20" viewBox="0 0 24 20" className="fire-trail" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <defs>
                   <linearGradient id="fire-grad" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="rgba(255, 75, 31, 0)" />
@@ -281,7 +283,7 @@ export default function RootLayout({
                 <path className="flame-main" d="M 24,10 Q 15,2 5,8 Q 0,10 0,10 Q 0,10 5,12 Q 15,18 24,10 Z" fill="url(#fire-grad)" />
                 <path className="flame-inner" d="M 24,10 Q 18,6 10,9 Q 6,10 6,10 Q 6,10 10,11 Q 18,14 24,10 Z" fill="#ffc371" />
               </svg>
-              <svg width="60" height="20" viewBox="0 0 60 20" fill="url(#brush-gradient)" xmlns="http://www.w3.org/2000/svg">
+              <svg width="60" height="20" viewBox="0 0 60 20" fill="url(#brush-gradient)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <defs>
                   <linearGradient id="brush-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="var(--purple)" />
@@ -290,15 +292,10 @@ export default function RootLayout({
                   </linearGradient>
                 </defs>
                 <g>
-                  {/* Handle */}
                   <path d="M 2,8.5 L 40,8.5 L 40,11.5 L 2,11.5 Z" />
-                  {/* Ferrule Bump 1 */}
                   <rect x="40" y="7.5" width="3" height="5" rx="1" />
-                  {/* Ferrule Indent */}
                   <rect x="43" y="8.5" width="2" height="3" />
-                  {/* Ferrule Bump 2 */}
                   <rect x="45" y="7.5" width="3" height="5" rx="1" />
-                  {/* Bristles */}
                   <path d="M 48,7.5 C 51,7 55,9.5 60,10 C 55,10.5 51,13 48,12.5 Z" />
                 </g>
               </svg>
@@ -309,12 +306,11 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <DiscordModal />
           <ClientScripts />
-          <SmoothScrollProvider />
-          <CursorFollower />
-          <GrainOverlay />
-        </MotionProvider>
+        </ClientProviders>
+        {/* Vercel Analytics + Speed Insights — zero runtime impact, loaded after paint */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

@@ -1,5 +1,9 @@
+import type { Thing, WithContext } from 'schema-dts'
+
+type JsonLdData = WithContext<Thing> | Record<string, unknown> | Record<string, unknown>[]
+
 interface JsonLdProps {
-  data: Record<string, unknown> | Record<string, unknown>[]
+  data: JsonLdData
 }
 
 export function JsonLd({ data }: JsonLdProps) {
