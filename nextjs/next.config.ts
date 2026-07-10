@@ -83,9 +83,25 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Link',
-            value:
-              '</llms.txt>; rel="service-doc", </sitemap.xml>; rel="index", </.well-known/api-catalog>; rel="api-catalog", </.well-known/mcp/server-card.json>; rel="mcp-server-card", </auth.md>; rel="auth-md"',
+            value: [
+              '</llms.txt>; rel="service-doc"',
+              '</sitemap.xml>; rel="index"',
+              '</.well-known/api-catalog>; rel="api-catalog"',
+              '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
+              '</auth.md>; rel="auth-md"',
+              '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
+              '</.well-known/openid-configuration>; rel="openid-configuration"',
+              '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
+            ].join(', '),
           },
+        ],
+      },
+      // Vary: Accept on all navigable pages so CDNs and proxies serve
+      // separate cached copies for HTML vs text/markdown requests.
+      {
+        source: '/((?!_next|api/|fonts/|favicon\\.ico).*)',
+        headers: [
+          { key: 'Vary', value: 'Accept' },
         ],
       },
       {
