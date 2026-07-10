@@ -60,10 +60,20 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Pin the internal fetch to this app's own trusted origin (never a
-  // client-controlled Host/X-Forwarded-Host header) to remove any
-  // SSRF/host-confusion risk.
-  const url = new URL(request.nextUrl.pathname + request.nextUrl.search, `http://127.0.0.1:${process.env.PORT || 5000}`)
+  // Build the self-fetch URL from the actual origin so this works everywhere:
+  // Vercel edge (public HTTPS domain), Replit dev (proxied *.replit.dev),
+  // and local dev (http://127.0.0.1:PORT).
+  // We always normalise to the real origin — never trust X-Forwarded-Host
+  // from the client, but the `host` header on Vercel is our own domain and
+  // is safe to use.  Fall back to localhost only when NODE_ENV is development.
+  const origin =
+    process.env.NODE_ENV === 'production'
+      ? (() => {
+          const host = request.headers.get('host') || new URL(request.url).host
+          return `https://${host}`
+        })()
+      : `http://127.0.0.1:${process.env.PORT || 5000}`
+  const url = new URL(request.nextUrl.pathname + request.nextUrl.search, origin)
 
   const forwardedHeaders = new Headers()
   forwardedHeaders.set('accept', 'text/html')
