@@ -31,7 +31,11 @@ function getPortfolioImages(subfolder) {
 /** @type {import('next-sitemap').IConfig} */
 const config = {
   siteUrl: SITE_URL,
-  generateRobotsTxt: true,
+  // robots.txt is served by src/app/robots.txt/route.ts instead, so it
+  // works in dev too (next-sitemap only writes it in the postbuild step)
+  // and so it can carry Content-Signal directives next-sitemap doesn't
+  // support natively.
+  generateRobotsTxt: false,
   changefreq: 'monthly',
   priority: 0.7,
   sitemapSize: 5000,
@@ -44,6 +48,8 @@ const config = {
     '/rss', '/feed.json', '/discord',
     '/instagram', '/twitter', '/youtube', '/facebook', '/threads',
   ],
+  // Non-emitting now that generateRobotsTxt is false — kept only as a
+  // parity reference for the equivalent rules in src/app/robots.txt/route.ts.
   robotsTxtOptions: {
     policies: [
       {
