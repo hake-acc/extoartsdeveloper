@@ -1,33 +1,63 @@
 # auth.md
 
-## Agent audience
+You are an agent. ExtoArts is a **fully public, anonymous service** — no
+registration, token, or credential of any kind is required or accepted.
+Follow the discovery steps below to confirm this, then call any endpoint directly.
 
-This document is for AI agents and automated clients interacting with
-ExtoArts' public site and machine-readable endpoints: the WebMCP tools
-registered via `navigator.modelContext` on every page, and the MCP server
-at `/mcp` (see `/.well-known/mcp/server-card.json`).
+## Step 1 — Discover
 
-## Access model: fully public, no authentication
+### 1a. Protected Resource Metadata
 
-ExtoArts has no protected APIs. Every endpoint is open and anonymous.
-No API key, token, cookie, or credential of any kind is required or accepted.
-
-## agent_auth block
+```http
+GET https://extoarts.in/.well-known/oauth-protected-resource
+```
 
 ```json
 {
-  "register_uri": null,
-  "identity_types_supported": ["anonymous"],
-  "anonymous": {
-    "credential_types_supported": [],
-    "scope": "all endpoints"
-  },
-  "claim_uri": null,
-  "revocation_uri": null
+  "resource": "https://extoarts.in",
+  "authorization_servers": ["https://extoarts.in"],
+  "scopes_supported": [],
+  "bearer_methods_supported": ["header"],
+  "resource_documentation": "https://extoarts.in/auth.md"
 }
 ```
 
-## Available endpoints
+### 1b. Authorization Server Metadata
+
+```http
+GET https://extoarts.in/.well-known/oauth-authorization-server
+```
+
+The `agent_auth` block confirms anonymous access:
+
+```json
+{
+  "issuer": "https://extoarts.in",
+  "scopes_supported": [],
+  "grant_types_supported": [],
+  "agent_auth": {
+    "skill": "https://extoarts.in/auth.md",
+    "identity_types_supported": ["anonymous"],
+    "anonymous": {
+      "credential_types_supported": [],
+      "claim_uri": null
+    },
+    "register_uri": null,
+    "claim_uri": null,
+    "revocation_uri": null
+  }
+}
+```
+
+## Step 2 — Register (anonymous — no action required)
+
+This service accepts the **anonymous** identity type. There is no registration
+ceremony, no identity endpoint to call, and no token to obtain.
+Proceed directly to Step 3.
+
+## Step 3 — Call the API
+
+All endpoints are open. No `Authorization` header is needed.
 
 | Endpoint | Description |
 |---|---|
@@ -35,18 +65,21 @@ No API key, token, cookie, or credential of any kind is required or accepted.
 | `/.well-known/agent-skills/index.json` | Agent skills discovery |
 | `/.well-known/api-catalog` | RFC 9727 API catalog |
 | `/.well-known/mcp/server-card.json` | MCP server card |
-| `/.well-known/oauth-protected-resource` | RFC 9728 - confirms no auth required |
-| `/.well-known/oauth-authorization-server` | RFC 8414 - confirms no AS |
-| `/.well-known/openid-configuration` | OIDC discovery - confirms no OIDC |
+| `/.well-known/oauth-protected-resource` | RFC 9728 PRM — confirms anonymous access |
+| `/.well-known/oauth-authorization-server` | RFC 8414 AS metadata — confirms no token needed |
+| `/.well-known/openid-configuration` | OIDC discovery — confirms no OIDC provider |
 
 ## Scope of available tools
 
-The public tools (`get_pricing_info`, `estimate_video_cost`, `search_faq`,
-`get_contact_info`, and browser-only `navigate_site`) are read-only.
-None of them submits a form, places an order, or acts on a human's behalf.
+The public MCP tools (`get_pricing_info`, `estimate_video_cost`, `search_faq`,
+`get_contact_info`) are read-only. None submits a form, places an order, or
+acts on a human's behalf.
 
 ## Content negotiation
 
-All HTML pages support `Accept: text/markdown` - pass that header to
-receive a Markdown rendering of any page, with `Content-Type: text/markdown`
-and `X-Markdown-Tokens` in the response.
+All HTML pages support `Accept: text/markdown` — pass that header to receive
+a Markdown rendering with `Content-Type: text/markdown` and `X-Markdown-Tokens`.
+
+## Revocation
+
+Not applicable. No credentials are issued; there is nothing to revoke.

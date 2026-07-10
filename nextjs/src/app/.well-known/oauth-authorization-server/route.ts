@@ -13,17 +13,20 @@ export async function GET() {
       issuer: SITE_URL,
       grant_types_supported: [],
       response_types_supported: [],
+      // scopes_supported is required by scanners that validate this document
+      // after following the PRM authorization_servers chain.
+      scopes_supported: [],
       service_documentation: `${SITE_URL}/auth.md`,
       // agent_auth block — Auth.md spec, anonymous public site.
-      // Shape mirrors public/auth.md exactly; claim_uri and revocation_uri are
-      // top-level, not nested under the identity-type object.
+      // `skill` points to this service's own auth.md (the recipe agents read),
+      // per the reference spec — not an external skill URL.
       agent_auth: {
-        skill: 'https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md',
+        skill: `${SITE_URL}/auth.md`,
         register_uri: null,
         identity_types_supported: ['anonymous'],
         anonymous: {
           credential_types_supported: [],
-          scope: 'all endpoints',
+          claim_uri: null,
         },
         claim_uri: null,
         revocation_uri: null,
