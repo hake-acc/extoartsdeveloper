@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { MotionProvider } from '@/components/motion/MotionProvider'
+import { WebMcpProvider } from '@/components/WebMcpProvider'
 
 const SmoothScrollProvider = dynamic(
   () => import('@/components/motion/SmoothScrollProvider').then((m) => ({ default: m.SmoothScrollProvider })),
@@ -24,6 +25,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   return (
     <MotionProvider>
       {children}
+      <WebMcpProvider />
       <DiscordModal />
       <SmoothScrollProvider />
       <CursorFollower />
