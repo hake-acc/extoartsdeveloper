@@ -37,8 +37,11 @@ export default function PricingPage() {
           Simple, Honest <span className="sweep-text">Pricing.</span>
         </h1>
         <p className="sr-only">ExtoArts Pricing - Flat 10% Agency Fee</p>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
+        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 480, margin: '0 auto 14px', lineHeight: 1.75 }}>
           You set the budget. We take 10%. Your editor gets 90%. That&apos;s the entire model.
+        </p>
+        <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', maxWidth: 440, margin: '0 auto', lineHeight: 1.7, opacity: 0.8 }}>
+          For YouTube creators who want specialist-quality editing without traditional agency fees.
         </p>
       </section>
 
@@ -214,6 +217,28 @@ export default function PricingPage() {
         <p style={{ fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: 20, opacity: 0.6 }}>
           50% deposit before work begins. Remaining balance due before final file delivery.
         </p>
+      </section>
+
+      {/* Closing CTA */}
+      <section style={{ padding: '0 min(20px,5%) min(100px,10vw)', maxWidth: 680, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 10 }}>
+        <div className="tilt-card glass-card" style={{ border: '1px solid rgba(105,221,255,0.18)', borderRadius: 24, padding: 'min(52px,5vw)' }}>
+          <div className="tilt-inner">
+            <h2 style={{ fontSize: 'clamp(1.4rem,3vw,2rem)', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 12, color: 'var(--text-main)' }}>
+              Ready to see an exact number?
+            </h2>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.72, maxWidth: 420, margin: '0 auto 28px' }}>
+              Share your footage length, upload frequency, and budget on Discord — you&apos;ll have a custom quote within hours. No commitment until you approve it.
+            </p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <DiscordButton className="btn btn-main">
+                <i className="ti ti-brand-discord" aria-hidden="true" /> Get a Custom Quote
+              </DiscordButton>
+              <Link href="/estimate" className="btn btn-glass">
+                <i className="ti ti-calculator" aria-hidden="true" /> Cost Estimator
+              </Link>
+            </div>
+          </div>
+        </div>
       </section>
 
       <style>{`

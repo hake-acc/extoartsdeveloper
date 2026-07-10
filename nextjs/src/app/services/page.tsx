@@ -112,7 +112,7 @@ export default function ServicesPage() {
         </h1>
         <div className="page-hero-bg" style={{ margin: '0 auto 44px', maxWidth: 600 }}>
           <p className="hero-subtitle" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.72, margin: 0 }}>
-            Specialist editors matched to your niche. From gaming thumbnails to full channel automation - we cover the complete YouTube production pipeline.
+            For YouTube creators who need specialist editors matched to their niche — from gaming thumbnails to full channel automation, we cover the complete production pipeline.
           </p>
         </div>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -127,13 +127,29 @@ export default function ServicesPage() {
 
       {/* Stats strip */}
       <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '18px min(20px,5%)', display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 60, background: 'var(--surface-2)' }}>
-        {[['50%+', 'Target viewer retention above platform average'], ['35-70%', 'More clicks from custom thumbnails vs auto-generated frames'], ['24-48h', 'Standard thumbnail delivery. Video edits in 3-7 days'], ['10%', 'Flat agency fee. 90% of your budget goes to your editor']].map(([val, label]) => (
+        {[['50%+', 'Target viewer retention rate — set per niche and channel benchmarks'], ['35-70%', 'More clicks from custom thumbnails vs auto-generated frames (client-observed average)'], ['24-48h', 'Standard thumbnail delivery. Video edits in 3-5 days'], ['10%', 'Flat agency fee. 90% of your budget goes to your editor']].map(([val, label]) => (
           <div key={label} style={{ textAlign: 'center', padding: '0 16px' }}>
             <div style={{ fontSize: 'clamp(1.2rem,2.5vw,1.6rem)', fontWeight: 900, color: 'var(--primary)', letterSpacing: '-1px', lineHeight: 1 }}>{val}</div>
             <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4, fontWeight: 600, letterSpacing: '0.3px', maxWidth: 200 }}>{label}</div>
           </div>
         ))}
       </div>
+
+      {/* Service quick-jump nav */}
+      <nav aria-label="Jump to service" style={{ maxWidth: 1100, margin: '0 auto 44px', padding: '0 min(20px,5%)', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+          {SERVICES.map((svc) => (
+            <a
+              key={svc.id}
+              href={`#${svc.id}`}
+              style={{ fontSize: '0.72rem', fontWeight: 700, padding: '6px 14px', border: '1px solid var(--border)', borderRadius: 999, color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s, border-color 0.2s' }}
+              className="footer-link"
+            >
+              {svc.num}. {svc.title.split(' ').slice(0, 3).join(' ')}
+            </a>
+          ))}
+        </div>
+      </nav>
 
       {/* Services list */}
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 min(20px,5%) min(100px,10vw)', display: 'flex', flexDirection: 'column', gap: 28, position: 'relative', zIndex: 10 }}>

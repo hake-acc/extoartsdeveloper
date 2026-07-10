@@ -160,7 +160,7 @@ export function HeroSection() {
           fontWeight: 400,
         }}
       >
-        Everything you need to know about working with ExtoArts: from first contact to final delivery.
+        YouTube video editing, thumbnail design, and Shorts for creators who want real results. Flat 10% agency fee — 90% goes directly to your editor.
       </motion.p>
 
       {/* CTA Button */}

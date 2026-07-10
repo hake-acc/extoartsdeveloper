@@ -51,9 +51,18 @@ export default function WorkflowPage() {
         <h1 style={{ fontSize: 'clamp(2rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)', textShadow: '0 2px 16px rgba(0,0,0,0.7)' }}>
           A Process Built<br /><span className="sweep-text">for Creators.</span>
         </h1>
-        <p style={{ fontSize: 'clamp(0.9rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto', lineHeight: 1.72, textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}>
-          Every ExtoArts project follows the same transparent pipeline. Clear checkpoints, no black boxes - brief to delivery with zero surprises.
+        <p style={{ fontSize: 'clamp(0.9rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.72, textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}>
+          Every ExtoArts project follows the same transparent pipeline. Clear checkpoints, no black boxes — brief to delivery with zero surprises.
         </p>
+        {/* TL;DR summary strip */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 16 }}>
+          {[['ti-message-circle', 'Discord ticket'], ['ti-users', 'Editor matched same day'], ['ti-file-invoice', 'Quote in 2–4h'], ['ti-movie', 'Delivery in 3–5 days'], ['ti-check', 'Revisions included']].map(([icon, label]) => (
+            <span key={label} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', padding: '5px 12px', border: '1px solid var(--border)', borderRadius: 999, background: 'rgba(105,221,255,0.04)' }}>
+              <i className={`ti ${icon}`} aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '0.8rem' }} />
+              {label}
+            </span>
+          ))}
+        </div>
       </section>
 
       {/* Pipeline */}

@@ -20,10 +20,10 @@ export default function ContactPage() {
           We Reply Within Hours
         </span>
         <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
-          Let&apos;s Build Something<br /><span className="sweep-text">Great Together.</span>
+          Get a Quote in<br /><span className="sweep-text">Hours, Not Days.</span>
         </h1>
         <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 60px', lineHeight: 1.72 }}>
-          The fastest way to get a quote is through our Discord server. Open a ticket, share your brief, and we&apos;ll match you with the right editor.
+          For YouTube creators looking for specialist editing, thumbnail design, or channel automation. Open a Discord ticket, share your brief, and we&apos;ll match you with the right editor — usually within 2–4 hours.
         </p>
 
         {/* Contact cards */}

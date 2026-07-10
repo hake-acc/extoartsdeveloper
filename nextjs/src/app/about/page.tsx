@@ -27,7 +27,7 @@ const personSchema = {
 }
 
 const FAQ_ITEMS = [
-  { q: 'What does "ExtoArts" mean as a brand name?', a: 'ExtoArts is a coined brand name built from the idea of extending creative arts - the craft of video editing, thumbnail design, and channel strategy pushed beyond ordinary limits. Founder Rehan chose it to reflect a simple principle: extend what is possible for YouTube creators through skilled production, fair pricing, and a team that genuinely cares about the work.' },
+  { q: 'What does "ExtoArts" mean as a brand name?', a: 'ExtoArts is a coined brand name built from the idea of extending creative arts — video editing, thumbnail design, and channel strategy built to outperform what the average agency delivers. Founder Rehan chose it to reflect a direct principle: make high-quality YouTube production accessible to creators at fair prices, with editors who demonstrate that in their work.' },
   { q: 'When was ExtoArts founded?', a: 'ExtoArts was founded in 2024 by Rehan with the goal of creating a fair-compensation video editing agency where editors receive 90% of the client budget.' },
   { q: 'Where is ExtoArts based?', a: 'ExtoArts operates fully remotely with editors working across different time zones, allowing us to serve creators worldwide with fast turnaround times.' },
   { q: 'Is ExtoArts a legitimate agency?', a: 'Yes. ExtoArts is a real creative agency with verified client reviews on Discord. All reviews shown on our website are from real projects completed for actual YouTube creators.' },
@@ -138,10 +138,10 @@ export default function AboutPage() {
                 The 10% <span className="sweep-text">Golden Rule</span>
               </h2>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.78, marginBottom: 16 }}>
-                Traditional agencies charge 30-50% commission on creator budgets, leaving the actual editor underpaid and unmotivated. ExtoArts charges a flat 10%. <strong style={{ color: 'var(--text-main)' }}>90% of your money goes directly to the artist building your video.</strong>
+                Most agencies charge 30–50% commission on creator budgets (industry standard; varies by agency), leaving the actual editor underpaid and unmotivated. ExtoArts charges a flat 10%. <strong style={{ color: 'var(--text-main)' }}>90% of your money goes directly to the artist building your video.</strong>
               </p>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.78, margin: 0 }}>
-                On a $500 edit, that means $450 to your editor versus $250-$350 at a traditional agency. Better pay produces better output - the math is simple.
+                On a $500 edit, that means $450 to your editor versus $250–$350 at a typical agency. Better compensation produces better output — that relationship is consistent across every creative discipline.
               </p>
             </div>
           </div>
