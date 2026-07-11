@@ -76,6 +76,9 @@ const nextConfig: NextConfig = {
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
           { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
           { key: 'Content-Security-Policy', value: csp },
+          // Content-Signal belongs in HTTP headers, not in robots.txt.
+          // Non-standard robots.txt directives cause validator "formatting problem" errors.
+          { key: 'X-Content-Signal', value: 'search=yes, ai-train=yes, ai-input=yes' },
         ],
       },
       {

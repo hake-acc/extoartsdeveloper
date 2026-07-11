@@ -109,11 +109,13 @@ const websiteSchema = {
 
 const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': ['Organization', 'ProfessionalService'],
+  // Single @type: Organization. ProfessionalService extends LocalBusiness which
+  // requires address fields ExtoArts (fully remote) cannot provide — using the
+  // array caused 29 validation errors in Google Rich Results Test.
+  '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
   name: SITE_NAME,
   legalName: SITE_NAME,
-  brand: { '@type': 'Brand', name: SITE_NAME },
   alternateName: ['ExtoArts Agency', 'Exto Arts'],
   url: `${SITE_URL}/`,
   mainEntityOfPage: `${SITE_URL}/`,
@@ -133,13 +135,9 @@ const organizationSchema = {
     width: 2048,
     height: 1144,
     caption: 'ExtoArts YouTube Video Editing Agency',
-    representativeOfPage: true,
   },
   description:
     "ExtoArts is a YouTube video editing agency founded in 2024 that provides high-retention video editing, thumbnail design, YouTube Shorts and TikTok editing, motion graphics, and full YouTube channel automation. ExtoArts charges a flat 10% agency fee - 90% of a creator's budget goes directly to the specialist editor.",
-  priceRange: '$$',
-  currenciesAccepted: 'USD, PayPal, Crypto, PKR',
-  paymentAccepted: 'PayPal, Bank Transfer, USDT, BTC, ETH, UPI, EasyPaisa, Bkash',
   foundingDate: '2024',
   founder: {
     '@type': 'Person',
@@ -155,13 +153,14 @@ const organizationSchema = {
     ],
     worksFor: { '@id': `${SITE_URL}/#organization` },
   },
+  // aggregateRating without itemReviewed — self-referencing via @id caused
+  // circular-reference validation warnings. Rating applies to this entity.
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5',
     bestRating: '5',
     worstRating: '1',
     reviewCount: '7',
-    itemReviewed: { '@id': `${SITE_URL}/#organization` },
   },
   numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 6, maxValue: 12 },
   slogan: '90% to your editor. Always.',
@@ -177,13 +176,17 @@ const organizationSchema = {
     { '@type': 'Country', name: 'Philippines' },
     { '@type': 'AdministrativeArea', name: 'Worldwide' },
   ],
-  serviceType: [
-    'YouTube Video Editing',
-    'Thumbnail Design',
-    'Short-Form Video Editing',
-    'YouTube Automation',
-    'Gaming Video Editing',
-  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'YouTube Creative Services',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'YouTube Video Editing' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Thumbnail Design' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'YouTube Shorts Editing' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gaming Video Editing' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'YouTube Channel Automation' } },
+    ],
+  },
   contactPoint: [
     {
       '@type': 'ContactPoint',

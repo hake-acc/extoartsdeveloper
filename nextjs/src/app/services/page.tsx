@@ -95,10 +95,35 @@ const faqSchema = {
   ],
 }
 
+// ItemList of Service entities — valid structured data for an agency's
+// service catalogue. No single Service type triggers Google rich results,
+// but the list is crawlable, accurate, and helps entity understanding.
+const servicesListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  '@id': `${SITE_URL}/services#service-list`,
+  name: 'YouTube Video Editing Services by ExtoArts',
+  description: 'Specialist YouTube video editing, thumbnail design, short-form editing, gaming, motion graphics, faceless channel automation, and content strategy services.',
+  numberOfItems: SERVICES.length,
+  itemListElement: SERVICES.map((svc, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      '@id': `${SITE_URL}/services#${svc.id}`,
+      name: svc.title,
+      description: svc.desc,
+      provider: { '@id': `${SITE_URL}/#organization` },
+      areaServed: { '@type': 'AdministrativeArea', name: 'Worldwide' },
+    },
+  })),
+}
+
 export default function ServicesPage() {
   return (
     <>
       <JsonLd data={faqSchema} />
+      <JsonLd data={servicesListSchema} />
       <p className="sr-only">ExtoArts YouTube Video Editing Services</p>
 
       {/* Page hero */}

@@ -1,48 +1,46 @@
 import { NextResponse } from 'next/server'
 import { SITE_URL } from '@/lib/constants'
 
-// Served directly (instead of via next-sitemap's postbuild-only output) so
-// it's present in dev too, and so it can carry Content-Signal directives
-// (https://contentsignals.org/) that next-sitemap doesn't support.
+// Served via Route Handler so robots.txt is available in dev too.
+// Content-Signal directives belong in HTTP response headers, not robots.txt
+// (non-standard lines cause validator errors). Those headers are set in
+// next.config.ts under the Vary/discovery header block instead.
+//
+// Removed: Disallow: /*?* — that pattern blocks all query-param URLs
+// (portfolio tabs, estimate filters, etc.) and was flagged as 106 blocked
+// resources by Semrush. Specific admin paths are sufficient.
 export const dynamic = 'force-static'
 
-// User preference, confirmed with the site owner: allow AI training and
-// allow AI assistants to use content as live-answer input; search indexing
-// stays allowed as normal.
-const CONTENT_SIGNAL = 'Content-Signal: search=yes, ai-train=yes, ai-input=yes'
-
-const COMMON_DISALLOW = [
+const ADMIN_PATHS = [
   '/hq-portal',
   '/admin',
   '/dashboard',
-  '/login',
-  '/register',
-  '/logout',
-  '/apply',
   '/api/',
   '/order/',
-  '/chat',
-  '/health',
 ]
 
 const body = `User-agent: *
-${CONTENT_SIGNAL}
 Allow: /
-Allow: /faq?q=
-${COMMON_DISALLOW.map((p) => `Disallow: ${p}`).join('\n')}
-Disallow: /*?*
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /chat
+Disallow: /health
+${ADMIN_PATHS.map((p) => `Disallow: ${p}`).join('\n')}
 
 User-agent: Googlebot
-${CONTENT_SIGNAL}
 Allow: /
-${['/hq-portal', '/admin', '/dashboard', '/api/', '/order/'].map((p) => `Disallow: ${p}`).join('\n')}
-Disallow: /*?*
+Allow: /_next/static/
+Allow: /_next/image
+${ADMIN_PATHS.map((p) => `Disallow: ${p}`).join('\n')}
 
 User-agent: Bingbot
-${CONTENT_SIGNAL}
 Allow: /
-${['/hq-portal', '/admin', '/dashboard', '/api/', '/order/'].map((p) => `Disallow: ${p}`).join('\n')}
-Disallow: /*?*
+Allow: /_next/static/
+Allow: /_next/image
+${ADMIN_PATHS.map((p) => `Disallow: ${p}`).join('\n')}
 
 User-agent: Google-Extended
 User-agent: OAI-SearchBot
@@ -56,7 +54,6 @@ User-agent: Applebot
 User-agent: Applebot-Extended
 User-agent: CohereBot
 User-agent: Meta-ExternalAgent
-${CONTENT_SIGNAL}
 Allow: /
 Allow: /llms.txt
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/metadata'
+import { SITE_URL } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
 import { FAQAccordion } from '@/components/ui/Accordion'
 import { FAQ_SECTIONS } from '@/data/faq'
@@ -14,6 +15,13 @@ export const metadata: Metadata = buildMetadata({
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
+  '@id': `${SITE_URL}/faq`,
+  name: 'YouTube Video Editing FAQ - ExtoArts',
+  description: 'Complete FAQ for ExtoArts YouTube video editing agency. Pricing, turnaround, process, revisions, gaming editing, faceless channels, and getting started.',
+  url: `${SITE_URL}/faq`,
+  inLanguage: 'en-US',
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  about: { '@id': `${SITE_URL}/#organization` },
   mainEntity: FAQ_SECTIONS.flatMap(s =>
     s.items.map(item => ({
       '@type': 'Question',
@@ -112,6 +120,25 @@ export default function FAQPage() {
             <FAQAccordion items={section.items} />
           </div>
         ))}
+
+        {/* Internal links — contextual navigation */}
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 40 }}>
+          <Link href="/services" className="btn btn-glass">
+            <i className="ti ti-list-details" aria-hidden="true" /> All Services
+          </Link>
+          <Link href="/pricing" className="btn btn-glass">
+            <i className="ti ti-percentage" aria-hidden="true" /> Pricing Model
+          </Link>
+          <Link href="/workflow" className="btn btn-glass">
+            <i className="ti ti-route" aria-hidden="true" /> How It Works
+          </Link>
+          <Link href="/portfolio" className="btn btn-glass">
+            <i className="ti ti-photo" aria-hidden="true" /> Our Portfolio
+          </Link>
+          <Link href="/contact" className="btn btn-glass">
+            <i className="ti ti-message-circle" aria-hidden="true" /> Get a Quote
+          </Link>
+        </div>
 
         {/* Still have questions CTA */}
         <div

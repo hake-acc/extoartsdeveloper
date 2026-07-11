@@ -7,6 +7,7 @@ import { BorderBeam } from '@/components/ui/BorderBeam'
 import { InView } from '@/components/ui/InView'
 import { COST_TIERS, RETAINER_PACKAGES, PRICING_FAQ_SCHEMA } from '@/data/pricing'
 import { TenPercentModelVisual } from '@/components/sections/pricing/TenPercentModelVisual'
+import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = buildMetadata({
   title: 'YouTube Video Editing Pricing & Rates',
@@ -14,10 +15,41 @@ export const metadata: Metadata = buildMetadata({
   path: '/pricing',
 })
 
+const pricingPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${SITE_URL}/pricing`,
+  name: 'YouTube Video Editing Pricing & Rates - ExtoArts',
+  description: 'ExtoArts charges a flat 10% agency fee. 90% of your editing budget goes directly to the specialist editor. Transparent rates, no hidden fees.',
+  url: `${SITE_URL}/pricing`,
+  inLanguage: 'en-US',
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  about: { '@id': `${SITE_URL}/#organization` },
+  mainEntity: {
+    '@type': 'Service',
+    '@id': `${SITE_URL}/pricing#pricing-model`,
+    name: 'YouTube Video Editing - Flat 10% Agency Fee Model',
+    description: 'ExtoArts charges a flat 10% agency management fee on every project. The creator sets the editing budget, ExtoArts takes 10%, and 90% goes directly to the specialist editor assigned to the project.',
+    provider: { '@id': `${SITE_URL}/#organization` },
+    offers: {
+      '@type': 'Offer',
+      description: 'Flat 10% agency fee on creator-set editing budget. No retainer, no setup costs.',
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        description: '10% of creator-set editing budget',
+        minPrice: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    areaServed: { '@type': 'AdministrativeArea', name: 'Worldwide' },
+  },
+}
+
 export default function PricingPage() {
   return (
     <>
       <JsonLd data={PRICING_FAQ_SCHEMA} />
+      <JsonLd data={pricingPageSchema} />
       {/* Hero */}
       <section
         style={{

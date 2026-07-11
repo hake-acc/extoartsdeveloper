@@ -22,24 +22,38 @@ const STEPS = [
   { num: '08', icon: 'ti-refresh', title: 'Ongoing Retainer (Optional)', desc: 'For creators with consistent upload schedules, we set up a dedicated workflow: recurring file submission, priority queue, monthly invoice, and a reserved editor slot.', duration: 'Ongoing', color: '#dbbadd' },
 ]
 
-const workflowSchema = {
+// HowTo schema triggers rich results for step-by-step processes.
+// Replaces ItemList which is semantically incorrect for a workflow.
+const howToSchema = {
   '@context': 'https://schema.org',
-  '@type': 'ItemList',
+  '@type': 'HowTo',
+  '@id': `${SITE_URL}/workflow#how-to`,
   name: 'How to Work with ExtoArts for YouTube Video Editing',
-  description: 'The complete workflow for working with ExtoArts from first contact to final delivery.',
-  numberOfItems: STEPS.length,
-  itemListElement: STEPS.map((s, i) => ({
-    '@type': 'ListItem',
+  description: 'The complete 8-step workflow for working with ExtoArts from first contact to final delivery of your YouTube video edit.',
+  totalTime: 'P5D',
+  supply: [
+    { '@type': 'HowToSupply', name: 'Raw video footage' },
+    { '@type': 'HowToSupply', name: 'Style references or inspiration links' },
+    { '@type': 'HowToSupply', name: 'Editing budget' },
+  ],
+  tool: [
+    { '@type': 'HowToTool', name: 'Discord account' },
+    { '@type': 'HowToTool', name: 'File transfer service (Google Drive, WeTransfer, or Dropbox)' },
+  ],
+  step: STEPS.map((s, i) => ({
+    '@type': 'HowToStep',
     position: i + 1,
     name: s.title,
-    description: s.desc,
+    text: s.desc,
+    url: `${SITE_URL}/workflow#step-${s.num}`,
   })),
+  provider: { '@id': `${SITE_URL}/#organization` },
 }
 
 export default function WorkflowPage() {
   return (
     <>
-      <JsonLd data={workflowSchema} />
+      <JsonLd data={howToSchema} />
       <p className="sr-only">How ExtoArts Works - YouTube Editing Workflow</p>
 
       {/* Hero */}
@@ -56,7 +70,7 @@ export default function WorkflowPage() {
         </p>
         {/* TL;DR summary strip */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 16 }}>
-          {[['ti-message-circle', 'Discord ticket'], ['ti-users', 'Editor matched same day'], ['ti-file-invoice', 'Quote in 2–4h'], ['ti-movie', 'Delivery in 3–5 days'], ['ti-check', 'Revisions included']].map(([icon, label]) => (
+          {[['ti-message-circle', 'Discord ticket'], ['ti-users', 'Editor matched same day'], ['ti-file-invoice', 'Quote in 2-4h'], ['ti-movie', 'Delivery in 3-5 days'], ['ti-check', 'Revisions included']].map(([icon, label]) => (
             <span key={label} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', padding: '5px 12px', border: '1px solid var(--border)', borderRadius: 999, background: 'rgba(105,221,255,0.04)' }}>
               <i className={`ti ${icon}`} aria-hidden="true" style={{ color: 'var(--primary)', fontSize: '0.8rem' }} />
               {label}
@@ -99,6 +113,7 @@ export default function WorkflowPage() {
           {STEPS.map((step, i) => (
             <article
               key={step.num}
+              id={`step-${step.num}`}
               className="sr workflow-article"
               style={{ display: 'grid', gridTemplateColumns: '60px 1fr', gap: 0, animationDelay: `${i * 50}ms`, width: '100%', minWidth: 0 }}
             >
@@ -197,6 +212,9 @@ export default function WorkflowPage() {
           </DiscordButton>
           <Link href="/pricing" className="btn btn-glass">
             <i className="ti ti-percentage" aria-hidden="true" /> View Pricing
+          </Link>
+          <Link href="/services" className="btn btn-glass">
+            <i className="ti ti-list-details" aria-hidden="true" /> All Services
           </Link>
         </div>
       </section>

@@ -27,12 +27,27 @@ function readFolder(sub: string): GalleryImage[] {
       mtime: fs.statSync(path.join(dir, f)).mtimeMs,
     }))
     .sort((a, b) => b.mtime - a.mtime)
-    .map(({ file }) => ({
-      src: `/portfolio/${sub}/${file}`,
-      alt: sub === 'Logos' ? 'ExtoArts logo design' : sub === 'Banners' ? 'ExtoArts channel banner' : 'ExtoArts portfolio work',
-      width: sub === 'Banners' ? 2560 : sub === 'Logos' ? 800 : 1280,
-      height: sub === 'Banners' ? 1440 : sub === 'Logos' ? 800 : 720,
-    }))
+    .map(({ file }) => {
+      // Derive descriptive alt text from the filename so each image is unique
+      // and meaningful for screen readers and image search indexing.
+      const base = file
+        .replace(/\.[^.]+$/, '')
+        .replace(/[-_]+/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase())
+        .trim()
+      const alt =
+        sub === 'Logos'
+          ? `${base} - YouTube channel logo designed by ExtoArts`
+          : sub === 'Banners'
+            ? `${base} - YouTube channel banner designed by ExtoArts`
+            : `${base} - YouTube thumbnail designed by ExtoArts`
+      return {
+        src: `/portfolio/${sub}/${file}`,
+        alt,
+        width: sub === 'Banners' ? 2560 : sub === 'Logos' ? 800 : 1280,
+        height: sub === 'Banners' ? 1440 : sub === 'Logos' ? 800 : 720,
+      }
+    })
 }
 
 async function getPortfolioData() {
@@ -46,9 +61,14 @@ async function getPortfolioData() {
 const portfolioSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'ExtoArts Portfolio',
-  description: 'YouTube thumbnails, brand logos, and channel banners created by ExtoArts specialist designers.',
+  '@id': 'https://extoarts.in/portfolio',
+  name: 'ExtoArts Portfolio - YouTube Thumbnails, Logos & Channel Banners',
+  description: 'YouTube thumbnails built for CTR, brand logos, and channel banners created by ExtoArts specialist designers for real creators.',
   url: 'https://extoarts.in/portfolio',
+  inLanguage: 'en-US',
+  isPartOf: { '@id': 'https://extoarts.in/#website' },
+  about: { '@id': 'https://extoarts.in/#organization' },
+  publisher: { '@id': 'https://extoarts.in/#organization' },
 }
 
 export default async function PortfolioPage() {
