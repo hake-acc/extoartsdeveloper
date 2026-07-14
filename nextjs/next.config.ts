@@ -14,11 +14,6 @@ const withAnalyzer = withBundleAnalyzer({
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
-  experimental: {
-    // Extract critical (above-the-fold) CSS inline; load the rest non-blocking.
-    // Requires `critters` to be installed. Only runs during `next build`.
-    optimizeCss: true,
-  },
   allowedDevOrigins: ['*.replit.dev', '*.sisko.replit.dev', '*.repl.co', '*.pike.replit.dev', '127.0.0.1'],
   turbopack: {
     root: __dir,
@@ -58,9 +53,9 @@ const nextConfig: NextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net https://va.vercel-scripts.com",
-      "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
-      "font-src 'self' data: https://cdn.jsdelivr.net",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://va.vercel-scripts.com",
+      "style-src 'self' 'unsafe-inline'",
+      "font-src 'self' data:",
       "img-src 'self' data: blob: https://iili.io https://freeimage.host https://www.googletagmanager.com",
       "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://*.vercel-analytics.com https://vitals.vercel-insights.com",
       "frame-src 'self' https://discord.com",
@@ -116,6 +111,14 @@ const nextConfig: NextConfig = {
         source: '/fonts/(.*)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
+        // Self-hosted Tabler Icons subset CSS — content-addressed by font hash;
+        // 1-day TTL so any icon additions revalidate quickly.
+        source: '/tabler-icons-subset.css',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=3600' },
         ],
       },
       {
