@@ -24,7 +24,7 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd nextjs && npm run dev"
+args = "cd nextjs && pnpm run dev"
 waitForPort = 5000
 
 [[ports]]
