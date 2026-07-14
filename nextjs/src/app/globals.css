@@ -1,6 +1,15 @@
 /* Tabler Icons loaded via <link> in layout.tsx head — not here (CSS @import blocks render) */
 @import "tailwindcss";
 
+/* Reserve layout space for Tabler icon glyphs before the webfont arrives — prevents CLS */
+.ti {
+  display: inline-block;
+  min-width: 1em;
+  min-height: 1em;
+  font-style: normal;
+  line-height: 1;
+}
+
 /* ── Theme Toggle Visibility Fix ── */
 .theme-toggle {
   background-color: var(--surface-raised) !important;
@@ -39,7 +48,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/PaperInko.otf') format('opentype');
+  src: url('/fonts/PaperInko.woff2') format('woff2');
 }
 /* Caveat — used for handwritten accent text (self-hosted, latin + latin-ext subsets) */
 @font-face {
