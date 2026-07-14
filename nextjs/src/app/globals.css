@@ -925,7 +925,7 @@ html[data-theme="light"] article.sr p {
 .btn:active { transform: scale(0.97); }
 
 .btn-main, .btn-primary-glow, .galaxy-btn {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230a0515' /%3E%3Cstop offset='40%25' stop-color='%232b1a4a' /%3E%3Cstop offset='100%25' stop-color='%233a2463' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-a56c3bbe.svg") !important;
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -937,13 +937,13 @@ html[data-theme="light"] article.sr p {
   padding: 20px 56px !important;
 }
 .btn-main:hover, .btn-primary-glow:hover, .galaxy-btn:hover {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-06be4091.svg") !important;
   transform: translateY(-2px) scale(1.04) !important;
   box-shadow: 0 8px 24px rgba(43, 26, 74, 0.4) !important;
 }
 
 .btn-glass {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='none' stroke='url(%23grad)' stroke-width='3' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-58f758c4.svg") !important;
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -955,15 +955,15 @@ html[data-theme="light"] article.sr p {
   padding: 20px 56px !important;
 }
 .btn-glass:hover {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-06be4091.svg") !important;
   color: #f4efe6 !important;
   transform: translateY(-2px) scale(1.04) !important;
 }
 [data-theme="light"] .btn-glass {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='none' stroke='url(%23grad)' stroke-width='4' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-67f0763c.svg") !important;
 }
 [data-theme="light"] .btn-glass:hover {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-06be4091.svg") !important;
   color: #f4efe6 !important;
 }
 
@@ -994,7 +994,7 @@ html[data-theme="light"] article.sr p {
 
 /* ── Nav CTA ── */
 .nav-cta {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230a0515' /%3E%3Cstop offset='40%25' stop-color='%232b1a4a' /%3E%3Cstop offset='100%25' stop-color='%233a2463' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-a56c3bbe.svg") !important;
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -1007,7 +1007,7 @@ html[data-theme="light"] article.sr p {
   transition: transform 0.25s ease !important;
 }
 .nav-cta:hover {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='brush' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.9' numOctaves='4' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='14' xChannelSelector='R' yChannelSelector='G' /%3E%3CfeComposite in2%3D'SourceGraphic' operator%3D'in' /%3E%3C/filter%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23130a28' /%3E%3Cstop offset='40%25' stop-color='%233b2466' /%3E%3Cstop offset='100%25' stop-color='%234d3082' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M25,25 Q150,15 275,25 Q290,40 275,55 Q150,65 25,55 Q10,40 25,25 Z' fill='url(%23grad)' filter='url(%23brush)' /%3E%3C/svg%3E") !important;
+  background-image: url("/assets/svg/brush-06be4091.svg") !important;
   transform: scale(1.05) !important;
 }
 [data-theme="light"] .nav-cta {
@@ -1035,11 +1035,11 @@ html[data-theme="light"] article.sr p {
   background-color: #1a1a22;
   /* Subtle paper fiber texture */
   background-image: 
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    url("/assets/svg/brush-cf6f7f23.svg");
   /* Torn paper edge mask */
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  mask-image: url("/assets/svg/brush-ae16bc34.svg");
   mask-size: 100% 100%;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  -webkit-mask-image: url("/assets/svg/brush-ae16bc34.svg");
   -webkit-mask-size: 100% 100%;
   box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -1052,9 +1052,9 @@ html[data-theme="light"] article.sr p {
   top: 4px; left: 4px; right: -4px; bottom: -4px;
   z-index: -2;
   background: rgba(0, 0, 0, 0.4);
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  mask-image: url("/assets/svg/brush-ae16bc34.svg");
   mask-size: 100% 100%;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='torn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' result='noise' /%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='8' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect x='8' y='8' width='384' height='284' fill='black' filter='url(%23torn)' /%3E%3C/svg%3E");
+  -webkit-mask-image: url("/assets/svg/brush-ae16bc34.svg");
   -webkit-mask-size: 100% 100%;
   filter: blur(8px);
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -1737,7 +1737,7 @@ html[data-theme="light"] article.sr p {
   pointer-events: none;
   opacity: 0.035;
   mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("/assets/svg/brush-d3aab970.svg");
   animation: grainShift 0.6s steps(4) infinite;
 }
 @keyframes grainShift {

@@ -14,6 +14,11 @@ const withAnalyzer = withBundleAnalyzer({
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
+  experimental: {
+    // Extract critical (above-the-fold) CSS inline; load the rest non-blocking.
+    // Requires `critters` to be installed. Only runs during `next build`.
+    optimizeCss: true,
+  },
   allowedDevOrigins: ['*.replit.dev', '*.sisko.replit.dev', '*.repl.co', '*.pike.replit.dev', '127.0.0.1'],
   turbopack: {
     root: __dir,
