@@ -78,7 +78,7 @@ const webPageSchema = {
   description: 'High-retention YouTube editing, thumbnail design, and Shorts editing for creators. Flat-fee pricing, real editors, fast turnaround.',
   inLanguage: 'en-US',
   datePublished: '2024-01-01',
-  dateModified: '2026-06-17',
+  dateModified: '2026-07-15',
   about: { '@id': `${SITE_URL}/#organization` },
   publisher: { '@id': `${SITE_URL}/#organization` },
   isPartOf: { '@id': `${SITE_URL}/#website` },

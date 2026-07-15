@@ -224,13 +224,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/fonts/tabler-icons.woff2"
           crossOrigin="anonymous"
         />
-        {/* Background image — preloaded early so it doesn't block paint; dark is default theme */}
-        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" />
+        {/* Background image — preloaded with high fetch priority; dark is default theme */}
+        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" />
         <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://iili.io" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        {/* GTM + analytics — preconnect so the TCP/TLS handshake is done before the script fires */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
         {/* Critical font preloads — served from /fonts/ with 1yr immutable cache */}
         <link
           rel="preload"
@@ -252,6 +257,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="font/woff2"
           crossOrigin="anonymous"
           href="/fonts/caveat.woff2"
+        />
+        {/* caveat-ext covers latin-ext unicode range — preload alongside latin subset */}
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+          href="/fonts/caveat-ext.woff2"
         />
         <link rel="alternate" type="application/rss+xml" title="ExtoArts Creator Insights" href="/rss" />
         <link rel="alternate" type="application/json" title="ExtoArts Creator Insights" href="/feed.json" />

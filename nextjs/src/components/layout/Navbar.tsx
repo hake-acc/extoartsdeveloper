@@ -173,6 +173,7 @@ export function Navbar() {
             display: 'flex',
             alignItems: 'center',
             gap: '14px',
+            flexShrink: 0,
           }}
         >
           {/* Theme Toggle */}
