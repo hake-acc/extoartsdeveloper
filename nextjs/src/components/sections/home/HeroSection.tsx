@@ -68,7 +68,7 @@ export function HeroSection() {
         <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
       </motion.div>
 
-      {/* Massive Title: Answers to Everything. */}
+      {/* Massive Title */}
       <motion.h1
         {...fadeUp(0.2)}
         style={{

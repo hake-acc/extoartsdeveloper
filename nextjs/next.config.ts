@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dir,
   },
+  experimental: {
+    // Tree-shake framer-motion, lucide-react, and radix so only the
+    // primitives actually imported end up in the browser bundle.
+    optimizePackageImports: ['framer-motion', '@radix-ui/react-accordion', '@radix-ui/react-dialog'],
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'iili.io' },

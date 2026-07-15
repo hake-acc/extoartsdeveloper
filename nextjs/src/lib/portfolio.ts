@@ -1,6 +1,7 @@
 import fs from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
+import { unstable_cache } from 'next/cache'
 import type { GalleryImage } from '@/app/portfolio/PortfolioClient'
 
 const ALLOWED_EXT = /\.(jpg|jpeg|png|webp|gif|avif)$/i
@@ -29,12 +30,24 @@ async function readFolder(sub: string): Promise<GalleryImage[]> {
     }))
 }
 
+// Cached at the Next.js data-cache layer — filesystem reads only happen once
+// per deployment (or when manually revalidated). Subsequent requests within the
+// same server process are served from memory, eliminating FS stat overhead and
+// keeping TTFB low. revalidate: 3600 ensures stale data is refreshed hourly so
+// newly uploaded portfolio images surface within an hour without a redeploy.
+const _getPortfolioData = unstable_cache(
+  async () => {
+    const [thumbnails, logos, banners] = await Promise.all([
+      readFolder('Thumbnails'),
+      readFolder('Logos'),
+      readFolder('Banners'),
+    ])
+    return { thumbnails, logos, banners }
+  },
+  ['portfolio-data'],
+  { revalidate: 3600, tags: ['portfolio'] }
+)
+
 export async function getPortfolioData() {
-  // Read all three folders in parallel
-  const [thumbnails, logos, banners] = await Promise.all([
-    readFolder('Thumbnails'),
-    readFolder('Logos'),
-    readFolder('Banners'),
-  ])
-  return { thumbnails, logos, banners }
+  return _getPortfolioData()
 }

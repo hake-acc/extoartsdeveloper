@@ -225,8 +225,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/fonts/tabler-icons.woff2"
           crossOrigin="anonymous"
         />
-        {/* Background image — preloaded with high fetch priority; dark is default theme */}
-        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" />
+        {/* Background images — dark is default theme (high priority); light is preloaded
+            at low priority so light-mode users don't incur an un-preloaded fetch on theme init */}
+        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: dark)" />
+        <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="low" media="(prefers-color-scheme: light)" />
         <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://iili.io" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
