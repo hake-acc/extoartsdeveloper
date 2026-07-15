@@ -44,7 +44,6 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@types/turndown": "^5.0.6",
-    "critters": "^0.0.25",
     "eslint": "^9",
     "eslint-config-next": "^16.2.10",
     "eslint-config-prettier": "^10.1.8",

@@ -216,22 +216,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        {/* Tabler Icons — self-hosted subset (55 icons, 12 KB vs 807 KB CDN).
-            Served from /fonts/ with 1yr immutable cache; preloaded so the font
-            is in-flight before the CSS parser requests it. */}
+        {/* Tabler Icons — preload the woff2 font first, then load CSS non-render-blocking */}
         <link
           rel="preload"
           as="font"
           type="font/woff2"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/fonts/tabler-icons.woff2"
           crossOrigin="anonymous"
-          href="/fonts/tabler-icons-subset.woff2"
         />
-        <link rel="stylesheet" href="/tabler-icons-subset.css" />
-        {/* Background image — preloaded early; dark is the default theme.
-            Both divs now use display:none so only the active theme fetches its image. */}
+        {/* Background image — preloaded early so it doesn't block paint; dark is default theme */}
         <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" />
         <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://iili.io" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         {/* Critical font preloads — served from /fonts/ with 1yr immutable cache */}
         <link
@@ -276,7 +274,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Script id="ea-theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('ea-theme');if(t==='light'||(!t&&window.matchMedia('(prefers-color-scheme:light)').matches))document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.replace('no-js','js');})();`}</Script>
-        {/* Tabler Icons CSS is now a static <link> above — no Script needed */}
+        {/* Tabler Icons CSS — loaded after paint to avoid render-blocking */}
+        <Script id="tabler-icons-css" strategy="afterInteractive">{`(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css';l.crossOrigin='anonymous';document.head.appendChild(l);})();`}</Script>
         <a href="#main-content" className="skip-link">Skip to content</a>
         <div className="bg-image-layer bg-image-light" aria-hidden="true" />
         <div className="bg-image-layer bg-image-dark" aria-hidden="true" />
