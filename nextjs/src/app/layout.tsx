@@ -7,8 +7,9 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { ClientScripts } from '@/components/ClientScripts'
 import { ClientProviders } from '@/components/ClientProviders'
-import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from '@/lib/constants'
-import { JsonLd } from '@/components/JsonLd'
+import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE, GA_ID } from '@/lib/constants'
+import { JsonLdInjector } from '@/components/JsonLd'
+import { ThemeInitInjector } from '@/components/ThemeInitInjector'
 import type { Viewport } from 'next'
 
 export const viewport: Viewport = {
@@ -258,14 +259,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
           href="/fonts/caveat.woff2"
         />
-        {/* caveat-ext covers latin-ext unicode range — preload alongside latin subset */}
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-          href="/fonts/caveat-ext.woff2"
-        />
+        {/* caveat-ext covers latin-ext unicode range — NOT preloaded: unicode-range in CSS
+            ensures the browser only fetches it when latin-ext characters are actually rendered,
+            so preloading it eagerly wastes bandwidth for English-only content */}
         <link rel="alternate" type="application/rss+xml" title="ExtoArts Creator Insights" href="/rss" />
         <link rel="alternate" type="application/json" title="ExtoArts Creator Insights" href="/feed.json" />
         <link rel="search" type="application/opensearchdescription+xml" title="ExtoArts" href="/opensearch.xml" />
@@ -282,13 +278,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta property="og:locale:alternate" content="en_PH" />
         <meta property="og:locale:alternate" content="en_ZA" />
         <meta property="og:locale:alternate" content="en_SG" />
-        <JsonLd data={websiteSchema} />
-        <JsonLd data={organizationSchema} />
       </head>
       <body>
-        <Script id="ea-theme-init" strategy="beforeInteractive">{`(function(){try{var t=localStorage.getItem('ea-theme');if(t==='light'||(!t&&window.matchMedia('(prefers-color-scheme:light)').matches))document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.replace('no-js','js');})();`}</Script>
-        {/* Tabler Icons CSS — loaded after paint to avoid render-blocking */}
-        <Script id="tabler-icons-css" strategy="afterInteractive">{`(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css';l.crossOrigin='anonymous';document.head.appendChild(l);})();`}</Script>
+        {/* Theme init — injected into the SSR stream via useServerInsertedHTML so the
+            <script> element never enters React's virtual DOM and avoids the React 19
+            "Encountered a script tag" console warning during client hydration. */}
+        <ThemeInitInjector />
+        {/* JSON-LD structured data — injected via useServerInsertedHTML to avoid React 19
+            hydration mismatch that occurs when dangerouslySetInnerHTML <script> elements
+            appear inside the explicit <head> JSX tree. */}
+        <JsonLdInjector schemas={[websiteSchema, organizationSchema]} />
+        {/* Tabler Icons CSS — loaded after paint via external script to avoid render-blocking */}
+        <Script src="/js/tabler-icons-loader.js" strategy="afterInteractive" />
         <a href="#main-content" className="skip-link">Skip to content</a>
         <div className="bg-image-layer bg-image-light" aria-hidden="true" />
         <div className="bg-image-layer bg-image-dark" aria-hidden="true" />
@@ -332,6 +333,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <ClientScripts />
         </ClientProviders>
+        {/* Google Analytics — src-only Script (no inline JS); init handled in ClientScripts */}
+        {GA_ID && (
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          />
+        )}
         {/* Vercel Analytics + Speed Insights — zero runtime impact, loaded after paint */}
         <Analytics />
         <SpeedInsights />

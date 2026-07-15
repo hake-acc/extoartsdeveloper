@@ -7,19 +7,18 @@ import { GA_ID } from '@/lib/constants'
 export function ClientScripts() {
   const pathname = usePathname()
 
-  // One-time setup: analytics + progress bar
+  // One-time setup: GA init, progress bar, modal helpers.
+  // gtag.js is loaded via <Script strategy="afterInteractive"> in layout.tsx;
+  // this useEffect sets up the dataLayer queue so events fired before the
+  // script loads are batched and replayed when it arrives.
   useEffect(() => {
-    if (GA_ID && !document.getElementById('ea-ga-script')) {
+    if (GA_ID) {
       const w = window as unknown as Record<string, unknown>
       w.dataLayer = (w.dataLayer as unknown[]) || []
       const gtag = (...args: unknown[]) => { (w.dataLayer as unknown[]).push(args) }
+      ;(w as Record<string, unknown>).gtag = gtag
       gtag('js', new Date())
       gtag('config', GA_ID)
-      const s = document.createElement('script')
-      s.id = 'ea-ga-script'
-      s.async = true
-      s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
-      document.head.appendChild(s)
     }
 
     const arrow = document.getElementById('page-progress-arrow')

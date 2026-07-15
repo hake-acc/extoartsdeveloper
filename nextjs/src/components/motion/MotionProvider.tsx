@@ -1,10 +1,8 @@
 'use client'
 
-// MotionProvider — sets MotionConfig at the root so all Framer Motion
-// animations respect prefers-reduced-motion automatically without needing
-// useReducedMotion() in every individual component.
-// reducedMotion="user" reads the OS preference; when reduced motion is on,
-// Framer Motion skips animations (instant transitions).
+// MotionProvider — wraps the app in MotionConfig so every framer-motion
+// animation in the tree respects the user's OS "prefer reduced motion"
+// accessibility setting without each component needing to query it.
 
 import { MotionConfig } from 'framer-motion'
 
