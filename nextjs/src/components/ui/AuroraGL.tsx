@@ -91,10 +91,15 @@ export function AuroraGL({
   propsRef.current = { colorStops, amplitude, blend, speed }
 
   useEffect(() => {
+    // Respect prefers-reduced-motion at the CSS level: skip WebGL entirely,
+    // fall back to the static CSS aurora already defined in globals.css.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const ctn = containerRef.current
     if (!ctn) return
 
     let animId = 0
+    let running = false
     let gl: WebGL2RenderingContext | null = null
     let canvas: HTMLCanvasElement | null = null
 
@@ -123,7 +128,6 @@ export function AuroraGL({
       ctx.linkProgram(program)
       ctx.useProgram(program)
 
-      // Full-screen triangle
       const verts = new Float32Array([-1, -1, 3, -1, -1, 3])
       const buf = ctx.createBuffer()
       ctx.bindBuffer(ctx.ARRAY_BUFFER, buf)
@@ -155,6 +159,7 @@ export function AuroraGL({
       ro.observe(ctn)
 
       const update = (t: number) => {
+        if (!running) return
         animId = requestAnimationFrame(update)
         const p = propsRef.current
         const stops = p.colorStops.map(hexToRgb)
@@ -165,11 +170,31 @@ export function AuroraGL({
         ctx.clear(ctx.COLOR_BUFFER_BIT)
         ctx.drawArrays(ctx.TRIANGLES, 0, 3)
       }
-      animId = requestAnimationFrame(update)
+
+      // ── IntersectionObserver: pause RAF when scrolled off-screen ──
+      // This prevents the GPU from rendering at 60fps when AuroraGL is not visible,
+      // saving battery and reducing main-thread INP pressure on scroll.
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            if (!running) {
+              running = true
+              animId = requestAnimationFrame(update)
+            }
+          } else {
+            running = false
+            cancelAnimationFrame(animId)
+          }
+        },
+        { threshold: 0 }
+      )
+      observer.observe(ctn)
 
       return () => {
+        running = false
         cancelAnimationFrame(animId)
         ro.disconnect()
+        observer.disconnect()
         if (canvas && ctn.contains(canvas)) ctn.removeChild(canvas)
         gl?.getExtension('WEBGL_lose_context')?.loseContext()
       }

@@ -1,10 +1,10 @@
 export const SITE_URL = 'https://extoarts.in'
 export const SITE_NAME = 'ExtoArts'
 export const SITE_TAGLINE = 'YouTube Video Editing Agency & Thumbnail Design'
-export const DEFAULT_OG_IMAGE = 'https://iili.io/BZ0qLb4.png'
+export const DEFAULT_OG_IMAGE = '/images/og-default.jpg'
 export const GA_ID = 'G-WTFPZB9Y4C'
 export const DISCORD_URL = 'https://discord.gg/extoarts-1402333030827425922'
-export const FOUNDER_PHOTO = 'https://iili.io/BZ0qsef.jpg'
+export const FOUNDER_PHOTO = '/images/founder.jpg'
 export const SUPPORT_EMAIL = 'support@extoarts.in'
 export const TWITTER_HANDLE = '@extoarts'
 

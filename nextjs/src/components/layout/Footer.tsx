@@ -4,6 +4,9 @@ import { DISCORD_URL, PAYMENT_METHODS, SOCIAL_LINKS, SITE_URL } from '@/lib/cons
 import { DiscordButton } from '@/components/ui/DiscordButton'
 import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
+// All internal navigation links use Next.js <Link> for prefetching on viewport entry.
+// External and share links remain as <a> since they open off-site.
+
 const SocialIcon = ({ platform }: { platform: string }) => {
   const icons: Record<string, React.ReactNode> = {
     Discord: (
@@ -208,11 +211,11 @@ export function Footer() {
           <nav aria-label="Site navigation">
             <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-muted)', marginBottom: 18, opacity: 0.7 }}>Navigate</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11 }}>
-              {[['/', 'Home'], ['/services', 'Services'], ['/portfolio', 'Portfolio'], ['/pricing', 'Pricing'], ['/workflow', 'How We Work'], ['/about', 'About'], ['/contact', 'Contact']].map(([href, label]) => (
+              {([['/', 'Home'], ['/services', 'Services'], ['/portfolio', 'Portfolio'], ['/pricing', 'Pricing'], ['/workflow', 'How We Work'], ['/about', 'About'], ['/contact', 'Contact']] as [string, string][]).map(([href, label]) => (
                 <li key={href}>
-                  <a href={href} style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">
+                  <Link href={href} style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -222,17 +225,17 @@ export function Footer() {
           <nav aria-label="Resources">
             <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-muted)', marginBottom: 18, opacity: 0.7 }}>Resources</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11 }}>
-              {[
+              {([
                 ['/faq', 'FAQ'],
                 ['/estimate', 'Cost Estimator'],
                 ['/pricing', 'Pricing Guide'],
                 ['/collab', 'Partnerships'],
                 ['/ticket', 'Support Ticket'],
-              ].map(([href, label]) => (
+              ] as [string, string][]).map(([href, label]) => (
                 <li key={href}>
-                  <a href={href} style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">
+                  <Link href={href} style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
@@ -250,9 +253,9 @@ export function Footer() {
           <nav aria-label="Legal">
             <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-muted)', marginBottom: 18, opacity: 0.7 }}>Legal</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11 }}>
-              <li><a href="/tos" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Terms of Service</a></li>
-              <li><a href="/privacy" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Privacy Policy</a></li>
-              <li><a href="/apply" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Editor Applications</a></li>
+              <li><Link href="/tos" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Terms of Service</Link></li>
+              <li><Link href="/privacy" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Privacy Policy</Link></li>
+              <li><Link href="/apply" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Editor Applications</Link></li>
             </ul>
           </nav>
         </div>
@@ -282,10 +285,10 @@ export function Footer() {
             &copy; 2026 ExtoArts. Built by creators, for creators.
           </p>
           <div style={{ display: 'flex', gap: 18 }}>
-            {['/tos', '/privacy', '/contact'].map((href, i) => (
-              <a key={href} href={href} style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s', opacity: 0.7 }} className="footer-link">
-                {['Terms', 'Privacy', 'Contact'][i]}
-              </a>
+            {(['/tos', '/privacy', '/contact'] as string[]).map((href, i) => (
+              <Link key={href} href={href} style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s', opacity: 0.7 }} className="footer-link">
+                {(['Terms', 'Privacy', 'Contact'] as string[])[i]}
+              </Link>
             ))}
           </div>
         </div>

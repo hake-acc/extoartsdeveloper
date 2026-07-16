@@ -24,10 +24,8 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion', '@radix-ui/react-accordion', '@radix-ui/react-dialog'],
   },
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'iili.io' },
-      { protocol: 'https', hostname: 'freeimage.host' },
-    ],
+    // No external remote patterns needed — all images are self-hosted.
+    remotePatterns: [],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 2592000,
     deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920],
@@ -58,10 +56,22 @@ const nextConfig: NextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net https://va.vercel-scripts.com",
-      "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
-      "font-src 'self' data: https://cdn.jsdelivr.net",
-      "img-src 'self' data: blob: https://iili.io https://freeimage.host https://www.googletagmanager.com",
+      // unsafe-eval removed — not needed in Next.js production builds.
+      // unsafe-inline retained for theme-init script (useServerInsertedHTML).
+      // cdn.jsdelivr.net removed: Tabler Icons are now self-hosted in /fonts/ + /css/.
+      // iili.io removed: all images now served from Vercel CDN via /images/.
+      // 'unsafe-inline' is required by Next.js App Router. The framework injects
+      // several dynamic per-request inline scripts during SSR (router state, React
+      // flight payload, chunk manifests) whose content changes every request, making
+      // static SHA-256 hashing impossible. The correct long-term fix is a per-request
+      // CSP nonce threaded through middleware → headers() → all <script> tags, but
+      // that forces every static/ISR page to become dynamic (server-rendered per-request),
+      // which is an unacceptable trade-off for this site's ISR architecture.
+      // See: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com",
+      "style-src 'self' 'unsafe-inline'",
+      "font-src 'self' data:",
+      "img-src 'self' data: blob: https://www.googletagmanager.com",
       "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://*.vercel-analytics.com https://vitals.vercel-insights.com",
       "frame-src 'self' https://discord.com",
       "object-src 'none'",

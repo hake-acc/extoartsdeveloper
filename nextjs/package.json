@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^16.2.10",
+    "@tabler/icons-webfont": "3.33.0",
     "@tailwindcss/postcss": "^4.3.2",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.19.43",

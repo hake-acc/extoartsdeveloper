@@ -1,33 +1,13 @@
-'use client'
+// HeroSection — SERVER component (no 'use client').
+// The static h1 "Where You Are Valued." is rendered in the SSR HTML stream,
+// making it an LCP candidate with zero JS dependency.
+// HeroCycleClient hydrates after load and adds the cycling animation.
+// HeroCtaButton is the only interactive element that needs client JS.
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { HeroCycleClient } from './HeroCycleClient'
+import { HeroCtaButton } from './HeroCtaButton'
 
 export function HeroSection() {
-  const E = [0.16, 1, 0.3, 1] as const
-
-  const fadeUp = (delay = 0) => ({
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, delay, ease: E },
-  })
-
-  const [showAlt, setShowAlt] = useState(false)
-
-  useEffect(() => {
-    // swap title after initial entrance animation, then toggle every 3s
-    let intervalId: number | null = null
-    const timer = window.setTimeout(() => {
-      setShowAlt((s) => !s)
-      intervalId = window.setInterval(() => setShowAlt((s) => !s), 3000)
-    }, 1200)
-
-    return () => {
-      window.clearTimeout(timer)
-      if (intervalId) window.clearInterval(intervalId)
-    }
-  }, [])
-
   return (
     <section
       className="hero"
@@ -47,9 +27,9 @@ export function HeroSection() {
         textAlign: 'left',
       }}
     >
-      {/* Overline "FAQ CENTER" with flanking lines */}
-      <motion.div
-        {...fadeUp(0.1)}
+      {/* Overline "HOME PAGE" — CSS entrance animation, no JS */}
+      <div
+        className="hero-entrance-1"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -63,14 +43,31 @@ export function HeroSection() {
           marginBottom: '28px',
         }}
       >
-        <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
+        <span
+          style={{
+            width: '32px',
+            height: '1.5px',
+            backgroundColor: 'var(--primary-accent)',
+            opacity: 0.4,
+          }}
+          aria-hidden="true"
+        />
         Home Page
-        <span style={{ width: '32px', height: '1.5px', backgroundColor: 'var(--primary-accent)', opacity: 0.4 }} aria-hidden="true" />
-      </motion.div>
+        <span
+          style={{
+            width: '32px',
+            height: '1.5px',
+            backgroundColor: 'var(--primary-accent)',
+            opacity: 0.4,
+          }}
+          aria-hidden="true"
+        />
+      </div>
 
-      {/* Massive Title */}
-      <motion.h1
-        {...fadeUp(0.2)}
+      {/* H1 — SSR renders "Where / You Are Valued." immediately for LCP.
+          HeroCycleClient takes over the second line after hydration. */}
+      <h1
+        className="hero-entrance-2"
         aria-label="Where You Are Valued."
         style={{
           fontSize: 'clamp(2.6rem, 6.4vw, 5rem)',
@@ -84,73 +81,16 @@ export function HeroSection() {
           position: 'relative',
         }}
       >
-        {/* Keep 'Where' fixed */}
         <span style={{ display: 'block' }} aria-hidden="true">
           Where
         </span>
+        {/* Static SSR text is shown immediately; cycling starts post-hydration */}
+        <HeroCycleClient />
+      </h1>
 
-        <AnimatePresence mode="wait" initial={false}>
-          {!showAlt ? (
-            <motion.span
-              key="original"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.45 }}
-              style={{ display: 'block' }}
-            >
-              You Are{' '}
-              <span className="brush-highlight">
-                Valued.
-                <svg className="brush-underline" viewBox="0 0 100 10" preserveAspectRatio="none">
-                  <path
-                    d="M 2,6 C 25,3 55,4 98,7 C 75,7 40,8 10,9"
-                    fill="none"
-                    stroke="var(--primary-accent)"
-                    strokeWidth="2.8"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-            </motion.span>
-          ) : (
-            <motion.span
-              key="alt"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.45 }}
-              style={{ display: 'block' }}
-            >
-              <span style={{ display: 'inline-flex', gap: 18, alignItems: 'flex-end' }}>
-                <span style={{ color: 'var(--text-main)', lineHeight: 1 }}>
-                  the 
-                </span>
-
-                <span style={{ display: 'inline-flex', gap: 12, alignItems: 'baseline' }}>
-                  <span style={{ color: 'var(--text-main)' }}>Art</span>
-                  <span className="brush-highlight" style={{ display: 'inline-block' }}>
-                    Lives.
-                    <svg className="brush-underline" viewBox="0 0 100 10" preserveAspectRatio="none">
-                      <path
-                        d="M 2,6 C 25,3 55,4 98,7 C 75,7 40,8 10,9"
-                        fill="none"
-                        stroke="var(--primary-accent)"
-                        strokeWidth="2.8"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                </span>
-              </span>
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </motion.h1>
-
-      {/* Descriptive Subtext */}
-      <motion.p
-        {...fadeUp(0.3)}
+      {/* Subtext — CSS entrance animation */}
+      <p
+        className="hero-entrance-3"
         style={{
           fontSize: 'clamp(1rem, 1.8vw, 1.12rem)',
           color: 'var(--text-muted)',
@@ -161,24 +101,15 @@ export function HeroSection() {
           fontWeight: 400,
         }}
       >
-        YouTube video editing, thumbnail design, and Shorts for creators who want real results. Flat 10% agency fee — 90% goes directly to your editor.
-      </motion.p>
+        YouTube video editing, thumbnail design, and Shorts for creators who
+        want real results. Flat 10% agency fee — 90% goes directly to your
+        editor.
+      </p>
 
-      {/* CTA Button */}
-      <motion.div {...fadeUp(0.4)}>
-        <button
-          onClick={() => {
-            const target = document.getElementById('getting-started')
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-            }
-          }}
-          className="btn btn-main"
-          aria-label="Let's Clear Things Up"
-        >
-          Let's Clear Things Up <span style={{ fontSize: '1.2rem', marginLeft: '6px' }}>&rarr;</span>
-        </button>
-      </motion.div>
+      {/* CTA — client component only for the scroll onClick */}
+      <div className="hero-entrance-4">
+        <HeroCtaButton />
+      </div>
     </section>
   )
 }

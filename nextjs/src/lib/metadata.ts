@@ -37,10 +37,10 @@ export function buildMetadata({
       images: [
         {
           url: DEFAULT_OG_IMAGE,
-          width: 2048,
-          height: 1144,
+          width: 1200,
+          height: 630,
           alt: 'ExtoArts - Elite YouTube Video Editing Agency',
-          type: 'image/png',
+          type: 'image/jpeg',
         },
       ],
       locale: 'en_US',

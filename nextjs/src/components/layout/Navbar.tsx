@@ -1,16 +1,26 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NAV_LINKS } from '@/lib/constants'
+
+const FOCUSABLE = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ')
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const pathname = usePathname()
+  const drawerRef = useRef<HTMLDivElement>(null)
 
   // Sync theme state on mount
   useEffect(() => {
@@ -41,11 +51,41 @@ export function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  // Escape closes drawer
+  // Escape closes drawer + focus trap for keyboard accessibility
   useEffect(() => {
     if (!mobileOpen) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMobileOpen(false) }
+    const drawer = drawerRef.current
+
+    // Trap focus: cycle Tab/Shift+Tab within the drawer's focusable elements
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileOpen(false)
+        return
+      }
+      if (e.key !== 'Tab' || !drawer) return
+      const focusable = Array.from(drawer.querySelectorAll<HTMLElement>(FOCUSABLE))
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
     document.addEventListener('keydown', onKey)
+
+    // Move focus into the drawer on open so keyboard users start navigating inside
+    const firstFocusable = drawer?.querySelector<HTMLElement>(FOCUSABLE)
+    firstFocusable?.focus()
+
     return () => document.removeEventListener('keydown', onKey)
   }, [mobileOpen])
 
@@ -269,6 +309,7 @@ export function Navbar() {
             {/* Drawer Panel */}
             <motion.div
               key="drawer"
+              ref={drawerRef}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: '100%', opacity: 0 }}

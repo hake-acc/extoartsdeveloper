@@ -76,7 +76,7 @@ function Lightbox({ image, tab, onClose }: { image: GalleryImage; tab: Portfolio
             width={isCircle ? 800 : tab === 'banners' ? 2560 : 1280}
             height={isCircle ? 800 : 720}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            unoptimized={image.src.includes('iili.io')}
+            unoptimized={false}
           />
         </div>
       </motion.div>
@@ -152,7 +152,7 @@ function SectionGrid({
               '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
             }
             style={{ objectFit: 'cover' }}
-            unoptimized={img.src.includes('iili.io')}
+            unoptimized={false}
           />
           <span
             style={{

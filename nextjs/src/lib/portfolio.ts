@@ -6,6 +6,21 @@ import type { GalleryImage } from '@/app/portfolio/PortfolioClient'
 
 const ALLOWED_EXT = /\.(jpg|jpeg|png|webp|gif|avif)$/i
 
+// Humanise a filename into a readable alt text string.
+// e.g. "gaming-thumbnail_v2.jpg" → "gaming thumbnail v2"
+function filenameToAlt(filename: string, category: string): string {
+  const base = filename.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim()
+  switch (category) {
+    case 'Logos':
+      return `ExtoArts logo design — ${base}`
+    case 'Banners':
+      return `YouTube channel banner design — ${base}`
+    default:
+      // Thumbnails — most descriptive
+      return `YouTube thumbnail design by ExtoArts — ${base}`
+  }
+}
+
 // Only ever load locally-uploaded "All Artists Samples" — legacy CDN links
 // (old iili.io game-category thumbnails) must never be surfaced in the portfolio.
 async function readFolder(sub: string): Promise<GalleryImage[]> {
@@ -24,7 +39,7 @@ async function readFolder(sub: string): Promise<GalleryImage[]> {
     .sort((a, b) => b.mtime - a.mtime)
     .map(({ file }) => ({
       src: `/portfolio/${sub}/${file}`,
-      alt: sub === 'Logos' ? 'ExtoArts logo design' : sub === 'Banners' ? 'ExtoArts channel banner' : 'ExtoArts portfolio work',
+      alt: filenameToAlt(file, sub),
       width: sub === 'Banners' ? 2560 : sub === 'Logos' ? 800 : 1280,
       height: sub === 'Banners' ? 1440 : sub === 'Logos' ? 800 : 720,
     }))

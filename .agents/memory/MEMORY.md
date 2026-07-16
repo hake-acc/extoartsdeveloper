@@ -9,3 +9,4 @@
 - [CSS border-beam mask-clip requirement](css-border-beam-mask.md) — animated border-beam gradients need explicit mask-clip or they render as a solid moving block instead of a thin border ring.
 - [Animation audit decisions](animation-audit-decisions.md) — full audit decisions: hover gating, MotionConfig, AnimatePresence lift, spring interpolation, easing constants, and reduced-motion strategy.
 - [GitHub push instructions](../github-push.md) — token + remote URL pattern to push to hake-acc/extoartsdeveloper; read this before any git push.
+- [Optimization run July 2026](optimization-run-july2026.md) — full perf/a11y/SEO pass: Hero LCP, CSP, AuroraGL, fonts, Tabler self-host, iili.io migration, portfolio alt, focus trap, error/loading.

@@ -2,7 +2,7 @@ import type { Review } from '@/types'
 
 export const reviews: Review[] = [
   {
-    img: 'https://iili.io/BZ0qgft.png',
+    img: '/images/review-1.png',
     init: 'B',
     grad: '#00d2ff,#0ea5e9',
     name: 'BetterGhazi',
@@ -12,7 +12,7 @@ export const reviews: Review[] = [
     text: '10/10 services. Best team completed within the deadline of 1 hour and best quality, no revisions needed.',
   },
   {
-    img: 'https://iili.io/BZ0qi5G.webp',
+    img: '/images/review-2.webp',
     init: 'S',
     grad: '#7c3aed,#a855f7',
     name: 'Mr SYTH',
@@ -22,7 +22,7 @@ export const reviews: Review[] = [
     text: 'ExtoArts is super professional and creative. They delivered my work on time with amazing quality. Highly recommend!',
   },
   {
-    img: 'https://iili.io/BZ0qX0F.webp',
+    img: '/images/review-3.webp',
     init: 'M',
     grad: '#f59e0b,#ef4444',
     name: 'MANIK KAMBOJ',
@@ -32,7 +32,7 @@ export const reviews: Review[] = [
     text: 'I really liked the service, and the bot was ready within the time that was promised.',
   },
   {
-    img: 'https://iili.io/BZ0qSsI.webp',
+    img: '/images/review-4.webp',
     init: 'D',
     grad: '#10b981,#06b6d4',
     name: 'Directional',
@@ -42,7 +42,7 @@ export const reviews: Review[] = [
     text: "Got a script, thumbnail, and logo made and I'm really impressed. Everything came out clean, creative, and exactly what I needed. Super affordable too. Honestly, great work for the price and definitely recommend if you want quality without spending big.",
   },
   {
-    img: 'https://iili.io/BZ0qOOv.webp',
+    img: '/images/review-5.webp',
     init: 'J',
     grad: '#3b82f6,#8b5cf6',
     name: 'Joovah',
@@ -52,7 +52,7 @@ export const reviews: Review[] = [
     text: 'Quick and easy, got the demands exactly like we wanted. Overall pretty professional and good service.',
   },
   {
-    img: 'https://iili.io/BZ0qN5J.webp',
+    img: '/images/review-6.webp',
     init: 'Y',
     grad: '#ef4444,#f97316',
     name: 'DiabloYT',

@@ -47,11 +47,11 @@ export const metadata: Metadata = {
     siteName: 'ExtoArts',
     images: [
       {
-        url: 'https://iili.io/BZ0qLb4.png',
-        width: 2048,
-        height: 1144,
+        url: `${SITE_URL}/images/og-default.jpg`,
+        width: 1200,
+        height: 630,
         alt: 'ExtoArts - YouTube Video Editing Agency',
-        type: 'image/png',
+        type: 'image/jpeg',
       },
     ],
   },

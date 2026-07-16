@@ -71,7 +71,7 @@ export function FocusSliceCarousel({ items, maxVisible = 6 }: Props) {
               sizes={isActive ? '(max-width: 768px) 80vw, 55vw' : '80px'}
               style={{ objectFit: 'cover' }}
               priority={i < 2}
-              unoptimized={item.src.includes('iili.io')}
+              unoptimized={false}
             />
             <div
               aria-hidden="true"

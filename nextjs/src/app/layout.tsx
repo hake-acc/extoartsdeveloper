@@ -27,16 +27,6 @@ export const metadata: Metadata = {
   },
   description:
     'YouTube video editing agency for creators who want real results. High-retention editing, thumbnail design, TikTok editing, and channel automation.',
-  keywords: [
-    'YouTube video editing agency',
-    'thumbnail design service',
-    'retention editing',
-    'TikTok video editing',
-    'YouTube automation',
-    'ExtoArts',
-    'gaming video editing',
-    'faceless YouTube channel',
-  ],
   authors: [{ name: SITE_NAME }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
@@ -47,10 +37,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: DEFAULT_OG_IMAGE,
-        width: 2048,
-        height: 1144,
+        width: 1200,
+        height: 630,
         alt: 'ExtoArts - Elite YouTube Video Editing Agency',
-        type: 'image/png',
+        type: 'image/jpeg',
       },
     ],
   },
@@ -101,11 +91,8 @@ const websiteSchema = {
   description:
     'YouTube-focused video editing agency offering retention editing, thumbnail design, TikTok short-form editing, and YouTube automation.',
   publisher: { '@id': `${SITE_URL}/#organization` },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_URL}/faq?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
+  // potentialAction / SearchAction removed: the FAQ page does not implement
+  // ?q= URL-based search, making the schema target invalid per Google's spec.
 }
 
 const organizationSchema = {
@@ -132,9 +119,9 @@ const organizationSchema = {
   },
   image: {
     '@type': 'ImageObject',
-    url: DEFAULT_OG_IMAGE,
-    width: 2048,
-    height: 1144,
+    url: `${SITE_URL}/images/og-default.jpg`,
+    width: 1200,
+    height: 630,
     caption: 'ExtoArts YouTube Video Editing Agency',
   },
   description:
@@ -146,7 +133,7 @@ const organizationSchema = {
     alternateName: 'RehanSigma',
     jobTitle: 'Founder & Creative Director',
     url: `${SITE_URL}/about`,
-    image: 'https://iili.io/BZ0qsef.jpg',
+    image: `${SITE_URL}/images/founder.jpg`,
     sameAs: [
       'https://x.com/extoarts',
       'https://www.instagram.com/extoarts',
@@ -217,22 +204,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        {/* Tabler Icons — preload the woff2 font first, then load CSS non-render-blocking */}
+        {/* Tabler Icons — self-hosted; preload woff2 then load CSS after paint */}
         <link
           rel="preload"
           as="font"
           type="font/woff2"
-          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/fonts/tabler-icons.woff2"
+          href="/fonts/tabler-icons.woff2"
           crossOrigin="anonymous"
         />
         {/* Background images — dark is default theme (high priority); light is preloaded
             at low priority so light-mode users don't incur an un-preloaded fetch on theme init */}
         <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: dark)" />
         <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="low" media="(prefers-color-scheme: light)" />
-        <link rel="preconnect" href="https://iili.io" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://iili.io" />
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
         {/* GTM + analytics — preconnect so the TCP/TLS handshake is done before the script fires */}
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
