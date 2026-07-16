@@ -43,6 +43,18 @@
   font-display: swap;
   src: url('/fonts/plus-jakarta-sans-italic.woff2') format('woff2');
 }
+/* Metric-matched Arial fallback for Plus Jakarta Sans.
+   Overrides align Arial's line-box geometry to Plus Jakarta Sans's actual
+   metrics (ascent 948, descent 298, lineGap 0, UPM 1000) so the swap is
+   visually invisible — zero layout shift when the webfont arrives. */
+@font-face {
+  font-family: 'Plus Jakarta Sans Fallback';
+  src: local('Arial');
+  size-adjust: 104%;
+  ascent-override: 91%;
+  descent-override: 29%;
+  line-gap-override: 0%;
+}
 @font-face {
   font-family: 'Paper Inko';
   font-style: normal;
@@ -108,9 +120,9 @@
   --color-text-main: var(--text-main);
   --color-text-muted: var(--text-muted);
 
-  --font-display: 'Paper Inko', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-hero: 'Paper Inko', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Paper Inko', 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, -apple-system, sans-serif;
+  --font-hero: 'Paper Inko', 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, sans-serif;
 
   --radius-sm: 10px;
   --radius: 16px;
@@ -160,9 +172,9 @@
   --radius-sm: 10px;
   --radius-lg: 24px;
   --radius-xl: 34px;
-  --font-display: 'Paper Inko', 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-hero: 'Paper Inko', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Paper Inko', 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, sans-serif;
+  --font-hero: 'Paper Inko', 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, sans-serif;
   --glass-blur: blur(28px) saturate(200%);
   --glass-bg: var(--card-bg);
   --glass-border: var(--border-subtle);
