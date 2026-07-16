@@ -77,6 +77,14 @@ export default async function PortfolioPage() {
   return (
     <>
       <JsonLd data={portfolioSchema} />
+      <JsonLd data={{
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://extoarts.in/' },
+          { '@type': 'ListItem', position: 2, name: 'Portfolio', item: 'https://extoarts.in/portfolio' },
+        ],
+      }} />
       <p className="sr-only">ExtoArts Portfolio</p>
 
       {/* Hero */}
@@ -113,6 +121,30 @@ export default async function PortfolioPage() {
         >
           Thumbnails built for CTR. Logos built for identity. Banners built for first impressions.
         </p>
+      </section>
+
+      {/* Portfolio context — visible to crawlers and readers */}
+      <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 min(20px,5%) min(48px,5vw)', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 20 }}>
+          <div className="glass-card" style={{ border: '1px solid var(--border)', borderRadius: 20, padding: '24px 28px' }}>
+            <h2 style={{ fontSize: '1rem', fontWeight: 900, color: 'var(--primary)', marginBottom: 10, letterSpacing: '-0.2px' }}>YouTube Thumbnails</h2>
+            <p style={{ fontSize: '0.87rem', color: 'var(--text-muted)', lineHeight: 1.7, margin: 0 }}>
+              Custom thumbnail designs for gaming, vlog, educational, and faceless channels. Each thumbnail is engineered for CTR using composition theory, contrast, and emotion-driven visual hierarchy. We produce A/B-ready variants so creators can test and iterate.
+            </p>
+          </div>
+          <div className="glass-card" style={{ border: '1px solid var(--border)', borderRadius: 20, padding: '24px 28px' }}>
+            <h2 style={{ fontSize: '1rem', fontWeight: 900, color: 'var(--primary)', marginBottom: 10, letterSpacing: '-0.2px' }}>Channel Logos</h2>
+            <p style={{ fontSize: '0.87rem', color: 'var(--text-muted)', lineHeight: 1.7, margin: 0 }}>
+              Brand identity marks designed for YouTube channel icons. A strong logo works at 98×98px and still communicates the channel personality instantly. Our logo designs are delivered in multiple formats for use across platforms.
+            </p>
+          </div>
+          <div className="glass-card" style={{ border: '1px solid var(--border)', borderRadius: 20, padding: '24px 28px' }}>
+            <h2 style={{ fontSize: '1rem', fontWeight: 900, color: 'var(--primary)', marginBottom: 10, letterSpacing: '-0.2px' }}>Channel Banners</h2>
+            <p style={{ fontSize: '0.87rem', color: 'var(--text-muted)', lineHeight: 1.7, margin: 0 }}>
+              YouTube channel art optimized for the 2560×1440px banner format with safe zones for all device sizes. Banners establish the visual identity of the channel and signal professionalism to first-time visitors. See our <a href="/services" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>full services</a> for video editing work.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Featured samples carousel — newest "All Artists Samples" only */}

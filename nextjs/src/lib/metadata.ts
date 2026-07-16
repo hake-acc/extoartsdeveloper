@@ -22,30 +22,12 @@ export function buildMetadata({
   const resolvedOgTitle = ogTitle ?? title
   const resolvedOgDesc = ogDescription ?? description
 
-  const hreflang: Record<string, string> = {
-    'en': url,
-    'en-US': url,
-    'en-GB': url,
-    'en-IN': url,
-    'en-AU': url,
-    'en-CA': url,
-    'en-NG': url,
-    'en-PK': url,
-    'en-PH': url,
-    'en-ZA': url,
-    'en-BD': url,
-    'en-NZ': url,
-    'en-SG': url,
-    'x-default': url,
-  }
-
   return {
     title,
     description,
     metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: url,
-      languages: hreflang,
     },
     openGraph: {
       title: resolvedOgTitle,

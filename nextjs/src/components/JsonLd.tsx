@@ -6,9 +6,15 @@
 // occurs when dangerouslySetInnerHTML <script> elements appear inside the
 // explicit <head> JSX tree.
 //
+// useRef guard prevents duplicate insertion: useServerInsertedHTML can fire
+// more than once during streaming SSR (e.g. suspended boundaries) and each
+// component instance tracks its own insertion state via ref so the script
+// block is emitted exactly once per schema.
+//
 // Usage: <JsonLdInjector schemas={[websiteSchema, orgSchema]} />
 // Place the component anywhere in the server component tree (e.g. RootLayout body).
 
+import { useRef } from 'react'
 import { useServerInsertedHTML } from 'next/navigation'
 import type { Thing, WithContext } from 'schema-dts'
 
@@ -19,17 +25,22 @@ interface JsonLdInjectorProps {
 }
 
 export function JsonLdInjector({ schemas }: JsonLdInjectorProps) {
-  useServerInsertedHTML(() => (
-    <>
-      {schemas.map((schema, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
-    </>
-  ))
+  const inserted = useRef(false)
+  useServerInsertedHTML(() => {
+    if (inserted.current) return null
+    inserted.current = true
+    return (
+      <>
+        {schemas.map((schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
+      </>
+    )
+  })
   return null
 }
 
@@ -40,11 +51,16 @@ interface JsonLdProps {
 }
 
 export function JsonLd({ data }: JsonLdProps) {
-  useServerInsertedHTML(() => (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  ))
+  const inserted = useRef(false)
+  useServerInsertedHTML(() => {
+    if (inserted.current) return null
+    inserted.current = true
+    return (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      />
+    )
+  })
   return null
 }

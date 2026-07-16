@@ -112,6 +112,22 @@ export default function CollabPage() {
           </div>
         </div>
 
+        {/* Is this right for you */}
+        <div className="tilt-card glass-card sr" style={{ border: '1px solid var(--border)', borderRadius: 40, padding: 'min(50px,5vw) min(40px,4vw)', marginTop: 40 }}>
+          <div className="tilt-inner">
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-1px', marginBottom: 20, color: 'var(--text-main)' }}>Is This Right For You?</h2>
+            <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.75, marginBottom: 16 }}>
+              Collab and commission work at ExtoArts is not the same as our standard creator services. For ongoing YouTube editing, thumbnail design, or channel automation, visit our <a href="/services" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>services page</a> and <a href="/pricing" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>pricing model</a>.
+            </p>
+            <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.75, marginBottom: 16 }}>
+              Collab projects are right for you if you have a specific one-off deliverable — a custom intro animation, a VFX sequence for a single video, a set of thumbnails for a new series, a channel rebrand, or a short-form content package outside of a regular editing retainer. These are scoped, quoted, and delivered as standalone projects.
+            </p>
+            <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.75, marginBottom: 0 }}>
+              We also work with brands and businesses that need video production, motion graphics, or creative assets for campaigns, product launches, and social media content — not just YouTube creators. The same quality standard applies regardless of the client type. If you are unsure whether your brief fits, send it anyway. We will tell you directly.
+            </p>
+          </div>
+        </div>
+
         {/* CTA */}
         <div style={{ textAlign: 'center', marginTop: 80 }}>
           <DiscordButton className="galaxy-btn">

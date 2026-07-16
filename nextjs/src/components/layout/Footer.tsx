@@ -162,7 +162,7 @@ export function Footer() {
               </span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <a
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(SITE_URL)}&text=${encodeURIComponent('Check out ExtoArts - YouTube video editing & thumbnail design for creators')}`}
+                  href={`https://x.com/intent/tweet?url=${encodeURIComponent(SITE_URL)}&text=${encodeURIComponent('Check out ExtoArts - YouTube video editing & thumbnail design for creators')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Share ExtoArts on X (Twitter)"

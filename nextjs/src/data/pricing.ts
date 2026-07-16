@@ -55,12 +55,3 @@ export const RETAINER_PACKAGES = [
   },
 ]
 
-export const PRICING_FAQ_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    { '@type': 'Question', name: 'How much does YouTube video editing cost in 2026?', acceptedAnswer: { '@type': 'Answer', text: 'YouTube video editing ranges from $20-$80 for basic freelancer work, $100-$350 for specialist mid-tier editing, and $400-$1,200+ for premium agency productions. ExtoArts operates on a flat 10% fee - you set the budget, ExtoArts takes 10%, and 90% goes to the specialist editor.' } },
-    { '@type': 'Question', name: 'How much does ExtoArts charge for video editing?', acceptedAnswer: { '@type': 'Answer', text: 'ExtoArts charges a flat 10% agency management fee. A creator with a $200 per video budget pays ExtoArts $20 and their assigned specialist editor receives $180. No retainer fees, no setup costs, no hidden charges.' } },
-    { '@type': 'Question', name: 'What payment methods does ExtoArts accept?', acceptedAnswer: { '@type': 'Answer', text: 'ExtoArts accepts PayPal, bank transfer, USDT, BTC, ETH, UPI, EasyPaisa, Bkash, and PKR transfer. Most projects require a 50% deposit before work begins.' } },
-  ],
-}

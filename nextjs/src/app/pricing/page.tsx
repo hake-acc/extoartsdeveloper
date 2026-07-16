@@ -5,7 +5,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { DiscordButton } from '@/components/ui/DiscordButton'
 import { BorderBeam } from '@/components/ui/BorderBeam'
 import { InView } from '@/components/ui/InView'
-import { COST_TIERS, RETAINER_PACKAGES, PRICING_FAQ_SCHEMA } from '@/data/pricing'
+import { COST_TIERS, RETAINER_PACKAGES } from '@/data/pricing'
 import { TenPercentModelVisual } from '@/components/sections/pricing/TenPercentModelVisual'
 import { SITE_URL } from '@/lib/constants'
 
@@ -14,6 +14,15 @@ export const metadata: Metadata = buildMetadata({
   description: 'ExtoArts charges a flat 10% agency fee - 90% goes to your editor. Transparent YouTube video editing rates, project pricing, and monthly retainer packages.',
   path: '/pricing',
 })
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'Pricing', item: `${SITE_URL}/pricing` },
+  ],
+}
 
 const pricingPageSchema = {
   '@context': 'https://schema.org',
@@ -48,7 +57,7 @@ const pricingPageSchema = {
 export default function PricingPage() {
   return (
     <>
-      <JsonLd data={PRICING_FAQ_SCHEMA} />
+      <JsonLd data={breadcrumbSchema} />
       <JsonLd data={pricingPageSchema} />
       {/* Hero */}
       <section

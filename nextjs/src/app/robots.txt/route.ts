@@ -42,6 +42,9 @@ Allow: /_next/static/
 Allow: /_next/image
 ${ADMIN_PATHS.map((p) => `Disallow: ${p}`).join('\n')}
 
+User-agent: FacebookBot
+Allow: /
+
 User-agent: Google-Extended
 User-agent: OAI-SearchBot
 User-agent: ChatGPT-User

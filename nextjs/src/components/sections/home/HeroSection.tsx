@@ -71,6 +71,7 @@ export function HeroSection() {
       {/* Massive Title */}
       <motion.h1
         {...fadeUp(0.2)}
+        aria-label="Where You Are Valued."
         style={{
           fontSize: 'clamp(2.6rem, 6.4vw, 5rem)',
           lineHeight: 1.0,
@@ -84,7 +85,7 @@ export function HeroSection() {
         }}
       >
         {/* Keep 'Where' fixed */}
-        <span style={{ display: 'block' }}>
+        <span style={{ display: 'block' }} aria-hidden="true">
           Where
         </span>
 

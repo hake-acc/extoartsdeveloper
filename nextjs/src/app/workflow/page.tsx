@@ -53,6 +53,14 @@ const howToSchema = {
 export default function WorkflowPage() {
   return (
     <>
+      <JsonLd data={{
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'How It Works', item: `${SITE_URL}/workflow` },
+        ],
+      }} />
       <JsonLd data={howToSchema} />
       <p className="sr-only">How ExtoArts Works - YouTube Editing Workflow</p>
 

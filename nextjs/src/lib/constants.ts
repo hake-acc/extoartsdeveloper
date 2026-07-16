@@ -8,7 +8,7 @@ export const FOUNDER_PHOTO = 'https://iili.io/BZ0qsef.jpg'
 export const SUPPORT_EMAIL = 'support@extoarts.in'
 export const TWITTER_HANDLE = '@extoarts'
 
-export const YTJOBS_URL = 'https://ytjobs.co/talent/profile/528947?r=179'
+export const YTJOBS_URL = 'https://ytjobs.co/talent/profile/528947'
 export const TRUSTPILOT_URL = 'https://www.trustpilot.com/review/extoarts.in'
 
 export const NAV_LINKS = [
@@ -45,7 +45,7 @@ export const SOCIAL_LINKS = [
   },
   {
     platform: 'Instagram',
-    href: 'https://www.instagram.com/extoarts?igsh=enVlYm9hczNiYjgw',
+    href: 'https://www.instagram.com/extoarts',
     label: 'ExtoArts on Instagram',
   },
   {
@@ -55,7 +55,7 @@ export const SOCIAL_LINKS = [
   },
   {
     platform: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/exto-arts-924272421',
+    href: 'https://www.linkedin.com/company/extoarts',
     label: 'ExtoArts on LinkedIn',
   },
 ]

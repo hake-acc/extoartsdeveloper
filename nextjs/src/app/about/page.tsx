@@ -11,6 +11,15 @@ export const metadata: Metadata = buildMetadata({
   path: '/about',
 })
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'About', item: `${SITE_URL}/about` },
+  ],
+}
+
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -35,21 +44,11 @@ const FAQ_ITEMS = [
   { q: 'How do I contact Rehan directly?', a: 'The best way to reach Rehan is through the ExtoArts Discord server. Join the server and open a ticket - Rehan or a team lead will respond personally within hours.' },
 ]
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: FAQ_ITEMS.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: { '@type': 'Answer', text: item.a },
-  })),
-}
-
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema} />
       <JsonLd data={personSchema} />
-      <JsonLd data={faqSchema} />
       <p className="sr-only">About ExtoArts - YouTube Creative Agency</p>
 
       {/* Hero */}

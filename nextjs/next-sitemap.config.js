@@ -47,6 +47,11 @@ const config = {
     '/auth/*', '/order/*', '/chat',
     '/rss', '/feed.json', '/discord',
     '/instagram', '/twitter', '/youtube', '/facebook', '/threads',
+    // Technical/non-indexable paths that should not appear in sitemap
+    '/.well-known/*',
+    '/robots.txt',
+    '/opensearch.xml',
+    '/sitemap*.xml',
   ],
   // Non-emitting now that generateRobotsTxt is false — kept only as a
   // parity reference for the equivalent rules in src/app/robots.txt/route.ts.

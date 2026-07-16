@@ -84,14 +84,13 @@ const SERVICES = [
   },
 ]
 
-const faqSchema = {
+
+const breadcrumbSchema = {
   '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    { '@type': 'Question', name: 'What YouTube video editing services does ExtoArts offer?', acceptedAnswer: { '@type': 'Answer', text: 'ExtoArts offers high-retention YouTube video editing, viral thumbnail design, TikTok and YouTube Shorts editing, custom motion graphics and VFX, specialist gaming video editing, full done-for-you faceless YouTube channel automation, and content strategy and consulting for channel growth.' } },
-    { '@type': 'Question', name: 'How does ExtoArts match video editors to creators?', acceptedAnswer: { '@type': 'Answer', text: 'ExtoArts assigns editors based on niche expertise, not availability. A gaming creator gets a specialist gaming editor with a proven portfolio in Roblox, Minecraft, or PUBG content.' } },
-    { '@type': 'Question', name: 'What is the turnaround time for YouTube video editing?', acceptedAnswer: { '@type': 'Answer', text: 'Standard turnaround for YouTube video editing through ExtoArts is 3-5 business days for most projects. Rush delivery (24-48 hours) is available. Retainer clients receive priority scheduling.' } },
-    { '@type': 'Question', name: 'Does ExtoArts offer content strategy and consulting?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. ExtoArts offers content strategy and consulting including full channel audits, competitor retention analysis, thumbnail and title CTR review, content calendar planning, YouTube SEO, and a tailored growth strategy roadmap.' } },
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE_URL}/services` },
   ],
 }
 
@@ -122,7 +121,7 @@ const servicesListSchema = {
 export default function ServicesPage() {
   return (
     <>
-      <JsonLd data={faqSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <JsonLd data={servicesListSchema} />
       <p className="sr-only">ExtoArts YouTube Video Editing Services</p>
 

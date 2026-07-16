@@ -12,9 +12,18 @@ export const metadata: Metadata = buildMetadata({
   path: '/faq',
 })
 
-const faqSchema = {
+const breadcrumbSchema = {
   '@context': 'https://schema.org',
-  '@type': 'FAQPage',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'FAQ', item: `${SITE_URL}/faq` },
+  ],
+}
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
   '@id': `${SITE_URL}/faq`,
   name: 'YouTube Video Editing FAQ - ExtoArts',
   description: 'Complete FAQ for ExtoArts YouTube video editing agency. Pricing, turnaround, process, revisions, gaming editing, faceless channels, and getting started.',
@@ -22,13 +31,6 @@ const faqSchema = {
   inLanguage: 'en-US',
   isPartOf: { '@id': `${SITE_URL}/#website` },
   about: { '@id': `${SITE_URL}/#organization` },
-  mainEntity: FAQ_SECTIONS.flatMap(s =>
-    s.items.map(item => ({
-      '@type': 'Question',
-      name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
-    }))
-  ),
 }
 
 export default function FAQPage() {
@@ -36,7 +38,8 @@ export default function FAQPage() {
 
   return (
     <>
-      <JsonLd data={faqSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={webPageSchema} />
 
       {/* Hero */}
       <section
