@@ -2268,5 +2268,14 @@ html[data-theme="light"] .bg-image-light {
   .preview-card:hover {
     transform: none !important;
   }
+
+  /* FluidGradient: strip filter:blur() on mobile GPUs.
+     The translate animations remain (GPU-composited transforms are free),
+     only the expensive rasterization step is skipped.
+     This avoids a JS useState/useEffect mobile-detection approach that
+     would cause a server/client hydration mismatch and hurt CLS. */
+  .fluid-gradient-blob {
+    filter: none !important;
+  }
 }
 
