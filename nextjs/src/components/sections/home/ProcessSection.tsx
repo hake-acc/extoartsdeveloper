@@ -1,6 +1,4 @@
-'use client'
-
-import { motion } from 'framer-motion'
+// Server Component — scroll-reveal via .sr CSS class + ClientScripts IntersectionObserver
 
 interface ProcessStep {
   number: string
@@ -32,8 +30,6 @@ const STEPS: ProcessStep[] = [
 ]
 
 export function ProcessSection() {
-  const E = [0.16, 1, 0.3, 1] as const
-
   return (
     <section
       id="process"
@@ -114,16 +110,10 @@ export function ProcessSection() {
 
         {/* Steps Grid */}
         <div className="steps-grid">
-          {STEPS.map((step, idx) => {
-            const delay = idx * 0.08
-            return (
-              <motion.div
+          {STEPS.map((step, idx) => (
+              <div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.7, delay, ease: E }}
-                className="step-item"
+                className="step-item sr"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -131,6 +121,7 @@ export function ProcessSection() {
                   textAlign: 'center',
                   position: 'relative',
                   zIndex: 2,
+                  transitionDelay: `${idx * 80}ms`,
                 }}
               >
                 {/* Numbered Circle */}
@@ -185,9 +176,8 @@ export function ProcessSection() {
                 >
                   {step.desc}
                 </p>
-              </motion.div>
-            )
-          })}
+              </div>
+          ))}
         </div>
       </div>
 

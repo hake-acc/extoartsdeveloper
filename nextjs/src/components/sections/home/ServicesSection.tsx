@@ -1,7 +1,5 @@
-'use client'
-
+// Server Component — no client JS needed; scroll-reveal handled by .sr CSS class + ClientScripts IntersectionObserver
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 
 interface ServiceItem {
   icon: string
@@ -38,8 +36,6 @@ const SERVICES: ServiceItem[] = [
 ]
 
 export function ServicesSection() {
-  const E = [0.16, 1, 0.3, 1] as const
-
   return (
     <section
       id="services"
@@ -124,21 +120,16 @@ export function ServicesSection() {
 
       {/* 4-Column Grid */}
       <div className="services-grid">
-        {SERVICES.map((svc, idx) => {
-          const delay = idx * 0.08
-          return (
-            <motion.article
+        {SERVICES.map((svc, idx) => (
+            <article
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.7, delay, ease: E }}
-              className="service-card"
+              className="service-card sr"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 textAlign: 'left',
+                transitionDelay: `${idx * 80}ms`,
               }}
             >
               {/* Splatter Icon */}
@@ -201,9 +192,8 @@ export function ServicesSection() {
               >
                 Explore <span className="arrow" style={{ fontSize: '0.9rem', transition: 'transform 0.25s' }}>&rarr;</span>
               </Link>
-            </motion.article>
-          )
-        })}
+            </article>
+        ))}
       </div>
 
       <style>{`

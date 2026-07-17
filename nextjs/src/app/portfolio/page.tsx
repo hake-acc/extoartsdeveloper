@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
-import fs from 'fs'
-import path from 'path'
 import { buildMetadata } from '@/lib/metadata'
 import { JsonLd } from '@/components/JsonLd'
-import type { GalleryImage } from './PortfolioClient'
 import { PortfolioClient } from './PortfolioClient'
 import { FocusSliceCarousel } from '@/components/ui/FocusSliceCarousel'
+import { getPortfolioData } from '@/lib/portfolio'
+
+// ISR: portfolio data is cached at the Next.js layer via unstable_cache in lib/portfolio.ts
+// This page re-renders at most once per hour; Vercel edge serves the cached HTML between runs
+export const revalidate = 3600
 
 export const metadata: Metadata = buildMetadata({
   title: 'Portfolio — YouTube Thumbnails, Logos & Channel Banners',
@@ -13,50 +15,6 @@ export const metadata: Metadata = buildMetadata({
   path: '/portfolio',
 })
 
-const ALLOWED_EXT = /\.(jpg|jpeg|png|webp|gif|avif)$/i
-
-// Only ever load locally-uploaded "All Artists Samples" — legacy CDN links
-// (old iili.io game-category thumbnails) must never be surfaced in the portfolio.
-function readFolder(sub: string): GalleryImage[] {
-  const dir = path.join(process.cwd(), 'public', 'portfolio', sub)
-  if (!fs.existsSync(dir)) return []
-  return fs.readdirSync(dir)
-    .filter((f) => ALLOWED_EXT.test(f))
-    .map((f) => ({
-      file: f,
-      mtime: fs.statSync(path.join(dir, f)).mtimeMs,
-    }))
-    .sort((a, b) => b.mtime - a.mtime)
-    .map(({ file }) => {
-      // Derive descriptive alt text from the filename so each image is unique
-      // and meaningful for screen readers and image search indexing.
-      const base = file
-        .replace(/\.[^.]+$/, '')
-        .replace(/[-_]+/g, ' ')
-        .replace(/\b\w/g, (c) => c.toUpperCase())
-        .trim()
-      const alt =
-        sub === 'Logos'
-          ? `${base} - YouTube channel logo designed by ExtoArts`
-          : sub === 'Banners'
-            ? `${base} - YouTube channel banner designed by ExtoArts`
-            : `${base} - YouTube thumbnail designed by ExtoArts`
-      return {
-        src: `/portfolio/${sub}/${file}`,
-        alt,
-        width: sub === 'Banners' ? 2560 : sub === 'Logos' ? 800 : 1280,
-        height: sub === 'Banners' ? 1440 : sub === 'Logos' ? 800 : 720,
-      }
-    })
-}
-
-async function getPortfolioData() {
-  return {
-    thumbnails: readFolder('Thumbnails'),
-    logos: readFolder('Logos'),
-    banners: readFolder('Banners'),
-  }
-}
 
 const portfolioSchema = {
   '@context': 'https://schema.org',

@@ -4,6 +4,8 @@ import { JsonLd } from '@/components/JsonLd'
 import { SITE_URL } from '@/lib/constants'
 import { ApplyClient } from './ApplyClient'
 
+export const dynamic = 'force-static'
+
 export const metadata: Metadata = buildMetadata({
   title: 'Apply as a Video Editor — Join the ExtoArts Team',
   description: 'Apply to join ExtoArts as a specialist video editor. We hire YouTube editors, thumbnail designers, Shorts editors, gaming content specialists, and motion graphics artists worldwide.',

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
 import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
+export const dynamic = 'force-static'
+
 export const metadata: Metadata = buildMetadata({
   title: 'Privacy Policy',
   description: 'ExtoArts Privacy Policy - Version 4.0. How we collect, use, and protect your personal data.',

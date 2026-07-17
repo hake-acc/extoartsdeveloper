@@ -4,6 +4,8 @@ import { JsonLd } from '@/components/JsonLd'
 import { SITE_URL } from '@/lib/constants'
 import { EstimateClient } from './EstimateClient'
 
+export const dynamic = 'force-static'
+
 export const metadata: Metadata = buildMetadata({
   title: 'YouTube Video Editing Cost Estimator — Instant Price Calculator',
   description: 'Estimate your YouTube video editing cost instantly. Choose video length, complexity level, and add-ons to calculate a ballpark price before your custom Discord quote.',

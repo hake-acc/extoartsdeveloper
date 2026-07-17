@@ -4,6 +4,8 @@ import { JsonLd } from '@/components/JsonLd'
 import { SITE_URL } from '@/lib/constants'
 import { TicketClient } from './TicketClient'
 
+export const dynamic = 'force-static'
+
 export const metadata: Metadata = buildMetadata({
   title: 'Submit a Support Ticket — ExtoArts Client Support',
   description: 'Get help with your active ExtoArts project. Submit a support ticket for billing questions, revision requests, delivery issues, or general assistance. Our team responds within 24 hours.',

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { buildMetadata } from '@/lib/metadata'
 import { DISCORD_URL, SITE_URL } from '@/lib/constants'
 import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
+
+export const dynamic = 'force-static'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = buildMetadata({

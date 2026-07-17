@@ -604,8 +604,31 @@ html[data-theme="light"] .bg-image-light { opacity: 1; }
 /* ── Page wrapper ── */
 main { min-height: 100vh; position: relative; z-index: 10; }
 
-/* ── Reduced motion — critical overrides for .sr and .cycle-phrase ── */
+/* ── Fluid gradient CSS keyframes (replaces Framer Motion in FluidGradient.tsx) ── */
+@keyframes fluidBlob1 {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(20%, 25%); }
+}
+@keyframes fluidBlob2 {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(-20%, 20%); }
+}
+@keyframes fluidBlob3 {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(15%, -20%); }
+}
+
+/* ── Border beam CSS keyframe (replaces Framer Motion in BorderBeam.tsx) ── */
+@keyframes borderBeam {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}
+
+/* ── Reduced motion — critical overrides ── */
 @media (prefers-reduced-motion: reduce) {
   .sr { transform: none !important; opacity: 1 !important; transition: none !important; }
   .cycle-stack .cycle-phrase { transform: none !important; filter: none !important; transition: opacity 0.15s ease !important; }
+  /* Pause all decorative animations */
+  .fluid-gradient-blob,
+  [style*="borderBeam"] { animation-play-state: paused !important; }
 }
