@@ -325,11 +325,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           />
         )}
-        {/* Vercel Analytics + Speed Insights — zero runtime impact, loaded after paint */}
-        <Analytics />
-        {/* scriptSrc bypasses /_vercel/insights/script.js which 404s when
-            Cloudflare intercepts the /_vercel/* path before Vercel's edge
-            can serve it. The CDN origin is already in our CSP script-src. */}
+        {/* Both Analytics and SpeedInsights default to /_vercel/insights/script.js,
+            which Cloudflare intercepts before Vercel's edge can serve it → 404.
+            Pointing both scriptSrc props at va.vercel-scripts.com CDN bypasses
+            the /_vercel/* path entirely. Origin is already in CSP script-src. */}
+        <Analytics scriptSrc="https://va.vercel-scripts.com/v1/script.js" />
         <SpeedInsights scriptSrc="https://va.vercel-scripts.com/v1/speed-insights/script.js" />
       </body>
     </html>
