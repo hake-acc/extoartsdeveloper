@@ -65,3 +65,12 @@ description: Full performance/a11y/SEO optimization pass — what was changed an
 ## Error/Loading boundaries (P5-A/B)
 - `src/app/error.tsx` created: branded error UI with "Try again" + "Back to home" actions.
 - `src/app/loading.tsx` created: skeleton screen matching hero layout; `@keyframes skeletonPulse`; respects `prefers-reduced-motion`.
+
+## Mobile performance fixes — July 17, 2026
+Five targeted fixes for touch-device lag; zero visual change on desktop.
+
+1. **Lenis disabled on touch** (`SmoothScrollProvider.tsx`): added `(pointer: coarse)` early-return before Lenis init. Also removed `touchMultiplier` option (irrelevant now). Native mobile scroll is hardware-accelerated; Lenis demotes it to a JS RAF loop.
+2. **FluidGradient static on mobile** (`FluidGradient.tsx`): `useEffect` detects `(pointer: coarse)` or `prefers-reduced-motion` and sets `isMobile` state. Mobile path renders a plain CSS `radial-gradient` with no Framer Motion animations and no `filter:blur`. Desktop blur capped at 60px (was 100px). `**Why:**` `filter:blur(100px)` on 150%-viewport divs forces the GPU to rasterize a massive off-screen surface each frame — worst single offender for mobile FPS.
+3. **GalaxyButton RAF skipped on touch** (`GalaxyButton.tsx`): early `(pointer: coarse)` return before the `needsJsDriver` check. Mobile can't hover so the spinning border is pure waste.
+4. **AuroraGL CSS fallback on mobile** (`AuroraGL.tsx`): added `(pointer: coarse)` early-return alongside the existing `prefers-reduced-motion` check. CSS aurora in globals.css is the fallback.
+5. **backdrop-filter removed on touch** (`globals.css`): added `@media (pointer: coarse)` block at end of file overriding `backdrop-filter: none` on `.glass-card`, `.service-card`, `.tstack-badge`, `.hero-badge`, `.page-hero-bg`, `.tilt-card`, `.navbar-glass`. Replaced with opaque solid backgrounds. Also disabled hover `transform` on cards (compositor layer creation on tap is jarring). **Why:** 14+ blurred layers cause GPU memory pressure on mobile; solid backgrounds are free to composite.

@@ -32,6 +32,10 @@ function useConicRotation(ref: React.RefObject<HTMLElement | null>) {
       raf = requestAnimationFrame(tick)
     }
 
+    // Touch devices (mobile/tablet): skip the RAF loop entirely — the spinning
+    // border is a perpetual CPU drain on devices that can't hover anyway.
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
     // Only engage the JS driver if the browser won't animate @property itself.
     // Chrome/Edge support CSS.registerProperty; Firefox doesn't.
     const needsJsDriver = !('registerProperty' in (window.CSS ?? {}))

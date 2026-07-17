@@ -91,9 +91,11 @@ export function AuroraGL({
   propsRef.current = { colorStops, amplitude, blend, speed }
 
   useEffect(() => {
-    // Respect prefers-reduced-motion at the CSS level: skip WebGL entirely,
-    // fall back to the static CSS aurora already defined in globals.css.
+    // Respect prefers-reduced-motion: skip WebGL, fall back to CSS aurora.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Touch/mobile devices: WebGL shader is expensive on low-end GPUs.
+    // The CSS aurora fallback in globals.css is already defined and looks great.
+    if (window.matchMedia('(pointer: coarse)').matches) return
 
     const ctn = containerRef.current
     if (!ctn) return

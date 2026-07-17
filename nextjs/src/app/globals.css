@@ -2185,3 +2185,88 @@ html[data-theme="light"] .bg-image-light {
   pointer-events: none;
 }
 
+/* ── Mobile backdrop-filter override ──────────────────────────────────────
+   Mobile GPUs create a separate composite layer for every backdrop-filter
+   element. With 14+ blurred surfaces on screen at once this causes heavy
+   GPU memory pressure and visible lag. On touch/coarse-pointer devices we
+   replace backdrop-filter with solid semi-transparent backgrounds that are
+   free to composite. Desktop rendering is completely unaffected.
+   ────────────────────────────────────────────────────────────────────── */
+@media (pointer: coarse) {
+  /* Glass cards — dark mode */
+  .glass-card,
+  .glass-card:hover,
+  html:not([data-theme="light"]) .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(18, 16, 12, 0.90) !important;
+  }
+
+  /* Glass cards — light mode */
+  html[data-theme="light"] .glass-card,
+  [data-theme="light"] .glass-card,
+  [data-theme="light"] .glass-card:hover {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 252, 246, 0.97) !important;
+  }
+
+  /* Tilt cards */
+  html[data-theme="light"] .tilt-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 252, 246, 0.97) !important;
+  }
+
+  /* Service cards */
+  .service-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--card-bg) !important;
+  }
+  [data-theme="light"] .service-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 252, 246, 0.96) !important;
+  }
+
+  /* Trust stack badges */
+  .tstack-badge {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(13, 11, 8, 0.88) !important;
+  }
+  [data-theme="light"] .tstack-badge {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 252, 246, 0.95) !important;
+  }
+
+  /* Hero badge */
+  .hero-badge {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(105, 221, 255, 0.10) !important;
+  }
+
+  /* Page hero bg (light mode) */
+  [data-theme="light"] .page-hero-bg {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(244, 239, 230, 0.95) !important;
+  }
+
+  /* Navbar glassmorphism — keep readable but drop blur */
+  .navbar-glass,
+  [data-theme="light"] .navbar-glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Disable hover transforms that trigger compositor layer creation */
+  .service-card:hover,
+  .preview-card:hover {
+    transform: none !important;
+  }
+}
+
