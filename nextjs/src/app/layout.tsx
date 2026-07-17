@@ -10,6 +10,8 @@ import { ClientProviders } from '@/components/ClientProviders'
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE, GA_ID } from '@/lib/constants'
 import { JsonLdInjector } from '@/components/JsonLd'
 import { ThemeInitInjector } from '@/components/ThemeInitInjector'
+import { DeferredStyles } from '@/components/DeferredStyles'
+import { DEFERRED_CSS_VERSION } from '@/lib/deferredCssVersion'
 import type { Viewport } from 'next'
 
 export const viewport: Viewport = {
@@ -317,6 +319,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
           <ClientScripts />
+        {/* Non-critical CSS — loaded after first paint, off the render-blocking critical path.
+            Version hash is auto-computed from deferred.css content — no manual bump needed. */}
+        <DeferredStyles href={`/css/deferred.css?v=${DEFERRED_CSS_VERSION}`} />
         </ClientProviders>
         {/* Google Analytics — src-only Script (no inline JS); init handled in ClientScripts */}
         {GA_ID && (
