@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
 import { JsonLd } from '@/components/JsonLd'
+
+export const dynamic = 'force-static'
 import { DiscordButton } from '@/components/ui/DiscordButton'
 import { SITE_URL } from '@/lib/constants'
 

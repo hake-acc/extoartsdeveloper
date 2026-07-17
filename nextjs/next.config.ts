@@ -47,10 +47,18 @@ const nextConfig: NextConfig = {
       { source: '/support', destination: '/ticket', permanent: true },
       { source: '/toc', destination: '/tos', permanent: true },
       { source: '/feed', destination: '/rss', permanent: true },
-      { source: '/fb', destination: '/facebook', permanent: true },
-      { source: '/ig', destination: '/instagram', permanent: true },
-      { source: '/yt', destination: '/youtube', permanent: true },
-      { source: '/x', destination: '/twitter', permanent: true },
+      // Social redirects — handled at edge (zero compute, zero cold-start)
+      { source: '/discord', destination: 'https://discord.gg/extoarts-1402333030827425922', permanent: true },
+      { source: '/youtube', destination: 'https://youtube.com/@extoarts?si=po6tre_ZAY7i_LFz', permanent: true },
+      { source: '/instagram', destination: 'https://www.instagram.com/extoarts?igsh=enVlYm9hczNiYjgw', permanent: true },
+      { source: '/twitter', destination: 'https://x.com/extoarts', permanent: true },
+      { source: '/facebook', destination: 'https://www.facebook.com/share/1J1UA6Txqr/', permanent: true },
+      { source: '/threads', destination: 'https://www.threads.net/@extoarts', permanent: true },
+      // Short aliases → direct to external (single-hop, no page render)
+      { source: '/fb', destination: 'https://www.facebook.com/share/1J1UA6Txqr/', permanent: true },
+      { source: '/ig', destination: 'https://www.instagram.com/extoarts?igsh=enVlYm9hczNiYjgw', permanent: true },
+      { source: '/yt', destination: 'https://youtube.com/@extoarts?si=po6tre_ZAY7i_LFz', permanent: true },
+      { source: '/x', destination: 'https://x.com/extoarts', permanent: true },
     ]
   },
   async headers() {
@@ -137,6 +145,13 @@ const nextConfig: NextConfig = {
         source: '/_next/static/(.*)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      // Static images in /public/images/ — long cache, no hash needed (filenames stable)
+      {
+        source: '/images/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' },
         ],
       },
     ]

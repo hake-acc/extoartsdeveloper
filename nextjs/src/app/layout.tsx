@@ -239,13 +239,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
           href="/fonts/PaperInko.woff2"
         />
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-          href="/fonts/caveat.woff2"
-        />
+        {/* Caveat is font-display:optional — browser won't use a preloaded optional font
+            anyway; preloading only competes with LCP resources for bandwidth. */}
         {/* caveat-ext covers latin-ext unicode range — NOT preloaded: unicode-range in CSS
             ensures the browser only fetches it when latin-ext characters are actually rendered,
             so preloading it eagerly wastes bandwidth for English-only content */}

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/metadata'
+
+export const dynamic = 'force-static'
 import { JsonLd } from '@/components/JsonLd'
 import { DiscordButton } from '@/components/ui/DiscordButton'
 import { BorderBeam } from '@/components/ui/BorderBeam'

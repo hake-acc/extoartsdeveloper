@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/metadata'
+
+export const dynamic = 'force-static'
 import { SITE_URL } from '@/lib/constants'
 import { JsonLd } from '@/components/JsonLd'
 import { FAQAccordion } from '@/components/ui/Accordion'

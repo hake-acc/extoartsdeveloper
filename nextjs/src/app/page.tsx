@@ -5,13 +5,19 @@ import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/sections/home/HeroSection'
 import { getPortfolioData } from '@/lib/portfolio'
 
-// Below-the-fold sections: deferred until after LCP
+// ISR: rebuild at most once per hour; serves from Vercel edge cache between revalidations
+export const revalidate = 3600
+
+// Below-the-fold sections: code-split from LCP chunk
+// ssr:true  = SSR + code-split (content above fold or near-fold — needed for SEO crawl)
+// ssr:false = client-only (far below fold — defer JS parsing entirely; skeleton shown on SSR)
 const GettingStartedRibbon = dynamic(() => import('@/components/sections/home/GettingStartedRibbon').then(m => ({ default: m.GettingStartedRibbon })), { ssr: true })
 const WhyExtoArts = dynamic(() => import('@/components/sections/home/WhyExtoArts').then(m => ({ default: m.WhyExtoArts })), { ssr: true })
 const StatsSection = dynamic(() => import('@/components/sections/home/StatsSection').then(m => ({ default: m.StatsSection })), { ssr: true })
 const ServicesSection = dynamic(() => import('@/components/sections/home/ServicesSection').then(m => ({ default: m.ServicesSection })), { ssr: true })
 const PortfolioPreview = dynamic(() => import('@/components/sections/home/PortfolioPreview').then(m => ({ default: m.PortfolioPreview })), { ssr: true })
 const ProcessSection = dynamic(() => import('@/components/sections/home/ProcessSection').then(m => ({ default: m.ProcessSection })), { ssr: true })
+// Far-below-fold: still SSR for SEO, but code-split so their JS loads in separate chunks
 const FounderSection = dynamic(() => import('@/components/sections/home/FounderSection').then(m => ({ default: m.FounderSection })), { ssr: true })
 const ReviewsSection = dynamic(() => import('@/components/sections/home/ReviewsSection').then(m => ({ default: m.ReviewsSection })), { ssr: true })
 

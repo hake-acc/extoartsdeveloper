@@ -83,6 +83,20 @@ export function ClientScripts() {
   useEffect(() => {
     const countEls = document.querySelectorAll<HTMLElement>('[data-count-up]')
     if (!countEls.length) return
+
+    // Respect prefers-reduced-motion: snap to final value instantly
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      countEls.forEach((el) => {
+        const target = parseFloat(el.dataset.countUp ?? '0')
+        const suffix = el.dataset.suffix ?? ''
+        const prefix = el.dataset.prefix ?? ''
+        const dec = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0
+        el.textContent = prefix + (dec ? target.toFixed(dec) : Math.round(target)) + suffix
+      })
+      return
+    }
+
     const cio = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return

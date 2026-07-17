@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+
+export const dynamic = 'force-static'
 import { buildMetadata } from '@/lib/metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { FOUNDER_PHOTO, DISCORD_URL, SITE_URL } from '@/lib/constants'
