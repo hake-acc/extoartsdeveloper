@@ -135,7 +135,7 @@ const organizationSchema = {
     alternateName: 'RehanSigma',
     jobTitle: 'Founder & Creative Director',
     url: `${SITE_URL}/about`,
-    image: `${SITE_URL}/images/founder.jpg`,
+    image: `${SITE_URL}/images/founder.webp`,
     sameAs: [
       'https://x.com/extoarts',
       'https://www.instagram.com/extoarts',
@@ -253,6 +253,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="alternate" type="application/json" title="ExtoArts Creator Insights" href="/feed.json" />
         <link rel="search" type="application/opensearchdescription+xml" title="ExtoArts" href="/opensearch.xml" />
         <link rel="llms.txt" type="text/plain" title="LLM Information" href="/llms.txt" />
+        {/* Speculation Rules — hover-triggered prerender makes navigation feel instant.
+            'moderate' eagerness fires after ~200ms hover, intent-correlated, rarely wasted.
+            next/script with strategy="beforeInteractive" is the correct way to inject
+            inline <script> content in Next.js App Router without React hydration warnings. */}
         <meta name="theme-color" content="#030305" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
         <meta name="color-scheme" content="dark light" />
@@ -275,6 +279,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             hydration mismatch that occurs when dangerouslySetInnerHTML <script> elements
             appear inside the explicit <head> JSX tree. */}
         <JsonLdInjector schemas={[websiteSchema, organizationSchema]} />
+        {/* Speculation Rules — hover-triggered prerender; progressive enhancement,
+            ignored by browsers that don't support it. next/script + beforeInteractive
+            is the correct App Router pattern for inline <script> without React warnings. */}
+        <Script
+          id="speculation-rules"
+          strategy="beforeInteractive"
+          type="speculationrules"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              prerender: [{ where: { href_matches: '/*' }, eagerness: 'moderate' }],
+            }),
+          }}
+        />
         {/* Tabler Icons CSS — loaded after paint via external script to avoid render-blocking */}
         <Script src="/js/tabler-icons-loader.js" strategy="afterInteractive" />
         <a href="#main-content" className="skip-link">Skip to content</a>

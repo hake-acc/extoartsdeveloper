@@ -1,0 +1,310 @@
+{
+  "summary": {
+    "health_score": 74,
+    "business_type": "YouTube Video Editing Agency (Remote, Global)",
+    "top_findings": [
+      "tabler-icons.woff2 is 807 KB for only 55 used icons — biggest performance issue",
+      "FAQPage schema missing on /faq — 30+ Q&As with zero rich result eligibility",
+      "site.webmanifest uses external CDN for 512x512 icon — fragile PWA dependency",
+      "/apply page missing from XML sitemap — Google cannot discover it organically",
+      "humans.txt lists PHP 8.2/MySQL — incorrect tech stack erodes crawl trust"
+    ],
+    "quick_wins": [
+      "Add FAQPage JSON-LD to /faq — 30 min, immediate rich result eligibility",
+      "Fix site.webmanifest — self-host 512x512 icon, 10 min",
+      "Convert review-1.png to WebP — saves 50 KB, 5 min",
+      "Update humans.txt tech stack — 5 min",
+      "Add /apply to sitemap — 5 min in next-sitemap.config.js"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 80,
+      "what_works": [
+        "robots.txt served via Next.js route — works in dev + prod",
+        "XML sitemap with image extension on /portfolio",
+        "30+ 301 redirects for legacy paths",
+        "Canonical tags on all pages via buildMetadata()",
+        "Hreflang for 13 locales",
+        "All security headers set (CSP, X-Frame, etc.)",
+        "Custom 404 page with metadata"
+      ],
+      "findings": [
+        {
+          "title": "/apply page missing from sitemap",
+          "severity": "Critical",
+          "description": "The /apply editor recruitment page has no sitemap entry. Google cannot discover it without a link from another indexed page.",
+          "recommendation": "Add to SITEMAP_URLS in constants.ts and next-sitemap.config.js priorities map with priority 0.7"
+        },
+        {
+          "title": "site.webmanifest uses external CDN for 512x512 icon",
+          "severity": "High",
+          "description": "The 512x512 PWA icon and screenshot point to i.ibb.co and iili.io. Free CDNs with no SLA.",
+          "recommendation": "Self-host favicon-512.png and pwa-screenshot.png in /public"
+        },
+        {
+          "title": "Social redirect pages may be indexed",
+          "severity": "Medium",
+          "description": "/facebook, /instagram etc. redirect to social profiles. If missing noindex, they may appear in SERPs.",
+          "recommendation": "Add robots: { index: false, follow: true } to each social redirect page's metadata"
+        },
+        {
+          "title": "humans.txt lists PHP 8.2/MySQL — site is Next.js",
+          "severity": "Medium",
+          "description": "Incorrect tech stack in humans.txt misleads crawlers and security scanners.",
+          "recommendation": "Update to: Next.js 16, React 19, Tailwind CSS 4, Supabase, Vercel"
+        },
+        {
+          "title": "llms.txt dated June 17, 2026 — 1 month stale",
+          "severity": "Medium",
+          "description": "AI assistants cache llms.txt. Stale information leads to incorrect AI responses about the business.",
+          "recommendation": "Update monthly — especially dates, pricing, and service availability"
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 78,
+      "what_works": [
+        "All 13 content pages have unique, keyword-focused titles and meta descriptions",
+        "llms.txt v14.0 — comprehensive GEO preparation with cited statistics",
+        "FAQ page has 30+ Q&A pairs — strong content depth",
+        "About page with founder story — good E-E-A-T signals",
+        "Blog-like content depth in FAQ covering all major buyer questions"
+      ],
+      "findings": [
+        {
+          "title": "FAQ content not exposed as FAQPage schema",
+          "severity": "Critical",
+          "description": "30+ Q&As exist with zero FAQPage markup — rich result opportunity wasted.",
+          "recommendation": "Generate FAQPage JSON-LD from FAQ_SECTIONS data array in faq/page.tsx"
+        },
+        {
+          "title": "AggregateRating based on only 7 reviews",
+          "severity": "Medium",
+          "description": "Google may suppress star ratings in SERPs below ~10 reviews.",
+          "recommendation": "Encourage reviews and update reviewCount. Add individual Review schemas."
+        },
+        {
+          "title": "No blog or content marketing",
+          "severity": "Medium",
+          "description": "No articles targeting informational queries (thumbnail tips, editing costs, etc.).",
+          "recommendation": "Publish 4-6 pillar articles targeting high-intent creator queries"
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 85,
+      "what_works": [
+        "Consistent H1→H2→H3 hierarchy",
+        "OpenGraph tags on all pages",
+        "Twitter card with large image",
+        "Internal linking across nav, footer, and CTAs",
+        "Multiple locale alternate tags in <head>"
+      ],
+      "findings": [
+        {
+          "title": "No RSS/feed autodiscovery link in <head>",
+          "severity": "Medium",
+          "description": "Feed route exists but no <link> tag — browsers and feed readers can't discover it.",
+          "recommendation": "Add alternates.types in root metadata: 'application/feed+json': SITE_URL + '/feed.json'"
+        },
+        {
+          "title": "OpenSearch description not linked in <head>",
+          "severity": "Low",
+          "description": "opensearch.xml exists as a route but no <link rel='search'> in head.",
+          "recommendation": "Add <link rel='search' type='application/opensearchdescription+xml' href='/opensearch.xml'>"
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 55,
+      "what_works": [
+        "WebSite with SearchAction (sitelinks search box eligible)",
+        "Organization with aggregateRating, founder, areaServed, OfferCatalog",
+        "SpeakableSpecification for voice search",
+        "BreadcrumbList on FAQ page",
+        "WebPage schema on key pages"
+      ],
+      "findings": [
+        {
+          "title": "No FAQPage schema on /faq",
+          "severity": "Critical",
+          "description": "30+ Q&As present, zero FAQPage markup. Rich results blocked.",
+          "recommendation": "Generate FAQPage JSON-LD from FAQ_SECTIONS array"
+        },
+        {
+          "title": "No VideoObject schema",
+          "severity": "High",
+          "description": "Video editing agency with no VideoObject markup anywhere.",
+          "recommendation": "Add VideoObject to any portfolio entries that embed or link video"
+        },
+        {
+          "title": "No HowTo schema on /workflow",
+          "severity": "High",
+          "description": "3-step workflow described in text. HowTo schema would enable rich result.",
+          "recommendation": "Add HowTo JSON-LD with 3 HowToStep items to workflow/page.tsx"
+        },
+        {
+          "title": "BreadcrumbList missing on most pages",
+          "severity": "High",
+          "description": "Only /faq has BreadcrumbList. Missing on 6+ other content pages.",
+          "recommendation": "Add breadcrumb generation to buildMetadata() helper in lib/metadata.ts"
+        },
+        {
+          "title": "No individual Review schemas",
+          "severity": "Medium",
+          "description": "aggregateRating present but no individual Review items in Organization schema.",
+          "recommendation": "Add review[] array to Organization JSON-LD with all 7 reviews"
+        }
+      ]
+    },
+    {
+      "name": "Performance",
+      "score": 65,
+      "what_works": [
+        "Critical/deferred CSS split (just implemented — 807 KB deferred)",
+        "Self-hosted fonts with preload",
+        "next/image everywhere — AVIF/WebP auto-delivery",
+        "30-day image cache TTL",
+        "afterInteractive for GA/analytics scripts",
+        "Service Worker with stale-while-revalidate",
+        "optimizePackageImports for framer-motion + radix-ui",
+        "93% Server Components"
+      ],
+      "findings": [
+        {
+          "title": "tabler-icons.woff2 is 807 KB — only 55 icons used",
+          "severity": "Critical",
+          "description": "Full Tabler icon font (~5500 icons) preloaded on every page. Only 55 icon classes used (~1% of the font).",
+          "recommendation": "Subset with pyftsubset or switch to @tabler/icons-react SVG imports. Expected savings: 760+ KB"
+        },
+        {
+          "title": "PaperInko.woff2 is 168 KB — not subsetted",
+          "severity": "High",
+          "description": "Display font covers full character set. English-only site only needs Latin.",
+          "recommendation": "Subset to U+0020-007F, U+00A0-00FF. Expect ~50 KB result."
+        },
+        {
+          "title": "review-1.png is PNG (76 KB) — all others are WebP",
+          "severity": "High",
+          "description": "Inconsistent format. PNG at 76 KB vs WebP peers at 8-50 KB.",
+          "recommendation": "cwebp -q 82 review-1.png -o review-1.webp"
+        },
+        {
+          "title": "founder.jpg is 162 KB JPEG",
+          "severity": "Medium",
+          "description": "next/image auto-converts for browsers but source is large. OG image serves raw JPEG.",
+          "recommendation": "Convert to WebP. cwebp -q 85 founder.jpg -o founder.webp"
+        },
+        {
+          "title": "No Speculation Rules API",
+          "severity": "Medium",
+          "description": "Hover-triggered prerender would make navigation feel instant.",
+          "recommendation": "Add speculation rules script to layout <head> with eagerness: 'moderate'"
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 88,
+      "what_works": [
+        "llms.txt v14.0 — comprehensive with brand disambiguation, cited stats, AI guidance",
+        "robots.txt allows major AI crawlers (Googlebot, Bingbot, Applebot)",
+        "X-Content-Signal header for AI crawler trust",
+        "SpeakableSpecification schema",
+        "Organization entity sufficient for Knowledge Panel candidacy"
+      ],
+      "findings": [
+        {
+          "title": "llms.txt 1 month stale",
+          "severity": "Medium",
+          "description": "Dated June 17, 2026. AI systems cache this file.",
+          "recommendation": "Update monthly. Current date: July 17, 2026"
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 70,
+      "what_works": [
+        "No empty alt attributes found anywhere",
+        "next/image used site-wide",
+        "Background images optimized (74-78 KB WebP)",
+        "LCP image has fetchPriority=high",
+        "First 3 portfolio items use eager loading"
+      ],
+      "findings": [
+        {
+          "title": "review-1.png is PNG not WebP",
+          "severity": "High",
+          "description": "76 KB PNG. All other review images are WebP.",
+          "recommendation": "Convert to WebP"
+        },
+        {
+          "title": "founder.jpg is JPEG",
+          "severity": "Medium",
+          "description": "162 KB source. next/image optimizes delivery but source conversion reduces disk use.",
+          "recommendation": "Convert to WebP"
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Week 1",
+        "items": [
+          "Subset tabler-icons.woff2 from 807 KB to ~40 KB",
+          "Add FAQPage JSON-LD to /faq",
+          "Fix site.webmanifest — self-host 512x512 icon",
+          "Add /apply to XML sitemap"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "Weeks 2-3",
+        "items": [
+          "Add HowTo schema to /workflow",
+          "Add BreadcrumbList to all content pages",
+          "Convert review-1.png and founder.jpg to WebP",
+          "Subset PaperInko.woff2 to Latin only",
+          "Add noindex to social redirect pages",
+          "Add Speculation Rules API",
+          "Fix humans.txt tech stack",
+          "Add RSS/feed autodiscovery link"
+        ]
+      },
+      {
+        "name": "Phase 3: Content & Authority",
+        "timeframe": "Month 2",
+        "items": [
+          "Grow review count to 10+ for aggregateRating display",
+          "Add individual Review schemas to Organization",
+          "Publish 4-6 pillar content articles",
+          "Add VideoObject schemas to portfolio",
+          "Update llms.txt monthly"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring & Iteration",
+        "timeframe": "Ongoing",
+        "items": [
+          "Submit sitemap to Google Search Console",
+          "Monitor CrUX Core Web Vitals (field data)",
+          "Track FAQ page CTR before/after FAQPage schema",
+          "Keep Tabler icon subset updated as new icons are added",
+          "Re-audit every 3 months"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

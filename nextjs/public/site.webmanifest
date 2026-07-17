@@ -43,13 +43,13 @@
       "purpose": "maskable"
     },
     {
-      "src": "https://i.ibb.co/JR76yvRp/1758037248-icon.png",
+      "src": "/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://i.ibb.co/JR76yvRp/1758037248-icon.png",
+      "src": "/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -57,9 +57,9 @@
   ],
   "screenshots": [
     {
-      "src": "https://iili.io/BZ0qLb4.png",
-      "sizes": "2048x1144",
-      "type": "image/png",
+      "src": "/images/og-default.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
       "form_factor": "wide",
       "label": "ExtoArts - YouTube Video Editing Agency Homepage"
     }

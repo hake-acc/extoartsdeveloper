@@ -93,6 +93,7 @@ const config = {
       '/faq': 0.75,
       '/estimate': 0.7,
       '/collab': 0.65,
+      '/apply': 0.7,
       '/ticket': 0.6,
       '/tos': 0.4,
       '/privacy': 0.4,

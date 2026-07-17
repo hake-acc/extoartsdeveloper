@@ -4,7 +4,7 @@ export const SITE_TAGLINE = 'YouTube Video Editing Agency & Thumbnail Design'
 export const DEFAULT_OG_IMAGE = '/images/og-default.jpg'
 export const GA_ID = 'G-WTFPZB9Y4C'
 export const DISCORD_URL = 'https://discord.gg/extoarts-1402333030827425922'
-export const FOUNDER_PHOTO = '/images/founder.jpg'
+export const FOUNDER_PHOTO = '/images/founder.webp'
 export const SUPPORT_EMAIL = 'support@extoarts.in'
 export const TWITTER_HANDLE = '@extoarts'
 
@@ -78,6 +78,8 @@ export const SITEMAP_URLS = [
   { url: '/faq', changeFrequency: 'monthly' as const, priority: 0.75 },
   { url: '/estimate', changeFrequency: 'monthly' as const, priority: 0.7 },
   { url: '/collab', changeFrequency: 'monthly' as const, priority: 0.65 },
+  { url: '/apply', changeFrequency: 'monthly' as const, priority: 0.7 },
+  { url: '/ticket', changeFrequency: 'monthly' as const, priority: 0.6 },
   { url: '/tos', changeFrequency: 'yearly' as const, priority: 0.4 },
   { url: '/privacy', changeFrequency: 'yearly' as const, priority: 0.4 },
 ]

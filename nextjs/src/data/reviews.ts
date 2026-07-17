@@ -2,7 +2,7 @@ import type { Review } from '@/types'
 
 export const reviews: Review[] = [
   {
-    img: '/images/review-1.png',
+    img: '/images/review-1.webp',
     init: 'B',
     grad: '#00d2ff,#0ea5e9',
     name: 'BetterGhazi',

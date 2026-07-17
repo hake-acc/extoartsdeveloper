@@ -12,6 +12,23 @@ export const metadata: Metadata = buildMetadata({
   path: '/faq',
 })
 
+// FAQPage schema — makes each Q&A eligible for Google's rich-result accordion in SERPs.
+const faqPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${SITE_URL}/faq#faq-page`,
+  mainEntity: FAQ_SECTIONS.flatMap((section) =>
+    section.items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    }))
+  ),
+}
+
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -38,6 +55,7 @@ export default function FAQPage() {
 
   return (
     <>
+      <JsonLd data={faqPageSchema} />
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={webPageSchema} />
 

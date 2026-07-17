@@ -2,7 +2,7 @@
 
 Founder: Rehan
 Role: Creative Director and Lead Editor
-Twitter: @extoarts
+X (Twitter): @extoarts
 Discord: discord.gg/extoarts-1402333030827425922
 Location: Online
 
@@ -14,10 +14,11 @@ Our clients, the YouTube creator community, and the open source tools that power
 
 /* SITE */
 
-Last update: 2026/05/06
+Last update: 2026/07/17
 Language: English
 Doctype: HTML5
-Standards: HTML5, CSS3, PHP 8.2, JSON-LD Schema.org
-Components: AOS.js, Font Awesome 6, Plus Jakarta Sans
-Software: PHP 8.2, MySQL
+Standards: HTML5, CSS3, JSON-LD Schema.org
+Framework: Next.js 16, React 19, Tailwind CSS 4
+Components: Framer Motion, Radix UI, Tabler Icons, Plus Jakarta Sans
+Hosting: Vercel
 Contact: https://discord.gg/extoarts-1402333030827425922
