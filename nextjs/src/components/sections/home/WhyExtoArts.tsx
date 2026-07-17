@@ -1,8 +1,6 @@
-'use client'
-
+// Server Component — InView removed; scroll-reveal via .sr CSS class + ClientScripts IntersectionObserver
 import Link from 'next/link'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { InView } from '@/components/ui/InView'
 
 const REASONS = [
   {
@@ -88,16 +86,14 @@ export function WhyExtoArts() {
         }}
       >
         {REASONS.map((reason, i) => (
-          <InView
+          <div
             key={reason.title}
-            as="div"
-            variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
-            transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-            className="ink-card"
+            className="ink-card sr"
             style={{
               display: 'flex',
               flexDirection: 'column',
               gap: 24,
+              transitionDelay: `${i * 70}ms`,
             }}
           >
             {/* Remove neon background glow for authentic paper look */}
@@ -133,7 +129,7 @@ export function WhyExtoArts() {
             <div className="hanko-stamp">
               証
             </div>
-          </InView>
+          </div>
         ))}
       </div>
 

@@ -1,10 +1,10 @@
 'use client'
 
 // ── Neumorphic FAQ Accordion ─────────────────────────────────────────────────
+// Height animation uses CSS grid-template-rows (0fr → 1fr) — no Framer Motion needed.
 // Colors are driven entirely by CSS variables (--nm-*) so both dark and light
 // themes work without any hardcoded RGBA strings in JS.
 
-import { AnimatePresence, motion } from 'framer-motion'
 import { useId, useState } from 'react'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -62,51 +62,54 @@ function NMItem({
       >
         <span style={{ flex: 1 }}>{item.q}</span>
 
-        {/* ── Neumorphic ± circle ── */}
-        <motion.span
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        {/* ── Neumorphic ± circle — CSS transform replaces Framer Motion ── */}
+        <span
           className={`nm-btn-circle${isOpen ? ' nm-btn-circle--active' : ''}`}
           aria-hidden="true"
+          style={{
+            display: 'inline-block',
+            transition: 'transform 0.22s cubic-bezier(0.22,1,0.36,1)',
+            transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+          }}
         >
           +
-        </motion.span>
+        </span>
       </button>
 
-      {/* ── Animated answer panel ── */}
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="panel"
-            id={panelId}
-            role="region"
-            aria-labelledby={triggerId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            style={{ overflow: 'hidden' }}
+      {/* ── Answer panel — CSS grid height animation ── */}
+      {/* grid-template-rows: 0fr → 1fr collapses/expands without layout shifts.
+          The inner div needs min-height:0 for the grid technique to collapse to zero. */}
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={triggerId}
+        style={{
+          display: 'grid',
+          gridTemplateRows: isOpen ? '1fr' : '0fr',
+          opacity: isOpen ? 1 : 0,
+          transition: 'grid-template-rows 0.26s cubic-bezier(0.22,1,0.36,1), opacity 0.22s cubic-bezier(0.22,1,0.36,1)',
+        }}
+      >
+        <div style={{ overflow: 'hidden', minHeight: 0 }}>
+          <div
+            style={{
+              padding: '18px 26px 24px',
+              borderTop: '1px solid var(--nm-divider)',
+            }}
           >
-            <div
+            <p
               style={{
-                padding: '18px 26px 24px',
-                borderTop: '1px solid var(--nm-divider)',
+                fontSize: '0.88rem',
+                color: 'var(--text-muted)',
+                lineHeight: 1.82,
+                margin: 0,
               }}
             >
-              <p
-                style={{
-                  fontSize: '0.88rem',
-                  color: 'var(--text-muted)',
-                  lineHeight: 1.82,
-                  margin: 0,
-                }}
-              >
-                {item.a}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {item.a}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

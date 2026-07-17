@@ -21,6 +21,10 @@ export function ClientScripts() {
       gtag('config', GA_ID)
     }
 
+    // Progress arrow — store handler refs so we can clean them up on unmount
+    let scrollHandler: (() => void) | null = null
+    let resizeHandler: (() => void) | null = null
+
     const arrow = document.getElementById('page-progress-arrow')
     if (arrow) {
       let ticking = false
@@ -31,12 +35,10 @@ export function ClientScripts() {
         arrow!.style.transform = `translate(${p * maxX}px, -50%)`
         ticking = false
       }
-      window.addEventListener('scroll', () => {
-        if (!ticking) { requestAnimationFrame(upd); ticking = true }
-      }, { passive: true })
-      window.addEventListener('resize', () => {
-        if (!ticking) { requestAnimationFrame(upd); ticking = true }
-      }, { passive: true })
+      scrollHandler = () => { if (!ticking) { requestAnimationFrame(upd); ticking = true } }
+      resizeHandler = () => { if (!ticking) { requestAnimationFrame(upd); ticking = true } }
+      window.addEventListener('scroll', scrollHandler, { passive: true })
+      window.addEventListener('resize', resizeHandler, { passive: true })
     }
 
     // Discord modal helpers — exposed globally for inline button use
@@ -57,7 +59,14 @@ export function ClientScripts() {
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
+      // Remove all listeners registered in this effect — prevents accumulation across HMR cycles
+      if (scrollHandler) window.removeEventListener('scroll', scrollHandler)
+      if (resizeHandler) window.removeEventListener('resize', resizeHandler)
       document.removeEventListener('keydown', handleKeyDown)
+      // Clean up global modal helpers to avoid stale closures on remount
+      const w = window as unknown as Record<string, unknown>
+      delete w.openModal
+      delete w.closeModal
     }
   }, [])
 
