@@ -27,3 +27,12 @@ description: What was changed, constraints hit, and what remains for Tier 3+4
 - Navbar Server/Client component split
 - CSP nonces via middleware (architectural change)
 - Framer Motion → CSS replacements audit
+
+## Deep audit fixes (commit 9946a96)
+- portfolio/page.tsx: replaced synchronous fs.readdirSync/statSync with getPortfolioData() from lib/portfolio.ts + revalidate=3600
+- apply/contact/estimate/privacy/ticket/tos pages: force-static added
+- ServicesSection.tsx: Framer Motion eliminated → Server Component + .sr CSS class stagger
+- ProcessSection.tsx: Framer Motion eliminated → Server Component + .sr CSS class stagger
+- FluidGradient.tsx: 3 motion.div → CSS @keyframes fluidBlob1/2/3; Server Component
+- BorderBeam.tsx: motion.div → CSS @keyframes borderBeam (offset-path); Server Component
+- globals.css: added all new keyframes + prefers-reduced-motion: pause decorative animations
