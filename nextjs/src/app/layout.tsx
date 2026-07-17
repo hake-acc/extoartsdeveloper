@@ -327,7 +327,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
         {/* Vercel Analytics + Speed Insights — zero runtime impact, loaded after paint */}
         <Analytics />
-        <SpeedInsights />
+        {/* scriptSrc bypasses /_vercel/insights/script.js which 404s when
+            Cloudflare intercepts the /_vercel/* path before Vercel's edge
+            can serve it. The CDN origin is already in our CSP script-src. */}
+        <SpeedInsights scriptSrc="https://va.vercel-scripts.com/v1/speed-insights/script.js" />
       </body>
     </html>
   )
