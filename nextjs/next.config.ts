@@ -68,11 +68,16 @@ const nextConfig: NextConfig = {
       // that forces every static/ISR page to become dynamic (server-rendered per-request),
       // which is an unacceptable trade-off for this site's ISR architecture.
       // See: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com",
+      // static.cloudflareinsights.com: Cloudflare injects beacon.min.js when the
+      // site is proxied through Cloudflare (even without Cloudflare Web Analytics
+      // enabled). Without this allowlist the beacon is CSP-blocked and logs a
+      // console error on every page load for real users.
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
       "img-src 'self' data: blob: https://www.googletagmanager.com",
-      "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://*.vercel-analytics.com https://vitals.vercel-insights.com",
+      // cloudflareinsights.com: beacon.min.js POSTs analytics data here.
+      "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://*.vercel-analytics.com https://vitals.vercel-insights.com https://cloudflareinsights.com",
       "frame-src 'self' https://discord.com",
       "object-src 'none'",
       "base-uri 'self'",
