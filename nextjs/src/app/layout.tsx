@@ -214,10 +214,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="/fonts/tabler-icons.woff2"
           crossOrigin="anonymous"
         />
-        {/* Background images — dark is default theme (high priority); light is preloaded
-            at low priority so light-mode users don't incur an un-preloaded fetch on theme init */}
+        {/* Background images — each preload is gated by its media query so only one fires
+            per user. Both must be high priority: for whichever theme the user has, this IS
+            the LCP background resource and a low-priority hint loses the browser's early fetch. */}
         <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: dark)" />
-        <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="low" media="(prefers-color-scheme: light)" />
+        <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: light)" />
         {/* GTM + analytics — preconnect so the TCP/TLS handshake is done before the script fires */}
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />

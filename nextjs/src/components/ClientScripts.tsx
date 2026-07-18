@@ -7,7 +7,7 @@ import { GA_ID } from '@/lib/constants'
 export function ClientScripts() {
   const pathname = usePathname()
 
-  // One-time setup: GA init, progress bar, modal helpers.
+  // One-time setup: GA init, CWV measurement, SW registration, progress bar, modal helpers.
   // gtag.js is loaded via <Script strategy="afterInteractive"> in layout.tsx;
   // this useEffect sets up the dataLayer queue so events fired before the
   // script loads are batched and replayed when it arrives.
@@ -19,6 +19,54 @@ export function ClientScripts() {
       ;(w as Record<string, unknown>).gtag = gtag
       gtag('js', new Date())
       gtag('config', GA_ID)
+
+      // ── Core Web Vitals → GA4 ─────────────────────────────────────────────
+      // buffered:true catches entries that fired before the observer attached.
+      // Sends LCP, CLS (on page hide), and slow INP events to GA4 so they
+      // appear in the Web Vitals report and feed CrUX field data over time.
+      try {
+        // LCP — time of the largest paint; report the last entry (most accurate)
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries()
+          const last = entries[entries.length - 1] as PerformanceEntry & { startTime: number }
+          gtag('event', 'web_vitals', { metric_name: 'LCP', metric_value: Math.round(last.startTime), non_interaction: true })
+        }).observe({ type: 'largest-contentful-paint', buffered: true })
+
+        // CLS — accumulate shift score, flush on page hide (most reliable signal)
+        let clsScore = 0
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const e = entry as PerformanceEntry & { hadRecentInput: boolean; value: number }
+            if (!e.hadRecentInput) clsScore += e.value
+          }
+        }).observe({ type: 'layout-shift', buffered: true })
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden' && clsScore > 0) {
+            gtag('event', 'web_vitals', { metric_name: 'CLS', metric_value: Math.round(clsScore * 1000), non_interaction: true })
+          }
+        }, { once: true })
+
+        // INP — report interactions that exceed the 200 ms "needs improvement" threshold
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const e = entry as PerformanceEntry & { duration: number }
+            if (e.duration > 200) {
+              gtag('event', 'web_vitals', { metric_name: 'INP', metric_value: Math.round(e.duration), non_interaction: true })
+            }
+          }
+        }).observe({ type: 'event', buffered: true, durationThreshold: 40 } as PerformanceObserverInit)
+      } catch {
+        // PerformanceObserver not supported (rare); silently skip
+      }
+    }
+
+    // ── Service Worker registration ───────────────────────────────────────────
+    // sw.js lives in /public — registered after hydration so it never blocks
+    // the initial page render. Only active in production to avoid HMR conflicts.
+    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {
+        // Registration failure is non-fatal; site works normally without SW
+      })
     }
 
     // Progress arrow — store handler refs so we can clean them up on unmount

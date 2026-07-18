@@ -98,7 +98,9 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          // X-Frame-Options removed — CSP frame-ancestors 'self' supersedes it in all
+          // modern browsers and is the authoritative directive. Keeping both is redundant
+          // and adds response size with no security benefit.
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
