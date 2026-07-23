@@ -206,7 +206,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        {/* Tabler Icons — self-hosted; preload woff2 then load CSS after paint */}
+        {/* Tabler Icons — self-hosted woff2 preloaded, CSS loaded as stylesheet so icons
+            are available immediately on first paint (critical for nav hamburger + theme toggle) */}
         <link
           rel="preload"
           as="font"
@@ -214,6 +215,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="/fonts/tabler-icons.woff2"
           crossOrigin="anonymous"
         />
+        <link rel="stylesheet" href="/css/tabler-icons.min.css" />
         {/* Background images — each preload is gated by its media query so only one fires
             per user. Both must be high priority: for whichever theme the user has, this IS
             the LCP background resource and a low-priority hint loses the browser's early fetch. */}
@@ -288,8 +290,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
-        {/* Tabler Icons CSS — loaded after paint via external script to avoid render-blocking */}
-        <Script src="/js/tabler-icons-loader.js" strategy="afterInteractive" />
+        {/* Tabler Icons CSS — loaded via <link> in <head> (see head section above) */}
         <a href="#main-content" className="skip-link">Skip to content</a>
         <div className="bg-image-layer bg-image-light" aria-hidden="true" />
         <div className="bg-image-layer bg-image-dark" aria-hidden="true" />

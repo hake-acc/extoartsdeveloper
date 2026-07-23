@@ -10,22 +10,37 @@
   line-height: 1;
 }
 
-/* ── Theme Toggle Visibility Fix ── */
-.theme-toggle {
-  background-color: var(--surface-raised) !important;
-  border: 1px solid var(--border-hover) !important;
-  color: var(--text-main) !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+/* ── Theme Toggle & Hamburger Visibility Fix ──
+   Both buttons must be legible at the top of the page where the nav is
+   transparent and the hero background is a light parchment. We give them
+   a solid semi-opaque backdrop so the icon always contrasts. */
+.theme-toggle,
+.hamburger {
+  background-color: rgba(15, 15, 22, 0.72) !important;
+  border: 1px solid rgba(124, 58, 237, 0.35) !important;
+  color: #f4efe6 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
-.theme-toggle:hover {
-  background-color: rgba(124, 58, 237, 0.15) !important;
+.theme-toggle:hover,
+.hamburger:hover {
+  background-color: rgba(124, 58, 237, 0.22) !important;
   border-color: var(--primary-accent) !important;
-  transform: translateY(-1px);
+  color: #ffffff !important;
 }
-[data-theme="light"] .theme-toggle {
-  background-color: #ffffff !important;
+[data-theme="light"] .theme-toggle,
+[data-theme="light"] .hamburger {
+  background-color: rgba(255, 255, 255, 0.88) !important;
   border: 1px solid #d1d5db !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+  color: #1a1a2e !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+[data-theme="light"] .theme-toggle:hover,
+[data-theme="light"] .hamburger:hover {
+  background-color: rgba(124, 58, 237, 0.1) !important;
+  border-color: var(--primary-accent) !important;
+  color: var(--primary-accent) !important;
 }
 
 /* ── Self-hosted fonts (no Google Fonts CDN requests) ── */

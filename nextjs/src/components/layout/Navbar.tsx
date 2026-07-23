@@ -222,8 +222,8 @@ export function Navbar() {
             onClick={toggleTheme}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             style={{
-              background: 'transparent',
-              border: '1px solid var(--border)',
+              background: theme === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(15,15,22,0.78)',
+              border: '1px solid rgba(124,58,237,0.35)',
               borderRadius: '12px',
               width: '44px',
               height: '44px',
@@ -231,20 +231,17 @@ export function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: 'var(--text-muted)',
+              color: theme === 'light' ? '#1a1a2e' : '#f4efe6',
               fontSize: '1rem',
               transition: 'border-color 0.25s, color 0.25s, background-color 0.25s',
             }}
           >
-            <motion.span
+            <span
               key={theme}
-              initial={{ rotate: -45, opacity: 0, scale: 0.8 }}
-              animate={{ rotate: 0, opacity: 1, scale: 1 }}
-              transition={{ duration: 0.2 }}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}
             >
               <i className={`ti ti-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true" />
-            </motion.span>
+            </span>
           </button>
 
           {/* CTA: Brush Button */}
@@ -264,8 +261,8 @@ export function Navbar() {
             aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileOpen}
             style={{
-              background: 'transparent',
-              border: '1px solid var(--border)',
+              background: theme === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(15,15,22,0.78)',
+              border: '1px solid rgba(124,58,237,0.35)',
               borderRadius: '12px',
               width: '44px',
               height: '44px',
@@ -273,9 +270,9 @@ export function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: 'var(--text-muted)',
+              color: theme === 'light' ? '#1a1a2e' : '#f4efe6',
               fontSize: '1.1rem',
-              transition: 'border-color 0.25s, background-color 0.25s',
+              transition: 'border-color 0.25s, color 0.25s, background-color 0.25s',
             }}
           >
             <i className={`ti ti-${mobileOpen ? 'x' : 'menu-2'}`} aria-hidden="true" />
@@ -448,8 +445,6 @@ export function Navbar() {
           .nav-logo-text { font-size: 1.5rem !important; letter-spacing: -1px !important; }
           .hamburger {
             display: flex !important;
-            border-color: var(--border-hover) !important;
-            background: rgba(124, 58, 237, 0.08) !important;
           }
           .theme-toggle {
             width: 44px !important;
