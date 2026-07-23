@@ -468,15 +468,27 @@ html[data-theme="light"] p {
 /* ── Double-layered background images — immediately visible, must be critical ── */
 .bg-image-layer {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  /* Use 100vh as fallback; upgrade to 100lvh (large viewport height) where supported.
+     On mobile, inset:0 / bottom:0 ties the element's bottom edge to the viewport bottom,
+     which shifts when the browser address bar collapses — causing background-size:cover
+     to recalculate and produce a subtle image jump. 100lvh is fixed to the largest
+     possible viewport (address bar hidden) so it never shrinks during scroll. */
+  height: 100vh;
   z-index: -10;
   pointer-events: none;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
   transition: opacity 0.35s ease-in-out;
-  /* background-attachment: fixed removed — element is already position:fixed, so the property
-     was redundant AND forced a full repaint on every scroll frame on mobile. */
+}
+@supports (height: 100lvh) {
+  .bg-image-layer {
+    height: 100lvh;
+  }
 }
 .bg-image-light {
   background-image: url('/backgrounds/lightModeBg.webp');
