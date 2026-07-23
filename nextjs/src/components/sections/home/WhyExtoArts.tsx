@@ -15,7 +15,7 @@ const REASONS = [
   {
     icon: 'ti-target',
     title: 'Niche-Matched Specialists',
-    desc: "We don't assign a generalist editor to your gaming channel. You get a gaming editor - someone who lives and breathes your content type.",
+    desc: "We don't assign a generalist editor to your gaming channel. You get a specialist editor with a content optimization strategy built around your niche.",
     highlight: 'Not generalists',
     colorVar: 'var(--c-growth-glow)',
     borderVar: 'var(--c-growth-border)',
@@ -75,7 +75,7 @@ export function WhyExtoArts() {
       <SectionHeader
         label="Why ExtoArts"
         title={<>Why YouTube Creators<br /><span className="sweep-text">Choose ExtoArts.</span></>}
-        subtitle="Six reasons agencies and independent creators trust us with their YouTube channels."
+        subtitle="Six reasons creators trust ExtoArts as their YouTube SEO agency for channel growth."
       />
 
       <div

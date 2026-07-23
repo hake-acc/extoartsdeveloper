@@ -101,9 +101,9 @@ export function HeroSection() {
           fontWeight: 400,
         }}
       >
-        YouTube video editing, thumbnail design, and Shorts for creators who
-        want real results. Flat 10% agency fee — 90% goes directly to your
-        editor.
+        YouTube video editing, thumbnail design, and channel optimization for
+        creators who want real results. Hire a video editor with specialist
+        expertise — flat 10% agency fee, 90% goes directly to your editor.
       </p>
 
       {/* CTA — client component only for the scroll onClick */}

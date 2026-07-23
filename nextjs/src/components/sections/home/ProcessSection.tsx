@@ -25,7 +25,7 @@ const STEPS: ProcessStep[] = [
   {
     number: '04',
     title: 'Delivered & Optimized',
-    desc: 'Final delivery, optimized for growth.',
+    desc: 'Final delivery with a content optimization strategy built for channel growth.',
   },
 ]
 

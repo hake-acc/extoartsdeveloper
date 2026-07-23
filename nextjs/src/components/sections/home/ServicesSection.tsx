@@ -12,7 +12,7 @@ const SERVICES: ServiceItem[] = [
   {
     icon: 'ti-video',
     title: 'YouTube Video Editing',
-    desc: 'High-retention edits that keep viewers watching till the end.',
+    desc: 'High-retention edits and YouTube SEO services that keep viewers watching till the end.',
     href: '/services#youtube-editing',
   },
   {
@@ -30,7 +30,7 @@ const SERVICES: ServiceItem[] = [
   {
     icon: 'ti-settings-automation',
     title: 'Channel Automation',
-    desc: 'We handle your content engine so you can focus on growth.',
+    desc: 'We handle your YouTube channel optimization and content engine so you can focus on growth.',
     href: '/services#automation',
   },
 ]

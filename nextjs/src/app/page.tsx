@@ -24,7 +24,7 @@ const ReviewsSection = dynamic(() => import('@/components/sections/home/ReviewsS
 export const metadata: Metadata = {
   title: { absolute: 'YouTube Video Editing & Thumbnail Design | ExtoArts' },
   description:
-    'High-retention YouTube editing, thumbnail design, and Shorts editing for creators. Flat-fee pricing, real editors, fast turnaround.',
+    'Expert YouTube video editing, thumbnail design, and channel optimization for creators. Hire a video editor from a trusted YouTube SEO agency — flat-fee pricing, real editors, fast turnaround.',
   alternates: {
     canonical: `${SITE_URL}/`,
     languages: {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     title: 'YouTube Video Editing & Thumbnail Design | ExtoArts',
-    description: 'High-retention YouTube editing, thumbnail design, and Shorts editing for creators. Flat-fee pricing, real editors, fast turnaround.',
+    description: 'Expert YouTube video editing, thumbnail design, and channel optimization for creators. Hire a video editor from a trusted YouTube SEO agency — flat-fee pricing, real editors, fast turnaround.',
     url: `${SITE_URL}/`,
     siteName: 'ExtoArts',
     images: [
@@ -86,7 +86,7 @@ export default async function HomePage() {
     <>
       <JsonLd data={webPageSchema} />
 
-      <p className="sr-only">ExtoArts - YouTube Video Editing Agency & Thumbnail Design</p>
+      <p className="sr-only">ExtoArts - YouTube Video Editing Agency &amp; Thumbnail Design. A leading YouTube SEO agency offering YouTube SEO services, YouTube channel optimization, and content optimization strategy. Hire a video editor with specialist expertise today.</p>
 
       {/* A. Hero Section ("FAQ Center") */}
       <HeroSection />
