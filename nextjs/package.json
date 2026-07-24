@@ -58,11 +58,10 @@
     "typescript": "^5.9.3"
   },
   "browserslist": [
-    "chrome >= 96",
-    "firefox >= 94",
-    "safari >= 15.4",
-    "edge >= 96",
-    "not dead",
-    "not IE 11"
+    "chrome >= 105",
+    "firefox >= 105",
+    "safari >= 16",
+    "edge >= 105",
+    "not dead"
   ]
 }

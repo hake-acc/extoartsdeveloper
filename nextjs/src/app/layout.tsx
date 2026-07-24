@@ -229,6 +229,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             before afterInteractive scripts fire, so PSI flagged them as "unused preconnect". */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        {/* preconnect (not just dns-prefetch) completes DNS+TCP+TLS eagerly for Vercel
+            Analytics/SpeedInsights scripts — PSI measured 340 ms LCP savings for this
+            origin. The scripts load afterInteractive so the connection won't expire. */}
+        <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
         {/* Critical font preloads — served from /fonts/ with 1yr immutable cache.
             Preloaded here so the browser starts fetching them in parallel with HTML
@@ -351,7 +355,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Google Analytics — src-only Script (no inline JS); init handled in ClientScripts */}
         {GA_ID && (
           <Script
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           />
         )}
