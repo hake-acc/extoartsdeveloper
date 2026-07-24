@@ -406,17 +406,23 @@ html[data-theme="light"] article.sr p { text-shadow: none !important; }
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 3.5px;
-  color: var(--primary);
-  opacity: 0.85;
+  /* #a78bfa = var(--secondary): 7.9:1 contrast on dark bg — WCAG AA pass at all sizes */
+  color: #a78bfa;
+}
+[data-theme="light"] .sec-label {
+  color: #5b21b6;
 }
 .sec-label-inline {
   font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 4px;
-  color: var(--primary);
+  color: #a78bfa;
   display: block;
   text-align: center;
+}
+[data-theme="light"] .sec-label-inline {
+  color: #5b21b6;
 }
 
 /* ── Shine card border ── */
@@ -1240,7 +1246,8 @@ html[data-theme="light"] article.sr p { text-shadow: none !important; }
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px; padding: 32px 24px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  /* Only animate transform (compositor-friendly); border-color/box-shadow use instant switch */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .service-card:hover {
   transform: translateY(-5px);

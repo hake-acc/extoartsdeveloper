@@ -114,12 +114,7 @@ export function StatsSection() {
                   letterSpacing: '-2px',
                   lineHeight: 1,
                   marginBottom: 8,
-                  background: `linear-gradient(135deg, ${stat.color} 0%, var(--text-main) 55%, ${stat.color} 100%)`,
-                  backgroundSize: '200% auto',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  animation: 'gradientShimmerX 5s linear infinite',
+                  color: stat.color,
                 }}
                 data-count-up={stat.countUp}
               >

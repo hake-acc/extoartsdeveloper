@@ -302,7 +302,7 @@ export function ReviewsSection() {
                 padding: '9px 18px', borderRadius: 999,
                 border: '1px solid rgba(0,182,122,0.35)',
                 background: 'rgba(0,182,122,0.07)',
-                textDecoration: 'none', color: 'var(--text-muted)',
+                textDecoration: 'none', color: 'var(--text-main)',
                 fontSize: '0.78rem', fontWeight: 700,
                 transition: 'border-color 0.2s, background 0.2s',
               }}
@@ -311,8 +311,8 @@ export function ReviewsSection() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#00b67a"/>
               </svg>
-              <span style={{ color: '#00b67a' }}>4.5</span>
-              <span>on Trustpilot</span>
+              <span style={{ color: '#6ee7b7' }}>4.5</span>
+              <span style={{ color: 'var(--text-main)' }}>on Trustpilot</span>
             </a>
             <a
               href="https://ytjobs.co/talent/profile/528947?r=179"
@@ -323,7 +323,7 @@ export function ReviewsSection() {
                 padding: '9px 18px', borderRadius: 999,
                 border: '1px solid rgba(255,0,0,0.25)',
                 background: 'rgba(255,0,0,0.05)',
-                textDecoration: 'none', color: 'var(--text-muted)',
+                textDecoration: 'none', color: 'var(--text-main)',
                 fontSize: '0.78rem', fontWeight: 700,
                 transition: 'border-color 0.2s, background 0.2s',
               }}

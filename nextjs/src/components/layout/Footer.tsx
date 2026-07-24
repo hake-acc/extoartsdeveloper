@@ -160,7 +160,7 @@ export function Footer() {
 
             {/* Share ExtoArts */}
             <div style={{ marginTop: 20 }}>
-              <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--text-muted)', opacity: 0.6, display: 'block', marginBottom: 10 }}>
+              <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--text-soft)', display: 'block', marginBottom: 10 }}>
                 Share ExtoArts
               </span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -209,7 +209,7 @@ export function Footer() {
 
           {/* Navigate */}
           <nav aria-label="Site navigation">
-            <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-muted)', marginBottom: 18, opacity: 0.7 }}>Navigate</h3>
+            <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-soft)', marginBottom: 18 }}>Navigate</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11 }}>
               {([['/', 'Home'], ['/services', 'Services'], ['/portfolio', 'Portfolio'], ['/pricing', 'Pricing'], ['/workflow', 'How We Work'], ['/about', 'About'], ['/contact', 'Contact']] as [string, string][]).map(([href, label]) => (
                 <li key={href}>
@@ -223,7 +223,7 @@ export function Footer() {
 
           {/* Resources */}
           <nav aria-label="Resources">
-            <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-muted)', marginBottom: 18, opacity: 0.7 }}>Resources</h3>
+            <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-soft)', marginBottom: 18 }}>Resources</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11 }}>
               {([
                 ['/faq', 'FAQ'],
@@ -251,7 +251,7 @@ export function Footer() {
 
           {/* Legal */}
           <nav aria-label="Legal">
-            <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-muted)', marginBottom: 18, opacity: 0.7 }}>Legal</h3>
+            <h3 style={{ fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2.5px', color: 'var(--text-soft)', marginBottom: 18 }}>Legal</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11 }}>
               <li><Link href="/tos" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Terms of Service</Link></li>
               <li><Link href="/privacy" style={{ fontSize: '0.84rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">Privacy Policy</Link></li>
@@ -264,7 +264,7 @@ export function Footer() {
 
         {/* Payment methods */}
         <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8, padding: '16px min(36px, 5%)', justifyContent: 'center' }}>
-          <span style={{ fontSize: '0.57rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--text-muted)', marginRight: 4, opacity: 0.6 }}>Accepted</span>
+          <span style={{ fontSize: '0.57rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--text-soft)', marginRight: 4 }}>Accepted</span>
           {PAYMENT_METHODS.map((m) => (
             <span key={m} style={{ fontSize: '0.6rem', fontWeight: 700, padding: '3px 10px', border: '1px solid var(--border)', borderRadius: 20, color: 'var(--text-muted)', background: 'var(--surface)', letterSpacing: '0.2px' }}>
               {m}
@@ -281,12 +281,12 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, padding: '16px min(36px, 5%)' }}>
-          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: 0, opacity: 0.7 }}>
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-soft)', margin: 0 }}>
             &copy; 2026 ExtoArts. Built by creators, for creators.
           </p>
           <div style={{ display: 'flex', gap: 18 }}>
             {(['/tos', '/privacy', '/contact'] as string[]).map((href, i) => (
-              <Link key={href} href={href} style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 0.2s', opacity: 0.7 }} className="footer-link">
+              <Link key={href} href={href} style={{ fontSize: '0.75rem', color: 'var(--text-soft)', textDecoration: 'none', transition: 'color 0.2s' }} className="footer-link">
                 {(['Terms', 'Privacy', 'Contact'] as string[])[i]}
               </Link>
             ))}

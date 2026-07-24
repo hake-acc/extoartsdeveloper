@@ -99,7 +99,7 @@ export function GettingStartedRibbon() {
               fontSize: '0.62rem',
               fontWeight: 700,
               letterSpacing: '0.2em',
-              color: 'var(--primary-accent)',
+              color: '#a78bfa',
               display: 'block',
               textTransform: 'uppercase',
               fontFamily: 'var(--font-body)',

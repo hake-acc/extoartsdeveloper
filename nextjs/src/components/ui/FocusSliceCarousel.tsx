@@ -70,7 +70,7 @@ export function FocusSliceCarousel({ items, maxVisible = 6 }: Props) {
               fill
               sizes={isActive ? '(max-width: 768px) 80vw, 55vw' : '80px'}
               style={{ objectFit: 'cover' }}
-              priority={i < 2}
+              priority={false}
               unoptimized={false}
             />
             <div

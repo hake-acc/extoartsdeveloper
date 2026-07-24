@@ -150,7 +150,7 @@
 /* ── Hero entrance animations (CSS-only, used by server-rendered HeroSection) ── */
 /* Replaces Framer Motion fadeUp on the hero so the h1 renders in SSR HTML.      */
 @keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(28px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: none; }
 }
 .hero-entrance-1,
@@ -158,12 +158,12 @@
 .hero-entrance-3,
 .hero-entrance-4 {
   opacity: 0;
-  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroFadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.hero-entrance-1 { animation-delay: 0.1s; }
-.hero-entrance-2 { animation-delay: 0.2s; }
-.hero-entrance-3 { animation-delay: 0.3s; }
-.hero-entrance-4 { animation-delay: 0.4s; }
+.hero-entrance-1 { animation-delay: 0s; }
+.hero-entrance-2 { animation-delay: 0.08s; }
+.hero-entrance-3 { animation-delay: 0.16s; }
+.hero-entrance-4 { animation-delay: 0.24s; }
 @media (prefers-reduced-motion: reduce) {
   .hero-entrance-1,
   .hero-entrance-2,
