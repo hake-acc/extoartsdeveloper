@@ -15,8 +15,11 @@ export default function Error({
   reset: () => void
 }) {
   useEffect(() => {
-    // Log to console in dev; in production hook into your error reporting service.
-    console.error('[ExtoArts] Page error:', error)
+    if (process.env.NODE_ENV === 'development') {
+      // Dev-only: log to console for quick inspection.
+      // TODO: replace with a production error-reporting service (e.g. Sentry).
+      console.error('[ExtoArts] Page error:', error)
+    }
   }, [error])
 
   return (

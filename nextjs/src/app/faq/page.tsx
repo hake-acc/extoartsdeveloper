@@ -9,7 +9,7 @@ import { FAQAccordion } from '@/components/ui/Accordion'
 import { FAQ_SECTIONS } from '@/data/faq'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'YouTube Video Editing FAQ - ExtoArts Questions Answered',
+  title: { absolute: 'YouTube Video Editing FAQ | ExtoArts' },
   description: 'Complete FAQ for ExtoArts YouTube video editing agency. Pricing, turnaround, process, revisions, gaming editing, faceless channels, and getting started.',
   path: '/faq',
 })

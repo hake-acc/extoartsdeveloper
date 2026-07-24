@@ -8,7 +8,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { FOUNDER_PHOTO, DISCORD_URL, SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'About ExtoArts - YouTube Creative Agency Founded by Rehan',
+  title: { absolute: 'About ExtoArts — YouTube Creative Agency' },
   description: 'ExtoArts was founded in 2024 by Rehan with one principle: 90% of your editing budget goes to the editor. Learn about our team, values, and mission.',
   path: '/about',
 })
