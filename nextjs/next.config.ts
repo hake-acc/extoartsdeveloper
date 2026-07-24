@@ -62,25 +62,25 @@ const nextConfig: NextConfig = {
     ]
   },
   async headers() {
+    const isDev = process.env.NODE_ENV !== 'production'
+
     const csp = [
       "default-src 'self'",
-      // unsafe-eval removed — not needed in Next.js production builds.
-      // unsafe-inline retained for theme-init script (useServerInsertedHTML).
-      // cdn.jsdelivr.net removed: Tabler Icons are now self-hosted in /fonts/ + /css/.
-      // iili.io removed: all images now served from Vercel CDN via /images/.
+      // unsafe-eval: React requires eval() in development mode for error overlay,
+      // call-stack reconstruction, and HMR. It is never used in production builds.
+      // In production: unsafe-eval is omitted (strict).
+      // See: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
       // 'unsafe-inline' is required by Next.js App Router. The framework injects
       // several dynamic per-request inline scripts during SSR (router state, React
       // flight payload, chunk manifests) whose content changes every request, making
-      // static SHA-256 hashing impossible. The correct long-term fix is a per-request
-      // CSP nonce threaded through middleware → headers() → all <script> tags, but
-      // that forces every static/ISR page to become dynamic (server-rendered per-request),
-      // which is an unacceptable trade-off for this site's ISR architecture.
-      // See: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
+      // static SHA-256 hashing impossible.
       // static.cloudflareinsights.com: Cloudflare injects beacon.min.js when the
       // site is proxied through Cloudflare (even without Cloudflare Web Analytics
       // enabled). Without this allowlist the beacon is CSP-blocked and logs a
       // console error on every page load for real users.
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com https://static.cloudflareinsights.com",
+      isDev
+        ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://va.vercel-scripts.com https://static.cloudflareinsights.com"
+        : "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
       "img-src 'self' data: blob: https://www.googletagmanager.com",
@@ -152,6 +152,14 @@ const nextConfig: NextConfig = {
       // Static images in /public/images/ — long cache, no hash needed (filenames stable)
       {
         source: '/images/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' },
+        ],
+      },
+      // Portfolio images — client work uploaded to /public/portfolio/; 30-day cache
+      // matches the ISR revalidation window so CDN and browser caches stay in sync.
+      {
+        source: '/portfolio/(.*)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' },
         ],
