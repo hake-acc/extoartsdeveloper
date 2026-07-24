@@ -139,8 +139,8 @@ export function Footer() {
                   aria-label={s.label}
                   title={s.platform}
                   style={{
-                    width: 34,
-                    height: 34,
+                    width: 44,
+                    height: 44,
                     borderRadius: '50%',
                     border: '1px solid var(--border)',
                     display: 'flex',
@@ -170,7 +170,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   aria-label="Share ExtoArts on X (Twitter)"
                   title="Share on X"
-                  style={{ width: 30, height: 30, borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', transition: 'color 0.22s, border-color 0.22s, transform 0.22s', textDecoration: 'none' }}
+                  style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', transition: 'color 0.22s, border-color 0.22s, transform 0.22s', textDecoration: 'none' }}
                   className="footer-social-icon"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 14, height: 14, fill: 'currentColor', display: 'block' }}>
@@ -183,7 +183,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   aria-label="Share ExtoArts on WhatsApp"
                   title="Share on WhatsApp"
-                  style={{ width: 30, height: 30, borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', transition: 'color 0.22s, border-color 0.22s, transform 0.22s', textDecoration: 'none' }}
+                  style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', transition: 'color 0.22s, border-color 0.22s, transform 0.22s', textDecoration: 'none' }}
                   className="footer-social-icon"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 15, height: 15, fill: 'currentColor', display: 'block' }}>
@@ -196,7 +196,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   aria-label="Share ExtoArts on LinkedIn"
                   title="Share on LinkedIn"
-                  style={{ width: 30, height: 30, borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', transition: 'color 0.22s, border-color 0.22s, transform 0.22s', textDecoration: 'none' }}
+                  style={{ width: 44, height: 44, borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', transition: 'color 0.22s, border-color 0.22s, transform 0.22s', textDecoration: 'none' }}
                   className="footer-social-icon"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 14, height: 14, fill: 'currentColor', display: 'block' }}>

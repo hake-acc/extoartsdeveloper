@@ -221,13 +221,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             the LCP background resource and a low-priority hint loses the browser's early fetch. */}
         <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: dark)" />
         <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: light)" />
-        {/* GTM + analytics — preconnect so the TCP/TLS handshake is done before the script fires */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        {/* GTM + analytics — dns-prefetch resolves the domain early without opening a TCP
+            connection that expires. Preconnect was removed: on slow 4G the 10 s TTL expires
+            before afterInteractive scripts fire, so PSI flagged them as "unused preconnect". */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
-        {/* Critical font preloads — served from /fonts/ with 1yr immutable cache */}
+        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+        {/* Critical font preloads — served from /fonts/ with 1yr immutable cache.
+            All four fonts are preloaded here so the browser starts fetching them in
+            parallel with the HTML response instead of waiting for the CSS to be parsed.
+            Without these preloads, the browser only discovers the fonts after it has
+            downloaded and parsed the CSS chunk, adding them to the end of the critical
+            request chain and delaying LCP by ~2.4 s on slow 4G. */}
         <link
           rel="preload"
           as="font"
@@ -240,10 +245,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
+          href="/fonts/plus-jakarta-sans-italic.woff2"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
           href="/fonts/PaperInko.woff2"
         />
-        {/* Caveat is font-display:optional — browser won't use a preloaded optional font
-            anyway; preloading only competes with LCP resources for bandwidth. */}
+        {/* Caveat — font-display:optional. Preloaded so the browser can start downloading
+            it immediately alongside HTML; this gives it the best chance of arriving within
+            the optional-font render window. Previously unpreloaded and discovered late
+            through CSS, it sat at the very end of the critical request chain (2,379 ms)
+            and was the primary driver of the mobile LCP penalty. */}
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+          href="/fonts/caveat.woff2"
+        />
         {/* caveat-ext covers latin-ext unicode range — NOT preloaded: unicode-range in CSS
             ensures the browser only fetches it when latin-ext characters are actually rendered,
             so preloading it eagerly wastes bandwidth for English-only content */}

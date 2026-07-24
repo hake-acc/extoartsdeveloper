@@ -1,15 +1,83 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
+const FOCUSABLE = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ')
+
 export function DiscordModal() {
+  const boxRef = useRef<HTMLDivElement>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
+
   function handleClose() {
     const m = document.getElementById('discordModal')
     if (m) {
       m.classList.remove('open')
       document.body.style.overflow = ''
+      // Restore focus to the element that opened the modal
+      previousFocusRef.current?.focus()
     }
   }
+
+  // Focus trap: watch for .open class being toggled via MutationObserver
+  useEffect(() => {
+    const modal = document.getElementById('discordModal')
+    if (!modal) return
+
+    const observer = new MutationObserver(() => {
+      const isOpen = modal.classList.contains('open')
+      if (isOpen) {
+        // Save where focus was before modal opened
+        previousFocusRef.current = document.activeElement as HTMLElement
+        // Move focus into the modal box
+        const box = boxRef.current
+        const first = box?.querySelector<HTMLElement>(FOCUSABLE)
+        first?.focus()
+      }
+    })
+
+    observer.observe(modal, { attributes: true, attributeFilter: ['class'] })
+    return () => observer.disconnect()
+  }, [])
+
+  // Tab-key focus trap inside the modal box
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      const modal = document.getElementById('discordModal')
+      if (!modal?.classList.contains('open')) return
+      if (e.key !== 'Tab') return
+
+      const box = boxRef.current
+      if (!box) return
+      const focusable = Array.from(box.querySelectorAll<HTMLElement>(FOCUSABLE))
+      if (!focusable.length) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   return (
     <div
@@ -22,7 +90,7 @@ export function DiscordModal() {
         if (e.target === e.currentTarget) handleClose()
       }}
     >
-      <div className="modal-box">
+      <div className="modal-box" ref={boxRef}>
         <i
           className="ti ti-brand-discord"
           style={{
@@ -75,6 +143,7 @@ export function DiscordModal() {
         <button
           id="discordModalClose"
           onClick={handleClose}
+          aria-label="Close modal"
           style={{
             background: 'none',
             border: 'none',

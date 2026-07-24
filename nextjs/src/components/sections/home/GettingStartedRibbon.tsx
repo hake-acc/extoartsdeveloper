@@ -126,6 +126,7 @@ export function GettingStartedRibbon() {
         <div className="ribbon-items-row">
           {ITEMS.map((item, idx) => {
             const isOpen = activeIdx === idx
+            const contentId = `ribbon-answer-${idx}`
             return (
               <div
                 key={idx}
@@ -138,6 +139,7 @@ export function GettingStartedRibbon() {
                 <button
                   onClick={() => setActiveIdx(isOpen ? null : idx)}
                   aria-expanded={isOpen}
+                  aria-controls={contentId}
                   className="ribbon-trigger"
                   style={{
                     display: 'flex',
@@ -195,7 +197,7 @@ export function GettingStartedRibbon() {
                 </button>
 
                 {/* Desktop Dropdown Popover */}
-                <div className="desktop-popover-container">
+                <div className="desktop-popover-container" id={contentId} role="region" aria-label={item.question}>
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div

@@ -11,7 +11,7 @@ export function HeroSection() {
   return (
     <section
       className="hero"
-      aria-label="FAQ Center Hero"
+      aria-label="Homepage hero"
       style={{
         paddingTop: 'min(24svh, 24vh)',
         paddingBottom: 'min(120px, 12vw)',
