@@ -15,10 +15,12 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   allowedDevOrigins: ['*.replit.dev', '*.sisko.replit.dev', '*.repl.co', '*.pike.replit.dev', '127.0.0.1'],
-  // outputFileTracingRoot and turbopack.root must point to the same directory
-  // so Vercel's file-tracing step and Turbopack's module resolution both resolve
-  // imports relative to the same project root (the nextjs/ sub-folder).
-  outputFileTracingRoot: __dir,
+  // turbopack.root pins Turbopack's module-resolution root to the nextjs/
+  // sub-folder so imports resolve correctly in a monorepo layout.
+  // outputFileTracingRoot is intentionally omitted here: Vercel injects its
+  // own value (the repo root) at build time via modifyConfig, and setting it
+  // manually to __dir (/nextjs) conflicts with that value and produces a
+  // "must have the same value" warning. Let Vercel own that setting.
   turbopack: {
     root: __dir,
   },
