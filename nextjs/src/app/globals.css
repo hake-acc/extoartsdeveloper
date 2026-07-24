@@ -20,14 +20,47 @@
   }
 }
 
+/* Tabler Icons — critical subset inlined so nav icons (hamburger, theme toggle, Discord CTA,
+   arrow CTAs) render immediately without waiting for the deferred tabler-icons.min.css.
+   The full icon library (244 KB) is loaded non-blocking via DeferredStyles after first paint.
+   Font-face + base .ti class must be here since the stylesheet is no longer render-blocking. */
+@font-face {
+  font-family: "tabler-icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/tabler-icons.woff2") format("woff2");
+}
 /* Reserve layout space for Tabler icon glyphs before the webfont arrives — prevents CLS */
 .ti {
+  font-family: "tabler-icons" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
   display: inline-block;
   min-width: 1em;
   min-height: 1em;
-  font-style: normal;
-  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+/* ── Critical nav / hero icons (subset — full library deferred in tabler-icons.min.css) ── */
+.ti-menu-2:before       { content: "\ec42" }
+.ti-x:before            { content: "\eb55" }
+.ti-sun:before          { content: "\eb30" }
+.ti-moon:before         { content: "\eaf8" }
+.ti-brand-discord:before{ content: "\ece3" }
+.ti-arrow-right:before  { content: "\ea1f" }
+.ti-chevron-down:before { content: "\ea5f" }
+.ti-world:before        { content: "\eb54" }
+.ti-shield-check:before { content: "\eb22" }
+.ti-clock:before        { content: "\ea70" }
+.ti-star:before         { content: "\eb2e" }
+.ti-wand:before         { content: "\ebcb" }
+.ti-sparkles:before     { content: "\f6d7" }
+.ti-file-pencil:before  { content: "\f039" }
+.ti-info-circle:before  { content: "\eac5" }
 
 /* ── Theme Toggle & Hamburger Visibility Fix ──
    Both buttons must be legible at the top of the page where the nav is

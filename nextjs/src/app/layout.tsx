@@ -206,8 +206,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        {/* Tabler Icons — self-hosted woff2 preloaded, CSS loaded as stylesheet so icons
-            are available immediately on first paint (critical for nav hamburger + theme toggle) */}
+        {/* Tabler Icons — woff2 preloaded so glyphs are ready. CSS is NOT render-blocking:
+            we preload it as "style" here (starts the download at t=0 alongside HTML) and
+            apply it via DeferredStyles after first paint, saving ~1.2 s of render-blocking
+            time on slow 4G. Critical nav icons (hamburger, theme, discord) are inlined in
+            globals.css so they render immediately from the critical stylesheet. */}
         <link
           rel="preload"
           as="font"
@@ -215,7 +218,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="/fonts/tabler-icons.woff2"
           crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href="/css/tabler-icons.min.css" />
+        <link rel="preload" as="style" href="/css/tabler-icons.min.css" />
         {/* Background images — each preload is gated by its media query so only one fires
             per user. Both must be high priority: for whichever theme the user has, this IS
             the LCP background resource and a low-priority hint loses the browser's early fetch. */}
@@ -228,11 +231,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
         {/* Critical font preloads — served from /fonts/ with 1yr immutable cache.
-            All four fonts are preloaded here so the browser starts fetching them in
-            parallel with the HTML response instead of waiting for the CSS to be parsed.
-            Without these preloads, the browser only discovers the fonts after it has
-            downloaded and parsed the CSS chunk, adding them to the end of the critical
-            request chain and delaying LCP by ~2.4 s on slow 4G. */}
+            Preloaded here so the browser starts fetching them in parallel with HTML
+            instead of waiting for the CSS chunk to be parsed first.
+            Only the two fonts used for visible text on first paint are preloaded:
+            • PaperInko  — hero h1 headline (LCP element)
+            • Plus Jakarta Sans — body text, nav, subheadings
+            Italic variant and Caveat are NOT preloaded: they are discovered later
+            through CSS and adding them competed for slow-4G bandwidth, raising FCP
+            from 1.7 s → 3.6 s in PSI testing. caveat-ext is unicode-range gated
+            so preloading it wastes bandwidth for English-only content. */}
         <link
           rel="preload"
           as="font"
@@ -245,30 +252,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
-          href="/fonts/plus-jakarta-sans-italic.woff2"
-        />
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
           href="/fonts/PaperInko.woff2"
         />
-        {/* Caveat — font-display:optional. Preloaded so the browser can start downloading
-            it immediately alongside HTML; this gives it the best chance of arriving within
-            the optional-font render window. Previously unpreloaded and discovered late
-            through CSS, it sat at the very end of the critical request chain (2,379 ms)
-            and was the primary driver of the mobile LCP penalty. */}
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-          href="/fonts/caveat.woff2"
-        />
-        {/* caveat-ext covers latin-ext unicode range — NOT preloaded: unicode-range in CSS
-            ensures the browser only fetches it when latin-ext characters are actually rendered,
-            so preloading it eagerly wastes bandwidth for English-only content */}
         <link rel="alternate" type="application/rss+xml" title="ExtoArts Creator Insights" href="/rss" />
         <link rel="alternate" type="application/json" title="ExtoArts Creator Insights" href="/feed.json" />
         <link rel="search" type="application/opensearchdescription+xml" title="ExtoArts" href="/opensearch.xml" />
@@ -358,6 +343,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Non-critical CSS — loaded after first paint, off the render-blocking critical path.
             Version hash is auto-computed from deferred.css content — no manual bump needed. */}
         <DeferredStyles href={`/css/deferred.css?v=${DEFERRED_CSS_VERSION}`} />
+        {/* Tabler Icons CSS — deferred (non-blocking). The woff2 font is preloaded in
+            <head> and the full CSS is preloaded as "style" there too, so the download
+            starts at t=0. DeferredStyles applies it after first paint via media swap. */}
+        <DeferredStyles href="/css/tabler-icons.min.css" />
         </ClientProviders>
         {/* Google Analytics — src-only Script (no inline JS); init handled in ClientScripts */}
         {GA_ID && (
