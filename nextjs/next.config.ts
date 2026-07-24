@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   allowedDevOrigins: ['*.replit.dev', '*.sisko.replit.dev', '*.repl.co', '*.pike.replit.dev', '127.0.0.1'],
+  // outputFileTracingRoot and turbopack.root must point to the same directory
+  // so Vercel's file-tracing step and Turbopack's module resolution both resolve
+  // imports relative to the same project root (the nextjs/ sub-folder).
+  outputFileTracingRoot: __dir,
   turbopack: {
     root: __dir,
   },

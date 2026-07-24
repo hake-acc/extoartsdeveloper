@@ -2,12 +2,26 @@ import type { Metadata } from 'next'
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, TWITTER_HANDLE } from './constants'
 
 interface MetadataOptions {
-  title: string
+  // Accept any valid Next.js title shape: a plain string, { absolute }, or { default, template }.
+  // Pages that want to suppress the site-name suffix use { absolute: '...' }.
+  title: Metadata['title']
   description: string
   path?: string
   ogTitle?: string
   ogDescription?: string
   noIndex?: boolean
+}
+
+/**
+ * Extract a plain string from any valid Next.js Metadata title shape.
+ * Required because OpenGraph and Twitter card fields only accept strings.
+ */
+function resolveTitle(title: Metadata['title']): string {
+  if (!title) return ''
+  if (typeof title === 'string') return title
+  if ('absolute' in title) return title.absolute
+  if ('default' in title) return title.default
+  return ''
 }
 
 export function buildMetadata({
@@ -19,7 +33,8 @@ export function buildMetadata({
   noIndex = false,
 }: MetadataOptions): Metadata {
   const url = `${SITE_URL}${path}`
-  const resolvedOgTitle = ogTitle ?? title
+  const resolvedTitle = resolveTitle(title)
+  const resolvedOgTitle = ogTitle ?? resolvedTitle
   const resolvedOgDesc = ogDescription ?? description
 
   return {
@@ -48,7 +63,7 @@ export function buildMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: resolvedTitle,
       description,
       site: TWITTER_HANDLE,
       creator: TWITTER_HANDLE,
