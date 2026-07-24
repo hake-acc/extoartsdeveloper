@@ -43,7 +43,7 @@ function ReviewCard({ review, onClick }: { review: Review; onClick: () => void }
             }}
           >
             {review.img ? (
-              <Image src={review.img} alt={review.name} width={40} height={40} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <Image src={review.img} alt={`Profile photo of ${review.name}`} width={40} height={40} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
               <div
                 style={{
@@ -159,7 +159,7 @@ function ReviewModal({ review, onClose }: { review: Review; onClose: () => void 
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
             <div style={{ width: 52, height: 52, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--border)', flexShrink: 0 }}>
               {review.img ? (
-                <Image src={review.img} alt={review.name} width={52} height={52} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <Image src={review.img} alt={`Profile photo of ${review.name}`} width={52} height={52} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
                 <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg,${review.grad})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.1rem', color: '#fff' }}>
                   {review.init}
@@ -196,6 +196,7 @@ function ReviewModal({ review, onClose }: { review: Review; onClose: () => void 
 // ── Main section ──────────────────────────────────────────────────────────────
 export function ReviewsSection() {
   const [selected, setSelected] = useState<Review | null>(null)
+  const [isPaused, setIsPaused] = useState(false)
   const row1 = reviews
   const row2 = [...reviews.slice(4), ...reviews.slice(0, 4)]
 
@@ -218,6 +219,30 @@ export function ReviewsSection() {
             <p style={{ fontSize: 'clamp(0.9rem,1.5vw,1rem)', color: 'var(--text-muted)', maxWidth: 420, margin: '0 auto', lineHeight: 1.7 }}>
               Every review is from a real creator verified via Discord.
             </p>
+            {/* Pause button — WCAG 2.1 SC 2.2.2: moving content must be pausable */}
+            <button
+              onClick={() => setIsPaused(p => !p)}
+              aria-label={isPaused ? 'Resume reviews carousel' : 'Pause reviews carousel'}
+              aria-pressed={isPaused}
+              style={{
+                marginTop: 20,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '6px 16px',
+                borderRadius: 999,
+                border: '1px solid var(--border)',
+                background: 'var(--surface)',
+                color: 'var(--text-muted)',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'border-color 0.2s, color 0.2s',
+              }}
+            >
+              <i className={isPaused ? 'ti ti-player-play' : 'ti ti-player-pause'} aria-hidden="true" style={{ fontSize: '0.85rem' }} />
+              {isPaused ? 'Resume' : 'Pause'}
+            </button>
           </div>
         </div>
 
@@ -230,7 +255,7 @@ export function ReviewsSection() {
             <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(90deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(270deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
             <div className="marquee-track" style={{ '--duration': '36s' } as React.CSSProperties}>
-              <div className="marquee-inner" style={{ gap: 14, alignItems: 'stretch' }}>
+              <div className="marquee-inner" style={{ gap: 14, alignItems: 'stretch', animationPlayState: isPaused ? 'paused' : undefined }}>
                 {[...row1, ...row1].map((rev, i) => (
                   <ReviewCard key={i} review={rev} onClick={() => setSelected(rev)} />
                 ))}
@@ -245,7 +270,7 @@ export function ReviewsSection() {
             <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(90deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '8%', background: 'linear-gradient(270deg,var(--bg),transparent)', zIndex: 2, pointerEvents: 'none' }} />
             <div className="marquee-track" style={{ '--duration': '40s' } as React.CSSProperties}>
-              <div className="marquee-inner reverse" style={{ gap: 14, alignItems: 'stretch' }}>
+              <div className="marquee-inner reverse" style={{ gap: 14, alignItems: 'stretch', animationPlayState: isPaused ? 'paused' : undefined }}>
                 {[...row2, ...row2].map((rev, i) => (
                   <ReviewCard key={i} review={rev} onClick={() => setSelected(rev)} />
                 ))}

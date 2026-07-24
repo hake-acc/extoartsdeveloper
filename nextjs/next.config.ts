@@ -164,6 +164,16 @@ const nextConfig: NextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' },
         ],
       },
+      // Root-level public assets (favicons, PWA icons, site manifests).
+      // Not covered by /_next/static/ or /fonts/ globs, so browsers default to
+      // heuristic caching (often ~10% of Last-Modified age). Pin to 7 days with
+      // revalidation so icon sets are fresh after a brand update without waiting.
+      {
+        source: '/:file(favicon.*|apple-touch-icon.*|extoarts-logo.*|site.webmanifest|opensearch.xml)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' },
+        ],
+      },
     ]
   },
 }

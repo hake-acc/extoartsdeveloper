@@ -92,7 +92,7 @@ export function FocusSliceCarousel({ items, maxVisible = 6 }: Props) {
                   </p>
                 )}
                 {item.subtitle && (
-                  <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.78rem', margin: '4px 0 0' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.82)', fontSize: '0.78rem', margin: '4px 0 0' }}>
                     {item.subtitle}
                   </p>
                 )}
