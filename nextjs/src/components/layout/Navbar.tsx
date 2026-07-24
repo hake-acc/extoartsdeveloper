@@ -35,9 +35,19 @@ export function Navbar() {
     }
   }, [])
 
-  // Listen to scroll to apply backdrop blur
+  // Listen to scroll to apply backdrop blur.
+  // Throttled with rAF: passive listener queues a frame so React only re-renders
+  // once per display refresh (~16 ms) instead of on every raw scroll event.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20)
+        ticking = false
+      })
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])

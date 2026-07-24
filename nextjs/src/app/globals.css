@@ -1,6 +1,25 @@
 /* Tabler Icons loaded via <link> in layout.tsx head — not here (CSS @import blocks render) */
 @import "tailwindcss";
 
+/* ── Cross-document View Transitions ──────────────────────────────────────────
+   Enables the browser's native page-transition animation for same-origin MPA
+   navigations (forward, back, link clicks). Chromium cross-fades between the
+   outgoing and incoming page snapshots on the GPU — zero JS, zero extra paint.
+   Browsers that don't support @view-transition ignore this block entirely
+   (progressive enhancement). Pairs with the Speculation Rules prerender already
+   in layout.tsx so navigations are both instant AND animated.               */
+@view-transition {
+  navigation: auto;
+}
+
+/* Respect prefers-reduced-motion: skip the cross-fade for users who opted out */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 /* Reserve layout space for Tabler icon glyphs before the webfont arrives — prevents CLS */
 .ti {
   display: inline-block;
