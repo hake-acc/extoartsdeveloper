@@ -537,6 +537,12 @@ html:not([data-theme="light"]) .bg-image-dark { opacity: 1; }
 html[data-theme="light"] .bg-image-light { opacity: 1; }
 
 @media (max-width: 640px) {
+  .bg-image-light {
+    background-image: url('/backgrounds/lightModeBgMobile.webp');
+  }
+  .bg-image-dark {
+    background-image: url('/backgrounds/darkModeBgMobile.webp');
+  }
   html[data-theme="light"] .bg-image-light {
     opacity: 1;
     filter: contrast(0.65) brightness(1.25) saturate(0.7);

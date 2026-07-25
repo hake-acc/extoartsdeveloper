@@ -222,8 +222,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Background images — each preload is gated by its media query so only one fires
             per user. Both must be high priority: for whichever theme the user has, this IS
             the LCP background resource and a low-priority hint loses the browser's early fetch. */}
-        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: dark)" />
-        <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: light)" />
+        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: dark) and (min-width: 641px)" />
+        <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: light) and (min-width: 641px)" />
+        <link rel="preload" as="image" href="/backgrounds/darkModeBgMobile.webp" fetchPriority="high" media="(prefers-color-scheme: dark) and (max-width: 640px)" />
+        <link rel="preload" as="image" href="/backgrounds/lightModeBgMobile.webp" fetchPriority="high" media="(prefers-color-scheme: light) and (max-width: 640px)" />
         {/* GTM + analytics — dns-prefetch resolves the domain early without opening a TCP
             connection that expires. Preconnect was removed: on slow 4G the 10 s TTL expires
             before afterInteractive scripts fire, so PSI flagged them as "unused preconnect". */}

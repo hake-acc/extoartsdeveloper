@@ -11,3 +11,4 @@
 - [GitHub push instructions](../github-push.md) — token + remote URL pattern to push to hake-acc/extoartsdeveloper; read this before any git push.
 - [Optimization run July 2026](optimization-run-july2026.md) — full perf/a11y/SEO pass: Hero LCP, CSP, AuroraGL, fonts, Tabler self-host, iili.io migration, portfolio alt, focus trap, error/loading.
 - [Perf optimization run July 2026](perf-optimization-july2026.md) — Tier1+2 fixes applied & pushed; ssr:false banned in Server Components.
+- [Nested app dependency installs](nested-app-dependency-installs.md) — package helpers run from the workspace root; install directly inside a nested app when its workflow uses that app directory.
