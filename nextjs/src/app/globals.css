@@ -526,7 +526,12 @@ html[data-theme="light"] p {
   }
 }
 .bg-image-light {
-  background-image: url('/backgrounds/lightModeBg.webp');
+  /* Keep the parchment artwork visible while preventing dark brush details from
+     sitting directly behind body text. Lighthouse samples the actual pixels
+     under each glyph, so a token-only color change is not sufficient here. */
+  background-image:
+    linear-gradient(rgba(244,239,230,0.86), rgba(244,239,230,0.86)),
+    url('/backgrounds/lightModeBg.webp');
   opacity: 0;
 }
 .bg-image-dark {
@@ -538,7 +543,9 @@ html[data-theme="light"] .bg-image-light { opacity: 1; }
 
 @media (max-width: 640px) {
   .bg-image-light {
-    background-image: url('/backgrounds/lightModeBgMobile.webp');
+    background-image:
+      linear-gradient(rgba(244,239,230,0.86), rgba(244,239,230,0.86)),
+      url('/backgrounds/lightModeBgMobile.webp');
   }
   .bg-image-dark {
     background-image: url('/backgrounds/darkModeBgMobile.webp');
@@ -547,6 +554,13 @@ html[data-theme="light"] .bg-image-light { opacity: 1; }
     opacity: 1;
     filter: contrast(0.65) brightness(1.25) saturate(0.7);
   }
+}
+
+/* Footer copy is intentionally placed on a stable surface rather than the
+   decorative page artwork. This keeps small legal/navigation text readable
+   across every light-theme background position. */
+[data-theme="light"] .site-footer {
+  background: var(--parchment-white);
 }
 
 /* ── Scroll reveal — initial hidden state must be critical to prevent content flash ── */
