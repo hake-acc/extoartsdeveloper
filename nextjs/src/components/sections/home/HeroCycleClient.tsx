@@ -38,34 +38,14 @@ const BrushLine = () => (
   </motion.svg>
 )
 
-// Plain SVG — used only in StaticPhrase (SSR + pre-hydration).
-// Must be plain HTML with no Framer Motion attributes to avoid hydration mismatch.
-const StaticBrushLine = () => (
-  <svg
-    className="brush-underline"
-    viewBox="0 0 100 10"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-    style={{ opacity: 0 }}
-  >
-    <path
-      d="M 2,6 C 25,3 55,4 98,7 C 75,7 40,8 10,9"
-      fill="none"
-      stroke="var(--primary-accent)"
-      strokeWidth="2.8"
-      strokeLinecap="round"
-    />
-  </svg>
-)
-
 // Static phrase — plain HTML, rendered in SSR and used as the pre-hydration fallback.
+// No SVG here: BrushLine is position:absolute so its absence causes zero layout shift,
+// and hover can't fire pre-hydration anyway. Keeping this SVG-free avoids any
+// server/client attribute mismatch during React hydration.
 const StaticPhrase = () => (
   <span style={{ display: 'block' }}>
     You Are{' '}
-    <span className="brush-highlight">
-      Valued.
-      <StaticBrushLine />
-    </span>
+    <span className="brush-highlight">Valued.</span>
   </span>
 )
 

@@ -126,7 +126,7 @@
   font-family: 'Paper Inko';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src: url('/fonts/PaperInko.woff2') format('woff2');
 }
 
