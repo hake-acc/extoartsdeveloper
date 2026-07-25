@@ -7,8 +7,9 @@ import { GA_ID } from '@/lib/constants'
 export function ClientScripts() {
   const pathname = usePathname()
 
-  // One-time setup: GA init, CWV measurement, SW registration, progress bar, modal helpers.
-  // gtag.js is loaded via <Script strategy="afterInteractive"> in layout.tsx;
+  // One-time setup: optional GA init, CWV measurement, SW registration,
+  // progress bar, and modal helpers. gtag.js is loaded in layout.tsx only
+  // when NEXT_PUBLIC_GA_ID is configured.
   // this useEffect sets up the dataLayer queue so events fired before the
   // script loads are batched and replayed when it arrives.
   useEffect(() => {

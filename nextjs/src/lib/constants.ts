@@ -2,7 +2,10 @@ export const SITE_URL = 'https://extoarts.in'
 export const SITE_NAME = 'ExtoArts'
 export const SITE_TAGLINE = 'YouTube Video Editing Agency & Thumbnail Design'
 export const DEFAULT_OG_IMAGE = '/images/og-default.jpg'
-export const GA_ID = 'G-WTFPZB9Y4C'
+// Analytics is opt-in per deployment. Keeping the identifier out of the
+// source prevents every preview and audit run from making a third-party
+// request that may be blocked by the browser or test environment.
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID?.trim() ?? ''
 export const DISCORD_URL = 'https://discord.gg/extoarts-1402333030827425922'
 export const FOUNDER_PHOTO = '/images/founder.webp'
 export const SUPPORT_EMAIL = 'support@extoarts.in'

@@ -91,7 +91,7 @@ const nextConfig: NextConfig = {
       "font-src 'self' data:",
       "img-src 'self' data: blob: https://www.googletagmanager.com",
       // cloudflareinsights.com: beacon.min.js POSTs analytics data here.
-      "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://*.vercel-analytics.com https://vitals.vercel-insights.com https://cloudflareinsights.com",
+      "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://cloudflareinsights.com",
       "frame-src 'self' https://discord.com",
       "object-src 'none'",
       "base-uri 'self'",

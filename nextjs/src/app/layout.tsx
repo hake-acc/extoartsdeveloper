@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
@@ -226,16 +224,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: light) and (min-width: 641px)" />
         <link rel="preload" as="image" href="/backgrounds/darkModeBgMobile.webp" fetchPriority="high" media="(prefers-color-scheme: dark) and (max-width: 640px)" />
         <link rel="preload" as="image" href="/backgrounds/lightModeBgMobile.webp" fetchPriority="high" media="(prefers-color-scheme: light) and (max-width: 640px)" />
-        {/* GTM + analytics — dns-prefetch resolves the domain early without opening a TCP
-            connection that expires. Preconnect was removed: on slow 4G the 10 s TTL expires
-            before afterInteractive scripts fire, so PSI flagged them as "unused preconnect". */}
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        {/* preconnect (not just dns-prefetch) completes DNS+TCP+TLS eagerly for Vercel
-            Analytics/SpeedInsights scripts — PSI measured 340 ms LCP savings for this
-            origin. The scripts load afterInteractive so the connection won't expire. */}
-        <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+        {/* Optional Google Analytics hints are emitted only when analytics is
+            explicitly configured for this deployment. */}
+        {GA_ID && (
+          <>
+            <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+            <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+          </>
+        )}
         {/* Critical font preloads — served from /fonts/ with 1yr immutable cache.
             Preloaded here so the browser starts fetching them in parallel with HTML
             instead of waiting for the CSS chunk to be parsed first.
@@ -361,12 +357,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           />
         )}
-        {/* Both Analytics and SpeedInsights default to /_vercel/insights/script.js,
-            which Cloudflare intercepts before Vercel's edge can serve it → 404.
-            Pointing both scriptSrc props at va.vercel-scripts.com CDN bypasses
-            the /_vercel/* path entirely. Origin is already in CSP script-src. */}
-        <Analytics scriptSrc="https://va.vercel-scripts.com/v1/script.js" />
-        <SpeedInsights scriptSrc="https://va.vercel-scripts.com/v1/speed-insights/script.js" />
       </body>
     </html>
   )
