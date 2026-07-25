@@ -19,18 +19,41 @@ export function CursorFollower() {
     let mouseX = 0
     let mouseY = 0
     let raf = 0
+    let idleTimer = 0
+    let rafRunning = false
+
+    // Start the RAF loop only when mouse moves; stop it after 500ms of inactivity.
+    // This means the loop is idle 100% of the time when the user isn't moving the mouse,
+    // instead of burning a frame every 16ms forever.
+    function startRaf() {
+      if (rafRunning) return
+      rafRunning = true
+      raf = requestAnimationFrame(tick)
+    }
+
+    function stopRaf() {
+      rafRunning = false
+      cancelAnimationFrame(raf)
+    }
+
+    function scheduleIdle() {
+      clearTimeout(idleTimer)
+      idleTimer = window.setTimeout(stopRaf, 500)
+    }
 
     function onMove(e: MouseEvent) {
       mouseX = e.clientX
       mouseY = e.clientY
       dot!.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`
+      startRaf()
+      scheduleIdle()
     }
 
     function tick() {
       ringX += (mouseX - ringX) * 0.15
       ringY += (mouseY - ringY) * 0.15
       ring!.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`
-      raf = requestAnimationFrame(tick)
+      if (rafRunning) raf = requestAnimationFrame(tick)
     }
 
     function onEnter(e: Event) {
@@ -55,13 +78,14 @@ export function CursorFollower() {
     window.addEventListener('mousemove', onMove, { passive: true })
     document.addEventListener('mouseover', onEnter)
     document.addEventListener('mouseout', onLeave)
-    raf = requestAnimationFrame(tick)
+    // Do NOT start RAF here — wait for first mouse move
 
     return () => {
       window.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseover', onEnter)
       document.removeEventListener('mouseout', onLeave)
-      cancelAnimationFrame(raf)
+      clearTimeout(idleTimer)
+      stopRaf()
     }
   }, [])
 

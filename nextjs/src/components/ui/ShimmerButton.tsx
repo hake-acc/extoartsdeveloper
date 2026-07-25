@@ -1,5 +1,3 @@
-'use client'
-
 // Shimmer button - inspired by Magic UI
 // https://github.com/magicuidesign/magicui
 

@@ -1,5 +1,3 @@
-'use client'
-
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { InView } from '@/components/ui/InView'
 

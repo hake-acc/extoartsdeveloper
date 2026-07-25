@@ -1,5 +1,3 @@
-'use client'
-
 // SectionHeader — cinematic section heading with per-element entrance animations.
 // label  : InView fade-up (delay 0)
 // title  : MaskTextReveal slide-up from behind a clipping mask (delay 0.05)

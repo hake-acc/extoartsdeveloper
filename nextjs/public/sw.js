@@ -1,4 +1,4 @@
-const CACHE = 'extoarts-v9';
+const CACHE = 'extoarts-v10';
 
 self.addEventListener('install', () => {
     // No aggressive precaching on install - it creates network contention on first load.
