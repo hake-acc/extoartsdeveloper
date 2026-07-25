@@ -309,9 +309,9 @@ export function ReviewsSection() {
               className="trust-badge"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#00b67a"/>
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#00875a"/>
               </svg>
-              <span style={{ color: '#6ee7b7' }}>4.5</span>
+              <span style={{ color: 'var(--text-main)' }}>4.5</span>
               <span style={{ color: 'var(--text-main)' }}>on Trustpilot</span>
             </a>
             <a

@@ -100,6 +100,23 @@ const nextConfig: NextConfig = {
       'upgrade-insecure-requests',
     ].join('; ')
 
+    const cacheHeaders = isDev
+      ? []
+      : [
+          {
+            source: '/fonts/(.*)',
+            headers: [
+              { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+            ],
+          },
+          {
+            source: '/_next/static/(.*)',
+            headers: [
+              { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+            ],
+          },
+        ]
+
     return [
       {
         source: '/(.*)',
@@ -143,18 +160,7 @@ const nextConfig: NextConfig = {
           { key: 'Vary', value: 'Accept' },
         ],
       },
-      {
-        source: '/fonts/(.*)',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
-      },
-      {
-        source: '/_next/static/(.*)',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
-      },
+      ...cacheHeaders,
       // Static images in /public/images/ — long cache, no hash needed (filenames stable)
       {
         source: '/images/(.*)',
