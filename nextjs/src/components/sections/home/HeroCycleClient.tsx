@@ -1,19 +1,52 @@
 'use client'
 
-// HeroCycleClient — handles the cycling h1 title animation.
-// Renders the STATIC "You Are Valued." text during SSR and before hydration,
-// so the h1 is always in the initial HTML (LCP candidate).
-// After mount, AnimatePresence takes over and cycles to the alternate phrase.
-
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
+const pathVariants = {
+  rest: {
+    pathLength: 0,
+    opacity: 0,
+    transition: { opacity: { duration: 0.18, delay: 0.05 } },
+  },
+  hover: {
+    pathLength: 1,
+    opacity: 1,
+    transition: {
+      pathLength: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
+      opacity: { duration: 0.04 },
+    },
+  },
+}
+
+// Animated brush line — Framer Motion, used only after hydration.
 const BrushLine = () => (
+  <motion.svg
+    className="brush-underline"
+    viewBox="0 0 100 10"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <motion.path
+      d="M 2,6 C 25,3 55,4 98,7 C 75,7 40,8 10,9"
+      fill="none"
+      stroke="var(--primary-accent)"
+      strokeWidth="2.8"
+      strokeLinecap="round"
+      variants={pathVariants}
+    />
+  </motion.svg>
+)
+
+// Plain SVG — used only in StaticPhrase (SSR + pre-hydration).
+// Must be plain HTML with no Framer Motion attributes to avoid hydration mismatch.
+const StaticBrushLine = () => (
   <svg
     className="brush-underline"
     viewBox="0 0 100 10"
     preserveAspectRatio="none"
     aria-hidden="true"
+    style={{ opacity: 0 }}
   >
     <path
       d="M 2,6 C 25,3 55,4 98,7 C 75,7 40,8 10,9"
@@ -25,14 +58,13 @@ const BrushLine = () => (
   </svg>
 )
 
-// Static phrase — rendered in SSR and used as the pre-hydration fallback.
-// Must exactly match the server-rendered HTML to avoid hydration mismatches.
+// Static phrase — plain HTML, rendered in SSR and used as the pre-hydration fallback.
 const StaticPhrase = () => (
   <span style={{ display: 'block' }}>
     You Are{' '}
     <span className="brush-highlight">
       Valued.
-      <BrushLine />
+      <StaticBrushLine />
     </span>
   </span>
 )
@@ -44,7 +76,6 @@ export function HeroCycleClient() {
   useEffect(() => {
     setMounted(true)
     let intervalId: number | null = null
-    // Start cycling after 1.2 s so the entrance animation finishes first
     const timer = window.setTimeout(() => {
       setShowAlt((s) => !s)
       intervalId = window.setInterval(() => setShowAlt((s) => !s), 3000)
@@ -55,7 +86,6 @@ export function HeroCycleClient() {
     }
   }, [])
 
-  // Pre-hydration: return the same markup the server rendered → no mismatch
   if (!mounted) return <StaticPhrase />
 
   return (
@@ -70,10 +100,15 @@ export function HeroCycleClient() {
           style={{ display: 'block' }}
         >
           You Are{' '}
-          <span className="brush-highlight">
+          <motion.span
+            className="brush-highlight"
+            initial="rest"
+            whileHover="hover"
+            animate="rest"
+          >
             Valued.
             <BrushLine />
-          </span>
+          </motion.span>
         </motion.span>
       ) : (
         <motion.span
@@ -88,10 +123,16 @@ export function HeroCycleClient() {
             <span style={{ color: 'var(--text-main)', lineHeight: 1 }}>the </span>
             <span style={{ display: 'inline-flex', gap: 12, alignItems: 'baseline' }}>
               <span style={{ color: 'var(--text-main)' }}>Art</span>
-              <span className="brush-highlight" style={{ display: 'inline-block' }}>
+              <motion.span
+                className="brush-highlight"
+                style={{ display: 'inline-block' }}
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
+              >
                 Lives.
                 <BrushLine />
-              </span>
+              </motion.span>
             </span>
           </span>
         </motion.span>
