@@ -49,6 +49,11 @@ const organizationSchema = {
       name: 'Hake Acc',
       jobTitle: 'Founder, CMO & Outsourcing Manager',
     },
+    {
+      '@type': 'Person',
+      name: 'Farman Ali (Suske)',
+      jobTitle: 'Co-Founder & COO',
+    },
   ],
 }
 
@@ -84,6 +89,9 @@ export default function CrewPage() {
           <li>
             <strong>Septileye</strong> — Co-Founder & Creative Manager. Septileye supervises quality control, project visual assets,
             and brand consistency.
+          </li>
+          <li>
+            <strong>Farman Ali (Suske)</strong> — Co-Founder & COO. Farman Ali oversees day-to-day operations and has been an essential pillar of ExtoArts, contributing immensely to company strategy and team growth.
           </li>
         </ul>
       </div>

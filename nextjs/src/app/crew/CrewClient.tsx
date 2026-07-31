@@ -51,6 +51,13 @@ const CREW_MEMBERS: Member[] = [
     accentHue: 150,
   },
   {
+    name: 'Farman Ali (Suske)',
+    role: 'Co-Founder & COO',
+    image: '/images/crew/farman.png',
+    about: "Farman Ali (Suske) is a Co-Founder and Chief Operating Officer at ExtoArts. As an essential pillar of the company, he oversees day-to-day operations and has contributed immensely to building the agency and shaping its growth.",
+    accentHue: 215,
+  },
+  {
     name: 'Future Team Member',
     role: 'You?',
     isPlaceholder: true,
