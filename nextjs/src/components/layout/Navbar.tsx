@@ -15,37 +15,29 @@ const FOCUSABLE = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(', ')
 
-const SunIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+
+const MenuIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M4 6l16 0" />
+    <path d="M4 12l16 0" />
+    <path d="M4 18l16 0" />
   </svg>
 )
 
-const MoonIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+const CloseIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M18 6l-12 12" />
+    <path d="M6 6l12 12" />
   </svg>
 )
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const pathname = usePathname()
   const drawerRef = useRef<HTMLDivElement>(null)
-
-  // Sync theme state on mount
-  useEffect(() => {
-    const stored = localStorage.getItem('ea-theme')
-    if (stored === 'light') {
-      setTheme('light')
-    } else if (stored === 'dark') {
-      setTheme('dark')
-    } else {
-      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
-      setTheme(prefersLight ? 'light' : 'dark')
-    }
-  }, [])
 
   // Listen to scroll to apply backdrop blur.
   // Throttled with rAF: passive listener queues a frame so React only re-renders
@@ -111,17 +103,7 @@ export function Navbar() {
     return () => document.removeEventListener('keydown', onKey)
   }, [mobileOpen])
 
-  function toggleTheme() {
-    const next = theme === 'dark' ? 'light' : 'dark'
-    setTheme(next)
-    if (next === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light')
-      localStorage.setItem('ea-theme', 'light')
-    } else {
-      document.documentElement.removeAttribute('data-theme')
-      localStorage.setItem('ea-theme', 'dark')
-    }
-  }
+
 
   function openDiscordModal() {
     if (typeof window !== 'undefined') {
@@ -238,33 +220,6 @@ export function Navbar() {
             flexShrink: 0,
           }}
         >
-          {/* Theme Toggle */}
-          <button
-            className="theme-toggle"
-            onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            style={{
-              background: theme === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(15,15,22,0.78)',
-              border: '1px solid rgba(124,58,237,0.35)',
-              borderRadius: '12px',
-              width: '44px',
-              height: '44px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: theme === 'light' ? '#1a1a2e' : '#f4efe6',
-              fontSize: '1rem',
-              transition: 'border-color 0.25s, color 0.25s, background-color 0.25s',
-            }}
-          >
-            <span
-              key={theme}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}
-            >
-              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-            </span>
-          </button>
 
           {/* CTA: Brush Button */}
           <button
@@ -283,7 +238,7 @@ export function Navbar() {
             aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={mobileOpen}
             style={{
-              background: theme === 'light' ? 'rgba(255,255,255,0.9)' : 'rgba(15,15,22,0.78)',
+              background: 'rgba(15,15,22,0.78)',
               border: '1px solid rgba(124,58,237,0.35)',
               borderRadius: '12px',
               width: '44px',
@@ -292,12 +247,12 @@ export function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: theme === 'light' ? '#1a1a2e' : '#f4efe6',
+              color: '#f4efe6',
               fontSize: '1.1rem',
               transition: 'border-color 0.25s, color 0.25s, background-color 0.25s',
             }}
           >
-            <i className={`ti ti-${mobileOpen ? 'x' : 'menu-2'}`} aria-hidden="true" />
+            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
       </nav>
@@ -381,7 +336,7 @@ export function Navbar() {
                     fontSize: '1rem',
                   }}
                 >
-                  <i className="ti ti-x" aria-hidden="true" />
+                  <CloseIcon />
                 </button>
               </div>
 
@@ -428,28 +383,7 @@ export function Navbar() {
                   <i className="ti ti-brand-discord" aria-hidden="true" style={{ fontSize: '1.2em' }} />
                   Get a Quote
                 </button>
-                <button
-                  onClick={toggleTheme}
-                  style={{
-                    background: 'transparent',
-                    border: '1px solid var(--border)',
-                    borderRadius: '12px',
-                    padding: '12px 16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    cursor: 'pointer',
-                    color: 'var(--text-muted)',
-                    fontSize: '0.9rem',
-                    fontFamily: 'var(--font-body)',
-                    width: '100%',
-                    transition: 'border-color 0.25s, color 0.25s',
-                  }}
-                >
-                  {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-                  {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-                </button>
+
               </div>
             </motion.div>
           </>

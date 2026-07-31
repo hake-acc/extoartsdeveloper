@@ -7,7 +7,6 @@ import { ClientScripts } from '@/components/ClientScripts'
 import { ClientProviders } from '@/components/ClientProviders'
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE, TWITTER_HANDLE, GA_ID } from '@/lib/constants'
 import { JsonLdInjector } from '@/components/JsonLd'
-import { ThemeInitInjector } from '@/components/ThemeInitInjector'
 import { DeferredStyles } from '@/components/DeferredStyles'
 import { DEFERRED_CSS_VERSION } from '@/lib/deferredCssVersion'
 import type { Viewport } from 'next'
@@ -202,7 +201,7 @@ const organizationSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="no-js" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Tabler Icons — woff2 preloaded so glyphs are ready. CSS is NOT render-blocking:
             we preload it as "style" here (starts the download at t=0 alongside HTML) and
@@ -220,10 +219,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Background images — each preload is gated by its media query so only one fires
             per user. Both must be high priority: for whichever theme the user has, this IS
             the LCP background resource and a low-priority hint loses the browser's early fetch. */}
-        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: dark) and (min-width: 641px)" />
-        <link rel="preload" as="image" href="/backgrounds/lightModeBg.webp" fetchPriority="high" media="(prefers-color-scheme: light) and (min-width: 641px)" />
-        <link rel="preload" as="image" href="/backgrounds/darkModeBgMobile.webp" fetchPriority="high" media="(prefers-color-scheme: dark) and (max-width: 640px)" />
-        <link rel="preload" as="image" href="/backgrounds/lightModeBgMobile.webp" fetchPriority="high" media="(prefers-color-scheme: light) and (max-width: 640px)" />
+        <link rel="preload" as="image" href="/backgrounds/darkModeBg.webp" fetchPriority="high" media="(min-width: 641px)" />
+        <link rel="preload" as="image" href="/backgrounds/darkModeBgMobile.webp" fetchPriority="high" media="(max-width: 640px)" />
         {/* Optional Google Analytics hints are emitted only when analytics is
             explicitly configured for this deployment. */}
         {GA_ID && (
@@ -264,9 +261,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             'moderate' eagerness fires after ~200ms hover, intent-correlated, rarely wasted.
             next/script with strategy="beforeInteractive" is the correct way to inject
             inline <script> content in Next.js App Router without React hydration warnings. */}
-        <meta name="theme-color" content="#030305" media="(prefers-color-scheme: dark)" />
-        <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
-        <meta name="color-scheme" content="dark light" />
+        <meta name="theme-color" content="#030305" />
+        <meta name="color-scheme" content="dark" />
         <meta property="og:locale:alternate" content="en_GB" />
         <meta property="og:locale:alternate" content="en_AU" />
         <meta property="og:locale:alternate" content="en_CA" />
@@ -278,10 +274,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta property="og:locale:alternate" content="en_SG" />
       </head>
       <body>
-        {/* Theme init — injected into the SSR stream via useServerInsertedHTML so the
-            <script> element never enters React's virtual DOM and avoids the React 19
-            "Encountered a script tag" console warning during client hydration. */}
-        <ThemeInitInjector />
+
         {/* JSON-LD structured data — injected via useServerInsertedHTML to avoid React 19
             hydration mismatch that occurs when dangerouslySetInnerHTML <script> elements
             appear inside the explicit <head> JSX tree. */}
@@ -301,7 +294,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {/* Tabler Icons CSS — loaded via <link> in <head> (see head section above) */}
         <a href="#main-content" className="skip-link">Skip to content</a>
-        <div className="bg-image-layer bg-image-light" aria-hidden="true" />
         <div className="bg-image-layer bg-image-dark" aria-hidden="true" />
         <ClientProviders>
           <div className="mesh-glow" aria-hidden="true" />
