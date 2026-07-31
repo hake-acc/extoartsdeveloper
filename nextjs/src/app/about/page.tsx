@@ -62,7 +62,7 @@ export default function AboutPage() {
         <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
           Built by Creators,<br /><span className="sweep-text">for Creators.</span>
         </h1>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.72 }}>
+        <p className="hero-subtitle" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.72 }}>
           ExtoArts is a YouTube-focused creative agency where 90% of your editing budget goes directly to the specialist assigned to your project.
         </p>
       </section>

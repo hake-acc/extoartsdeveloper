@@ -75,7 +75,18 @@ export default function WorkflowPage() {
         <h1 style={{ fontSize: 'clamp(2rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)', textShadow: '0 2px 16px rgba(0,0,0,0.7)' }}>
           A Process Built<br /><span className="sweep-text">for Creators.</span>
         </h1>
-        <p style={{ fontSize: 'clamp(0.9rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.72, textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}>
+        <p className="hero-subtitle" style={{
+          fontSize: 'clamp(1rem, 1.9vw, 1.2rem)',
+          color: '#F5F5F5',
+          maxWidth: 540,
+          margin: '0 auto 32px',
+          lineHeight: 1.6,
+          fontWeight: 500,
+          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+          background: 'radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 75%)',
+          padding: '16px',
+          borderRadius: '8px'
+        }}>
           Every ExtoArts project follows the same transparent pipeline. Clear checkpoints, no black boxes — brief to delivery with zero surprises.
         </p>
         {/* TL;DR summary strip */}
@@ -206,7 +217,7 @@ export default function WorkflowPage() {
                       {step.duration}
                     </span>
                   </div>
-                  <p style={{ fontSize: 'clamp(0.78rem,2vw,0.85rem)', color: 'var(--text-muted)', lineHeight: 1.72, margin: 0 }}>
+                  <p className="hero-subtitle" style={{ fontSize: 'clamp(0.78rem,2vw,0.85rem)', color: 'var(--text-muted)', lineHeight: 1.72, margin: 0 }}>
                     {step.desc}
                   </p>
                 </div>

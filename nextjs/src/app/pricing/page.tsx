@@ -80,7 +80,7 @@ export default function PricingPage() {
           Simple, Honest <span className="sweep-text">Pricing.</span>
         </h1>
         <p className="sr-only">ExtoArts Pricing - Flat 10% Agency Fee</p>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 480, margin: '0 auto 14px', lineHeight: 1.75 }}>
+        <p className="hero-subtitle" style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 480, margin: '0 auto 14px', lineHeight: 1.75 }}>
           You set the budget. We take 10%. Your editor gets 90%. That&apos;s the entire model.
         </p>
         <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', maxWidth: 440, margin: '0 auto', lineHeight: 1.7, opacity: 0.8 }}>

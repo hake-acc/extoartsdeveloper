@@ -53,7 +53,7 @@ export default function CollabPage() {
               </span>
             </span>
           </h1>
-          <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 620, margin: '0 auto', lineHeight: 1.72 }}>
+          <p className="hero-subtitle" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 620, margin: '0 auto', lineHeight: 1.72 }}>
             We don&apos;t take every brief. We take the ones where there&apos;s a clear vision, real scope, and room to do the work properly.
           </p>
         </div>

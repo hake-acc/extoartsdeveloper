@@ -90,7 +90,7 @@ export default function FAQPage() {
           Frequently Asked<br />
           <span className="sweep-text">Questions.</span>
         </h1>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 460, margin: '0 auto', lineHeight: 1.75 }}>
+        <p className="hero-subtitle" style={{ fontSize: 'clamp(1rem,1.8vw,1.12rem)', color: 'var(--text-muted)', maxWidth: 460, margin: '0 auto', lineHeight: 1.75 }}>
           Everything you need to know about working with ExtoArts - from first contact to final delivery.
         </p>
       </section>

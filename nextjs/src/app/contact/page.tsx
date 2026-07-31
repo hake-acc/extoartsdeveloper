@@ -61,7 +61,7 @@ export default function ContactPage() {
         <h1 style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', fontWeight: 900, letterSpacing: '-2.5px', lineHeight: 1.0, marginBottom: 24, color: 'var(--text-main)' }}>
           Get a Quote in<br /><span className="sweep-text">Hours, Not Days.</span>
         </h1>
-        <p style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 16px', lineHeight: 1.72 }}>
+        <p className="hero-subtitle" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 16px', lineHeight: 1.72 }}>
           For YouTube creators looking for specialist editing, thumbnail design, or channel automation. Open a Discord ticket, share your brief, and we&apos;ll match you with the right editor — usually within 2-4 hours.
         </p>
         <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', maxWidth: 500, margin: '0 auto 60px', lineHeight: 1.72, opacity: 0.8 }}>

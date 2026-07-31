@@ -21,6 +21,7 @@ export const NAV_LINKS = [
   { label: 'Pricing', href: '/pricing' },
   { label: 'Workflow', href: '/workflow' },
   { label: 'About', href: '/about' },
+  { label: 'Crew', href: '/crew' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ]
@@ -74,6 +75,7 @@ export const SITEMAP_URLS = [
   { url: '/', changeFrequency: 'weekly' as const, priority: 1.0 },
   { url: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
   { url: '/portfolio', changeFrequency: 'weekly' as const, priority: 0.9 },
+  { url: '/crew', changeFrequency: 'weekly' as const, priority: 0.85 },
   { url: '/pricing', changeFrequency: 'monthly' as const, priority: 0.85 },
   { url: '/about', changeFrequency: 'monthly' as const, priority: 0.85 },
   { url: '/contact', changeFrequency: 'monthly' as const, priority: 0.8 },

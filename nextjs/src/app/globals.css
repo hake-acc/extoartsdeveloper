@@ -188,7 +188,7 @@
   --primary-accent-hover: #8b5cf6;
   --ink-black: #050507;
   --parchment-white: #f4efe6;
-  --muted-text: #8e8e9f;
+  --muted-text: #c2c2d6;
   --card-bg: rgba(5, 5, 7, 0.7);
   --border-subtle: rgba(124, 58, 237, 0.15);
 
@@ -213,7 +213,7 @@
   --border-hover: rgba(124, 58, 237, 0.3);
   --text-main: var(--parchment-white);
   --text-muted: var(--muted-text);
-  --text-soft: #a1a1aa;
+  --text-soft: #d4d4d8;
   --nav-bg: rgba(5, 5, 7, 0.85);
   --shadow: rgba(0,0,0,0.85);
   --easing: cubic-bezier(0.16,1,0.3,1);
@@ -693,7 +693,15 @@ html[data-theme="light"] .bg-image-light { opacity: 1; }
 .hero-gradient-overlay { background: rgba(3,3,5,0.72); }
 [data-theme="light"] .hero-gradient-overlay { background: rgba(216,225,255,0.54); }
 
-.hero-subtitle { color: var(--text-muted); }
+.hero-subtitle {
+  color: #F5F5F5 !important;
+  font-weight: 500 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+  line-height: 1.6 !important;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 75%);
+  padding: 16px;
+  border-radius: 8px;
+}
 [data-theme="light"] .hero-subtitle {
   color: #1a1a2e;
   text-shadow:

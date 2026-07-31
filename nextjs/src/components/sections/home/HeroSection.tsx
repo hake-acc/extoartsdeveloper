@@ -92,13 +92,18 @@ export function HeroSection() {
       <p
         className="hero-entrance-3"
         style={{
-          fontSize: 'clamp(1rem, 1.8vw, 1.12rem)',
-          color: 'var(--text-muted)',
-          lineHeight: 1.8,
-          maxWidth: '520px',
+          fontSize: 'clamp(1.05rem, 1.9vw, 1.18rem)',
+          color: '#F5F5F5',
+          lineHeight: 1.6,
+          maxWidth: '540px',
           marginBottom: '44px',
           fontFamily: 'var(--font-body)',
-          fontWeight: 400,
+          fontWeight: 500,
+          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+          background: 'radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 75%)',
+          padding: '16px',
+          marginLeft: '-16px',
+          borderRadius: '8px',
         }}
       >
         YouTube video editing, thumbnail design, and channel optimization for
