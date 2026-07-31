@@ -11,6 +11,7 @@ interface Member {
   about: string
   isPlaceholder?: boolean
   accentHue?: number   // HSL hue for the per-card accent glow
+  objectPosition?: string
 }
 
 const CREW_MEMBERS: Member[] = [
@@ -21,6 +22,7 @@ const CREW_MEMBERS: Member[] = [
     quote: "The best editors deserve the most money. That's why we take 10%, not 40%.",
     about: "I built ExtoArts because I watched creators overpay for mediocre work, over and over again. Good editing shouldn't cost 40% of your budget in agency fees—that math has never made sense.",
     accentHue: 265,
+    objectPosition: 'center 18%',
   },
   {
     name: 'Kunjal Joshi',
@@ -165,7 +167,7 @@ export function CrewClient() {
                           alt={`${member.name} — ${member.role}`}
                           fill
                           sizes="108px"
-                          style={{ objectFit: 'cover' }}
+                          style={{ objectFit: 'cover', objectPosition: member.objectPosition ?? 'center' }}
                           priority={index < 3}
                         />
                       </div>

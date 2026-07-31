@@ -132,7 +132,7 @@ const organizationSchema = {
     alternateName: 'RehanSigma',
     jobTitle: 'Founder & Creative Director',
     url: `${SITE_URL}/about`,
-    image: `${SITE_URL}/images/founder.webp`,
+    image: `${SITE_URL}/images/crew/rehan.png`,
     sameAs: [
       'https://x.com/extoarts',
       'https://www.instagram.com/extoarts',
