@@ -18,7 +18,7 @@ const CREW_MEMBERS: Member[] = [
   {
     name: 'Rehan Khan',
     role: 'Founder & Creative Director',
-    image: '/images/crew/rehan.png',
+    image: '/images/crew/rehan.png?v=2',
     quote: "The best editors deserve the most money. That's why we take 10%, not 40%.",
     about: "I built ExtoArts because I watched creators overpay for mediocre work, over and over again. Good editing shouldn't cost 40% of your budget in agency fees—that math has never made sense.",
     accentHue: 265,
@@ -169,6 +169,7 @@ export function CrewClient() {
                           sizes="108px"
                           style={{ objectFit: 'cover', objectPosition: member.objectPosition ?? 'center' }}
                           priority={index < 3}
+                          unoptimized={true}
                         />
                       </div>
                     </div>
